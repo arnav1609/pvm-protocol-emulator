@@ -1,0 +1,33 @@
+{
+ "id": "s03_imem",
+ "state": "PASS_FRESH",
+ "selection": "S03",
+ "frozen_checks": 8,
+ "checks_basis": "Frozen on 2026-11-20 before first run: RESET_INVALID, LOWBYTE_NOT_VALID, HIGHBYTE_SETS_VALID, ALL32_PATTERN, BUS_READ_MASK, CLR_VALID, REWRITE_SAME_WORD, BOUNDARY_WORD31.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T053236",
+ "sources": {
+  "src/pvm_imem.v": "25b9e846f9a59d64ce3870822a3e9445ca2f9d940065c6ed510795534adcbb2c",
+  "tb_rtl/tb_imem.v": "020016fbe42dcb2419131043d35d03b40caacf2a65ce580868f7262650960439"
+ },
+ "parsed": {
+  "passes": [
+   "RESET_INVALID",
+   "LOWBYTE_NOT_VALID",
+   "BUS_READ_MASK",
+   "HIGHBYTE_SETS_VALID",
+   "ALL32_PATTERN",
+   "BOUNDARY_WORD31",
+   "REWRITE_SAME_WORD",
+   "CLR_VALID"
+  ],
+  "fails": [],
+  "checks": 8,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_imem -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s03_imem/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_imem.v"
+}
