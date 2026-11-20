@@ -300,6 +300,89 @@
       "expect_fail_checks": [
         "HALT_CLEARS_STICKY"
       ]
+    },
+    {
+      "id": "s07_cfg_b",
+      "selection": "S07",
+      "top": "tb_cfg_b",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_b.v"
+      ],
+      "checks": 22,
+      "checks_basis": "Frozen on 2026-11-20 before first run: OD_ON_UO, OUTPUT_ON_UI, OWNER_WITH_INPUT_MODE, OWNER7, MODE3, OUT_CNT_17, SET_CNT_6, SIDE_CNT_3, BASE_20, WRAP_INVERTED, ENTRY_INVALID, LUTMODE3, MANCH_NO_CNT, ARB_N0, ARB_PIN_NOT_UIO, ARB_PIN_NOT_OD, MON_GUARD3, MON_ACTION7, CRC_BEFORE_PIN, LEGAL_IMAGE_READY, IMAGE_ID_LATCHED, REVALIDATE_AFTER_HALT."
+    },
+    {
+      "id": "s07_cfg_b_neg_od_on_uo",
+      "selection": "S07",
+      "top": "tb_cfg_b",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_b.v"
+      ],
+      "checks": 22,
+      "checks_basis": "Skip the open-drain-on-output-only pin check.",
+      "negative": true,
+      "variant_of": "s07_cfg_b",
+      "mutant": {
+        "file": "src/pvm_cfg.v",
+        "anchor": "pin_od_on_uo || pin_output_on_ui || pin_owner_on_input",
+        "replace": "pin_output_on_ui || pin_owner_on_input"
+      },
+      "expect_fail_checks": [
+        "OD_ON_UO"
+      ]
+    },
+    {
+      "id": "s07_cfg_b_neg_crc_order",
+      "selection": "S07",
+      "top": "tb_cfg_b",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_b.v"
+      ],
+      "checks": 22,
+      "checks_basis": "Move the CRC phase after pin validation.",
+      "negative": true,
+      "variant_of": "s07_cfg_b",
+      "mutant": {
+        "file": "src/pvm_cfg.v",
+        "anchor": "V_START = V_CRC, V_AFTER_CRC = V_PINS, V_AFTER_PINS = V_ENGINE",
+        "replace": "V_START = V_PINS, V_AFTER_CRC = V_ENGINE, V_AFTER_PINS = V_CRC"
+      },
+      "expect_fail_checks": [
+        "CRC_BEFORE_PIN"
+      ]
+    },
+    {
+      "id": "s07_cfg_b_neg_image_id",
+      "selection": "S07",
+      "top": "tb_cfg_b",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_b.v"
+      ],
+      "checks": 22,
+      "checks_basis": "Drop the configuration ID latch at commit.",
+      "negative": true,
+      "variant_of": "s07_cfg_b",
+      "mutant": {
+        "file": "src/pvm_cfg.v",
+        "anchor": "{image_crc_q, image_ver_committed_q} <= {crc_expect_q, image_ver_q};",
+        "replace": "{image_crc_q, image_ver_committed_q} <= 24'h000000;"
+      },
+      "expect_fail_checks": [
+        "IMAGE_ID_LATCHED",
+        "REVALIDATE_AFTER_HALT"
+      ]
     }
   ]
 }

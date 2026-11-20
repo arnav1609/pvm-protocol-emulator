@@ -15,7 +15,7 @@ module tb_cfg_a;
     wire tx_push, rx_pop, fifo_clr, tx_ovf, rx_unf;
     wire [2:0] tx_level, rx_level, state;
     wire [7:0] tx_data, rx_head;
-    wire imem_clr_valid, imem_wr_en, enable_pulse;
+    wire imem_clr_valid, imem_wr_en, imem_entry_valid, enable_pulse;
     wire [5:0] imem_wr_addr, imem_bus_rd_addr;
     wire [7:0] imem_wr_data, imem_bus_rd_data;
     wire [4:0] entry_pc;
@@ -39,7 +39,7 @@ module tb_cfg_a;
         .bus_rack(bus_rack), .bus_rdata(bus_rdata),
         .imem_clr_valid(imem_clr_valid), .imem_bus_rd_data(imem_bus_rd_data),
         .imem_wr_en(imem_wr_en), .imem_wr_addr(imem_wr_addr), .imem_wr_data(imem_wr_data),
-        .imem_bus_rd_addr(imem_bus_rd_addr), .entry_pc(entry_pc),
+        .imem_bus_rd_addr(imem_bus_rd_addr), .imem_entry_valid(imem_entry_valid), .entry_pc(entry_pc),
         .tx_push(tx_push), .tx_data(tx_data), .rx_pop(rx_pop), .fifo_clr(fifo_clr),
         .tx_level(tx_level), .rx_level(rx_level), .rx_head(rx_head),
         .tx_fifo_ovf(tx_ovf), .rx_fifo_unf(rx_unf),
@@ -53,7 +53,7 @@ module tb_cfg_a;
     pvm_imem imem (
         .clk(clk), .rst_n(rst_n), .wr_en(imem_wr_en), .wr_addr(imem_wr_addr),
         .wr_data(imem_wr_data), .clr_valid(imem_clr_valid), .rd_pc(entry_pc),
-        .bus_rd_addr(imem_bus_rd_addr), .bus_rd_data(imem_bus_rd_data)
+        .bus_rd_addr(imem_bus_rd_addr), .bus_rd_data(imem_bus_rd_data), .instr_valid(imem_entry_valid)
     );
 
     pvm_fifo tx_queue (

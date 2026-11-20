@@ -2,7 +2,7 @@
 `default_nettype none
 
 // Decode the host byte bus and own configuration, lifecycle, and fault status.
-// Owner: Kalash Bheda. PVM S06. See 03_BUS_AND_REGMAP.md, 07_FAULTS_LIFECYCLE.md, D-012.
+// Owner: Kalash Bheda. PVM S06–S07. See 03_BUS_AND_REGMAP.md, 07_FAULTS_LIFECYCLE.md, D-012.
 module pvm_cfg (
     input  wire         clk,
     input  wire         rst_n,
@@ -19,6 +19,7 @@ module pvm_cfg (
     output wire         imem_clr_valid,
     output wire [5:0]   imem_bus_rd_addr,
     input  wire [7:0]   imem_bus_rd_data,
+    input  wire         imem_entry_valid,
 
     output wire         tx_push,
     output wire [7:0]   tx_data,
@@ -75,14 +76,28 @@ module pvm_cfg (
                      S_RUN = 3'd3, S_DONE = 3'd4, S_FAULT = 3'd5;
     localparam [7:0] C_HALT = 8'h01, C_VALIDATE = 8'h02, C_ENABLE = 8'h03,
                      C_CLR_IMEM = 8'h04, C_CLR_FAULT = 8'h05, C_CLR_FLAGS = 8'h06;
-    localparam [3:0] F_NONE = 4'd0, F_DONE = 4'd1, F_CRC_FAIL = 4'd5;
+    localparam [3:0] F_NONE = 4'd0, F_DONE = 4'd1, F_CRC_FAIL = 4'd5,
+                     F_PIN_CONFLICT = 4'd6, F_CFG_INVALID = 4'd7;
+    localparam [2:0] V_CRC = 3'd0, V_PINS = 3'd1, V_ENGINE = 3'd2,
+                     V_FABRIC = 3'd3, V_MONITOR = 3'd4;
+    localparam [2:0] V_START = V_CRC, V_AFTER_CRC = V_PINS, V_AFTER_PINS = V_ENGINE;
 
     reg [7:0] eng_cfg [0:18];
     reg [7:0] fab_cfg [0:38];
     reg [7:0] mon_cfg [0:42];
     reg [6:0] pins [0:19];
     reg [15:0] crc_expect_q;
-    reg [7:0] image_ver_q;
+    reg [7:0] image_ver_q, image_ver_committed_q;
+    reg [15:0] image_crc_q;
+    reg [2:0] validate_phase_q;
+    reg [4:0] validate_index_q;
+    reg [3:0] validation_fault;
+    wire [2:0] validate_owner;
+    wire [1:0] validate_mode;
+    wire pin_bad_encoding, pin_od_on_uo, pin_output_on_ui, pin_owner_on_input;
+    wire bad_engine, bad_fabric, bad_monitor;
+    wire [2:0] monitor_valid_guard;
+    wire [2:0] monitor_action;
     wire [15:0] crc_calc;
     reg [15:0] time_q, fault_time_q;
     reg [4:0] fault_pc_q;
@@ -228,6 +243,49 @@ module pvm_cfg (
     assign cfg_m = {mon_cfg[41], mon_cfg[40]};
     assign {mon_presc, mon_en} = mon_cfg[42][2:0];
 
+    // Validate in register-map order, one pin and one monitor rule per cycle.
+    assign validate_owner = pins[validate_index_q][2:0];
+    assign validate_mode = pins[validate_index_q][4:3];
+    assign pin_bad_encoding = validate_owner == 3'd7 || validate_mode == 2'd3;
+    assign pin_od_on_uo = (validate_mode == 2'd2) &&
+                          (validate_index_q >= 5'd5 && validate_index_q <= 5'd11);
+    assign pin_output_on_ui = (validate_mode != 2'd0) && (validate_index_q < 5'd5);
+    assign pin_owner_on_input = (validate_owner != 3'd0) && (validate_mode == 2'd0);
+
+    assign bad_engine = (out_cnt > 5'd16) || (set_cnt > 3'd5) || (side_cnt == 2'd3) ||
+                        (out_base > 5'd19) || (set_base > 5'd19) || (in_base > 5'd19) ||
+                        (side_base > 5'd19) || (jmp_pin > 5'd19) ||
+                        (wrap_bottom > wrap_top) || !imem_entry_valid;
+    assign bad_fabric = (cfg_mode[1:0] == 2'd3) || (cfg_mode[4:3] == 2'd3) ||
+                        (cfg_mode[7:6] == 2'd3) || (cfg_mode[10:9] == 2'd3) ||
+                        (manch_en && !cnt_en) ||
+                        (arb_en && ((arb_n == 4'd0) ||
+                                    (arb_sda < 5'd12) || (arb_sda > 5'd19) ||
+                                    (arb_scl < 5'd12) || (arb_scl > 5'd19) ||
+                                    (pins[arb_sda][4:3] != 2'd2) || (pins[arb_scl][4:3] != 2'd2)));
+
+    assign monitor_valid_guard = mon_cfg[{1'b0, validate_index_q[2:0], 2'd1}][7:5];
+    assign monitor_action = mon_cfg[{1'b0, validate_index_q[2:0], 2'd2}][4:2];
+    assign bad_monitor = monitor_valid_guard[2] && ((monitor_valid_guard[1:0] == 2'd3) || (monitor_action == 3'd7));
+
+    always @(*) begin
+        validation_fault = F_NONE;
+        case (validate_phase_q)
+            V_CRC: if (crc_calc != crc_expect_q)
+                validation_fault = F_CRC_FAIL;
+            V_PINS: begin
+                if (pin_bad_encoding)
+                    validation_fault = F_CFG_INVALID;
+                else if (pin_od_on_uo || pin_output_on_ui || pin_owner_on_input)
+                    validation_fault = F_PIN_CONFLICT;
+            end
+            V_ENGINE: if (bad_engine) validation_fault = F_CFG_INVALID;
+            V_FABRIC: if (bad_fabric) validation_fault = F_CFG_INVALID;
+            V_MONITOR: if (bad_monitor) validation_fault = F_CFG_INVALID;
+            default: validation_fault = F_CFG_INVALID;
+        endcase
+    end
+
     assign log_entry = log_flat[40*bus_addr[4:3]+:40];
 
     always @(*) begin
@@ -267,6 +325,9 @@ module pvm_cfg (
                 16'h0f0c: read_byte = {3'b000, eng_pc};
                 16'h0f11: read_byte = (rx_level == 3'd0) ? 8'h00 : rx_head;
                 16'h0f12: read_byte = {1'b0, rx_level, 1'b0, tx_level};
+                16'h0f20: read_byte = image_crc_q[7:0];
+                16'h0f21: read_byte = image_crc_q[15:8];
+                16'h0f22: read_byte = image_ver_committed_q;
                 16'h0fa0: read_byte = {log_total, log_wptr};
                 default: read_byte = 8'h00;
             endcase
@@ -321,6 +382,10 @@ module pvm_cfg (
             fault_time_q <= 16'h0000;
             fault_pc_q <= 5'd0;
             fault_code_q <= F_NONE;
+            image_crc_q <= 16'h0000;
+            image_ver_committed_q <= 8'h00;
+            validate_phase_q <= V_START;
+            validate_index_q <= 5'd0;
         end else begin
             enable_pulse <= 1'b0;
             time_q <= time_q + 16'd1;
@@ -339,19 +404,41 @@ module pvm_cfg (
 
                 case (state)
                     S_HALT: begin
-                        if (ctrl_write && bus_wdata == C_VALIDATE)
+                        if (ctrl_write && bus_wdata == C_VALIDATE) begin
                             state <= S_VALIDATING;
+                            validate_phase_q <= V_START;
+                            validate_index_q <= 5'd0;
+                        end
                     end
                     S_VALIDATING: begin
-                        // S06 checks CRC only. S07 adds field validation and image ID.
-                        crc_ok_q <= crc_calc == crc_expect_q;
-                        if (crc_calc == crc_expect_q)
-                            state <= S_READY;
-                        else begin
+                        if (validate_phase_q == V_CRC)
+                            crc_ok_q <= crc_calc == crc_expect_q;
+                        if (validation_fault != F_NONE) begin
                             state <= S_FAULT;
-                            fault_code_q <= F_CRC_FAIL;
+                            fault_code_q <= validation_fault;
                             fault_pc_q <= 5'd0;
                             fault_time_q <= time_q;
+                        end else begin
+                            case (validate_phase_q)
+                                V_CRC: validate_phase_q <= V_AFTER_CRC;
+                                V_PINS: begin
+                                    if (validate_index_q == 5'd19) begin
+                                        validate_phase_q <= V_AFTER_PINS;
+                                        validate_index_q <= 5'd0;
+                                    end else
+                                        validate_index_q <= validate_index_q + 5'd1;
+                                end
+                                V_ENGINE: validate_phase_q <= V_FABRIC;
+                                V_FABRIC: validate_phase_q <= V_MONITOR;
+                                V_MONITOR: begin
+                                    if (validate_index_q == 5'd7) begin
+                                        state <= S_READY;
+                                        {image_crc_q, image_ver_committed_q} <= {crc_expect_q, image_ver_q};
+                                    end else
+                                        validate_index_q <= validate_index_q + 5'd1;
+                                end
+                                default: validate_phase_q <= V_START;
+                            endcase
                         end
                     end
                     S_READY: begin
