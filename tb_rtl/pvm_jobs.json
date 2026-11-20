@@ -5,7 +5,13 @@
       "id": "s01_primitives",
       "selection": "S01",
       "top": "tb_primitives",
-      "sources": ["src/pvm_sync2.v", "src/pvm_edge.v", "src/pvm_tick.v", "src/pvm_presc.v", "tb_rtl/tb_primitives.v"],
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "tb_rtl/tb_primitives.v"
+      ],
       "checks": 17,
       "checks_basis": "17 checks frozen before first run on 2026-11-20: SYNC_LATENCY_2, SYNC_RESET_VAL, EDGE_RISE, EDGE_FALL, EDGE_NO_CHANGE, TICK_DIV0, TICK_DIV1, TICK_DIV5_PERIOD, TICK_DIV65535, TICK_RESTART, TICK_RUN_LOW_NO_TICK, PRESC_SEL0, PRESC_SEL1, PRESC_SEL2, PRESC_SEL3, PRESC_RESTART, MID_RUN_RESET."
     },
@@ -13,7 +19,13 @@
       "id": "s01_primitives_neg_sync_bypass",
       "selection": "S01",
       "top": "tb_primitives",
-      "sources": ["src/pvm_sync2.v", "src/pvm_edge.v", "src/pvm_tick.v", "src/pvm_presc.v", "tb_rtl/tb_primitives.v"],
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "tb_rtl/tb_primitives.v"
+      ],
       "checks": 17,
       "checks_basis": "Same frozen checks as s01_primitives, with the synchronizer output bypassing the first flop to target SYNC_LATENCY_2.",
       "negative": true,
@@ -23,7 +35,74 @@
         "anchor": "q <= sample_q;",
         "replace": "q <= d;"
       },
-      "expect_fail_checks": ["SYNC_LATENCY_2"]
+      "expect_fail_checks": [
+        "SYNC_LATENCY_2"
+      ]
+    },
+    {
+      "id": "s02_fifo",
+      "selection": "S02",
+      "top": "tb_fifo",
+      "sources": [
+        "src/pvm_fifo.v",
+        "tb_rtl/tb_fifo.v"
+      ],
+      "checks": 9,
+      "checks_basis": "Frozen 2026-11-20 before first run: RESET_EMPTY, ORDER_4, FULL_FLAG, OVF_DROP, UNF, PUSHPOP_FULL, PUSHPOP_EMPTY, WRAP, CLR."
+    },
+    {
+      "id": "s02_fifo_neg",
+      "selection": "S02",
+      "top": "tb_fifo",
+      "sources": [
+        "src/pvm_fifo.v",
+        "tb_rtl/tb_fifo.v"
+      ],
+      "checks": 9,
+      "checks_basis": "Suppress overflow reporting while preserving FIFO contents.",
+      "negative": true,
+      "variant_of": "s02_fifo",
+      "mutant": {
+        "file": "src/pvm_fifo.v",
+        "anchor": "ovf <= push && !push_ok;",
+        "replace": "ovf <= 1'b0;"
+      },
+      "expect_fail_checks": [
+        "OVF_DROP",
+        "WRAP"
+      ]
+    },
+    {
+      "id": "s02_crc16",
+      "selection": "S02",
+      "top": "tb_crc16",
+      "sources": [
+        "src/pvm_crc16.v",
+        "tb_rtl/tb_crc16.v"
+      ],
+      "checks": 5,
+      "checks_basis": "Frozen 2026-11-20 before first run: VEC_123456789, VEC_EMPTY, VEC_00, CLR_RESTART, EN_LOW_HOLD."
+    },
+    {
+      "id": "s02_crc16_neg",
+      "selection": "S02",
+      "top": "tb_crc16",
+      "sources": [
+        "src/pvm_crc16.v",
+        "tb_rtl/tb_crc16.v"
+      ],
+      "checks": 5,
+      "checks_basis": "Ignore the CRC clear strobe.",
+      "negative": true,
+      "variant_of": "s02_crc16",
+      "mutant": {
+        "file": "src/pvm_crc16.v",
+        "anchor": "if (!rst_n || clr)",
+        "replace": "if (!rst_n)"
+      },
+      "expect_fail_checks": [
+        "CLR_RESTART"
+      ]
     }
   ]
 }

@@ -4,7 +4,7 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | Stage | Plan date | State (TODO/WIP/PASS/FAIL/BLOCKED) | Gate report | Jobs accepted/total | Claim level | XSim (Kalash, weekly) | ISS cross-check (Arnav) | CI |
 |---|---|---|---|---|---|---|---|---|
 | S01 | 25 Nov | PASS | [S01 gate](reports/S01_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S02 | 26 Nov | TODO | | | | | | |
+| S02 | 26 Nov | PASS | [S02 gate](reports/S02_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S03 | 27 Nov | TODO | | | | | | |
 | S04 | 28 Nov | TODO | | | | | | |
 | S05 | 29 Nov | TODO | | | | | | |
