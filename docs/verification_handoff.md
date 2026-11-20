@@ -24,8 +24,8 @@ experiment variants. [Repository branch](https://github.com/arnav1609/pvm-protoc
   write to address 0x50 with ACK and target clock stretching. Each
   protocol test caught its own mutant. [Regression and evidence](https://github.com/arnav1609/pvm-protocol-emulator/blob/codex/pvm-rtl/results/rtl_freeze_report.md) · [Pin-level test gate](https://github.com/arnav1609/pvm-protocol-emulator/blob/codex/pvm-rtl/reports/S14b_protocols_gate.md)
 - Variant D routed at 50 MHz with +2.461 ns slow-corner setup slack and
-  33.7187% utilization. GDS, gate-level SPI smoke, and the Pages viewer
-  passed. Use the CI record for the final precheck status.
+  33.7187% utilization. GDS, Tiny Tapeout precheck, gate-level SPI
+  smoke, and the Pages viewer passed.
   The three pin benches also passed a local functional replay of the
   routed netlist using Icarus 13.0.
   [Variant D CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345) · [Gate replay evidence](../evidence/setup/s14_gate_protocols.log)
@@ -42,8 +42,8 @@ experiment variants. [Repository branch](https://github.com/arnav1609/pvm-protoc
    edges and log order, and open-drain ACK and stretch at the pads.
    Record the first differing cycle and a waveform for any finding.
    Kalash records the freeze review decision.
-3. **Turn the protocol benches into reproducible demos.** Coordinate
-   with Arnav on the assembler and SPI host tool. Package the UART, SPI,
+3. **Turn the protocol benches into reproducible demos.** Start with the assembler and SPI host tool.
+   [Toolchain guide](TOOLCHAIN.md) Package the UART, SPI,
    and I²C images with the write and run steps and an expected waveform.
    Record a clean I²C transaction and a deliberately stretched or
    out-of-window case with the resulting monitor log.

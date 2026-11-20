@@ -2,8 +2,8 @@
 
 The candidate includes the engine, fabric, and protocol monitor. Use
 `codex/pvm-rtl` with the S14b tests. The routed variant-D RTL is
-`aa2996b`. The freeze tag is pending the full physical gate, protocol
-checks, and the independent XSim and source review.
+`aa2996b`. The physical gate and protocol checks passed. The freeze
+awaits Kalash’s XSim and source review.
 [Physical evidence](../results/ci_S14.md) · [S14b gate](S14b_protocols_gate.md)
 
 ## Run the testbenches in XSim

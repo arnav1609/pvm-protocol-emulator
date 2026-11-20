@@ -10,9 +10,13 @@ setup slack exceeds the +1.0 ns freeze requirement.
 | GitHub RTL smoke | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669706) |
 | Datasheet | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669332) |
 | GDS | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136435216541) |
-| Tiny Tapeout precheck | [Running](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489409850) |
+| Tiny Tapeout precheck | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489409850) |
 | Gate-level SPI smoke | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489409832) |
 | Pages viewer | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489410613) |
+
+Precheck finished successfully after 1 h 14 min 47 s. KLayout spent
+about 73 minutes on the main IHP design-rule checks.
+[Precheck reports](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/artifacts/14663751264)
 
 | Metric from run 44778669345 | Measured value |
 | --- | ---: |

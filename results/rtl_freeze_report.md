@@ -1,7 +1,7 @@
 # PVM S14 RTL freeze candidate
 
 Full RTL integrated and simulated on 20 November 2026. The candidate
-passed the routed timing and area checks. Tiny Tapeout precheck is running.
+passed the routed timing, area, and Tiny Tapeout precheck requirements.
 
 HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 
@@ -43,7 +43,7 @@ generic syntheses above provide a separate per-variant size comparison.
 | GDS | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136435216541) |
 | Gate-level simulation | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489409832) |
 | Pages viewer | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489410613) |
-| Tiny Tapeout precheck | [Running](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489409850) |
+| Tiny Tapeout precheck | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489409850) |
 
 ## Regression
 
@@ -117,4 +117,4 @@ Full runner selection accepted 63/63 jobs, including the six S14b protocol jobs.
 
 ## Remaining verification
 
-Tiny Tapeout precheck and Kalash’s XSim and source review gate the freeze. The ISS is a separate toolchain deliverable. [S14b pin-level checks](../reports/S14b_protocols_gate.md) · [Weekly review packet](../reports/weekly_freeze_review.md)
+Kalash’s XSim and source review are the remaining RTL freeze gates. The ISS is a separate toolchain deliverable. [S14b pin-level checks](../reports/S14b_protocols_gate.md) · [Weekly review packet](../reports/weekly_freeze_review.md)
