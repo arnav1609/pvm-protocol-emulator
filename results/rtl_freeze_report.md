@@ -1,21 +1,53 @@
 # PVM S14 RTL freeze candidate
 
-Full RTL integrated and simulated on 20 November 2026. The candidate awaits the Tiny Tapeout flow and freeze review.
+Full RTL integrated and simulated on 20 November 2026. The candidate
+passed the routed timing and area checks. Tiny Tapeout precheck is running.
 
 HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 
-The default build uses the approved 8×4 IHP CMOS5L target at 50 MHz. Routed area and timing are pending.
+The default build uses the approved 8×4 IHP CMOS5L target at 50 MHz.
 
-| Variant | Defines | System checks |
-| --- | --- | --- |
-| A · engine | PVM_NO_FABRIC and PVM_NO_MON | Passed |
-| B · engine + fabric | PVM_NO_MON | Passed |
-| C · engine + monitor | PVM_NO_FABRIC | Passed |
-| D · full | Default | Passed |
+| Variant | Defines | System checks | Generic synthesis cells |
+| --- | --- | --- | ---: |
+| A · engine | PVM_NO_FABRIC and PVM_NO_MON | Passed | 14,986 |
+| B · engine + fabric | PVM_NO_MON | Passed | 16,472 |
+| C · engine + monitor | PVM_NO_FABRIC | Passed | 19,415 |
+| D · full | Default | Passed | 21,806 |
+
+The variant counts are Yosys 0.52 and ABC generic cells before technology
+mapping. Routed measurements use the IHP CMOS5L flow.
+
+[Full-design GDS run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345) · [RTL smoke CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669706) · [Datasheet CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669332)
+
+## Physical results
+
+The routed build used commit `aa2996b1d2be115531f00b5ce7b0ace52d964b14`.
+The combined fabric and monitor increase over S11 was 7,057 routed
+standard cells and 7.7589 percentage points of utilization. The four
+generic syntheses above provide a separate per-variant size comparison.
+[S11 routed baseline](g2_timing_repair.md) · [S14 submission metrics](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/artifacts/14658475695)
+
+| Routed metric | Full S14 |
+| --- | ---: |
+| Standard cells | 28,091 |
+| Standard-cell area | 407,380 µm² |
+| Standard-cell utilization | 33.7187% |
+| Slow-corner worst setup slack | +2.461 ns |
+| Typical and fast worst setup slack | +7.482 ns and +10.476 ns |
+| Worst hold slack | +0.122 ns |
+| Setup and hold violations | 0 |
+| Detailed routing violations | 0 |
+
+| CI job | Result |
+| --- | --- |
+| GDS | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136435216541) |
+| Gate-level simulation | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489409832) |
+| Pages viewer | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489410613) |
+| Tiny Tapeout precheck | [Running](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345/job/136489409850) |
 
 ## Regression
 
-Full runner selection accepted 57/57 jobs. The D-016 golden traces regenerated identically. All four Verilator runs, the Yosys structural checks, and the local cocotb SPI smoke test passed. [Structural evidence](../evidence/setup/s14_structure.log)
+Full runner selection accepted 63/63 jobs, including the six S14b protocol jobs. The D-016 golden traces regenerated identically. All four Verilator runs, the Yosys structural checks, and the local cocotb SPI smoke test passed. [Structural evidence](../evidence/setup/s14_structure.log)
 
 | Stage | Job | Frozen checks | Result |
 | --- | --- | ---: | --- |
@@ -76,7 +108,13 @@ Full runner selection accepted 57/57 jobs. The D-016 golden traces regenerated i
 | S14 | s14_top_fabric_neg | 3 | [NEG_KILLED](../evidence/s14_top_fabric_neg/20261120T165524.log) |
 | S14 | s14_top_monitor | 3 | [PASS_FRESH](../evidence/s14_top_monitor/20261120T165525.log) |
 | S14 | s14_top_monitor_neg | 3 | [NEG_KILLED](../evidence/s14_top_monitor_neg/20261120T165527.log) |
+| S14b_protocols | s14b_uart | 1 | [PASS_FRESH](../evidence/s14b_uart/20261120T190424.log) |
+| S14b_protocols | s14b_uart_neg | 1 | [NEG_KILLED](../evidence/s14b_uart_neg/20261120T190425.log) |
+| S14b_protocols | s14b_spi | 1 | [PASS_FRESH](../evidence/s14b_spi/20261120T190426.log) |
+| S14b_protocols | s14b_spi_neg | 1 | [NEG_KILLED](../evidence/s14b_spi_neg/20261120T190426.log) |
+| S14b_protocols | s14b_i2c | 1 | [PASS_FRESH](../evidence/s14b_i2c/20261120T190427.log) |
+| S14b_protocols | s14b_i2c_neg | 1 | [NEG_KILLED](../evidence/s14b_i2c_neg/20261120T190428.log) |
 
 ## Remaining verification
 
-Tiny Tapeout physical checks, XSim and ISS cross-checks, and the owner freeze review.
+Tiny Tapeout precheck and Kalash’s XSim and source review gate the freeze. The ISS is a separate toolchain deliverable. [S14b pin-level checks](../reports/S14b_protocols_gate.md) · [Weekly review packet](../reports/weekly_freeze_review.md)

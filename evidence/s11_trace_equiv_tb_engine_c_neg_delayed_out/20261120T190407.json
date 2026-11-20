@@ -1,0 +1,51 @@
+{
+ "id": "s11_trace_equiv_tb_engine_c_neg_delayed_out",
+ "state": "NEG_KILLED",
+ "selection": "G2_TRACE",
+ "frozen_checks": 1,
+ "checks_basis": "Frozen 2026-11-20 for D-016. The copied RTL publishes out_val one cycle late. TRACE_EQUAL_TB_ENGINE_C must detect the shift.",
+ "negative": true,
+ "variant_of": "s11_trace_equiv_tb_engine_c",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T190407",
+ "sources": {
+  "src/pvm_tick.v": "4e869563873727bb3879b8d07b6ca5d9c7a386d3d654e1e9a8f3568c8492d164",
+  "src/pvm_presc.v": "576c08e18bcd572382466d80d20bbfc5c74f85a3a070b2a0c0be04258a7b22dc",
+  "src/pvm_engine.v": "26e610fb18fcf0e6bf6d4769df0ef377d4f3c105929ab790380af09fa385929b",
+  "tb_rtl/tb_engine_c.v": "21c569bfd6a479baffc1fb69f267478ca8929e11fc8b0d76bc4826091226b96f",
+  "tb_rtl/pvm_trace.v": "bf03e54ee5bc8edd6cac6c3f7f6504cac95967024f8181799cf041ddaadce21e",
+  "tb_rtl/pvm_trace_jobs.py": "329a44f5c78106b0e619f6c54571e675606ea1a456398e82609a91ce0432dd4f",
+  "tb_rtl/pvm_run.py": "b3cc939d48f6fa07d481bf9e6b2e65c4df399912a7c2e554c114684149c44d57"
+ },
+ "parsed": {
+  "passes": [],
+  "fails": [
+   "TRACE_EQUAL_TB_ENGINE_C"
+  ],
+  "checks": 1,
+  "errors": 1,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_engine_c -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s11_trace_equiv_tb_engine_c_neg_delayed_out/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/tb_rtl/build/s11_trace_equiv_tb_engine_c_neg_delayed_out/pvm_engine.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_engine_c.v /workspace/work/pvm-protocol-emulator/tb_rtl/pvm_trace.v",
+ "trace": {
+  "golden": "tb_rtl/vectors/golden_tb_engine_c.csv",
+  "golden_sha256": "f8ee6ffbed7984be55a0865006213a2bb0c93481e5db28da8bf352e9558377e2",
+  "actual_sha256": "ff29d9c2f0625e1de8fc7bd8262cfd8e43c75cc673e3189b197626e29838151b",
+  "golden_cycles": 199,
+  "actual_cycles": 199,
+  "different_fields": [
+   "out_val"
+  ],
+  "first_difference": {
+   "cycle": 23,
+   "values": [
+    [
+     "out_val",
+     "20000",
+     "00000"
+    ]
+   ]
+  }
+ }
+}

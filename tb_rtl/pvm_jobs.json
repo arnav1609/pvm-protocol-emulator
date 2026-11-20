@@ -1238,6 +1238,210 @@
       "expect_fail_checks": [
         "FAULT_THEN_RECOVER"
       ]
+    },
+    {
+      "id": "s14b_uart",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_UART"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). UART_TX_0X35_115200. UART P5 on every 434-clock bit cell."
+    },
+    {
+      "id": "s14b_uart_neg",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_UART"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). UART_TX_0X35_115200. UART P5 on every 434-clock bit cell.",
+      "negative": true,
+      "variant_of": "s14b_uart",
+      "mutant": {
+        "file": "src/pvm_tick.v",
+        "anchor": "elapsed_q == div - 16'd1",
+        "replace": "elapsed_q == div"
+      },
+      "expect_fail_checks": [
+        "UART_TX_0X35_115200"
+      ]
+    },
+    {
+      "id": "s14b_spi",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_SPI"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). SPI_MODE0_TWO_BYTES. Two MSB-first bytes with exact SCK high and low widths."
+    },
+    {
+      "id": "s14b_spi_neg",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_SPI"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). SPI_MODE0_TWO_BYTES. Two MSB-first bytes with exact SCK high and low widths.",
+      "negative": true,
+      "variant_of": "s14b_spi",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": ".out_shr(shiftctrl[0])",
+        "replace": ".out_shr(!shiftctrl[0])"
+      },
+      "expect_fail_checks": [
+        "SPI_MODE0_TWO_BYTES"
+      ]
+    },
+    {
+      "id": "s14b_i2c",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_I2C"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). I2C_WRITE_OPEN_DRAIN_ACK_STRETCH. Address 0x50, one byte, both ACKs and external SCL stretch through open-drain pins."
+    },
+    {
+      "id": "s14b_i2c_neg",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_I2C"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). I2C_WRITE_OPEN_DRAIN_ACK_STRETCH. Address 0x50, one byte, both ACKs and external SCL stretch through open-drain pins.",
+      "negative": true,
+      "variant_of": "s14b_i2c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "waiting = !illegal && (pin_in[word[4:0]] != word[7]);",
+        "replace": "waiting = !illegal && word[4:0] != 5'd13 && (pin_in[word[4:0]] != word[7]);"
+      },
+      "expect_fail_checks": [
+        "I2C_WRITE_OPEN_DRAIN_ACK_STRETCH"
+      ]
     }
   ]
 }

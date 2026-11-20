@@ -1,0 +1,33 @@
+/workspace/work/pvm-protocol-emulator/tb_rtl/build/s13_mon_neg_min_off_by_one/pvm_mon.v:99: warning: @* is sensitive to all 8 words in array 'targets'.
+/workspace/work/pvm-protocol-emulator/tb_rtl/build/s13_mon_neg_min_off_by_one/pvm_mon.v:100: warning: @* is sensitive to all 8 words in array 'actions'.
+/workspace/work/pvm-protocol-emulator/tb_rtl/build/s13_mon_neg_min_off_by_one/pvm_mon.v:101: warning: @* is sensitive to all 8 words in array 'rule_min'.
+/workspace/work/pvm-protocol-emulator/tb_rtl/build/s13_mon_neg_min_off_by_one/pvm_mon.v:102: warning: @* is sensitive to all 8 words in array 'rule_max'.
+CONFIG: TOP=tb_mon CHECKS=24
+[PASS] FIRST_MATCH_PRIORITY
+[PASS] ONE_FIRE_PER_CYCLE
+[PASS] EDGE_RISE_FALL_HIGH_LOW
+[PASS] GUARD_LT_GE
+[FAIL] CHECK_MIN_PASS
+[PASS] CHECK_MIN_VIOL
+[PASS] CHECK_MIN_INC
+[PASS] CHECK_MAX_PASS
+[PASS] CHECK_MAX_VIOL
+[PASS] CHECK_MAX_INC
+[PASS] ARITHMETIC_17BIT
+[PASS] MEASURE_LOG_NO_COUNT
+[PASS] VIOLATE_PASS_ACTIONS
+[PASS] I2C_STRETCH_RULE_SET
+[PASS] TIMER_SATURATE_OVF
+[PASS] OVF_INCONCLUSIVE_RULE
+[PASS] LOG_RING_WRAP_4
+[PASS] LOG_TOTAL_SAT_63
+[PASS] COUNTER_SAT_FFFF
+[PASS] STOP_RETAINS_LOG
+[PASS] HALT_CLEARS
+[PASS] PRESC_16_TIMEBASE
+[PASS] MON_EN_0_IDLE
+[PASS] SRC_FLAGS_FABRIC
+CHECKS : 24
+ERRORS : 1
+RESULT : FAIL
+/workspace/work/pvm-protocol-emulator/tb_rtl/tb_mon.v:246: $finish called at 1367071000 (1ps)
