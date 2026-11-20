@@ -1,0 +1,51 @@
+{
+ "id": "s06_cfg_a",
+ "state": "PASS_FRESH",
+ "selection": "S06",
+ "frozen_checks": 23,
+ "checks_basis": "Frozen on 2026-11-20 after D-012 and before first run: RESET_STATE_HALT, WH_WRITE_HALT_OK, WH_WRITE_RUN_REJECTED, READ_LATENCY_1, UNMAPPED_READ_ZERO, UNMAPPED_WRITE_REJ, CRC_MATCH_READY, CRC_MISMATCH_FAULT, ENABLE_PULSE_WIDTH_1, ENABLE_FROM_HALT_REJ, CLR_IMEM_ONLY_HALT, CLR_FAULT_TO_HALT, ENGINE_DONE_TO_DONE, ENGINE_FAULT_LATCH, TXFIFO_PUSH_OVF, RXFIFO_PEEK_NO_POP_ON_RE, RXFIFO_POP_ON_RACK, HALT_CLEARS_STICKY, HALT_CLEARS_FIFOS, REGISTER_ROUNDTRIP_ENGINE, REGISTER_ROUNDTRIP_FABRIC, REGISTER_ROUNDTRIP_MONITOR, REGISTER_ROUNDTRIP_PINS.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T083518",
+ "sources": {
+  "src/pvm_imem.v": "25b9e846f9a59d64ce3870822a3e9445ca2f9d940065c6ed510795534adcbb2c",
+  "src/pvm_crc16.v": "216039527e57ea929b369453d09ecb001374623a56ea7b741f56c7cc22b101ac",
+  "src/pvm_fifo.v": "7f03e00882ac86e8b8890f5bc529172614bb43bd5dd373b618e39ad16475e976",
+  "src/pvm_cfg.v": "00b1641390560d18000220e91c65c02266fd02d6046b149f50218f8ed71181cd",
+  "tb_rtl/tb_cfg_a.v": "ef1c52894eafbcf8a36792e3e449135c47383f1a32d29b7e170fa4c14ce86579"
+ },
+ "parsed": {
+  "passes": [
+   "RESET_STATE_HALT",
+   "WH_WRITE_HALT_OK",
+   "READ_LATENCY_1",
+   "UNMAPPED_READ_ZERO",
+   "UNMAPPED_WRITE_REJ",
+   "ENABLE_FROM_HALT_REJ",
+   "REGISTER_ROUNDTRIP_ENGINE",
+   "REGISTER_ROUNDTRIP_FABRIC",
+   "REGISTER_ROUNDTRIP_MONITOR",
+   "REGISTER_ROUNDTRIP_PINS",
+   "CRC_MATCH_READY",
+   "ENABLE_PULSE_WIDTH_1",
+   "WH_WRITE_RUN_REJECTED",
+   "CLR_IMEM_ONLY_HALT",
+   "ENGINE_DONE_TO_DONE",
+   "CLR_FAULT_TO_HALT",
+   "ENGINE_FAULT_LATCH",
+   "CRC_MISMATCH_FAULT",
+   "TXFIFO_PUSH_OVF",
+   "RXFIFO_PEEK_NO_POP_ON_RE",
+   "RXFIFO_POP_ON_RACK",
+   "HALT_CLEARS_STICKY",
+   "HALT_CLEARS_FIFOS"
+  ],
+  "fails": [],
+  "checks": 23,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_cfg_a -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s06_cfg_a/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_cfg_a.v"
+}

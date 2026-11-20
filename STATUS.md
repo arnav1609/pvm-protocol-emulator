@@ -12,7 +12,7 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S07 | 1 Dec | PASS | [S07 gate](reports/S07_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S08 | 2 Dec | PASS | [S08 gate](reports/S08_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | [Run #15 green](results/ci_S08.md) |
 | S09 | 3-4 Dec | PASS | [S09 gate](reports/S09_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | ISS pending | Standalone RTL |
-| S10 | 5 Dec | TODO | | | | | | |
+| S10 | 5 Dec | PASS | [S10 gate](reports/S10_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | ISS pending | Standalone RTL |
 | S11 | 6 Dec | TODO | | | | | | |
 | S12 | 7-8 Dec | TODO | | | | | | |
 | S13 | 8-9 Dec | TODO | | | | | | |
@@ -31,9 +31,11 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 
 - D-013 fixes the initial OSR count at 16 for reset and ENABLE. [Decision record](spec/DECISIONS.md#d-013--osr-shift-count-at-reset-and-enable)
 - The S09 freeze covered `JMP_COND_0_TAKEN`, both outcomes for each of conditions 1–6, and `JMP_COND_7_NOT_TAKEN`. The condition-7 inversion mutant failed only `JMP_COND_7_NOT_TAKEN`. [S09 gate](reports/S09_gate.md)
-- Include `JMP_COND_7_TAKEN` and its S09 deferral in the S10 frozen count and `checks_basis`. Use the same JMP program to exercise both outcomes, with a PULL filling the OSR before the taken run.
+- S10 froze `JMP_COND_7_TAKEN` and recorded its S09 deferral in `checks_basis`. The same JMP fell through with an empty OSR and took its branch after PULL.
 
-At S09, WAIT, IN, OUT, PUSH/PULL, MOV sources ISR/OSR, and MOV destinations ISR/OSR/EXEC still raise ILLEGAL_OP.
+At S09, WAIT and the datapath instructions were stubbed. S10 implemented them, including the WAIT and timeout paths used by EXEC. [D-014 and D-015](spec/DECISIONS.md#d-014--wide-fifo-beats-follow-engine-ticks)
+
+In the S10 UART TX test at CLKDIV 3, the start bit begins at core cycle 3 after setup, the first data bit at cycle 9, and the stop bit at cycle 57. Each bit spans six core cycles. [UART evidence](reports/S10_gate.md)
 
 ## OPEN QUESTIONS
 

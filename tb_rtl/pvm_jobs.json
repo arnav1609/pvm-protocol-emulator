@@ -466,6 +466,7 @@
       "top": "tb_engine_a",
       "sources": [
         "src/pvm_tick.v",
+        "src/pvm_presc.v",
         "src/pvm_engine.v",
         "tb_rtl/tb_engine_a.v"
       ],
@@ -478,6 +479,7 @@
       "top": "tb_engine_a",
       "sources": [
         "src/pvm_tick.v",
+        "src/pvm_presc.v",
         "src/pvm_engine.v",
         "tb_rtl/tb_engine_a.v"
       ],
@@ -492,6 +494,45 @@
       },
       "expect_fail_checks": [
         "JMP_COND_7_NOT_TAKEN"
+      ]
+    },
+    {
+      "id": "s10_engine_b",
+      "selection": "S10",
+      "top": "tb_engine_b",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_b.v"
+      ],
+      "checks": 40,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). D-014 uses two consecutive engine ticks; D-015 freezes injected instruction timing and faults. JMP_COND_7_TAKEN was deferred from S09 until PULL. Checks: PULL_BLOCK_STALL_THEN_GO, PULL_NONBLOCK_EMPTY_COPIES_X, PULL_IFEMPTY_SKIP, PUSH_BLOCK_FULL_STALL, PUSH_NONBLOCK_DROP, PUSH_IFFULL, OUT_SHR_LSB_FIRST, OUT_SHL_MSB_FIRST, OUT_COUNT_16, OUT_PINDIRS, OUT_PC, IN_PINS_BASE, IN_SHR, IN_SHL, AUTOPULL_THRESH_8, AUTOPUSH_THRESH_8, WIDE_PULL_2BYTES_LE, WIDE_PUSH_NEEDS_2_SLOTS, WIDE_NO_PARTIAL_STALL, WIDE_AUTOPULL, WIDE_AUTOPUSH, JMP_COND_7_TAKEN, OUT_EXEC_PARENT_AND_INJECTED_DELAY, OUT_EXEC_WRAP, OUT_EXEC_JUMP, OUT_EXEC_SIDESET_WAIT, OUT_EXEC_NESTED_FAULT, OUT_EXEC_ILLEGAL_FAULT, OUT_EXEC_WAIT_TIMEOUT, OUT_EXEC_BLOCKING_FIFO, MOV_EXEC_PARENT_AND_INJECTED_DELAY, MOV_EXEC_WRAP, MOV_EXEC_JUMP, MOV_EXEC_SIDESET_WAIT, MOV_EXEC_NESTED_FAULT, MOV_EXEC_ILLEGAL_FAULT, MOV_EXEC_WAIT_TIMEOUT, MOV_EXEC_BLOCKING_FIFO, UART_TX_0x35_WAVEFORM, UART_RX_LOOPBACK."
+    },
+    {
+      "id": "s10_engine_b_neg_wide_pull_byte_order",
+      "selection": "S10",
+      "top": "tb_engine_b",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_b.v"
+      ],
+      "checks": 40,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). D-014 uses two consecutive engine ticks; D-015 freezes injected instruction timing and faults. JMP_COND_7_TAKEN was deferred from S09 until PULL. Checks: PULL_BLOCK_STALL_THEN_GO, PULL_NONBLOCK_EMPTY_COPIES_X, PULL_IFEMPTY_SKIP, PUSH_BLOCK_FULL_STALL, PUSH_NONBLOCK_DROP, PUSH_IFFULL, OUT_SHR_LSB_FIRST, OUT_SHL_MSB_FIRST, OUT_COUNT_16, OUT_PINDIRS, OUT_PC, IN_PINS_BASE, IN_SHR, IN_SHL, AUTOPULL_THRESH_8, AUTOPUSH_THRESH_8, WIDE_PULL_2BYTES_LE, WIDE_PUSH_NEEDS_2_SLOTS, WIDE_NO_PARTIAL_STALL, WIDE_AUTOPULL, WIDE_AUTOPUSH, JMP_COND_7_TAKEN, OUT_EXEC_PARENT_AND_INJECTED_DELAY, OUT_EXEC_WRAP, OUT_EXEC_JUMP, OUT_EXEC_SIDESET_WAIT, OUT_EXEC_NESTED_FAULT, OUT_EXEC_ILLEGAL_FAULT, OUT_EXEC_WAIT_TIMEOUT, OUT_EXEC_BLOCKING_FIFO, MOV_EXEC_PARENT_AND_INJECTED_DELAY, MOV_EXEC_WRAP, MOV_EXEC_JUMP, MOV_EXEC_SIDESET_WAIT, MOV_EXEC_NESTED_FAULT, MOV_EXEC_ILLEGAL_FAULT, MOV_EXEC_WAIT_TIMEOUT, MOV_EXEC_BLOCKING_FIFO, UART_TX_0x35_WAVEFORM, UART_RX_LOOPBACK.",
+      "negative": true,
+      "variant_of": "s10_engine_b",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "wide ? {tx_dout, wide_byte_q} :",
+        "replace": "wide ? {wide_byte_q, tx_dout} :"
+      },
+      "expect_fail_checks": [
+        "WIDE_PULL_2BYTES_LE",
+        "WIDE_AUTOPULL"
       ]
     }
   ]
