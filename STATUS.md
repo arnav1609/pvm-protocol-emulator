@@ -7,7 +7,7 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S02 | 26 Nov | PASS | [S02 gate](reports/S02_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S03 | 27 Nov | PASS | [S03 gate](reports/S03_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S04 | 28 Nov | PASS | [S04 gate](reports/S04_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S05 | 29 Nov | TODO | | | | | | |
+| S05 | 29 Nov | PASS | [S05 gate](reports/S05_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S06 | 30 Nov | TODO | | | | | | |
 | S07 | 1 Dec | TODO | | | | | | |
 | S08 | 2 Dec | TODO | | | | | | |

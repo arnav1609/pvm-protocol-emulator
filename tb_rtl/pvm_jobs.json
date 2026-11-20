@@ -172,6 +172,96 @@
       "expect_fail_checks": [
         "TX_LOAD_96"
       ]
+    },
+    {
+      "id": "s05_hostif",
+      "selection": "S05",
+      "top": "tb_hostif",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "tb_rtl/tb_hostif.v"
+      ],
+      "checks": 11,
+      "checks_basis": "Frozen on 2026-11-20 before first run: WRITE_SINGLE, WRITE_BURST_16, WRITE_ADDR_WRAP_FFFF, READ_SINGLE, READ_BURST_8, READ_RACK_SEQUENCE, ID_BYTES, UNKNOWN_CMD_IGNORED, ABORT_IN_ADDR, ABORT_IN_DATA, ONE_STROBE_PER_CYCLE."
+    },
+    {
+      "id": "s05_hostif_neg_write_offset",
+      "selection": "S05",
+      "top": "tb_hostif",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "tb_rtl/tb_hostif.v"
+      ],
+      "checks": 11,
+      "checks_basis": "Increment the address before each write.",
+      "negative": true,
+      "variant_of": "s05_hostif",
+      "mutant": {
+        "file": "src/pvm_hostif.v",
+        "anchor": "assign bus_addr = addr_q;",
+        "replace": "assign bus_addr = bus_we ? addr_q + 16'd1 : addr_q;"
+      },
+      "expect_fail_checks": [
+        "WRITE_SINGLE",
+        "WRITE_BURST_16",
+        "WRITE_ADDR_WRAP_FFFF",
+        "ABORT_IN_DATA"
+      ]
+    },
+    {
+      "id": "s05_hostif_neg_no_ack",
+      "selection": "S05",
+      "top": "tb_hostif",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "tb_rtl/tb_hostif.v"
+      ],
+      "checks": 11,
+      "checks_basis": "Drop read acknowledgement strobes.",
+      "negative": true,
+      "variant_of": "s05_hostif",
+      "mutant": {
+        "file": "src/pvm_hostif.v",
+        "anchor": "bus_rack = 1'b1;",
+        "replace": "bus_rack = 1'b0;"
+      },
+      "expect_fail_checks": [
+        "READ_RACK_SEQUENCE"
+      ]
+    },
+    {
+      "id": "s05_hostif_neg_early_tx",
+      "selection": "S05",
+      "top": "tb_hostif",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "tb_rtl/tb_hostif.v"
+      ],
+      "checks": 11,
+      "checks_basis": "Load transmit data before the bus read response is valid.",
+      "negative": true,
+      "variant_of": "s05_hostif",
+      "mutant": {
+        "file": "src/pvm_hostif.v",
+        "anchor": "assign read_tx_load = read_tx_pending_q;",
+        "replace": "assign read_tx_load = bus_re;"
+      },
+      "expect_fail_checks": [
+        "READ_SINGLE",
+        "READ_BURST_8"
+      ]
     }
   ]
 }
