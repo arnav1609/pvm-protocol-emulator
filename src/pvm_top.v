@@ -2,7 +2,7 @@
 `default_nettype none
 
 // PVM pad mapping, host bus, and configuration datapath.
-// Owner: Kalash Bheda. PVM S08. See 02_PINS_AND_TOP.md and 03_BUS_AND_REGMAP.md.
+// Owner: Kalash Bheda. PVM S08/S11. See 02_PINS_AND_TOP.md and 03_BUS_AND_REGMAP.md.
 module pvm_top (
     input  wire [7:0] ui_in,
     output wire [7:0] uo_out,
@@ -16,45 +16,56 @@ module pvm_top (
     wire [4:0] protocol_ui;
     wire [7:0] protocol_uio;
     wire [6:0] uo_readback;
-    wire [19:0] unused_pin_in = {protocol_uio, uo_readback, protocol_ui};
+    wire [19:0] pin_in = {protocol_uio, uo_readback, protocol_ui};
     wire [19:0] unused_od_release_intent;
     wire [15:0] bus_addr;
     wire [7:0] bus_wdata, bus_rdata;
     wire bus_we, bus_re, bus_rack;
-    wire imem_wr_en, imem_clr_valid, imem_entry_valid;
+    wire imem_wr_en, imem_clr_valid, instr_valid;
+    wire engine_running = state == 3'd3;
+    wire [4:0] engine_pc, engine_rd_pc;
+    wire [4:0] imem_rd_pc = engine_running ? engine_rd_pc : entry_pc;
+    wire eng_done_req, eng_fault_req;
+    wire [3:0] eng_fault_code;
+    wire [19:0] engine_out, engine_oe;
+    wire [7:2] user_flags;
+    wire engine_tx_pop, engine_rx_push;
+    wire [7:0] engine_rx_data;
+    wire unused_engine_tick, unused_fab_wr, unused_evt_clr_arb, unused_evt_clr_unf;
+    wire [3:0] unused_fab_ctrl;
     wire [5:0] imem_wr_addr, imem_bus_rd_addr;
     wire [7:0] imem_wr_data, imem_bus_rd_data;
-    wire [15:0] unused_instr;
+    wire [15:0] instr;
     wire [4:0] entry_pc;
     wire tx_push, rx_pop, fifo_clr, tx_fifo_ovf, rx_fifo_unf;
     wire [2:0] tx_level, rx_level, state;
-    wire [7:0] tx_data, rx_head, unused_tx_head;
-    wire unused_tx_empty, unused_tx_full, unused_tx_unf;
-    wire unused_rx_empty, unused_rx_full, unused_rx_ovf;
+    wire [7:0] tx_data, rx_head, tx_head;
+    wire tx_empty, unused_tx_full, unused_tx_unf;
+    wire unused_rx_empty, rx_full, unused_rx_ovf;
     wire [139:0] pin_cfg;
     wire arb_en;
     wire [4:0] arb_sda, arb_scl;
 
-    // Signals for blocks that are added after the host and pin safety path.
-    wire unused_enable_pulse;
+    // Configuration fields for the engine and the later fabric and monitor.
+    wire enable_pulse;
     wire unused_halt_pulse;
     wire unused_clr_flags_pulse;
-    wire [15:0] unused_clkdiv;
-    wire [4:0] unused_out_base;
-    wire [4:0] unused_out_cnt;
-    wire [4:0] unused_set_base;
-    wire [4:0] unused_in_base;
-    wire [4:0] unused_side_base;
-    wire [4:0] unused_jmp_pin;
-    wire [2:0] unused_set_cnt;
-    wire [1:0] unused_side_cnt;
-    wire [4:0] unused_wrap_bottom;
-    wire [4:0] unused_wrap_top;
-    wire [4:0] unused_shiftctrl;
-    wire [4:0] unused_pull_thresh;
-    wire [4:0] unused_push_thresh;
-    wire [15:0] unused_timeout;
-    wire [1:0] unused_to_presc;
+    wire [15:0] clkdiv;
+    wire [4:0] out_base;
+    wire [4:0] out_cnt;
+    wire [4:0] set_base;
+    wire [4:0] in_base;
+    wire [4:0] side_base;
+    wire [4:0] jmp_pin;
+    wire [2:0] set_cnt;
+    wire [1:0] side_cnt;
+    wire [4:0] wrap_bottom;
+    wire [4:0] wrap_top;
+    wire [4:0] shiftctrl;
+    wire [4:0] pull_thresh;
+    wire [4:0] push_thresh;
+    wire [15:0] timeout;
+    wire [1:0] to_presc;
     wire [127:0] unused_cfg_lut;
     wire [11:0] unused_cfg_mode;
     wire [9:0] unused_cnt_reload;
@@ -87,26 +98,44 @@ module pvm_top (
 
     pvm_imem memory (
         .clk(clk), .rst_n(rst_n), .wr_en(imem_wr_en), .wr_addr(imem_wr_addr),
-        .wr_data(imem_wr_data), .clr_valid(imem_clr_valid), .rd_pc(entry_pc),
+        .wr_data(imem_wr_data), .clr_valid(imem_clr_valid), .rd_pc(imem_rd_pc),
         .bus_rd_addr(imem_bus_rd_addr), .bus_rd_data(imem_bus_rd_data),
-        .instr(unused_instr), .instr_valid(imem_entry_valid)
+        .instr(instr), .instr_valid(instr_valid)
     );
 
     pvm_fifo tx_fifo (
-        .clk(clk), .rst_n(rst_n), .clr(fifo_clr), .push(tx_push), .din(tx_data), .pop(1'b0),
-        .dout(unused_tx_head), .full(unused_tx_full), .empty(unused_tx_empty),
+        .clk(clk), .rst_n(rst_n), .clr(fifo_clr), .push(tx_push), .din(tx_data), .pop(engine_tx_pop),
+        .dout(tx_head), .full(unused_tx_full), .empty(tx_empty),
         .level(tx_level), .ovf(tx_fifo_ovf), .unf(unused_tx_unf)
     );
 
     pvm_fifo rx_fifo (
-        .clk(clk), .rst_n(rst_n), .clr(fifo_clr), .push(1'b0), .din(8'h00), .pop(rx_pop),
-        .dout(rx_head), .full(unused_rx_full), .empty(unused_rx_empty),
+        .clk(clk), .rst_n(rst_n), .clr(fifo_clr), .push(engine_rx_push), .din(engine_rx_data), .pop(rx_pop),
+        .dout(rx_head), .full(rx_full), .empty(unused_rx_empty),
         .level(rx_level), .ovf(unused_rx_ovf), .unf(rx_fifo_unf)
+    );
+
+    pvm_engine engine (
+        .clk(clk), .rst_n(rst_n), .run(engine_running), .enable_pulse(enable_pulse),
+        .clkdiv(clkdiv), .entry_pc(entry_pc), .wrap_bottom(wrap_bottom), .wrap_top(wrap_top),
+        .out_base(out_base), .out_cnt(out_cnt), .set_base(set_base), .set_cnt(set_cnt),
+        .in_base(in_base), .side_base(side_base), .side_cnt(side_cnt), .jmp_pin(jmp_pin),
+        .wide(shiftctrl[4]), .pull_thresh(pull_thresh), .push_thresh(push_thresh),
+        .out_shr(shiftctrl[0]), .in_shr(shiftctrl[1]),
+        .autopull(shiftctrl[2]), .autopush(shiftctrl[3]), .timeout(timeout), .to_presc(to_presc),
+        .instr(instr), .instr_valid(instr_valid), .pin_in(pin_in), .lut_out(4'd0),
+        .arb_lost(1'b0), .underrun(1'b0), .tx_empty(tx_empty), .rx_full(rx_full),
+        .tx_level(tx_level), .rx_level(rx_level), .tx_dout(tx_head), .tx_pop(engine_tx_pop),
+        .rx_push(engine_rx_push), .rx_din(engine_rx_data), .rd_pc(engine_rd_pc),
+        .out_val(engine_out), .oe_val(engine_oe), .fab_ctrl(unused_fab_ctrl),
+        .fab_wr(unused_fab_wr), .user_flags(user_flags), .evt_clr_arb(unused_evt_clr_arb),
+        .evt_clr_unf(unused_evt_clr_unf), .engine_tick(unused_engine_tick), .eng_pc(engine_pc),
+        .eng_done_req(eng_done_req), .eng_fault_req(eng_fault_req), .eng_fault_code(eng_fault_code)
     );
 
     pvm_pin_guard pin_guard (
         .clk(clk), .rst_n(rst_n), .state(state), .pin_cfg(pin_cfg),
-        .out_val(20'd0), .oe_val(20'd0), .lut_out(4'd0),
+        .out_val(engine_out), .oe_val(engine_oe), .lut_out(4'd0),
         .arb_en(arb_en), .arb_lost(1'b0), .arb_sda(arb_sda), .arb_scl(arb_scl),
         .uo_pins(uo_out[6:0]), .uio_out(uio_out), .uio_oe(uio_oe),
         .uo_readback(uo_readback), .od_release_intent(unused_od_release_intent)
@@ -127,7 +156,7 @@ module pvm_top (
         .imem_clr_valid(imem_clr_valid),
         .imem_bus_rd_addr(imem_bus_rd_addr),
         .imem_bus_rd_data(imem_bus_rd_data),
-        .imem_entry_valid(imem_entry_valid),
+        .imem_entry_valid(instr_valid),
         .tx_push(tx_push),
         .tx_data(tx_data),
         .rx_pop(rx_pop),
@@ -137,32 +166,32 @@ module pvm_top (
         .rx_head(rx_head),
         .tx_fifo_ovf(tx_fifo_ovf),
         .rx_fifo_unf(rx_fifo_unf),
-        .eng_done_req(1'b0),
-        .eng_fault_req(1'b0),
-        .eng_fault_code(4'd0),
-        .eng_pc(5'd0),
-        .flags(8'h00),
+        .eng_done_req(eng_done_req),
+        .eng_fault_req(eng_fault_req),
+        .eng_fault_code(eng_fault_code),
+        .eng_pc(engine_pc),
+        .flags({user_flags, 2'b00}),
         .state(state),
-        .enable_pulse(unused_enable_pulse),
+        .enable_pulse(enable_pulse),
         .halt_pulse(unused_halt_pulse),
         .clr_flags_pulse(unused_clr_flags_pulse),
-        .clkdiv(unused_clkdiv),
-        .out_base(unused_out_base),
-        .out_cnt(unused_out_cnt),
-        .set_base(unused_set_base),
-        .in_base(unused_in_base),
-        .side_base(unused_side_base),
-        .jmp_pin(unused_jmp_pin),
-        .set_cnt(unused_set_cnt),
-        .side_cnt(unused_side_cnt),
-        .wrap_bottom(unused_wrap_bottom),
-        .wrap_top(unused_wrap_top),
-        .shiftctrl(unused_shiftctrl),
-        .pull_thresh(unused_pull_thresh),
-        .push_thresh(unused_push_thresh),
+        .clkdiv(clkdiv),
+        .out_base(out_base),
+        .out_cnt(out_cnt),
+        .set_base(set_base),
+        .in_base(in_base),
+        .side_base(side_base),
+        .jmp_pin(jmp_pin),
+        .set_cnt(set_cnt),
+        .side_cnt(side_cnt),
+        .wrap_bottom(wrap_bottom),
+        .wrap_top(wrap_top),
+        .shiftctrl(shiftctrl),
+        .pull_thresh(pull_thresh),
+        .push_thresh(push_thresh),
         .entry_pc(entry_pc),
-        .timeout(unused_timeout),
-        .to_presc(unused_to_presc),
+        .timeout(timeout),
+        .to_presc(to_presc),
         .cfg_lut(unused_cfg_lut),
         .cfg_mode(unused_cfg_mode),
         .cnt_reload(unused_cnt_reload),

@@ -29,6 +29,7 @@ project:
     - "pvm_spi_byte.v"
     - "pvm_hostif.v"
     - "pvm_cfg.v"
+    - "pvm_engine.v"
     - "pvm_pin_guard.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.

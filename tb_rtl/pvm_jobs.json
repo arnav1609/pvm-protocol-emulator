@@ -534,6 +534,144 @@
         "WIDE_PULL_2BYTES_LE",
         "WIDE_AUTOPULL"
       ]
+    },
+    {
+      "id": "s11_engine_c",
+      "top": "tb_engine_c",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_c.v"
+      ],
+      "checks": 12,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE."
+    },
+    {
+      "id": "s11_engine_c_neg_timeout_priority",
+      "top": "tb_engine_c",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_c.v"
+      ],
+      "checks": 12,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE.",
+      "negative": true,
+      "variant_of": "s11_engine_c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "(issue_cycle ? (!issue_fault && waiting) : stalled_q);",
+        "replace": "(stalled_q || (issue_cycle && !issue_fault && waiting));"
+      },
+      "expect_fail_checks": [
+        "TIMEOUT_COMPLETION_WINS"
+      ]
+    },
+    {
+      "id": "s11_engine_c_neg_wait_polarity",
+      "top": "tb_engine_c",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_c.v"
+      ],
+      "checks": 12,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE.",
+      "negative": true,
+      "variant_of": "s11_engine_c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "waiting = !illegal && (pin_in[word[4:0]] != word[7]);",
+        "replace": "waiting = !illegal && (pin_in[word[4:0]] != 1'b1);"
+      },
+      "expect_fail_checks": [
+        "WAIT_PIN_POL0"
+      ]
+    },
+    {
+      "id": "s11_engine_c_neg_fault_keep_running",
+      "top": "tb_engine_c",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_c.v"
+      ],
+      "checks": 12,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE.",
+      "negative": true,
+      "variant_of": "s11_engine_c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": ".run(run && !stopped_q),\n        .restart(enable_pulse), .div(clkdiv), .tick(engine_tick)",
+        "replace": ".run(run),\n        .restart(enable_pulse), .div(clkdiv), .tick(engine_tick)"
+      },
+      "expect_fail_checks": [
+        "FAULT_STOPS_ENGINE"
+      ]
+    },
+    {
+      "id": "s11_top",
+      "top": "tb_top_s11",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top_s11.v"
+      ],
+      "checks": 2,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE."
+    },
+    {
+      "id": "s11_top_neg_fault_guard",
+      "top": "tb_top_s11",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top_s11.v"
+      ],
+      "checks": 2,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE.",
+      "negative": true,
+      "variant_of": "s11_top",
+      "mutant": {
+        "file": "src/pvm_pin_guard.v",
+        "anchor": "wire running = state == 3'd3;",
+        "replace": "wire running = state == 3'd3 || state == 3'd5;"
+      },
+      "expect_fail_checks": [
+        "FAULT_OUTPUTS_SAFE"
+      ]
     }
   ]
 }

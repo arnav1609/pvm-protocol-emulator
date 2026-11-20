@@ -13,7 +13,7 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S08 | 2 Dec | PASS | [S08 gate](reports/S08_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | [Run #15 green](results/ci_S08.md) |
 | S09 | 3-4 Dec | PASS | [S09 gate](reports/S09_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | ISS pending | Standalone RTL |
 | S10 | 5 Dec | PASS | [S10 gate](reports/S10_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | ISS pending | Standalone RTL |
-| S11 | 6 Dec | TODO | | | | | | |
+| S11 | 6 Dec | WIP | [S11 gate](reports/S11_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Pending | ISS pending | G2 pending |
 | S12 | 7-8 Dec | TODO | | | | | | |
 | S13 | 8-9 Dec | TODO | | | | | | |
 | S14 | 10 Dec | TODO | | | | | | |
@@ -38,6 +38,8 @@ At S09, WAIT and the datapath instructions were stubbed. S10 implemented them, i
 In the S10 UART TX test at CLKDIV 3, the start bit begins at core cycle 3 after setup, the first data bit at cycle 9, and the stop bit at cycle 57. Each bit spans six core cycles. [UART evidence](reports/S10_gate.md)
 
 ## OPEN QUESTIONS
+
+- S11 G2 routing, utilization, and timing at 50 MHz.
 
 
 ## Bug notes (after a stage PASS, reopened by review)

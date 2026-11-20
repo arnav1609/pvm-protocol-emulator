@@ -7,8 +7,8 @@ the program. The pin guard selects the configured owners and returns
 pins to their idle or high-impedance states outside RUN.
 
 The current integration covers host SPI, configuration and validation,
-instruction storage, FIFO access, and pin safety. The engine, programmable
-pin fabric, and passive monitor are added in later RTL stages.
+instruction storage, the instruction engine, both FIFOs, and pin safety.
+The programmable pin fabric and passive monitor are planned for later RTL stages.
 
 ## How to test
 
