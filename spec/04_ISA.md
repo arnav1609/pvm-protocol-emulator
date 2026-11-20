@@ -16,7 +16,7 @@ Status: frozen for the 32-word build. The 64-word option (D-004) is NOT implemen
 |---|---|---|
 | PC | 5 | ENTRY_PC at ENABLE |
 | X, Y | 16 | 0 at ENABLE |
-| OSR | 16, plus osr_cnt [4:0] = bits already shifted out | OSR=0, osr_cnt = full (empty: autopull/PULL needed) |
+| OSR | 16, plus osr_cnt [4:0] = bits already shifted out | OSR=0, osr_cnt = 5'd16 at reset and ENABLE (empty; D-013) |
 | ISR | 16, plus isr_cnt [4:0] = bits shifted in | 0, 0 |
 | out_val[19:0], oe_val[19:0] | engine pin outputs | 0 at ENABLE |
 | fab_ctrl[3:0] | to fabric | 0 |

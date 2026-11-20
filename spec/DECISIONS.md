@@ -75,3 +75,10 @@ Decision: method/HOUSE_ENGINEERING_METHOD.md applies, with the PVM differences i
 Status: APPROVED by Kalash in chat before S06 · Date: 2026-11-20
 
 Decision: HALT clears WR_REJ, TX_OVF, RX_UNF, and both FIFOs. ENABLE preserves FIFO contents so TX can be preloaded. See [interface revision 1](rev/PVM-IF-rev1-HALT-CLEARS.md).
+
+## D-013 — OSR shift count at reset and ENABLE
+Status: APPROVED in chat before S09 · Date: 2026-11-20
+
+Decision: Initialize `osr_cnt` to `5'd16` at reset and ENABLE. This
+clarifies [the engine state table](04_ISA.md#2-engine-state). The OSR is empty
+at initialization for every supported PULL_THRESH, including 16 in WIDE mode.
