@@ -1,0 +1,13 @@
+[PASS] judge_case_0 want=PASS_FRESH got=PASS_FRESH
+[PASS] judge_case_1 want=COUNT_MISMATCH got=COUNT_MISMATCH
+[PASS] judge_case_2 want=FAIL got=FAIL
+[PASS] judge_case_3 want=TIMEOUT got=TIMEOUT
+[PASS] judge_case_4 want=TIMEOUT got=TIMEOUT
+[PASS] judge_case_5 want=NEG_KILLED got=NEG_KILLED
+[PASS] judge_case_6 want=NEG_UNRELATED got=NEG_UNRELATED
+[PASS] judge_case_7 want=NEG_SURVIVED got=NEG_SURVIVED
+[PASS] judge_case_8 want=TIMEOUT got=TIMEOUT
+[PASS] anchor_twice_rejected
+CHECKS : 10
+ERRORS : 0
+RESULT : PASS
