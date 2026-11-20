@@ -4,7 +4,7 @@
 
 The handoff requires a green 8x4 Tiny Tapeout IHP template before RTL work starts. Both `main` and `codex/pvm-rtl` pointed to `e8d532f97d015ae2adfcf688471b8f9f421d7dde` when inspected. The checked-in `info.yaml` declares `tiles: "1x1"` and leaves the project title, author, and description blank.
 
-## CI evidence for the template commit
+### CI evidence for the template commit
 
 | Branch | Test | GDS | Precheck | Docs |
 | --- | --- | --- | --- | --- |
@@ -19,7 +19,7 @@ Error loading /home/runner/work/pvm-protocol-emulator/pvm-protocol-emulator/info
 
 The docs log also flags the empty pinout and missing “How it works” and “How to test” sections in `docs/info.md`. [Build docs log](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44676627805/job/136089886321)
 
-## Current setup
+### Current setup
 
 The 8x4 metadata and template documentation are in [draft PR #1](https://github.com/arnav1609/pvm-protocol-emulator/pull/1). The owner approved interface revision 0 and D-008 through D-011. Baseline tests and docs passed. [Baseline GDS and precheck](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44679133846) are the remaining setup checks.
 

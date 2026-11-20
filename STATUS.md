@@ -8,7 +8,7 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S03 | 27 Nov | PASS | [S03 gate](reports/S03_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S04 | 28 Nov | PASS | [S04 gate](reports/S04_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S05 | 29 Nov | PASS | [S05 gate](reports/S05_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S06 | 30 Nov | TODO | | | | | | |
+| S06 | 30 Nov | WIP | | | | | | Standalone RTL |
 | S07 | 1 Dec | TODO | | | | | | |
 | S08 | 2 Dec | TODO | | | | | | |
 | S09 | 3-4 Dec | TODO | | | | | | |
@@ -19,6 +19,8 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S14 | 10 Dec | TODO | | | | | | |
 
 ## Setup
+
+- Kalash approved [D-012](spec/rev/PVM-IF-rev1-HALT-CLEARS.md) in chat before S06.
 
 - The owner approved D-008 through D-011 and interface revision 0 in the project conversation on 20 November 2026.
 - The workspace uses Verilog-2005 and the handoff runner. [Runner self-test](evidence/setup/runner_selftest.log)
