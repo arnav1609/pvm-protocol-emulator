@@ -1,4 +1,4 @@
-# PVM S11 top-level integration — G2 pending
+# PVM S11 top-level integration — G2 blocked
 
 The runner accepted 6/6 stage jobs and 34/34 regression jobs.
 The baseline for this stage is commit `8e1235f`. The evidence JSON records the source hashes.
@@ -18,4 +18,6 @@ The four mutants were killed by the same-cycle timeout priority, WAIT polarity, 
 
 Verilator 5.032 lint passed. Yosys 0.52 reported zero structural issues and no latches after optimization. The cocotb SPI smoke test passed locally. XSim and ISS remain pending.
 
-The engine, instruction-memory addressing, both FIFO paths, and lifecycle faults are wired into the Tiny Tapeout top. G2 requires routed utilization and setup slack at 50 MHz, successful precheck, and a green Pages viewer. [Branch workflows](https://github.com/arnav1609/pvm-protocol-emulator/actions?query=branch%3Acodex%2Fpvm-rtl)
+The engine, instruction-memory addressing, both FIFO paths, and lifecycle faults are wired into the Tiny Tapeout top. GitHub Actions passed the RTL smoke and datasheet jobs on commit `4b13f45`. The routed 8×4 design used 26.21% of the area against a 40% limit. Its setup WNS was −8.894 ns at 50 MHz, so the GDS job failed and skipped precheck, gate-level simulation, and the Pages viewer. [CI results](../results/ci_S11.md) · [G2 timing report](../results/g2_area_timing.md)
+
+S11 is blocked at G2. S12 depends on reopening and passing the gate. [Blocker](../BLOCKED.md)
