@@ -1,0 +1,49 @@
+{
+ "id": "s12_fabric_neg_ignore_arb_n",
+ "state": "NEG_KILLED",
+ "selection": "S12",
+ "frozen_checks": 21,
+ "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: LUT_ALL_16_TT_RANDOM, LAYER2_SEES_L0_L1, NO_L2_TO_L1, MODE_RISE_PULSE, MODE_MAJ3_FILTERS_1CYCLE_GLITCH, MODE_MAJ3_PASSES_3CYCLE, GROUP1_MAPPING, CNT_PERIOD_RELOAD_249, CNT_RELOAD_0, CNT_RELOAD_1023, CNT_SRC_ENGINE_TICK, MANCH_STREAM_16BITS, MANCH_UNDERRUN, MANCH_BOUNDARY_WRITE_QUEUED, ARB_DETECT_AFTER_N, ARB_NO_DETECT_IF_SCL_SHORT, ARB_NO_DETECT_WHEN_DRIVING_LOW, ARB_RELEASE_BOUND_CYCLES, FLAGS_STICKY_AFTER_RUN, ARB_CLEAR_BY_EVT_HOST_HALT, NOT_RUN_CLEARS.",
+ "negative": true,
+ "variant_of": "s12_fabric",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T165510",
+ "sources": {
+  "src/pvm_sync2.v": "f505a72cfc110b0906515bf2479b22ae5787a03f39c72cbe10be4b2719aa8dbf",
+  "src/pvm_pin_guard.v": "d2eec875facd465ec88247e140de01757fd64778818f30056ff2982cf822210e",
+  "src/pvm_fabric.v": "ef8e683acef7e8cdd281f7f34da4681acbd5fb1ea71a7b9c0313aaf6399e137e",
+  "tb_rtl/tb_fabric.v": "a8d9f981ccbe1e418f8f5570ed36b22e993a67571a9a30af1176212c72543c01"
+ },
+ "parsed": {
+  "passes": [
+   "LUT_ALL_16_TT_RANDOM",
+   "LAYER2_SEES_L0_L1",
+   "NO_L2_TO_L1",
+   "MODE_RISE_PULSE",
+   "MODE_MAJ3_FILTERS_1CYCLE_GLITCH",
+   "MODE_MAJ3_PASSES_3CYCLE",
+   "GROUP1_MAPPING",
+   "CNT_PERIOD_RELOAD_249",
+   "CNT_RELOAD_0",
+   "CNT_RELOAD_1023",
+   "CNT_SRC_ENGINE_TICK",
+   "MANCH_STREAM_16BITS",
+   "MANCH_UNDERRUN",
+   "MANCH_BOUNDARY_WRITE_QUEUED",
+   "ARB_NO_DETECT_WHEN_DRIVING_LOW",
+   "ARB_RELEASE_BOUND_CYCLES",
+   "FLAGS_STICKY_AFTER_RUN",
+   "ARB_CLEAR_BY_EVT_HOST_HALT",
+   "NOT_RUN_CLEARS"
+  ],
+  "fails": [
+   "ARB_DETECT_AFTER_N",
+   "ARB_NO_DETECT_IF_SCL_SHORT"
+  ],
+  "checks": 21,
+  "errors": 2,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_fabric -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s12_fabric_neg_ignore_arb_n/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/build/s12_fabric_neg_ignore_arb_n/pvm_fabric.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_fabric.v"
+}

@@ -110,7 +110,11 @@ def generate(root, jobs, run_job, check):
             for path in (Path(name) for name in job['sources'] if name.startswith('tb_rtl/')):
                 (copy / path).parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(root / path, copy / path)
-            state, info, log = run_job(job, root=str(copy), capture_trace=True)
+            # Later integration builds add candidate-only RTL to the same bench.
+            # The golden build compiles only its original RTL and the shared bench.
+            sources = [name for name in job['sources'] if (copy / name).is_file()]
+            golden_job = {**job, 'sources': sources}
+            state, info, log = run_job(golden_job, root=str(copy), capture_trace=True)
             if state != 'PASS_FRESH':
                 print(log)
                 return 1
@@ -121,7 +125,7 @@ def generate(root, jobs, run_job, check):
                 'file': str(path),
                 'sha256': digest(trace),
                 'cycles': len(trace_rows(trace)),
-                'sources': {filename: digest(copy / filename) for filename in job['sources']},
+                'sources': {filename: digest(copy / filename) for filename in sources},
             }
             generated[path] = trace.read_bytes()
     generated[PROVENANCE] = (json.dumps(manifest, indent=2) + '\n').encode()

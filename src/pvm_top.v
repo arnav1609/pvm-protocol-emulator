@@ -2,7 +2,7 @@
 `default_nettype none
 
 // PVM pad mapping, host bus, and configuration datapath.
-// Owner: Kalash Bheda. PVM S08/S11. See 02_PINS_AND_TOP.md and 03_BUS_AND_REGMAP.md.
+// Owner: Kalash Bheda. PVM S08/S11–S14. See 02_PINS_AND_TOP.md and 03_BUS_AND_REGMAP.md.
 module pvm_top (
     input  wire [7:0] ui_in,
     output wire [7:0] uo_out,
@@ -17,7 +17,9 @@ module pvm_top (
     wire [7:0] protocol_uio;
     wire [6:0] uo_readback;
     wire [19:0] pin_in = {protocol_uio, uo_readback, protocol_ui};
-    wire [19:0] unused_od_release_intent;
+    wire [19:0] od_release_intent;
+    wire [3:0] lut_out;
+    wire unused_cnt_phase, arb_lost, underrun;
     wire [15:0] bus_addr;
     wire [7:0] bus_wdata, bus_rdata;
     wire bus_we, bus_re, bus_rack;
@@ -30,8 +32,8 @@ module pvm_top (
     wire [7:2] user_flags;
     wire engine_tx_pop, engine_rx_push;
     wire [7:0] engine_rx_data;
-    wire unused_engine_tick, unused_fab_wr, unused_evt_clr_arb, unused_evt_clr_unf;
-    wire [3:0] unused_fab_ctrl;
+    wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+    wire [3:0] fab_ctrl;
     wire [5:0] imem_wr_addr, imem_bus_rd_addr;
     wire [7:0] imem_wr_data, imem_bus_rd_data;
     wire [15:0] instr;
@@ -45,10 +47,10 @@ module pvm_top (
     wire arb_en;
     wire [4:0] arb_sda, arb_scl;
 
-    // Configuration fields for the engine and the later fabric and monitor.
+    // Configuration fields shared by the engine, fabric and monitor.
     wire enable_pulse;
-    wire unused_halt_pulse;
-    wire unused_clr_flags_pulse;
+    wire halt_pulse;
+    wire clr_flags_pulse;
     wire [15:0] clkdiv;
     wire [4:0] out_base;
     wire [4:0] out_cnt;
@@ -65,18 +67,23 @@ module pvm_top (
     wire [4:0] push_thresh;
     wire [15:0] timeout;
     wire [1:0] to_presc;
-    wire [127:0] unused_cfg_lut;
-    wire [11:0] unused_cfg_mode;
-    wire [9:0] unused_cnt_reload;
-    wire unused_cnt_en;
-    wire unused_cnt_src;
-    wire unused_manch_en;
-    wire [3:0] unused_arb_n;
-    wire [191:0] unused_cfg_entries;
-    wire [63:0] unused_cfg_k;
-    wire [15:0] unused_cfg_m;
-    wire unused_mon_en;
-    wire [1:0] unused_mon_presc;
+    wire [127:0] cfg_lut;
+    wire [11:0] cfg_mode;
+    wire [9:0] cnt_reload;
+    wire cnt_en;
+    wire cnt_src;
+    wire manch_en;
+    wire [3:0] arb_n;
+    wire [191:0] cfg_entries;
+    wire [63:0] cfg_k;
+    wire [15:0] cfg_m;
+    wire mon_en;
+    wire [1:0] mon_presc;
+    wire [15:0] cnt_pass, cnt_viol, cnt_inc;
+    wire [2:0] mon_state;
+    wire [159:0] log_flat;
+    wire [1:0] log_wptr;
+    wire [5:0] log_total;
 
     // Host select resets to its inactive level. Every external input is sampled once.
     pvm_sync2 #(.W(3), .RST_VAL(3'b010)) host_inputs (
@@ -123,23 +130,52 @@ module pvm_top (
         .wide(shiftctrl[4]), .pull_thresh(pull_thresh), .push_thresh(push_thresh),
         .out_shr(shiftctrl[0]), .in_shr(shiftctrl[1]),
         .autopull(shiftctrl[2]), .autopush(shiftctrl[3]), .timeout(timeout), .to_presc(to_presc),
-        .instr(instr), .instr_valid(instr_valid), .pin_in(pin_in), .lut_out(4'd0),
-        .arb_lost(1'b0), .underrun(1'b0), .tx_empty(tx_empty), .rx_full(rx_full),
+        .instr(instr), .instr_valid(instr_valid), .pin_in(pin_in), .lut_out(lut_out),
+        .arb_lost(arb_lost), .underrun(underrun), .tx_empty(tx_empty), .rx_full(rx_full),
         .tx_level(tx_level), .rx_level(rx_level), .tx_dout(tx_head), .tx_pop(engine_tx_pop),
         .rx_push(engine_rx_push), .rx_din(engine_rx_data), .rd_pc(engine_rd_pc),
-        .out_val(engine_out), .oe_val(engine_oe), .fab_ctrl(unused_fab_ctrl),
-        .fab_wr(unused_fab_wr), .user_flags(user_flags), .evt_clr_arb(unused_evt_clr_arb),
-        .evt_clr_unf(unused_evt_clr_unf), .engine_tick(unused_engine_tick), .eng_pc(engine_pc),
+        .out_val(engine_out), .oe_val(engine_oe), .fab_ctrl(fab_ctrl),
+        .fab_wr(fab_wr), .user_flags(user_flags), .evt_clr_arb(evt_clr_arb),
+        .evt_clr_unf(evt_clr_unf), .engine_tick(engine_tick), .eng_pc(engine_pc),
         .eng_done_req(eng_done_req), .eng_fault_req(eng_fault_req), .eng_fault_code(eng_fault_code)
     );
 
     pvm_pin_guard pin_guard (
         .clk(clk), .rst_n(rst_n), .state(state), .pin_cfg(pin_cfg),
-        .out_val(engine_out), .oe_val(engine_oe), .lut_out(4'd0),
-        .arb_en(arb_en), .arb_lost(1'b0), .arb_sda(arb_sda), .arb_scl(arb_scl),
+        .out_val(engine_out), .oe_val(engine_oe), .lut_out(lut_out),
+        .arb_en(arb_en), .arb_lost(arb_lost), .arb_sda(arb_sda), .arb_scl(arb_scl),
         .uo_pins(uo_out[6:0]), .uio_out(uio_out), .uio_oe(uio_oe),
-        .uo_readback(uo_readback), .od_release_intent(unused_od_release_intent)
+        .uo_readback(uo_readback), .od_release_intent(od_release_intent)
     );
+
+    // The default build includes both blocks. Experiment variants retain the same pads.
+`ifdef PVM_NO_FABRIC
+    assign {lut_out, unused_cnt_phase, arb_lost, underrun} = 7'd0;
+`else
+    pvm_fabric fabric (
+        .clk(clk), .rst_n(rst_n), .run(engine_running), .enable_pulse(enable_pulse),
+        .engine_tick(engine_tick), .pin_in(pin_in), .od_release_intent(od_release_intent),
+        .fab_ctrl(fab_ctrl), .fab_wr(fab_wr), .cfg_lut(cfg_lut), .cfg_mode(cfg_mode),
+        .cnt_reload(cnt_reload), .cnt_en(cnt_en), .cnt_src(cnt_src), .manch_en(manch_en),
+        .arb_en(arb_en), .arb_n(arb_n), .arb_sda(arb_sda), .arb_scl(arb_scl),
+        .clr_flags(clr_flags_pulse || halt_pulse), .evt_clr_arb(evt_clr_arb),
+        .evt_clr_unf(evt_clr_unf), .lut_out(lut_out), .cnt_phase(unused_cnt_phase),
+        .arb_lost(arb_lost), .underrun(underrun)
+    );
+`endif
+
+`ifdef PVM_NO_MON
+    assign {mon_state, cnt_pass, cnt_viol, cnt_inc, log_flat, log_wptr, log_total} = 219'd0;
+`else
+    pvm_mon monitor (
+        .clk(clk), .rst_n(rst_n), .run(engine_running), .halt_clr(halt_pulse),
+        .pin_in(pin_in), .lut_out(lut_out), .arb_lost(arb_lost), .underrun(underrun),
+        .user_flags(user_flags), .cfg_entries(cfg_entries), .cfg_k(cfg_k), .cfg_m(cfg_m),
+        .mon_en(mon_en), .presc(mon_presc), .mon_state(mon_state), .cnt_pass(cnt_pass),
+        .cnt_viol(cnt_viol), .cnt_inc(cnt_inc), .log_flat(log_flat), .log_wptr(log_wptr),
+        .log_total(log_total)
+    );
+`endif
 
     pvm_cfg config_bank (
         .clk(clk),
@@ -170,11 +206,11 @@ module pvm_top (
         .eng_fault_req(eng_fault_req),
         .eng_fault_code(eng_fault_code),
         .eng_pc(engine_pc),
-        .flags({user_flags, 2'b00}),
+        .flags({user_flags, underrun, arb_lost}),
         .state(state),
         .enable_pulse(enable_pulse),
-        .halt_pulse(unused_halt_pulse),
-        .clr_flags_pulse(unused_clr_flags_pulse),
+        .halt_pulse(halt_pulse),
+        .clr_flags_pulse(clr_flags_pulse),
         .clkdiv(clkdiv),
         .out_base(out_base),
         .out_cnt(out_cnt),
@@ -192,28 +228,28 @@ module pvm_top (
         .entry_pc(entry_pc),
         .timeout(timeout),
         .to_presc(to_presc),
-        .cfg_lut(unused_cfg_lut),
-        .cfg_mode(unused_cfg_mode),
-        .cnt_reload(unused_cnt_reload),
-        .cnt_en(unused_cnt_en),
-        .cnt_src(unused_cnt_src),
-        .manch_en(unused_manch_en),
+        .cfg_lut(cfg_lut),
+        .cfg_mode(cfg_mode),
+        .cnt_reload(cnt_reload),
+        .cnt_en(cnt_en),
+        .cnt_src(cnt_src),
+        .manch_en(manch_en),
         .arb_en(arb_en),
-        .arb_n(unused_arb_n),
+        .arb_n(arb_n),
         .arb_sda(arb_sda),
         .arb_scl(arb_scl),
-        .cfg_entries(unused_cfg_entries),
-        .cfg_k(unused_cfg_k),
-        .cfg_m(unused_cfg_m),
-        .mon_en(unused_mon_en),
-        .mon_presc(unused_mon_presc),
-        .cnt_pass(16'h0000),
-        .cnt_viol(16'h0000),
-        .cnt_inc(16'h0000),
-        .mon_state(3'd0),
-        .log_flat(160'd0),
-        .log_wptr(2'd0),
-        .log_total(6'd0),
+        .cfg_entries(cfg_entries),
+        .cfg_k(cfg_k),
+        .cfg_m(cfg_m),
+        .mon_en(mon_en),
+        .mon_presc(mon_presc),
+        .cnt_pass(cnt_pass),
+        .cnt_viol(cnt_viol),
+        .cnt_inc(cnt_inc),
+        .mon_state(mon_state),
+        .log_flat(log_flat),
+        .log_wptr(log_wptr),
+        .log_total(log_total),
         .pin_cfg(pin_cfg)
     );
 endmodule

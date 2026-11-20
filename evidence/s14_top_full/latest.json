@@ -1,0 +1,43 @@
+{
+ "id": "s14_top_full",
+ "state": "PASS_FRESH",
+ "selection": "S14",
+ "frozen_checks": 3,
+ "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T165516",
+ "sources": {
+  "src/project.v": "8580760f88f46f699e3000b90e8b08d8e56f9a081407d55fadf37187f8b6f56a",
+  "src/pvm_top.v": "edcf2e016b12588f83ca8c6c99be396972f1768f97f97c474a998c0e35eb91bb",
+  "src/pvm_sync2.v": "f505a72cfc110b0906515bf2479b22ae5787a03f39c72cbe10be4b2719aa8dbf",
+  "src/pvm_edge.v": "7c36c2fbf3f57288e90c8d2b2fd93d3d487702804c1d13200bd148870013b5f5",
+  "src/pvm_tick.v": "4e869563873727bb3879b8d07b6ca5d9c7a386d3d654e1e9a8f3568c8492d164",
+  "src/pvm_presc.v": "576c08e18bcd572382466d80d20bbfc5c74f85a3a070b2a0c0be04258a7b22dc",
+  "src/pvm_fifo.v": "7f03e00882ac86e8b8890f5bc529172614bb43bd5dd373b618e39ad16475e976",
+  "src/pvm_crc16.v": "216039527e57ea929b369453d09ecb001374623a56ea7b741f56c7cc22b101ac",
+  "src/pvm_imem.v": "7c76a8f08b9b42c9f24740dfbf7ff53e16096617bee357c742fb60470aef40c6",
+  "src/pvm_spi_byte.v": "f0ef43c73573fa0ec9d84fc3d6822188a08b2a7b6f0ac6c1159e6177b3cd0bbc",
+  "src/pvm_hostif.v": "e2ad024b273eb639e2bca23cb41e146900d488cb7224ac4d50d59e014e9109cd",
+  "src/pvm_cfg.v": "00b1641390560d18000220e91c65c02266fd02d6046b149f50218f8ed71181cd",
+  "src/pvm_engine.v": "26e610fb18fcf0e6bf6d4769df0ef377d4f3c105929ab790380af09fa385929b",
+  "src/pvm_fabric.v": "ef8e683acef7e8cdd281f7f34da4681acbd5fb1ea71a7b9c0313aaf6399e137e",
+  "src/pvm_mon.v": "090f8587dfa14ebafcbb0c9015dfee765093dca641dd20bc05cafd459bd57580",
+  "src/pvm_pin_guard.v": "d2eec875facd465ec88247e140de01757fd64778818f30056ff2982cf822210e",
+  "tb_rtl/tb_top.v": "5f3500ccde295ced353de7334e33ece73e52235b5b2365e8fdb89ee5657bfec5"
+ },
+ "parsed": {
+  "passes": [
+   "IMAGE_SWAP_UART_TO_SPI",
+   "FAULT_THEN_RECOVER",
+   "DESELECT_RESET_RELOAD"
+  ],
+  "fails": [],
+  "checks": 3,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_top -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s14_top_full/sim.vvp /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top.v"
+}
