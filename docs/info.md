@@ -23,8 +23,11 @@ the core clock.
 
 The full RTL regression runs with
 `python3 tb_rtl/pvm_run.py run --select all` from the repository root.
-The top-level bench loads UART and SPI mode 0 images in succession,
-checks their pin waveforms, and exercises fault recovery and reset.
+The S14b tests check UART TX 0x35 on P5, SPI mode 0 clock and data on
+P6 and P7, and an open-drain I²C write to address 0x50 on P12 and P13.
+The I²C target model acknowledges both bytes and exercises clock
+stretching. The toolchain guide shows how to generate and load each
+image. [Toolchain guide](https://github.com/arnav1609/pvm-protocol-emulator/blob/codex/pvm-rtl/docs/TOOLCHAIN.md)
 
 The default build includes the engine, fabric, and monitor.
 `PVM_NO_FABRIC` and `PVM_NO_MON` select the experiment variants

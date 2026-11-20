@@ -1,42 +1,44 @@
-![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
+# PVM Protocol Emulator
 
-# Tiny Tapeout Verilog Project Template
+PVM is a programmable serial protocol emulator for Tiny Tapeout IHP.
+A host loads an image over SPI. A 32-word engine then drives or samples
+pins, a configurable fabric handles selected logic and timing tasks, and
+a passive monitor records rule verdicts and measured intervals.
 
-- [Read the documentation for project](docs/info.md)
+The same RTL runs UART TX, an SPI mode 0 controller and an I²C write with
+ACK and clock stretching. The pin-level tests load all three programs
+over the host SPI interface. [Protocol checks](reports/S14b_protocols_gate.md)
 
-## What is Tiny Tapeout?
+## Quick start
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+Use Python 3.10 or later to build the UART image from the repository root.
 
-To learn more and get started, visit https://tinytapeout.com.
+```sh
+python3 -m tools.pvm_image tools/examples/uart_tx.pvm /tmp/pvm-uart.json \
+  --config tools/examples/uart_tx.json --tx 0x35
+```
 
-## Set up your Verilog project
+Run the RTL regression with Icarus Verilog (`iverilog` and `vvp` on `PATH`).
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+```sh
+python3 tb_rtl/pvm_run.py run --select all
+```
 
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
+The toolchain guide covers all example images, the SPI loader and how to
+replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 
-## Enable GitHub actions to build the results page
+## Design and evidence
 
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
+| Document | Contents |
+| --- | --- |
+| [Architecture](docs/ARCHITECTURE.md) | Host interface, engine, fabric, monitor, pins and variants |
+| [ISA](docs/ISA.md) | Assembly syntax, encoding and timing |
+| [Verification](docs/VERIFICATION.md) | Stage checks, mutation results, trace replay and physical evidence |
+| [Datasheet](docs/info.md) | Pinout and getting started |
+| [Tools and AI use](docs/AI_USE.md) | Design, verification and evidence tooling |
+| [Submission outline](docs/SUBMISSION_WRITEUP.md) | Experiments, demo evidence and remaining deliverables |
 
-## Resources
-
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)
+The full 8×4 candidate routed at 50 MHz with 33.7187% standard-cell
+utilization and +2.461 ns slow-corner setup slack. The acceptance
+status and links to physical artifacts are in the CI report.
+[Variant D CI](results/ci_S14.md) · [Layout preview](https://arnav1609.github.io/pvm-protocol-emulator/gds_render.png)

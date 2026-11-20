@@ -1,0 +1,10 @@
+# S14b SPI mode 0 controller clock and MOSI. Preload 0xA6, then 0xC9.
+    set y, 1
+next_byte:
+    pull block
+    set x, 7
+next_bit:
+    out pins, 1 side 0
+    jmp x--, next_bit side 1
+    jmp y--, next_byte side 0
+    evt done side 0

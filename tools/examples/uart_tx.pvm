@@ -1,0 +1,10 @@
+# S14b UART TX, 115200 baud with a 50 MHz core clock. Preload 0x35.
+    set pins, 1
+    pull block
+    set x, 7
+    set pins, 0 [1]
+data_bit:
+    out pins, 1
+    jmp x--, data_bit
+    set pins, 1 [1]
+    evt done
