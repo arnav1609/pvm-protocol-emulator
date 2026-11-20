@@ -82,3 +82,22 @@ Status: APPROVED in chat before S09 · Date: 2026-11-20
 Decision: Initialize `osr_cnt` to `5'd16` at reset and ENABLE. This
 clarifies [the engine state table](04_ISA.md#2-engine-state). The OSR is empty
 at initialization for every supported PULL_THRESH, including 16 in WIDE mode.
+
+## D-014 — WIDE FIFO beats follow engine ticks
+Status: APPROVED in chat before S10 · Date: 2026-11-20
+
+Decision: Wait for capacity for both bytes before starting, including on
+an instruction with BLOCK clear. Transfer low and
+high bytes on consecutive engine ticks, then begin delay and update the PC.
+The same timing applies to a WIDE OUT autopull or IN autopush.
+[ISA rules](04_ISA.md#wide-fifo-timing-d-014)
+
+## D-015 — EXEC delay, parent PC, and injected faults
+Status: APPROVED in chat before S10 · Date: 2026-11-20
+
+Decision: Apply the parent delay before issuing the injected word. The
+injected word uses its own timing and the parent's PC, and nested EXEC
+faults as ILLEGAL_OP. OUT EXEC consumes a 16-bit shifted word. MOV EXEC
+uses the value after the MOV operation. Injected words bypass IMEM
+validity, and their faults report the parent's PC.
+[ISA rules](04_ISA.md#exec-timing-and-faults-d-015)

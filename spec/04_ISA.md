@@ -57,17 +57,48 @@ Autopush (AUTOPUSH=1): after the shift, if isr_cnt >= PUSH_THRESH: push and clea
 
 ### 011 OUT  operand = dst[7:5] count[4:0]
 count 0 = 16, > 16 ILLEGAL. Autopull (AUTOPULL=1): if OSR empty before the OUT, first PULL (stall while TX FIFO lacks the bytes needed). Data = count bits from OSR: OUT_SHR=1 takes OSR[count-1:0] and OSR = OSR >> count; OUT_SHR=0 takes OSR[15:16-count] and OSR = OSR << count. osr_cnt += count (saturate 31).
-dst: 0 PINS: out_val[OUT_BASE+k] = data[k], k < min(count, OUT_CNT); 1 X = zero-extended data; 2 Y; 3 NULL; 4 PINDIRS: oe_val[OUT_BASE+k] = data[k]; 5 PC = data[4:0] (jump); 6 FAB: fab_ctrl = data[3:0] and pulse fab_wr (see 05); 7 EXEC: execute data[15:0] as the next instruction (on the next tick, PC not advanced for it).
+dst: 0 PINS: out_val[OUT_BASE+k] = data[k], k < min(count, OUT_CNT); 1 X = zero-extended data; 2 Y; 3 NULL; 4 PINDIRS: oe_val[OUT_BASE+k] = data[k]; 5 PC = data[4:0] (jump); 6 FAB: fab_ctrl = data[3:0] and pulse fab_wr (see 05); 7 EXEC: inject the 16-bit shifted-out word (count must be 16) as specified below.
 
 ### 100 PUSH / PULL  operand = dir[7] cond[6] block[5] 0[4:0]
 - dir 0 PUSH: cond (if-full) = 1 -> do nothing unless isr_cnt >= PUSH_THRESH. Push ISR[7:0] (WIDE=0) or ISR[7:0] then ISR[15:8] (WIDE=1, needs 2 free entries) to RX FIFO, clear ISR, isr_cnt=0. RX full: block=1 stall, block=0 drop data (no fault).
 - dir 1 PULL: cond (if-empty) = 1 -> do nothing unless OSR empty. Pop 1 byte into OSR[7:0] (OSR[15:8]=0) (WIDE=0) or 2 bytes, first -> OSR[7:0], second -> OSR[15:8] (WIDE=1). osr_cnt=0. When OUT_SHR=0 and WIDE=0, place the byte in OSR[15:8] instead so MSB-first shifting works. TX empty: block=1 stall, block=0 OSR = X (PIO behaviour), osr_cnt = 0.
 - operand[4:0] != 0 -> ILLEGAL.
 
+#### WIDE FIFO timing (D-014)
+
+A WIDE transfer uses two consecutive engine ticks. At the first tick, the
+instruction waits until TX has at least two bytes or RX has at least
+two free entries. It moves neither byte while it waits. Once eligible, the
+low byte moves on that tick and the high byte on the next engine tick,
+regardless of CLKDIV. The transfer completes on the high-byte tick.
+The instruction's delay starts at completion, then the PC updates.
+
+AUTOPULL and AUTOPUSH use this same transfer and complete the OUT or IN on
+the high-byte tick, one tick later than the narrow operation. The capacity requirement applies
+to every WIDE transfer. The nonblocking fallback described above applies to
+narrow transfers. Host TX writes append at the tail. Host RX reads can see the
+first byte before the second arrives, in order.
+
 ### 101 MOV  operand = dst[7:5] op[4:3] src[2:0]
 src: 0 PINS (as IN), 1 X, 2 Y, 3 NULL, 4 STATUS = {13'b0, tx_empty, rx_full, osr_empty}, 5 ISR, 6 OSR, 7 FAB {12'b0, L3, L2, L1, L0}.
 op: 0 none, 1 invert (~), 2 bit-reverse 16 bits, 3 ILLEGAL.
 dst: 0 PINS (OUT_BASE/OUT_CNT), 1 X, 2 Y, 3 EXEC, 4 PC (value[4:0]), 5 ISR (isr_cnt=0), 6 OSR (osr_cnt=0), 7 FAB (fab_ctrl = value[3:0], pulse fab_wr).
+
+#### EXEC timing and faults (D-015)
+
+OUT EXEC injects its 16-bit shifted-out word. MOV EXEC injects its source
+value after the MOV operation, including invert or bit reverse if selected.
+The parent instruction applies its own side-set and delay. Applying the
+parent delay deliberately differs from RP2040 PIO, where the EXEC-producing
+instruction's delay is ignored.
+
+The injected word issues at the next issue tick after the parent delay.
+It uses its own side-set, delay, blocking behavior, and timeout. The PC
+holds the parent's address through the injected instruction. On completion,
+the PC advances or wraps once using that address, unless the injected
+instruction jumps to a target. A nested EXEC raises ILLEGAL_OP. An illegal
+instruction or a timeout reports the parent's PC. Injected words have no
+IMEM address and bypass the INVALID_WORD check.
 
 ### 110 EVT  operand = kind[7:6] 0[5:3] idx[2:0]
 kind 0 SET flag idx (idx 2..7; idx 0/1 ILLEGAL), 1 CLR flag idx (idx 0 clears ARB_LOST, 1 clears UNDERRUN, 2..7 user flags), 2 ILLEGAL, 3 DONE: engine enters DONE (STATUS.STATE=4, FAULT_CODE=DONE, outputs to idle via pin_guard). operand[5:3] != 0 -> ILLEGAL.
