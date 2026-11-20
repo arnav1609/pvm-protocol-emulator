@@ -1,0 +1,42 @@
+{
+ "id": "s08_pin_guard",
+ "state": "PASS_FRESH",
+ "selection": "S08",
+ "frozen_checks": 17,
+ "checks_basis": "Frozen on 2026-11-20 before first run: NOT_RUN_SAFE, OWNER_NONE_IDLE, ENGINE_PUSHPULL, ENGINE_OE_UIO, UO_ALWAYS_ENABLED, FABRIC_OWNER_L0, FABRIC_OWNER_L1, FABRIC_OWNER_L2, FABRIC_OWNER_L3, INVERT, OD_LOW_DRIVES, OD_HIGH_RELEASES, OD_NEVER_OE_AND_1, ARB_FORCE_RELEASE, ARB_OTHER_PINS_UNAFFECTED, LATENCY_1_CYCLE, READBACK_ALIGNED.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T080322",
+ "sources": {
+  "src/pvm_pin_guard.v": "d2eec875facd465ec88247e140de01757fd64778818f30056ff2982cf822210e",
+  "tb_rtl/tb_pin_guard.v": "1cc63eacda80279f3527cd62b89f8d5887e160a8b1763fdd34f10066bb775581"
+ },
+ "parsed": {
+  "passes": [
+   "NOT_RUN_SAFE",
+   "OWNER_NONE_IDLE",
+   "ENGINE_PUSHPULL",
+   "ENGINE_OE_UIO",
+   "UO_ALWAYS_ENABLED",
+   "FABRIC_OWNER_L0",
+   "FABRIC_OWNER_L1",
+   "FABRIC_OWNER_L2",
+   "FABRIC_OWNER_L3",
+   "INVERT",
+   "OD_LOW_DRIVES",
+   "OD_HIGH_RELEASES",
+   "OD_NEVER_OE_AND_1",
+   "ARB_FORCE_RELEASE",
+   "ARB_OTHER_PINS_UNAFFECTED",
+   "LATENCY_1_CYCLE",
+   "READBACK_ALIGNED"
+  ],
+  "fails": [],
+  "checks": 17,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_pin_guard -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s08_pin_guard/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_pin_guard.v"
+}

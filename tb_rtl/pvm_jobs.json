@@ -459,6 +459,40 @@
       "expect_fail_checks": [
         "ARB_FORCE_RELEASE"
       ]
+    },
+    {
+      "id": "s09_engine_a",
+      "selection": "S09",
+      "top": "tb_engine_a",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_a.v"
+      ],
+      "checks": 33,
+      "checks_basis": "Frozen on 2026-11-20 before the first run. TB-model-checked (ISS pending). cond 0 has no not-taken case; cond 7 taken deferred to S10 (needs PULL). Checks: CLKDIV1_TIMING, CLKDIV3_TIMING, DELAY_MAX_31, SIDESET_1BIT, SIDESET_2BIT_PRIORITY_OVER_SET, WRAP, JMP_COND_0_TAKEN, JMP_COND_1_TAKEN, JMP_COND_1_NOT_TAKEN, JMP_COND_2_TAKEN, JMP_COND_2_NOT_TAKEN, JMP_COND_3_TAKEN, JMP_COND_3_NOT_TAKEN, JMP_COND_4_TAKEN, JMP_COND_4_NOT_TAKEN, JMP_COND_5_TAKEN, JMP_COND_5_NOT_TAKEN, JMP_COND_6_TAKEN, JMP_COND_6_NOT_TAKEN, JMP_COND_7_NOT_TAKEN, XDEC_LOOP_COUNT, SET_PINS_BASE_WRAP_MOD20, SET_PINDIRS, SET_FAB_PULSE, MOV_X_Y_INVERT_REVERSE, MOV_PC, EVT_SET_CLR_FLAGS, EVT_CLR_ARB_PULSE, EVT_DONE, INVALID_WORD_FAULT_PC, ILLEGAL_ENCODINGS, ENABLE_REINIT, WORKED_ENCODINGS."
+    },
+    {
+      "id": "s09_engine_a_neg_jmp7",
+      "selection": "S09",
+      "top": "tb_engine_a",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_a.v"
+      ],
+      "checks": 33,
+      "checks_basis": "Frozen on 2026-11-20 before the first run. TB-model-checked (ISS pending). cond 0 has no not-taken case; cond 7 taken deferred to S10 (needs PULL). Checks: CLKDIV1_TIMING, CLKDIV3_TIMING, DELAY_MAX_31, SIDESET_1BIT, SIDESET_2BIT_PRIORITY_OVER_SET, WRAP, JMP_COND_0_TAKEN, JMP_COND_1_TAKEN, JMP_COND_1_NOT_TAKEN, JMP_COND_2_TAKEN, JMP_COND_2_NOT_TAKEN, JMP_COND_3_TAKEN, JMP_COND_3_NOT_TAKEN, JMP_COND_4_TAKEN, JMP_COND_4_NOT_TAKEN, JMP_COND_5_TAKEN, JMP_COND_5_NOT_TAKEN, JMP_COND_6_TAKEN, JMP_COND_6_NOT_TAKEN, JMP_COND_7_NOT_TAKEN, XDEC_LOOP_COUNT, SET_PINS_BASE_WRAP_MOD20, SET_PINDIRS, SET_FAB_PULSE, MOV_X_Y_INVERT_REVERSE, MOV_PC, EVT_SET_CLR_FLAGS, EVT_CLR_ARB_PULSE, EVT_DONE, INVALID_WORD_FAULT_PC, ILLEGAL_ENCODINGS, ENABLE_REINIT, WORKED_ENCODINGS.",
+      "negative": true,
+      "variant_of": "s09_engine_a",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "3'd7: jump_taken = !osr_empty;",
+        "replace": "3'd7: jump_taken = osr_empty;"
+      },
+      "expect_fail_checks": [
+        "JMP_COND_7_NOT_TAKEN"
+      ]
     }
   ]
 }
