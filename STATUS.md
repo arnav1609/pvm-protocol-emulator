@@ -39,7 +39,7 @@ In the S10 UART TX test at CLKDIV 3, the start bit begins at core cycle 3 after 
 
 ## OPEN QUESTIONS
 
-- S11 G2 needs a decision on the proposed timing repair. [Blocker](BLOCKED.md)
+- S11 G2 repair is approved under D-016. S12 awaits the verification results. [Blocker](BLOCKED.md)
 
 
 ## Bug notes (after a stage PASS, reopened by review)

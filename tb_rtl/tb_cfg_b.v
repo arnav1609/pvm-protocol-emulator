@@ -13,7 +13,7 @@ module tb_cfg_b;
     wire [7:0] bus_rdata;
     wire [2:0] state;
     wire [4:0] entry_pc;
-    wire imem_wr_en, imem_clr, instr_valid;
+    wire imem_wr_en, imem_clr, entry_valid;
     wire [5:0] imem_wr_addr, imem_rd_addr;
     wire [7:0] imem_wr_data, imem_rd_data;
     reg [15:0] crc_model, first_crc, second_crc;
@@ -28,7 +28,7 @@ module tb_cfg_b;
         .bus_we(bus_we), .bus_re(bus_re), .bus_rack(1'b0), .bus_rdata(bus_rdata),
         .imem_wr_en(imem_wr_en), .imem_wr_addr(imem_wr_addr), .imem_wr_data(imem_wr_data),
         .imem_clr_valid(imem_clr), .imem_bus_rd_addr(imem_rd_addr), .imem_bus_rd_data(imem_rd_data),
-        .imem_entry_valid(instr_valid), .entry_pc(entry_pc),
+        .imem_entry_valid(entry_valid), .entry_pc(entry_pc),
         .tx_level(3'd0), .rx_level(3'd0), .rx_head(8'h00), .tx_fifo_ovf(1'b0), .rx_fifo_unf(1'b0),
         .eng_done_req(1'b0), .eng_fault_req(1'b0), .eng_fault_code(4'd0), .eng_pc(5'd0),
         .flags(8'h00), .state(state), .cnt_pass(16'h0000), .cnt_viol(16'h0000), .cnt_inc(16'h0000),
@@ -37,8 +37,9 @@ module tb_cfg_b;
 
     pvm_imem imem (
         .clk(clk), .rst_n(rst_n), .wr_en(imem_wr_en), .wr_addr(imem_wr_addr),
-        .wr_data(imem_wr_data), .clr_valid(imem_clr), .rd_pc(entry_pc),
-        .bus_rd_addr(imem_rd_addr), .bus_rd_data(imem_rd_data), .instr_valid(instr_valid)
+        .wr_data(imem_wr_data), .clr_valid(imem_clr), .rd_pc(5'd0),
+        .entry_pc(entry_pc), .entry_valid(entry_valid),
+        .bus_rd_addr(imem_rd_addr), .bus_rd_data(imem_rd_data)
     );
 
     task bus_step(input write, input read, input [15:0] addr, input [7:0] data);

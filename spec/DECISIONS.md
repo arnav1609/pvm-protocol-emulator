@@ -101,3 +101,24 @@ faults as ILLEGAL_OP. OUT EXEC consumes a 16-bit shifted word. MOV EXEC
 uses the value after the MOV operation. Injected words bypass IMEM
 validity, and their faults report the parent's PC.
 [ISA rules](04_ISA.md#exec-timing-and-faults-d-015)
+
+## D-016 — S11 G2 timing repair at 50 MHz
+
+Approved by Kalash in chat on 20 November 2026.
+
+1. Give image validation its own `ENTRY_PC` validity lookup and address
+   the engine instruction port directly from the engine.
+2. If repair 1 leaves slow-corner setup slack below +1.0 ns, register the
+   next instruction word at issue, including injected EXEC words, and
+   derive the pin mapping once from the static configuration. Preserve
+   branch, wrap, EXEC, and all other tick-level behavior.
+
+Acceptance requires the unchanged frozen S09–S11 checks and full
+regression to pass, with identical ISS traces. The 8×4 design must meet
+the area limit and have at least +1.0 ns routed setup slack at
+`nom_slow_1p08V_125C` with the existing 20 ns clock, with GDS, Tiny
+Tapeout precheck, gate-level simulation, and the Pages viewer green.
+S12 remains blocked until G2 passes. Clock and pin-map changes require
+a new owner decision. If both repairs miss the timing target, report
+the remaining path and stop for that decision.
+[Original G2 failure](../results/g2_area_timing.md)

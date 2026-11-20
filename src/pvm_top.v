@@ -21,10 +21,9 @@ module pvm_top (
     wire [15:0] bus_addr;
     wire [7:0] bus_wdata, bus_rdata;
     wire bus_we, bus_re, bus_rack;
-    wire imem_wr_en, imem_clr_valid, instr_valid;
+    wire imem_wr_en, imem_clr_valid, instr_valid, entry_valid;
     wire engine_running = state == 3'd3;
     wire [4:0] engine_pc, engine_rd_pc;
-    wire [4:0] imem_rd_pc = engine_running ? engine_rd_pc : entry_pc;
     wire eng_done_req, eng_fault_req;
     wire [3:0] eng_fault_code;
     wire [19:0] engine_out, engine_oe;
@@ -98,7 +97,8 @@ module pvm_top (
 
     pvm_imem memory (
         .clk(clk), .rst_n(rst_n), .wr_en(imem_wr_en), .wr_addr(imem_wr_addr),
-        .wr_data(imem_wr_data), .clr_valid(imem_clr_valid), .rd_pc(imem_rd_pc),
+        .wr_data(imem_wr_data), .clr_valid(imem_clr_valid), .rd_pc(engine_rd_pc),
+        .entry_pc(entry_pc), .entry_valid(entry_valid),
         .bus_rd_addr(imem_bus_rd_addr), .bus_rd_data(imem_bus_rd_data),
         .instr(instr), .instr_valid(instr_valid)
     );
@@ -156,7 +156,7 @@ module pvm_top (
         .imem_clr_valid(imem_clr_valid),
         .imem_bus_rd_addr(imem_bus_rd_addr),
         .imem_bus_rd_data(imem_bus_rd_data),
-        .imem_entry_valid(instr_valid),
+        .imem_entry_valid(entry_valid),
         .tx_push(tx_push),
         .tx_data(tx_data),
         .rx_pop(rx_pop),

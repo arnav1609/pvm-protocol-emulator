@@ -52,8 +52,9 @@ module tb_cfg_a;
 
     pvm_imem imem (
         .clk(clk), .rst_n(rst_n), .wr_en(imem_wr_en), .wr_addr(imem_wr_addr),
-        .wr_data(imem_wr_data), .clr_valid(imem_clr_valid), .rd_pc(entry_pc),
-        .bus_rd_addr(imem_bus_rd_addr), .bus_rd_data(imem_bus_rd_data), .instr_valid(imem_entry_valid)
+        .wr_data(imem_wr_data), .clr_valid(imem_clr_valid), .rd_pc(eng_pc),
+        .entry_pc(entry_pc), .entry_valid(imem_entry_valid),
+        .bus_rd_addr(imem_bus_rd_addr), .bus_rd_data(imem_bus_rd_data)
     );
 
     pvm_fifo tx_queue (

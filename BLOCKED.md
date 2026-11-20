@@ -15,7 +15,7 @@ routed reports show 23 setup violations, with WNS of −8.894 ns.
 Tracing the routed netlist identified the state-controlled instruction
 fetch as the common path. [S11 gate](reports/S11_gate.md) · [G2 report](results/g2_area_timing.md)
 
-The G2 hard stop under S11 §7 and the project method §8 requires the
-owner's decision. The proposed first repair separates entry-point
-validation from the instruction fetch path at the existing 50 MHz target.
-S12 depends on a passing G2 rerun.
+Under S11 §7 and the project method §8, S12 depends on a passing G2
+rerun. Kalash approved the entry-point lookup repair and pre-approved
+the instruction register and static pin mapping if the first repair
+leaves slow-corner setup slack below +1.0 ns. [D-016](spec/DECISIONS.md#d-016--s11-g2-timing-repair-at-50-mhz) · [Repair evidence](results/g2_timing_repair.md)

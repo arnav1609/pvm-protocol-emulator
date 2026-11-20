@@ -18,7 +18,7 @@ module tb_imem;
     always #10 clk = ~clk;
     pvm_imem dut (
         .clk(clk), .rst_n(rst_n), .wr_en(wr_en), .wr_addr(wr_addr), .wr_data(wr_data),
-        .clr_valid(clr_valid), .rd_pc(rd_pc), .bus_rd_addr(bus_rd_addr),
+        .clr_valid(clr_valid), .rd_pc(rd_pc), .entry_pc(5'd0), .bus_rd_addr(bus_rd_addr),
         .instr(instr), .instr_valid(instr_valid), .bus_rd_data(bus_rd_data)
     );
 

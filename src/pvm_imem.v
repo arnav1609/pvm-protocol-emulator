@@ -11,9 +11,11 @@ module pvm_imem (
     input  wire [7:0]  wr_data,
     input  wire        clr_valid,
     input  wire [4:0]  rd_pc,
+    input  wire [4:0]  entry_pc,
     input  wire [5:0]  bus_rd_addr,
     output wire [15:0] instr,
     output wire        instr_valid,
+    output wire        entry_valid,
     output wire [7:0]  bus_rd_data
 );
     // A reset or clear invalidates storage without resetting its data.
@@ -26,6 +28,7 @@ module pvm_imem (
     assign bus_word = bus_rd_addr[5:1];
     assign instr = words[rd_pc];
     assign instr_valid = valid_q[rd_pc];
+    assign entry_valid = valid_q[entry_pc];
     assign bus_byte = bus_rd_addr[0] ? words[bus_word][15:8] : words[bus_word][7:0];
     assign bus_rd_data = valid_q[bus_word] ? bus_byte : 8'h00;
 
