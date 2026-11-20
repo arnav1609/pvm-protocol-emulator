@@ -1,4 +1,4 @@
-# PVM S08 integration gate — CI pending
+# PVM S08 integration gate — PASS
 
 The runner accepted 4/4 stage jobs and 24/24 regression jobs.
 The baseline for this stage is commit `c29812a`. The evidence JSON records the source hashes.
@@ -20,4 +20,4 @@ Verilator 5.032 lint passed for the pin guard and the Tiny Tapeout wrapper (with
 
 The cocotb smoke test passed in Icarus (1/1), covering SPI ID, program and pin configuration, CRC and committed image ID, and HALT pin safety. [Local log](../evidence/setup/s08_cocotb.log)
 
-GitHub Actions test and docs passed for the integration commit. GDS and precheck are pending. [CI results](../results/ci_S08.md)
+GitHub Actions test, docs, GDS, precheck, gate-level simulation, and the Pages viewer passed on the S08 design. Run #15 reports 17.1016% utilization and +9.352 ns worst setup slack at 50 MHz. [CI results](../results/ci_S08.md)

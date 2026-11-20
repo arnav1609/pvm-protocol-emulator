@@ -10,7 +10,7 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S05 | 29 Nov | PASS | [S05 gate](reports/S05_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S06 | 30 Nov | PASS | [S06 gate](reports/S06_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S07 | 1 Dec | PASS | [S07 gate](reports/S07_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S08 | 2 Dec | WIP | [S08 gate](reports/S08_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | GDS / precheck pending |
+| S08 | 2 Dec | PASS | [S08 gate](reports/S08_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | [Run #15 green](results/ci_S08.md) |
 | S09 | 3-4 Dec | TODO | | | | | | |
 | S10 | 5 Dec | TODO | | | | | | |
 | S11 | 6 Dec | TODO | | | | | | |
@@ -35,7 +35,6 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 
 ## OPEN QUESTIONS
 
-- GDS and precheck for the [8x4 template](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44679133846) and [S08 integration](results/ci_S08.md).
 
 ## Bug notes (after a stage PASS, reopened by review)
 | ID | Stage | Found by | Description | Fix commit | Re-run evidence |
