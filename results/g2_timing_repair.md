@@ -45,4 +45,38 @@ when PC 0 holds a valid word, then successful execution at PC 9 with
 PC 0 unwritten.
 [Trace results](../evidence/s11_trace_equiv_tb_top_s11/latest.json) · [Negative job](../evidence/s11_trace_equiv_tb_engine_c_neg_delayed_out/latest.json)
 
-Routed measurements are pending. [Repair 1 GDS run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44732758406)
+Repair 1 missed the +1.0 ns target in the slow corner. Its worst
+setup slack improved by 3.133 ns relative to the original routed result.
+The worst path ends at `pvm.engine.out_val[16]` with a 26.106 ns arrival
+time and a 20.346 ns requirement. GDS failed on setup timing. Precheck,
+gate-level simulation, and the viewer were skipped.
+[Repair 1 GDS run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44732758406) · [Routed reports](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44732758406/artifacts/14632930991)
+
+| Routed metric | Repair 1 |
+| --- | ---: |
+| Setup worst slack, slow | −5.761 ns |
+| Setup worst slack, typical / fast | +3.701 ns / +9.498 ns |
+| Setup total negative slack | −95.271 ns |
+| Setup violating endpoints | 23 |
+| Worst hold slack | +0.107 ns |
+| Standard cells | 22,539 |
+| Standard-cell utilization | 26.2945% |
+| Detailed routing violations | 0 |
+
+## Repair 2
+
+At ENABLE the instruction register loads the entry word. On the
+tick that completes an instruction, it captures the next word and
+validity bit at the resolved PC, or the injected EXEC word. The register
+holds through stalls, both WIDE transfer beats until completion, and
+delay ticks. PC advances at the existing architectural boundary.
+At ENABLE, the engine also computes and stores the modulo-20 pin
+selectors and masks from the static configuration.
+
+Repair 2 is **trace-equivalent to pre-repair RTL** across the
+27,578 core cycles. All 39 regression jobs were accepted, including
+the four trace comparisons and the delayed-output mutant.
+Verilator lint and the local cocotb smoke test passed.
+[Repair 2 top-level trace](../evidence/s11_trace_equiv_tb_top_s11/20261120T133322.json) · [Repair 2 mutant](../evidence/s11_trace_equiv_tb_engine_c_neg_delayed_out/20261120T133322.json)
+
+The 50 MHz physical rerun is pending.

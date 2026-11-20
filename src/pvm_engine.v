@@ -64,13 +64,14 @@ module pvm_engine (
     localparam [4:0] OSR_COUNT_RESET = 5'd16;
 
     reg [4:0] pc_q, delayed_pc_q, delay_q, osr_cnt_q, isr_cnt_q;
-    reg [15:0] x_q, y_q, osr_q, isr_q, exec_word_q, timeout_count_q;
+    reg [15:0] x_q, y_q, osr_q, isr_q, word_q, timeout_count_q;
     reg [7:0] wide_byte_q;
+    reg word_valid_q;
     reg stopped_q, stalled_q, wide_pending_q, exec_pending_q;
 
     reg [4:0] pc_d, osr_cnt_d, isr_cnt_d;
     reg [15:0] x_d, y_d, osr_d, isr_d, exec_word_d;
-    reg [19:0] out_d, oe_d;
+    wire [19:0] out_d, oe_d;
     reg [3:0] fab_d;
     reg [7:2] flags_d;
     reg illegal, done, write_fab, clear_arb, clear_unf, launch_exec;
@@ -78,16 +79,14 @@ module pvm_engine (
     reg [7:0] next_wide_byte, fifo_rx_data;
     reg [15:0] mov_src, mov_data, in_data;
     wire [15:0] sampled_pins;
-    genvar sample_index;
+    genvar sample_index, pin;
     reg jump_taken;
-    reg [4:0] pin_index;
     integer index;
 
-    wire [15:0] word = exec_pending_q ? exec_word_q : instr;
+    wire [15:0] word = word_q;
     wire [2:0] opcode = word[15:13];
     wire [7:0] flags = {user_flags, underrun, arb_lost};
     wire [4:0] instruction_delay;
-    wire [4:0] second_side_pin = protocol_pin(side_base, 5'd1);
     wire [4:0] default_threshold = wide ? 5'd16 : 5'd8;
     wire [4:0] pull_limit = pull_thresh != 5'd0 ? pull_thresh : default_threshold;
     wire [4:0] push_limit = push_thresh != 5'd0 ? push_thresh : default_threshold;
@@ -111,14 +110,16 @@ module pvm_engine (
     wire [5:0] out_count_sum = (refill ? 6'd0 : {1'b0, osr_cnt_q}) + {1'b0, shift_count};
     wire [15:0] push_data = opcode == OP_IN ? shifted_isr : isr_q;
     wire issue_cycle = engine_tick && delay_q == 5'd0;
-    wire invalid_fetch = !exec_pending_q && !instr_valid;
+    wire invalid_fetch = !exec_pending_q && !word_valid_q;
     wire issue_fault = invalid_fetch || illegal;
     wire timeout_tick;
     wire timeout_counts = timeout != 16'd0 && timeout_tick &&
                           (issue_cycle ? (!issue_fault && waiting) : stalled_q);
     wire timeout_due = timeout_counts && timeout_count_q == timeout - 16'd1;
 
-    assign rd_pc = pc_q;
+    // Prefetch at issue completion, including at CLKDIV=1. The word waits
+    // in the register while the current instruction's delay runs.
+    assign rd_pc = !rst_n ? 5'd0 : enable_pulse ? entry_pc : pc_d;
     assign eng_pc = pc_q;
     assign tx_pop = issue_cycle && !issue_fault && fifo_pop;
     assign rx_push = issue_cycle && !issue_fault && fifo_push;
@@ -147,10 +148,71 @@ module pvm_engine (
         end
     endfunction
 
+    function [4:0] pin_offset;
+        input [4:0] base, pin_number;
+        reg [5:0] wrapped;
+        begin
+            wrapped = {1'b0, pin_number} + 6'd20 - {1'b0, base};
+            if (wrapped >= 6'd20)
+                wrapped = wrapped - 6'd20;
+            pin_offset = wrapped[4:0];
+        end
+    endfunction
+
+    wire out_writes_pins = opcode == OP_OUT && !illegal && !waiting && !transfer_more;
+    wire mov_writes_pins = opcode == OP_MOV && !illegal && word[7:5] == 3'd0;
+    wire set_writes_pins = opcode == OP_SET;
+    wire first_issue = !stalled_q && !wide_pending_q;
+    wire [15:0] pin_write_data = mov_writes_pins ? mov_data : out_data;
+    wire [4:0] set_data = word[4:0];
+
     generate
+        // VALIDATE checks the bases and the configuration stays fixed in RUN.
+        // Compute the pin selectors at ENABLE instead of feeding dynamic
+        // writes through a chain of position decoders on each issue tick.
         for (sample_index = 0; sample_index < 16; sample_index = sample_index + 1) begin : input_pins
-            wire [4:0] source_pin = protocol_pin(in_base, sample_index[4:0]);
+            reg [4:0] source_pin;
+            always @(posedge clk)
+                if (!rst_n || enable_pulse)
+                    source_pin <= protocol_pin(in_base, sample_index[4:0]);
             assign sampled_pins[sample_index] = pin_in[source_pin];
+        end
+        for (pin = 0; pin < 20; pin = pin + 1) begin : output_pins
+            wire [4:0] out_offset = pin_offset(out_base, pin[4:0]);
+            wire [4:0] set_offset = pin_offset(set_base, pin[4:0]);
+            reg [3:0] out_lane;
+            reg [2:0] set_lane;
+            reg out_mapped, set_mapped, side_first, side_second;
+
+            always @(posedge clk) begin
+                if (!rst_n || enable_pulse) begin
+                    out_lane <= out_offset[3:0];
+                    set_lane <= set_offset[2:0];
+                    out_mapped <= out_offset < out_cnt && out_offset < 5'd16;
+                    set_mapped <= set_offset < {2'b00, set_cnt} && set_offset < 5'd5;
+                    side_first <= side_base == pin[4:0];
+                    side_second <= protocol_pin(side_base, 5'd1) == pin[4:0];
+                end
+            end
+
+            wire out_active = out_mapped && out_writes_pins && {1'b0, out_lane} < shift_count;
+            wire mov_active = out_mapped && mov_writes_pins;
+            wire set_active = set_mapped && set_writes_pins;
+            wire out_data_active = out_active && word[7:5] == 3'd0;
+            wire out_direction_active = out_active && word[7:5] == 3'd4;
+            wire set_data_active = set_active && word[7:5] == 3'd0;
+            wire set_direction_active = set_active && word[7:5] == 3'd4;
+            // Side-set overrides normal pin data, including on a stalled tick.
+            wire side_high = first_issue &&
+                             ((side_cnt == 2'd1 && side_first) || (side_cnt == 2'd2 && side_second));
+            wire side_low = first_issue && side_cnt == 2'd2 && side_first;
+
+            assign out_d[pin] = side_high ? word[12] :
+                                side_low ? word[11] :
+                                set_data_active ? set_data[set_lane] :
+                                (out_data_active || mov_active) ? pin_write_data[out_lane] : out_val[pin];
+            assign oe_d[pin] = set_direction_active ? set_data[set_lane] :
+                               out_direction_active ? out_data[out_lane] : oe_val[pin];
         end
     endgenerate
 
@@ -167,7 +229,6 @@ module pvm_engine (
     end
 
     always @(*) begin
-        pin_index = 5'd0;
         index = 0;
         case (word[2:0])
             3'd0: mov_src = sampled_pins;
@@ -205,8 +266,6 @@ module pvm_engine (
         fifo_rx_data = 8'h00;
         push_request = 1'b0;
         y_d = y_q;
-        out_d = out_val;
-        oe_d = oe_val;
         fab_d = fab_ctrl;
         flags_d = user_flags;
         illegal = 1'b0;
@@ -280,17 +339,7 @@ module pvm_engine (
                     osr_d = out_shr ? (out_source >> shift_count) : (out_source << shift_count);
                     osr_cnt_d = out_count_sum >= 6'd31 ? 5'd31 : out_count_sum[4:0];
                     case (word[7:5])
-                        3'd0, 3'd4: begin
-                            for (index = 0; index < 16; index = index + 1) begin
-                                pin_index = protocol_pin(out_base, index[4:0]);
-                                if (index[4:0] < out_cnt && index[4:0] < shift_count) begin
-                                    if (word[7:5] == 3'd0)
-                                        out_d[pin_index] = out_data[index];
-                                    else
-                                        oe_d[pin_index] = out_data[index];
-                                end
-                            end
-                        end
+                        3'd0, 3'd4: begin end
                         3'd1: x_d = out_data;
                         3'd2: y_d = out_data;
                         3'd3: begin end
@@ -336,13 +385,7 @@ module pvm_engine (
                     illegal = 1'b1;
                 else begin
                     case (word[7:5])
-                        3'd0: begin
-                            for (index = 0; index < 16; index = index + 1) begin
-                                pin_index = protocol_pin(out_base, index[4:0]);
-                                if (index[4:0] < out_cnt)
-                                    out_d[pin_index] = mov_data[index];
-                            end
-                        end
+                        3'd0: begin end
                         3'd1: x_d = mov_data;
                         3'd2: y_d = mov_data;
                         3'd3: begin
@@ -391,17 +434,7 @@ module pvm_engine (
             end
             OP_SET: begin
                 case (word[7:5])
-                    3'd0, 3'd4: begin
-                        for (index = 0; index < 5; index = index + 1) begin
-                            pin_index = protocol_pin(set_base, index[4:0]);
-                            if (index[2:0] < set_cnt) begin
-                                if (word[7:5] == 3'd0)
-                                    out_d[pin_index] = word[index];
-                                else
-                                    oe_d[pin_index] = word[index];
-                            end
-                        end
-                    end
+                    3'd0, 3'd4: begin end
                     3'd1: x_d = {11'd0, word[4:0]};
                     3'd2: y_d = {11'd0, word[4:0]};
                     3'd6: begin
@@ -433,16 +466,6 @@ module pvm_engine (
                 isr_cnt_d = 5'd0;
             end
         end
-
-        // Side-set takes priority on first issue, including the first stalled tick.
-        if (!stalled_q && !wide_pending_q) begin
-            if (side_cnt == 2'd1)
-                out_d[side_base] = word[12];
-            else if (side_cnt == 2'd2) begin
-                out_d[side_base] = word[11];
-                out_d[second_side_pin] = word[12];
-            end
-        end
     end
 
     always @(posedge clk) begin
@@ -456,7 +479,8 @@ module pvm_engine (
             isr_q <= 16'h0000;
             x_q <= 16'h0000;
             y_q <= 16'h0000;
-            exec_word_q <= 16'h0000;
+            word_q <= instr;
+            word_valid_q <= instr_valid;
             exec_pending_q <= 1'b0;
             wide_byte_q <= 8'h00;
             wide_pending_q <= 1'b0;
@@ -521,7 +545,11 @@ module pvm_engine (
                         evt_clr_unf <= clear_unf;
                         exec_pending_q <= launch_exec;
                         if (launch_exec)
-                            exec_word_q <= exec_word_d;
+                            word_q <= exec_word_d;
+                        else begin
+                            word_q <= instr;
+                            word_valid_q <= instr_valid;
+                        end
 
                         // The parent PC is held through both instructions and both delays.
                         if (done) begin

@@ -18,4 +18,6 @@ fetch as the common path. [S11 gate](reports/S11_gate.md) · [G2 report](results
 Under S11 §7 and the project method §8, S12 depends on a passing G2
 rerun. Kalash approved the entry-point lookup repair and pre-approved
 the instruction register and static pin mapping if the first repair
-leaves slow-corner setup slack below +1.0 ns. [D-016](spec/DECISIONS.md#d-016--s11-g2-timing-repair-at-50-mhz) · [Repair evidence](results/g2_timing_repair.md)
+leaves slow-corner setup slack below +1.0 ns. Repair 1 measured
+−5.761 ns, so the second repair is now under physical verification.
+[D-016](spec/DECISIONS.md#d-016--s11-g2-timing-repair-at-50-mhz) · [Repair evidence](results/g2_timing_repair.md)
