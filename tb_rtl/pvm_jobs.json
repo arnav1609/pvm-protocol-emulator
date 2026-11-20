@@ -103,6 +103,39 @@
       "expect_fail_checks": [
         "CLR_RESTART"
       ]
+    },
+    {
+      "id": "s03_imem",
+      "selection": "S03",
+      "top": "tb_imem",
+      "sources": [
+        "src/pvm_imem.v",
+        "tb_rtl/tb_imem.v"
+      ],
+      "checks": 8,
+      "checks_basis": "Frozen on 2026-11-20 before first run: RESET_INVALID, LOWBYTE_NOT_VALID, HIGHBYTE_SETS_VALID, ALL32_PATTERN, BUS_READ_MASK, CLR_VALID, REWRITE_SAME_WORD, BOUNDARY_WORD31."
+    },
+    {
+      "id": "s03_imem_neg_unmasked",
+      "selection": "S03",
+      "top": "tb_imem",
+      "sources": [
+        "src/pvm_imem.v",
+        "tb_rtl/tb_imem.v"
+      ],
+      "checks": 8,
+      "checks_basis": "Serve stale bytes on bus reads when instruction validity is clear.",
+      "negative": true,
+      "variant_of": "s03_imem",
+      "mutant": {
+        "file": "src/pvm_imem.v",
+        "anchor": "valid_q[bus_word] ? bus_byte : 8'h00",
+        "replace": "bus_byte"
+      },
+      "expect_fail_checks": [
+        "BUS_READ_MASK",
+        "CLR_VALID"
+      ]
     }
   ]
 }
