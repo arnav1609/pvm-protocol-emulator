@@ -1,18 +1,20 @@
 ## How it works
 
-PVM is a reprogrammable protocol emulator planned for Tiny Tapeout IHP. The
-design will load a program and pin configuration over SPI, drive protocol
-signals with a small instruction engine and programmable pin logic, and
-observe timing with a passive monitor.
+PVM is a reprogrammable protocol emulator for Tiny Tapeout IHP. The host
+loads an instruction image and pin configuration over SPI. The on-chip
+state machine checks the image CRC and pin configuration before it enables
+the program. The pin guard selects the configured owners and returns
+pins to their idle or high-impedance states outside RUN.
 
-The setup baseline uses the Tiny Tapeout template adder. It adds two
-unsigned 8-bit inputs, A on the dedicated input pins and B on the
-bidirectional pins, and exposes the low eight bits on the dedicated
-outputs. The baseline adder is combinational.
+The current integration covers host SPI, configuration and validation,
+instruction storage, FIFO access, and pin safety. The engine, programmable
+pin fabric, and passive monitor are added in later RTL stages.
 
 ## How to test
 
-The template test drives 20 on the dedicated inputs and 30 on the
-bidirectional inputs, then checks for 50 on the dedicated outputs. Run
-`make` in `test/` with Icarus Verilog and the Python dependencies in
-`test/requirements.txt`, or check the repository's test workflow.
+Run `make` in `test/` with Icarus Verilog and the Python dependencies in
+`test/requirements.txt`. The smoke test reads the SPI ID, loads and
+validates a small image, reads back its committed ID, and checks that
+HALT restores the configured idle output and releases the bidirectional
+pins. The SPI interface uses mode 0, MSB first, at up to one sixteenth of
+the core clock.

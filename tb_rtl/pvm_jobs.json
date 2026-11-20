@@ -383,6 +383,82 @@
         "IMAGE_ID_LATCHED",
         "REVALIDATE_AFTER_HALT"
       ]
+    },
+    {
+      "id": "s08_pin_guard",
+      "selection": "S08",
+      "top": "tb_pin_guard",
+      "sources": [
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_pin_guard.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Frozen on 2026-11-20 before first run: NOT_RUN_SAFE, OWNER_NONE_IDLE, ENGINE_PUSHPULL, ENGINE_OE_UIO, UO_ALWAYS_ENABLED, FABRIC_OWNER_L0, FABRIC_OWNER_L1, FABRIC_OWNER_L2, FABRIC_OWNER_L3, INVERT, OD_LOW_DRIVES, OD_HIGH_RELEASES, OD_NEVER_OE_AND_1, ARB_FORCE_RELEASE, ARB_OTHER_PINS_UNAFFECTED, LATENCY_1_CYCLE, READBACK_ALIGNED."
+    },
+    {
+      "id": "s08_pin_guard_neg_od_one",
+      "selection": "S08",
+      "top": "tb_pin_guard",
+      "sources": [
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_pin_guard.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Drive data high in open-drain mode.",
+      "negative": true,
+      "variant_of": "s08_pin_guard",
+      "mutant": {
+        "file": "src/pvm_pin_guard.v",
+        "anchor": "open_drain ? 1'b0 : value",
+        "replace": "open_drain ? 1'b1 : value"
+      },
+      "expect_fail_checks": [
+        "OD_LOW_DRIVES",
+        "OD_HIGH_RELEASES",
+        "OD_NEVER_OE_AND_1"
+      ]
+    },
+    {
+      "id": "s08_pin_guard_neg_run_gate",
+      "selection": "S08",
+      "top": "tb_pin_guard",
+      "sources": [
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_pin_guard.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Leave bidirectional output enables active outside RUN.",
+      "negative": true,
+      "variant_of": "s08_pin_guard",
+      "mutant": {
+        "file": "src/pvm_pin_guard.v",
+        "anchor": "running && !arb_block && owner_enable",
+        "replace": "!arb_block && owner_enable"
+      },
+      "expect_fail_checks": [
+        "NOT_RUN_SAFE"
+      ]
+    },
+    {
+      "id": "s08_pin_guard_neg_arb",
+      "selection": "S08",
+      "top": "tb_pin_guard",
+      "sources": [
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_pin_guard.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Ignore arbitration loss for configured SDA and SCL.",
+      "negative": true,
+      "variant_of": "s08_pin_guard",
+      "mutant": {
+        "file": "src/pvm_pin_guard.v",
+        "anchor": "arb_en && arb_lost && ((PIN == arb_sda) || (PIN == arb_scl))",
+        "replace": "1'b0"
+      },
+      "expect_fail_checks": [
+        "ARB_FORCE_RELEASE"
+      ]
     }
   ]
 }
