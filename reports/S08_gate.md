@@ -20,4 +20,4 @@ Verilator 5.032 lint passed for the pin guard and the Tiny Tapeout wrapper (with
 
 The cocotb smoke test passed in Icarus (1/1), covering SPI ID, program and pin configuration, CRC and committed image ID, and HALT pin safety. [Local log](../evidence/setup/s08_cocotb.log)
 
-GitHub Actions test, GDS, and precheck must be evaluated for this integration commit. [Branch workflows](https://github.com/arnav1609/pvm-protocol-emulator/actions?query=branch%3Acodex%2Fpvm-rtl)
+GitHub Actions test and docs passed for the integration commit. GDS and precheck are pending. [CI results](../results/ci_S08.md)

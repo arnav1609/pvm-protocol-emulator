@@ -29,7 +29,7 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 
 ## OPEN QUESTIONS
 
-- [Baseline GDS and precheck](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44679133846) for the 8x4 template.
+- GDS and precheck for the [8x4 template](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44679133846) and [S08 integration](results/ci_S08.md).
 
 ## Bug notes (after a stage PASS, reopened by review)
 | ID | Stage | Found by | Description | Fix commit | Re-run evidence |
