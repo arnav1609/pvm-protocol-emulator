@@ -26,7 +26,9 @@ experiment variants. [Repository branch](https://github.com/arnav1609/pvm-protoc
 - Variant D routed at 50 MHz with +2.461 ns slow-corner setup slack and
   33.7187% utilization. GDS, gate-level SPI smoke, and the Pages viewer
   passed. Use the CI record for the final precheck status.
-  [Variant D CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345)
+  The three pin benches also passed a local functional replay of the
+  routed netlist using Icarus 13.0.
+  [Variant D CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44778669345) · [Gate replay evidence](../evidence/setup/s14_gate_protocols.log)
 
 ## Heet's task list
 
