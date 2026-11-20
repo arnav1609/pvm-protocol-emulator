@@ -3,7 +3,7 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 
 | Stage | Plan date | State (TODO/WIP/PASS/FAIL/BLOCKED) | Gate report | Jobs accepted/total | Claim level | XSim (Kalash, weekly) | ISS cross-check (Arnav) | CI |
 |---|---|---|---|---|---|---|---|---|
-| S01 | 25 Nov | BLOCKED | [W0 blocker](BLOCKED.md) | 0/0 | | | | GDS failed, precheck skipped |
+| S01 | 25 Nov | PASS | [S01 gate](reports/S01_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
 | S02 | 26 Nov | TODO | | | | | | |
 | S03 | 27 Nov | TODO | | | | | | |
 | S04 | 28 Nov | TODO | | | | | | |
@@ -18,11 +18,16 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S13 | 8-9 Dec | TODO | | | | | | |
 | S14 | 10 Dec | TODO | | | | | | |
 
+## Setup
+
+- The owner approved D-008 through D-011 and interface revision 0 in the project conversation on 20 November 2026.
+- The workspace uses Verilog-2005 and the handoff runner. [Runner self-test](evidence/setup/runner_selftest.log)
+- The baseline uses the repository owner's GitHub handle for the planned wrapper name, `tt_um_arnav1609_pvm`.
+- The 8x4 baseline is under review. [Setup pull request](https://github.com/arnav1609/pvm-protocol-emulator/pull/1)
+
 ## OPEN QUESTIONS
 
-- Which commit on `main` establishes the 8x4 Tiny Tapeout IHP baseline, and which Actions runs show test, GDS, and precheck passing?
-- What GitHub username should the Tiny Tapeout wrapper use?
-- Where are Kalash and Arnav's approvals for D-008 through D-011, including interface revision 0?
+- [Baseline GDS and precheck](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44679133846) for the 8x4 template.
 
 ## Bug notes (after a stage PASS, reopened by review)
 | ID | Stage | Found by | Description | Fix commit | Re-run evidence |

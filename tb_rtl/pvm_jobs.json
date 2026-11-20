@@ -1,4 +1,29 @@
 {
   "schema": 1,
-  "jobs": []
+  "jobs": [
+    {
+      "id": "s01_primitives",
+      "selection": "S01",
+      "top": "tb_primitives",
+      "sources": ["src/pvm_sync2.v", "src/pvm_edge.v", "src/pvm_tick.v", "src/pvm_presc.v", "tb_rtl/tb_primitives.v"],
+      "checks": 17,
+      "checks_basis": "17 checks frozen before first run on 2026-11-20: SYNC_LATENCY_2, SYNC_RESET_VAL, EDGE_RISE, EDGE_FALL, EDGE_NO_CHANGE, TICK_DIV0, TICK_DIV1, TICK_DIV5_PERIOD, TICK_DIV65535, TICK_RESTART, TICK_RUN_LOW_NO_TICK, PRESC_SEL0, PRESC_SEL1, PRESC_SEL2, PRESC_SEL3, PRESC_RESTART, MID_RUN_RESET."
+    },
+    {
+      "id": "s01_primitives_neg_sync_bypass",
+      "selection": "S01",
+      "top": "tb_primitives",
+      "sources": ["src/pvm_sync2.v", "src/pvm_edge.v", "src/pvm_tick.v", "src/pvm_presc.v", "tb_rtl/tb_primitives.v"],
+      "checks": 17,
+      "checks_basis": "Same frozen checks as s01_primitives, with the synchronizer output bypassing the first flop to target SYNC_LATENCY_2.",
+      "negative": true,
+      "variant_of": "s01_primitives",
+      "mutant": {
+        "file": "src/pvm_sync2.v",
+        "anchor": "q <= sample_q;",
+        "replace": "q <= d;"
+      },
+      "expect_fail_checks": ["SYNC_LATENCY_2"]
+    }
+  ]
 }

@@ -1,4 +1,4 @@
-# BLOCKED — W0 setup before S01
+# W0 baseline setup history
 
 **Since:** 20 November 2026, IST
 
@@ -19,10 +19,8 @@ Error loading /home/runner/work/pvm-protocol-emulator/pvm-protocol-emulator/info
 
 The docs log also flags the empty pinout and missing “How it works” and “How to test” sections in `docs/info.md`. [Build docs log](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44676627805/job/136089886321)
 
-## Needed to resume
+## Current setup
 
-- Kalash to establish the 8x4 template on `main` and provide or identify the commit with passing test, GDS, and precheck runs.
-- Kalash to confirm the GitHub username for the final Tiny Tapeout wrapper.
-- Kalash and Arnav to record approval of D-008 through D-011, including interface revision 0. The uploaded decision register lists all four as proposed.
+The 8x4 metadata and template documentation are in [draft PR #1](https://github.com/arnav1609/pvm-protocol-emulator/pull/1). The owner approved interface revision 0 and D-008 through D-011. Baseline tests and docs passed. [Baseline GDS and precheck](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44679133846) are the remaining setup checks.
 
 Handoff references are `BLUEPRINT.md` sections 4, 5, and 7 and `spec/DECISIONS.md` D-008 through D-011.
