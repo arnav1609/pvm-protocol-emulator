@@ -136,6 +136,42 @@
         "BUS_READ_MASK",
         "CLR_VALID"
       ]
+    },
+    {
+      "id": "s04_spi_byte",
+      "selection": "S04",
+      "top": "tb_spi_byte",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "tb_rtl/tb_spi_byte.v"
+      ],
+      "checks": 8,
+      "checks_basis": "Frozen on 2026-11-20 before first run: RX_A5, RX_BACK_TO_BACK_16BYTES, TX_LOAD_96, TX_DEFAULT_ZERO, CS_ABORT_MIDBYTE, FRAME_START_END, SCK_GLITCH_WHEN_CS_HIGH, SLOWEST_SCK."
+    },
+    {
+      "id": "s04_spi_byte_neg_msb",
+      "selection": "S04",
+      "top": "tb_spi_byte",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "tb_rtl/tb_spi_byte.v"
+      ],
+      "checks": 8,
+      "checks_basis": "Drop the first MISO bit of a pending byte.",
+      "negative": true,
+      "variant_of": "s04_spi_byte",
+      "mutant": {
+        "file": "src/pvm_spi_byte.v",
+        "anchor": "miso_q <= next_tx_byte[7];",
+        "replace": "miso_q <= 1'b0;"
+      },
+      "expect_fail_checks": [
+        "TX_LOAD_96"
+      ]
     }
   ]
 }
