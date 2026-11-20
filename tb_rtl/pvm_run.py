@@ -19,13 +19,11 @@ Retries: none. A timeout is never a pass or a kill. Old evidence is never relabe
 timestamped record and updates latest.json.
 """
 import argparse, datetime, hashlib, json, os, re, shutil, subprocess, sys
+import pvm_trace_jobs
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 REG = os.path.join(ROOT, 'tb_rtl', 'pvm_jobs.json')
 EVID = os.path.join(ROOT, 'evidence')
-BUILD = os.path.join(ROOT, 'tb_rtl', 'build')
-
-
 def sha(p):
     with open(p, 'rb') as f:
         return hashlib.sha256(f.read()).hexdigest()
@@ -66,19 +64,30 @@ def apply_mutant(text, anchor, replace):
     return text.replace(anchor, replace)
 
 
-def run_job(job, reg):
-    jid = job['id']; bdir = os.path.join(BUILD, jid)
+def resolve_job(job, reg):
+    if 'trace_of' not in job:
+        return job
+    bench = next(source for source in reg['jobs'] if source['id'] == job['trace_of'])
+    return {**bench, **job, 'bench_checks': bench['checks']}
+
+
+def run_job(job, root=ROOT, capture_trace=False):
+    jid = job['id']; bdir = os.path.join(root, 'tb_rtl', 'build', jid)
     if os.path.isdir(bdir): shutil.rmtree(bdir)
     os.makedirs(bdir)
-    srcs = [os.path.join(ROOT, s) for s in job['sources']]
+    srcs = [os.path.join(root, s) for s in job['sources']]
     names = [os.path.basename(s) for s in srcs]
     if len(set(names)) != len(names):
         return 'COMPILE_FAIL', {'error': 'duplicate source file name in list'}, ''
     mut = job.get('mutant')
     if mut:
-        target = os.path.join(ROOT, mut['file'])
+        target = os.path.join(root, mut['file'])
         try:
-            txt = apply_mutant(open(target).read(), mut['anchor'], mut['replace'])
+            source = open(target).read()
+            if 'delay_output' in mut:
+                txt = pvm_trace_jobs.delay_output(source, mut['delay_output'], apply_mutant)
+            else:
+                txt = apply_mutant(source, mut['anchor'], mut['replace'])
         except ValueError as e:
             return 'MUTANT_ANCHOR_ERROR', {'error': str(e)}, ''
         mpath = os.path.join(bdir, os.path.basename(target))
@@ -86,16 +95,33 @@ def run_job(job, reg):
         srcs = [mpath if os.path.abspath(s) == os.path.abspath(target) else s for s in srcs]
     vvp = os.path.join(bdir, 'sim.vvp')
     cmd = ['iverilog', '-g2005', '-Wall', '-s', job['top'], '-o', vvp] + \
-          [f'-D{d}' for d in job.get('defines', [])] + [f'-I{os.path.join(ROOT, i)}' for i in job.get('include_dirs', [])] + srcs
+          [f'-D{d}' for d in job.get('defines', [])] + [f'-I{os.path.join(root, i)}' for i in job.get('include_dirs', [])] + srcs
     c = subprocess.run(cmd, capture_output=True, text=True)
     if c.returncode != 0:
         return 'COMPILE_FAIL', {'cmd': ' '.join(cmd)}, c.stdout + c.stderr
     try:
-        r = subprocess.run(['vvp', '-n', vvp], capture_output=True, text=True, timeout=job.get('sim_timeout', 600))
+        trace_job = 'trace_of' in job
+        args = ['+TRACE'] if trace_job else []
+        r = subprocess.run(['vvp', '-n', vvp, *args], cwd=bdir if trace_job else None,
+                           capture_output=True, text=True, timeout=job.get('sim_timeout', 600))
         log = c.stdout + c.stderr + r.stdout + r.stderr
     except subprocess.TimeoutExpired as e:
         return 'TIMEOUT', {'cmd': ' '.join(cmd)}, str(e)
     p = parse(log)
+    if trace_job:
+        if (r.returncode or p['timeout'] or p['checks'] != job['bench_checks'] or
+                (not job.get('negative') and p['result'] != 'PASS') or p['result'] is None):
+            return 'TRACE_BENCH_FAIL', dict(parsed=p, cmd=' '.join(cmd)), log
+        trace = os.path.join(bdir, 'trace.csv')
+        if capture_trace:
+            return 'PASS_FRESH', {'trace': trace}, log
+        try:
+            detail, trace_result = pvm_trace_jobs.compare(root, job, trace)
+        except (OSError, ValueError, KeyError) as e:
+            return 'TRACE_INPUT_ERROR', {'error': str(e)}, log + f'\nTRACE_INPUT_ERROR {e}\n'
+        log = '\n'.join(f'TB: {line}' for line in log.splitlines()) + '\n' + detail
+        p = parse(log)
+        return judge(job, p), dict(parsed=p, cmd=' '.join(cmd), trace=trace_result), log
     return judge(job, p), dict(parsed=p, cmd=' '.join(cmd)), log
 
 
@@ -107,12 +133,14 @@ def cmd_run(sel):
     iv = subprocess.run(['iverilog', '-V'], capture_output=True, text=True).stdout.splitlines()[0]
     bad = 0
     for j in jobs:
-        state, info, log = run_job(j, reg)
+        j = resolve_job(j, reg)
+        state, info, log = run_job(j)
+        inputs = j['sources'] + (['tb_rtl/pvm_trace_jobs.py', 'tb_rtl/pvm_run.py'] if 'trace_of' in j else [])
         ts = datetime.datetime.now().strftime('%Y%m%dT%H%M%S')
         d = os.path.join(EVID, j['id']); os.makedirs(d, exist_ok=True)
         rec = dict(id=j['id'], state=state, selection=j['selection'], frozen_checks=j['checks'],
                    checks_basis=j['checks_basis'], negative=bool(j.get('negative')), variant_of=j.get('variant_of'),
-                   tool=iv, date=ts, sources={s: sha(os.path.join(ROOT, s)) for s in j['sources']}, **info)
+                   tool=iv, date=ts, sources={s: sha(os.path.join(ROOT, s)) for s in inputs}, **info)
         open(os.path.join(d, f'{ts}.log'), 'w').write(log)
         open(os.path.join(d, f'{ts}.json'), 'w').write(json.dumps(rec, indent=1))
         open(os.path.join(d, 'latest.json'), 'w').write(json.dumps(rec, indent=1))
@@ -154,8 +182,14 @@ def main():
     ap = argparse.ArgumentParser(); sp = ap.add_subparsers(dest='c', required=True)
     r = sp.add_parser('run'); r.add_argument('--select', required=True)
     sp.add_parser('selftest'); sp.add_parser('list')
+    sp.add_parser('trace-golden').add_argument('--check', action='store_true')
     a = ap.parse_args()
     if a.c == 'selftest': sys.exit(cmd_selftest())
+    if a.c == 'trace-golden':
+        reg = json.load(open(REG))
+        jobs = [resolve_job(job, reg) for job in reg['jobs']
+                if 'trace_of' in job and not job.get('negative')]
+        sys.exit(pvm_trace_jobs.generate(ROOT, jobs, run_job, a.check))
     if a.c == 'list':
         for j in json.load(open(REG))['jobs']:
             print(j['selection'], j['id'], j['checks'], 'NEG' if j.get('negative') else '')

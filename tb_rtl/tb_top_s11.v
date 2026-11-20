@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-// S11: two frozen end-to-end SPI-to-pin checks. The bench accesses pads only.
+// S11: two frozen end-to-end SPI-to-pin checks through the pads.
 module tb_top_s11;
     localparam [15:0] CTRL = 16'h0f00;
     reg clk = 1'b0, rst_n = 1'b0;
@@ -17,6 +17,15 @@ module tb_top_s11;
     pvm_top dut (
         .ui_in(ui), .uo_out(uo), .uio_in(8'h00), .uio_out(uio_out), .uio_oe(uio_oe),
         .clk(clk), .rst_n(rst_n)
+    );
+
+    pvm_trace trace (
+        .clk(clk), .run_state(dut.state), .pc(dut.engine_pc),
+        .instr_valid(dut.engine.issue_cycle && !dut.engine.invalid_fetch),
+        .out_val(dut.engine_out), .oe_val(dut.engine_oe),
+        .fab_ctrl(dut.engine.fab_ctrl), .fab_wr(dut.engine.fab_wr),
+        .tx_pop(dut.engine_tx_pop), .rx_push(dut.engine_rx_push), .rx_din(dut.engine_rx_data),
+        .fault_req(dut.eng_fault_req), .fault_code(dut.eng_fault_code)
     );
 
     task edge_sample;

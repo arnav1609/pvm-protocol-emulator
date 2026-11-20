@@ -20,4 +20,6 @@ Verilator 5.032 lint passed. Yosys 0.52 reported zero structural issues and no l
 
 The engine, instruction-memory addressing, both FIFO paths, and lifecycle faults are wired into the Tiny Tapeout top. GitHub Actions passed the RTL smoke and datasheet jobs on commit `4b13f45`. The routed 8×4 design used 26.21% of the area against a 40% limit. Its setup WNS was −8.894 ns at 50 MHz, so the GDS job failed and skipped precheck, gate-level simulation, and the Pages viewer. [CI results](../results/ci_S11.md) · [G2 timing report](../results/g2_area_timing.md)
 
-S11 is blocked at G2. S12 depends on reopening and passing the gate. [Blocker](../BLOCKED.md)
+S11 is blocked at G2. Repair 1 passed the original frozen checks and
+matched the accepted pre-repair RTL in all four D-016 trace comparisons.
+The rerun at 50 MHz is pending. [Blocker](../BLOCKED.md) · [Repair evidence](../results/g2_timing_repair.md)

@@ -114,11 +114,15 @@ Approved by Kalash in chat on 20 November 2026.
    branch, wrap, EXEC, and all other tick-level behavior.
 
 Acceptance requires the unchanged frozen S09–S11 checks and full
-regression to pass, with identical ISS traces. The 8×4 design must meet
+regression to pass. For D-016, Kalash designated the accepted pre-repair
+RTL at `4b13f45` as the trace reference. The four `+TRACE` CSV
+comparisons must match every core cycle, and the one-cycle `out_val`
+delay mutant must fail its trace comparison. The ISS is a separate
+toolchain deliverable. The 8×4 design must meet
 the area limit and have at least +1.0 ns routed setup slack at
 `nom_slow_1p08V_125C` with the existing 20 ns clock, with GDS, Tiny
 Tapeout precheck, gate-level simulation, and the Pages viewer green.
 S12 remains blocked until G2 passes. Clock and pin-map changes require
 a new owner decision. If both repairs miss the timing target, report
 the remaining path and stop for that decision.
-[Original G2 failure](../results/g2_area_timing.md)
+[Original G2 failure](../results/g2_area_timing.md) · [Trace provenance](../tb_rtl/vectors/golden_provenance.json)

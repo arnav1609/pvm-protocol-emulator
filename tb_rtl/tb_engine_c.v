@@ -34,6 +34,14 @@ module tb_engine_c;
         .eng_done_req(), .eng_fault_req(fault), .eng_fault_code(code)
     );
 
+    pvm_trace trace (
+        .clk(clk), .run_state({2'b00, run}), .pc(pc),
+        .instr_valid(dut.issue_cycle && !dut.invalid_fetch),
+        .out_val(out_val), .oe_val(dut.oe_val), .fab_ctrl(dut.fab_ctrl), .fab_wr(dut.fab_wr),
+        .tx_pop(tx_pop), .rx_push(rx_push), .rx_din(dut.rx_din),
+        .fault_req(fault), .fault_code(code)
+    );
+
     task cycle;
         begin @(posedge clk); #1; end
     endtask

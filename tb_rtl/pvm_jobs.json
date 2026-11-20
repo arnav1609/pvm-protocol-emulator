@@ -468,10 +468,11 @@
         "src/pvm_tick.v",
         "src/pvm_presc.v",
         "src/pvm_engine.v",
-        "tb_rtl/tb_engine_a.v"
+        "tb_rtl/tb_engine_a.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 33,
-      "checks_basis": "Frozen on 2026-11-20 before the first run. TB-model-checked (ISS pending). cond 0 has no not-taken case; cond 7 taken deferred to S10 (needs PULL). Checks: CLKDIV1_TIMING, CLKDIV3_TIMING, DELAY_MAX_31, SIDESET_1BIT, SIDESET_2BIT_PRIORITY_OVER_SET, WRAP, JMP_COND_0_TAKEN, JMP_COND_1_TAKEN, JMP_COND_1_NOT_TAKEN, JMP_COND_2_TAKEN, JMP_COND_2_NOT_TAKEN, JMP_COND_3_TAKEN, JMP_COND_3_NOT_TAKEN, JMP_COND_4_TAKEN, JMP_COND_4_NOT_TAKEN, JMP_COND_5_TAKEN, JMP_COND_5_NOT_TAKEN, JMP_COND_6_TAKEN, JMP_COND_6_NOT_TAKEN, JMP_COND_7_NOT_TAKEN, XDEC_LOOP_COUNT, SET_PINS_BASE_WRAP_MOD20, SET_PINDIRS, SET_FAB_PULSE, MOV_X_Y_INVERT_REVERSE, MOV_PC, EVT_SET_CLR_FLAGS, EVT_CLR_ARB_PULSE, EVT_DONE, INVALID_WORD_FAULT_PC, ILLEGAL_ENCODINGS, ENABLE_REINIT, WORKED_ENCODINGS."
+      "checks_basis": "Frozen on 2026-11-20 before the first run. TB-model-checked (ISS pending). cond 0 has no not-taken case; cond 7 taken deferred to S10 (needs PULL). Checks: CLKDIV1_TIMING, CLKDIV3_TIMING, DELAY_MAX_31, SIDESET_1BIT, SIDESET_2BIT_PRIORITY_OVER_SET, WRAP, JMP_COND_0_TAKEN, JMP_COND_1_TAKEN, JMP_COND_1_NOT_TAKEN, JMP_COND_2_TAKEN, JMP_COND_2_NOT_TAKEN, JMP_COND_3_TAKEN, JMP_COND_3_NOT_TAKEN, JMP_COND_4_TAKEN, JMP_COND_4_NOT_TAKEN, JMP_COND_5_TAKEN, JMP_COND_5_NOT_TAKEN, JMP_COND_6_TAKEN, JMP_COND_6_NOT_TAKEN, JMP_COND_7_NOT_TAKEN, XDEC_LOOP_COUNT, SET_PINS_BASE_WRAP_MOD20, SET_PINDIRS, SET_FAB_PULSE, MOV_X_Y_INVERT_REVERSE, MOV_PC, EVT_SET_CLR_FLAGS, EVT_CLR_ARB_PULSE, EVT_DONE, INVALID_WORD_FAULT_PC, ILLEGAL_ENCODINGS, ENABLE_REINIT, WORKED_ENCODINGS. D-016 +TRACE only records CSV; all frozen checks remain unchanged."
     },
     {
       "id": "s09_engine_a_neg_jmp7",
@@ -481,10 +482,11 @@
         "src/pvm_tick.v",
         "src/pvm_presc.v",
         "src/pvm_engine.v",
-        "tb_rtl/tb_engine_a.v"
+        "tb_rtl/tb_engine_a.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 33,
-      "checks_basis": "Frozen on 2026-11-20 before the first run. TB-model-checked (ISS pending). cond 0 has no not-taken case; cond 7 taken deferred to S10 (needs PULL). Checks: CLKDIV1_TIMING, CLKDIV3_TIMING, DELAY_MAX_31, SIDESET_1BIT, SIDESET_2BIT_PRIORITY_OVER_SET, WRAP, JMP_COND_0_TAKEN, JMP_COND_1_TAKEN, JMP_COND_1_NOT_TAKEN, JMP_COND_2_TAKEN, JMP_COND_2_NOT_TAKEN, JMP_COND_3_TAKEN, JMP_COND_3_NOT_TAKEN, JMP_COND_4_TAKEN, JMP_COND_4_NOT_TAKEN, JMP_COND_5_TAKEN, JMP_COND_5_NOT_TAKEN, JMP_COND_6_TAKEN, JMP_COND_6_NOT_TAKEN, JMP_COND_7_NOT_TAKEN, XDEC_LOOP_COUNT, SET_PINS_BASE_WRAP_MOD20, SET_PINDIRS, SET_FAB_PULSE, MOV_X_Y_INVERT_REVERSE, MOV_PC, EVT_SET_CLR_FLAGS, EVT_CLR_ARB_PULSE, EVT_DONE, INVALID_WORD_FAULT_PC, ILLEGAL_ENCODINGS, ENABLE_REINIT, WORKED_ENCODINGS.",
+      "checks_basis": "Frozen on 2026-11-20 before the first run. TB-model-checked (ISS pending). cond 0 has no not-taken case; cond 7 taken deferred to S10 (needs PULL). Checks: CLKDIV1_TIMING, CLKDIV3_TIMING, DELAY_MAX_31, SIDESET_1BIT, SIDESET_2BIT_PRIORITY_OVER_SET, WRAP, JMP_COND_0_TAKEN, JMP_COND_1_TAKEN, JMP_COND_1_NOT_TAKEN, JMP_COND_2_TAKEN, JMP_COND_2_NOT_TAKEN, JMP_COND_3_TAKEN, JMP_COND_3_NOT_TAKEN, JMP_COND_4_TAKEN, JMP_COND_4_NOT_TAKEN, JMP_COND_5_TAKEN, JMP_COND_5_NOT_TAKEN, JMP_COND_6_TAKEN, JMP_COND_6_NOT_TAKEN, JMP_COND_7_NOT_TAKEN, XDEC_LOOP_COUNT, SET_PINS_BASE_WRAP_MOD20, SET_PINDIRS, SET_FAB_PULSE, MOV_X_Y_INVERT_REVERSE, MOV_PC, EVT_SET_CLR_FLAGS, EVT_CLR_ARB_PULSE, EVT_DONE, INVALID_WORD_FAULT_PC, ILLEGAL_ENCODINGS, ENABLE_REINIT, WORKED_ENCODINGS. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
       "negative": true,
       "variant_of": "s09_engine_a",
       "mutant": {
@@ -505,10 +507,11 @@
         "src/pvm_presc.v",
         "src/pvm_fifo.v",
         "src/pvm_engine.v",
-        "tb_rtl/tb_engine_b.v"
+        "tb_rtl/tb_engine_b.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 40,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). D-014 uses two consecutive engine ticks; D-015 freezes injected instruction timing and faults. JMP_COND_7_TAKEN was deferred from S09 until PULL. Checks: PULL_BLOCK_STALL_THEN_GO, PULL_NONBLOCK_EMPTY_COPIES_X, PULL_IFEMPTY_SKIP, PUSH_BLOCK_FULL_STALL, PUSH_NONBLOCK_DROP, PUSH_IFFULL, OUT_SHR_LSB_FIRST, OUT_SHL_MSB_FIRST, OUT_COUNT_16, OUT_PINDIRS, OUT_PC, IN_PINS_BASE, IN_SHR, IN_SHL, AUTOPULL_THRESH_8, AUTOPUSH_THRESH_8, WIDE_PULL_2BYTES_LE, WIDE_PUSH_NEEDS_2_SLOTS, WIDE_NO_PARTIAL_STALL, WIDE_AUTOPULL, WIDE_AUTOPUSH, JMP_COND_7_TAKEN, OUT_EXEC_PARENT_AND_INJECTED_DELAY, OUT_EXEC_WRAP, OUT_EXEC_JUMP, OUT_EXEC_SIDESET_WAIT, OUT_EXEC_NESTED_FAULT, OUT_EXEC_ILLEGAL_FAULT, OUT_EXEC_WAIT_TIMEOUT, OUT_EXEC_BLOCKING_FIFO, MOV_EXEC_PARENT_AND_INJECTED_DELAY, MOV_EXEC_WRAP, MOV_EXEC_JUMP, MOV_EXEC_SIDESET_WAIT, MOV_EXEC_NESTED_FAULT, MOV_EXEC_ILLEGAL_FAULT, MOV_EXEC_WAIT_TIMEOUT, MOV_EXEC_BLOCKING_FIFO, UART_TX_0x35_WAVEFORM, UART_RX_LOOPBACK."
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). D-014 uses two consecutive engine ticks; D-015 freezes injected instruction timing and faults. JMP_COND_7_TAKEN was deferred from S09 until PULL. Checks: PULL_BLOCK_STALL_THEN_GO, PULL_NONBLOCK_EMPTY_COPIES_X, PULL_IFEMPTY_SKIP, PUSH_BLOCK_FULL_STALL, PUSH_NONBLOCK_DROP, PUSH_IFFULL, OUT_SHR_LSB_FIRST, OUT_SHL_MSB_FIRST, OUT_COUNT_16, OUT_PINDIRS, OUT_PC, IN_PINS_BASE, IN_SHR, IN_SHL, AUTOPULL_THRESH_8, AUTOPUSH_THRESH_8, WIDE_PULL_2BYTES_LE, WIDE_PUSH_NEEDS_2_SLOTS, WIDE_NO_PARTIAL_STALL, WIDE_AUTOPULL, WIDE_AUTOPUSH, JMP_COND_7_TAKEN, OUT_EXEC_PARENT_AND_INJECTED_DELAY, OUT_EXEC_WRAP, OUT_EXEC_JUMP, OUT_EXEC_SIDESET_WAIT, OUT_EXEC_NESTED_FAULT, OUT_EXEC_ILLEGAL_FAULT, OUT_EXEC_WAIT_TIMEOUT, OUT_EXEC_BLOCKING_FIFO, MOV_EXEC_PARENT_AND_INJECTED_DELAY, MOV_EXEC_WRAP, MOV_EXEC_JUMP, MOV_EXEC_SIDESET_WAIT, MOV_EXEC_NESTED_FAULT, MOV_EXEC_ILLEGAL_FAULT, MOV_EXEC_WAIT_TIMEOUT, MOV_EXEC_BLOCKING_FIFO, UART_TX_0x35_WAVEFORM, UART_RX_LOOPBACK. D-016 +TRACE only records CSV; all frozen checks remain unchanged."
     },
     {
       "id": "s10_engine_b_neg_wide_pull_byte_order",
@@ -519,10 +522,11 @@
         "src/pvm_presc.v",
         "src/pvm_fifo.v",
         "src/pvm_engine.v",
-        "tb_rtl/tb_engine_b.v"
+        "tb_rtl/tb_engine_b.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 40,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). D-014 uses two consecutive engine ticks; D-015 freezes injected instruction timing and faults. JMP_COND_7_TAKEN was deferred from S09 until PULL. Checks: PULL_BLOCK_STALL_THEN_GO, PULL_NONBLOCK_EMPTY_COPIES_X, PULL_IFEMPTY_SKIP, PUSH_BLOCK_FULL_STALL, PUSH_NONBLOCK_DROP, PUSH_IFFULL, OUT_SHR_LSB_FIRST, OUT_SHL_MSB_FIRST, OUT_COUNT_16, OUT_PINDIRS, OUT_PC, IN_PINS_BASE, IN_SHR, IN_SHL, AUTOPULL_THRESH_8, AUTOPUSH_THRESH_8, WIDE_PULL_2BYTES_LE, WIDE_PUSH_NEEDS_2_SLOTS, WIDE_NO_PARTIAL_STALL, WIDE_AUTOPULL, WIDE_AUTOPUSH, JMP_COND_7_TAKEN, OUT_EXEC_PARENT_AND_INJECTED_DELAY, OUT_EXEC_WRAP, OUT_EXEC_JUMP, OUT_EXEC_SIDESET_WAIT, OUT_EXEC_NESTED_FAULT, OUT_EXEC_ILLEGAL_FAULT, OUT_EXEC_WAIT_TIMEOUT, OUT_EXEC_BLOCKING_FIFO, MOV_EXEC_PARENT_AND_INJECTED_DELAY, MOV_EXEC_WRAP, MOV_EXEC_JUMP, MOV_EXEC_SIDESET_WAIT, MOV_EXEC_NESTED_FAULT, MOV_EXEC_ILLEGAL_FAULT, MOV_EXEC_WAIT_TIMEOUT, MOV_EXEC_BLOCKING_FIFO, UART_TX_0x35_WAVEFORM, UART_RX_LOOPBACK.",
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). D-014 uses two consecutive engine ticks; D-015 freezes injected instruction timing and faults. JMP_COND_7_TAKEN was deferred from S09 until PULL. Checks: PULL_BLOCK_STALL_THEN_GO, PULL_NONBLOCK_EMPTY_COPIES_X, PULL_IFEMPTY_SKIP, PUSH_BLOCK_FULL_STALL, PUSH_NONBLOCK_DROP, PUSH_IFFULL, OUT_SHR_LSB_FIRST, OUT_SHL_MSB_FIRST, OUT_COUNT_16, OUT_PINDIRS, OUT_PC, IN_PINS_BASE, IN_SHR, IN_SHL, AUTOPULL_THRESH_8, AUTOPUSH_THRESH_8, WIDE_PULL_2BYTES_LE, WIDE_PUSH_NEEDS_2_SLOTS, WIDE_NO_PARTIAL_STALL, WIDE_AUTOPULL, WIDE_AUTOPUSH, JMP_COND_7_TAKEN, OUT_EXEC_PARENT_AND_INJECTED_DELAY, OUT_EXEC_WRAP, OUT_EXEC_JUMP, OUT_EXEC_SIDESET_WAIT, OUT_EXEC_NESTED_FAULT, OUT_EXEC_ILLEGAL_FAULT, OUT_EXEC_WAIT_TIMEOUT, OUT_EXEC_BLOCKING_FIFO, MOV_EXEC_PARENT_AND_INJECTED_DELAY, MOV_EXEC_WRAP, MOV_EXEC_JUMP, MOV_EXEC_SIDESET_WAIT, MOV_EXEC_NESTED_FAULT, MOV_EXEC_ILLEGAL_FAULT, MOV_EXEC_WAIT_TIMEOUT, MOV_EXEC_BLOCKING_FIFO, UART_TX_0x35_WAVEFORM, UART_RX_LOOPBACK. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
       "negative": true,
       "variant_of": "s10_engine_b",
       "mutant": {
@@ -543,10 +547,11 @@
         "src/pvm_tick.v",
         "src/pvm_presc.v",
         "src/pvm_engine.v",
-        "tb_rtl/tb_engine_c.v"
+        "tb_rtl/tb_engine_c.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 12,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE."
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged."
     },
     {
       "id": "s11_engine_c_neg_timeout_priority",
@@ -556,10 +561,11 @@
         "src/pvm_tick.v",
         "src/pvm_presc.v",
         "src/pvm_engine.v",
-        "tb_rtl/tb_engine_c.v"
+        "tb_rtl/tb_engine_c.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 12,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE.",
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
       "negative": true,
       "variant_of": "s11_engine_c",
       "mutant": {
@@ -579,10 +585,11 @@
         "src/pvm_tick.v",
         "src/pvm_presc.v",
         "src/pvm_engine.v",
-        "tb_rtl/tb_engine_c.v"
+        "tb_rtl/tb_engine_c.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 12,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE.",
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
       "negative": true,
       "variant_of": "s11_engine_c",
       "mutant": {
@@ -602,10 +609,11 @@
         "src/pvm_tick.v",
         "src/pvm_presc.v",
         "src/pvm_engine.v",
-        "tb_rtl/tb_engine_c.v"
+        "tb_rtl/tb_engine_c.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 12,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE.",
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
       "negative": true,
       "variant_of": "s11_engine_c",
       "mutant": {
@@ -635,10 +643,11 @@
         "src/pvm_hostif.v",
         "src/pvm_cfg.v",
         "src/pvm_pin_guard.v",
-        "tb_rtl/tb_top_s11.v"
+        "tb_rtl/tb_top_s11.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 2,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE."
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE. D-016 +TRACE only records CSV; all frozen checks remain unchanged."
     },
     {
       "id": "s11_top_neg_fault_guard",
@@ -658,10 +667,11 @@
         "src/pvm_hostif.v",
         "src/pvm_cfg.v",
         "src/pvm_pin_guard.v",
-        "tb_rtl/tb_top_s11.v"
+        "tb_rtl/tb_top_s11.v",
+        "tb_rtl/pvm_trace.v"
       ],
       "checks": 2,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE.",
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
       "negative": true,
       "variant_of": "s11_top",
       "mutant": {
@@ -671,6 +681,55 @@
       },
       "expect_fail_checks": [
         "FAULT_OUTPUTS_SAFE"
+      ]
+    },
+    {
+      "id": "s11_trace_equiv_tb_engine_a",
+      "selection": "G2_TRACE",
+      "trace_of": "s09_engine_a",
+      "trace_check": "TRACE_EQUAL_TB_ENGINE_A",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_ENGINE_A compares every cycle to RTL commit 4b13f45."
+    },
+    {
+      "id": "s11_trace_equiv_tb_engine_b",
+      "selection": "G2_TRACE",
+      "trace_of": "s10_engine_b",
+      "trace_check": "TRACE_EQUAL_TB_ENGINE_B",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_ENGINE_B compares every cycle to RTL commit 4b13f45."
+    },
+    {
+      "id": "s11_trace_equiv_tb_engine_c",
+      "selection": "G2_TRACE",
+      "trace_of": "s11_engine_c",
+      "trace_check": "TRACE_EQUAL_TB_ENGINE_C",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_ENGINE_C compares every cycle to RTL commit 4b13f45."
+    },
+    {
+      "id": "s11_trace_equiv_tb_top_s11",
+      "selection": "G2_TRACE",
+      "trace_of": "s11_top",
+      "trace_check": "TRACE_EQUAL_TB_TOP_S11",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_TOP_S11 compares every cycle to RTL commit 4b13f45."
+    },
+    {
+      "id": "s11_trace_equiv_tb_engine_c_neg_delayed_out",
+      "selection": "G2_TRACE",
+      "trace_of": "s11_engine_c",
+      "trace_check": "TRACE_EQUAL_TB_ENGINE_C",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. The copied RTL publishes out_val one cycle late. TRACE_EQUAL_TB_ENGINE_C must detect the shift.",
+      "negative": true,
+      "variant_of": "s11_trace_equiv_tb_engine_c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "delay_output": "out_val"
+      },
+      "expect_fail_checks": [
+        "TRACE_EQUAL_TB_ENGINE_C"
       ]
     }
   ]
