@@ -28,17 +28,16 @@ module pvm_mon (
     wire start = active && !active_q;
     wire men;
     wire [31:0] sources = {user_flags, underrun, arb_lost, lut_out, pin_in};
-    reg [31:0] src_prev;
     wire [7:0] matching_rules, selected;
     wire [3:0] less_than_k;
-    wire [1:0] min_verdict [0:3];
-    wire [1:0] max_verdict [0:3];
     wire [2:0] targets [0:7];
     wire [2:0] actions [0:7];
-    wire [1:0] rule_min [0:7];
-    wire [1:0] rule_max [0:7];
+    wire [1:0] rule_k [0:7];
     reg [2:0] rule, target, action;
-    reg [1:0] verdict_min, verdict_max, verdict;
+    reg [1:0] sel_k, verdict_min, verdict_max, verdict;
+    reg [15:0] limit;
+    wire [16:0] t_plus_m = {1'b0, t} + {1'b0, cfg_m};
+    wire [16:0] t_minus_m = {1'b0, t} - {1'b0, cfg_m};
     integer i;
     genvar k, e, slot;
 
@@ -51,26 +50,19 @@ module pvm_mon (
 
     generate
         for (k = 0; k < 4; k = k + 1) begin : thresholds
-            wire [15:0] limit = cfg_k[k*16+:16];
-            wire [16:0] upper = {1'b0, limit} + {1'b0, cfg_m};
-            wire [16:0] lower = {1'b0, limit} - {1'b0, cfg_m};
-            wire [16:0] elapsed = {1'b0, t};
-            assign less_than_k[k] = t < limit;
-            assign min_verdict[k] = (ovf && upper[16]) ? INCONCLUSIVE :
-                                    elapsed >= upper ? PASS :
-                                    (!lower[16] && elapsed < lower) ? VIOLATION :
-                                    INCONCLUSIVE;
-            assign max_verdict[k] = (ovf && upper >= 17'h0ffff) ? INCONCLUSIVE :
-                                    (!lower[16] && elapsed <= lower) ? PASS :
-                                    elapsed > upper ? VIOLATION :
-                                    INCONCLUSIVE;
+            // Guards need t<K for every K; verdict bounds are formed once for the firing rule (opt O1).
+            assign less_than_k[k] = t < cfg_k[k*16+:16];
         end
         for (e = 0; e < 8; e = e + 1) begin : rules
             wire [23:0] entry = cfg_entries[e*24+:24];
             wire [4:0] source_id = entry[12:8];
             wire [1:0] k_idx = entry[17:16];
             wire now_high = sources[source_id];
-            wire prev_high = src_prev[source_id];
+            // opt O2: one history flop per entry instead of 32 shared ones (config is fixed in RUN).
+            reg prev_high;
+            always @(posedge clk)
+                if (!rst_n) prev_high <= 1'b0;
+                else prev_high <= now_high;
             wire event_match = entry[7] ? (entry[6] ? !now_high : now_high) :
                                entry[6] ? (prev_high && !now_high) : (!prev_high && now_high);
             wire guard_match = entry[14:13] == 2'd0 ||
@@ -82,8 +74,7 @@ module pvm_mon (
             end
             assign targets[e] = entry[5:3];
             assign actions[e] = entry[20:18];
-            assign rule_min[e] = min_verdict[k_idx];
-            assign rule_max[e] = max_verdict[k_idx];
+            assign rule_k[e] = k_idx;
         end
     endgenerate
 
@@ -91,17 +82,24 @@ module pvm_mon (
         rule = 3'd0;
         target = 3'd0;
         action = 3'd0;
-        verdict_min = 2'd0;
-        verdict_max = 2'd0;
+        sel_k = 2'd0;
         for (i = 0; i < 8; i = i + 1) begin
             if (selected[i]) begin
                 rule = rule | i[2:0];
                 target = target | targets[i];
                 action = action | actions[i];
-                verdict_min = verdict_min | rule_min[i];
-                verdict_max = verdict_max | rule_max[i];
+                sel_k = sel_k | rule_k[i];
             end
         end
+        // opt O1b: t+M and t-M do not depend on the rule, so they run in parallel with
+        // rule matching; only the K mux and one comparison follow the selection.
+        limit = cfg_k[sel_k*16+:16];
+        verdict_min = (ovf && limit > ~cfg_m) ? INCONCLUSIVE :
+                      (!t_minus_m[16] && t_minus_m[15:0] >= limit) ? PASS :
+                      (t_plus_m < {1'b0, limit}) ? VIOLATION : INCONCLUSIVE;
+        verdict_max = (ovf && limit >= ~cfg_m) ? INCONCLUSIVE :
+                      (t_plus_m <= {1'b0, limit}) ? PASS :
+                      (!t_minus_m[16] && t_minus_m[15:0] > limit) ? VIOLATION : INCONCLUSIVE;
         case (action)
             3'd2: verdict = verdict_min;
             3'd3: verdict = verdict_max;
@@ -131,10 +129,8 @@ module pvm_mon (
 
     always @(posedge clk) begin
         if (!rst_n) begin
-            src_prev <= 32'd0;
             tstamp <= 16'd0;
         end else begin
-            src_prev <= sources;
             if (men)
                 tstamp <= tstamp + 16'd1;
         end

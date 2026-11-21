@@ -6,6 +6,12 @@ The candidate includes the engine, fabric, and protocol monitor. Use
 awaits Kalash’s XSim and source review.
 [Physical evidence](../results/ci_S14.md) · [S14b gate](S14b_protocols_gate.md)
 
+Review the `opt/area-o1b-o4` candidate using its own physical gate record.
+Include the D-017 positive reset bench in the XSim replay. Inspect the
+reset fanout and two-edge release, the monitor arithmetic and the stable
+source selector invariant, and shared engine mux and shift paths.
+[Candidate report](../results/opt_area_timing.md)
+
 ## Run the testbenches in XSim
 
 1. Record the Git SHA, Vivado release, and date. Use the positive jobs in

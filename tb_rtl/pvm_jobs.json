@@ -843,13 +843,13 @@
         "tb_rtl/tb_mon.v"
       ],
       "checks": 24,
-      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: FIRST_MATCH_PRIORITY, ONE_FIRE_PER_CYCLE, EDGE_RISE_FALL_HIGH_LOW, GUARD_LT_GE, CHECK_MIN_PASS, CHECK_MIN_VIOL, CHECK_MIN_INC, CHECK_MAX_PASS, CHECK_MAX_VIOL, CHECK_MAX_INC, ARITHMETIC_17BIT, MEASURE_LOG_NO_COUNT, VIOLATE_PASS_ACTIONS, I2C_STRETCH_RULE_SET, TIMER_SATURATE_OVF, OVF_INCONCLUSIVE_RULE, LOG_RING_WRAP_4, LOG_TOTAL_SAT_63, COUNTER_SAT_FFFF, STOP_RETAINS_LOG, HALT_CLEARS, PRESC_16_TIMEBASE, MON_EN_0_IDLE, SRC_FLAGS_FABRIC.",
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: FIRST_MATCH_PRIORITY, ONE_FIRE_PER_CYCLE, EDGE_RISE_FALL_HIGH_LOW, GUARD_LT_GE, CHECK_MIN_PASS, CHECK_MIN_VIOL, CHECK_MIN_INC, CHECK_MAX_PASS, CHECK_MAX_VIOL, CHECK_MAX_INC, ARITHMETIC_17BIT, MEASURE_LOG_NO_COUNT, VIOLATE_PASS_ACTIONS, I2C_STRETCH_RULE_SET, TIMER_SATURATE_OVF, OVF_INCONCLUSIVE_RULE, LOG_RING_WRAP_4, LOG_TOTAL_SAT_63, COUNTER_SAT_FFFF, STOP_RETAINS_LOG, HALT_CLEARS, PRESC_16_TIMEBASE, MON_EN_0_IDLE, SRC_FLAGS_FABRIC. D-018 O1b re-anchors the same CHECK_MIN_PASS equality mutation at t-M >= K; count and expected failure retained.",
       "negative": true,
       "variant_of": "s13_mon",
       "mutant": {
         "file": "src/pvm_mon.v",
-        "anchor": "elapsed >= upper ? PASS",
-        "replace": "elapsed > upper ? PASS"
+        "anchor": "t_minus_m[15:0] >= limit) ? PASS",
+        "replace": "t_minus_m[15:0] > limit) ? PASS"
       },
       "expect_fail_checks": [
         "CHECK_MIN_PASS"
@@ -1441,6 +1441,119 @@
       },
       "expect_fail_checks": [
         "I2C_WRITE_OPEN_DRAIN_ACK_STRETCH"
+      ]
+    },
+    {
+      "id": "d017_reset_sync",
+      "selection": "D017",
+      "top": "tb_reset_sync",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_reset_sync.v"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-21 before first run. RESET_ASYNC_ASSERT, RESET_TWO_EDGE_RELEASE and RESET_PULSE_REACHES_CORE exercise the top-level reset net and synchronous consumers."
+    },
+    {
+      "id": "d017_reset_sync_neg_one_edge",
+      "selection": "D017",
+      "top": "tb_reset_sync",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_reset_sync.v"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-21 before first run. Use the first synchronizer stage to introduce early reset release.",
+      "negative": true,
+      "variant_of": "d017_reset_sync",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": "wire core_rst_n = reset_release[1];",
+        "replace": "wire core_rst_n = reset_release[0];"
+      },
+      "expect_fail_checks": [
+        "RESET_TWO_EDGE_RELEASE"
+      ]
+    },
+    {
+      "id": "s13_mon_neg_o2_no_history",
+      "selection": "D018",
+      "top": "tb_mon",
+      "sources": [
+        "src/pvm_presc.v",
+        "src/pvm_mon.v",
+        "tb_rtl/tb_mon.v"
+      ],
+      "checks": 24,
+      "checks_basis": "Frozen 2026-11-21 before first run. Holding the edge history low affects both generic edge detection and the I2C stretch rules. Expected checks from the supplied O2 scratch probe.",
+      "negative": true,
+      "variant_of": "s13_mon",
+      "mutant": {
+        "file": "src/pvm_mon.v",
+        "anchor": "else prev_high <= now_high;",
+        "replace": "else prev_high <= 1'b0;"
+      },
+      "expect_fail_checks": [
+        "EDGE_RISE_FALL_HIGH_LOW",
+        "I2C_STRETCH_RULE_SET"
+      ]
+    },
+    {
+      "id": "s10_engine_b_neg_o4_left_shift",
+      "selection": "D018",
+      "top": "tb_engine_b",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_b.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 40,
+      "checks_basis": "Frozen 2026-11-21 before first run. Bypassing the shared shifter input reversal affects left shifts and their explicit and automatic ISR pushes. Expected checks from the supplied O4 scratch probe.",
+      "negative": true,
+      "variant_of": "s10_engine_b",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "wire [15:0] a_pre = a_right ? a_src : rev16(a_src);",
+        "replace": "wire [15:0] a_pre = a_src;"
+      },
+      "expect_fail_checks": [
+        "OUT_SHL_MSB_FIRST",
+        "IN_SHL",
+        "PUSH_IFFULL",
+        "AUTOPUSH_THRESH_8"
       ]
     }
   ]

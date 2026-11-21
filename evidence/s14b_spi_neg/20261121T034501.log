@@ -1,0 +1,13 @@
+/workspace/work/pvm-area-opt/src/pvm_mon.v:89: warning: @* is sensitive to all 8 words in array 'targets'.
+/workspace/work/pvm-area-opt/src/pvm_mon.v:90: warning: @* is sensitive to all 8 words in array 'actions'.
+/workspace/work/pvm-area-opt/src/pvm_mon.v:91: warning: @* is sensitive to all 8 words in array 'rule_k'.
+/workspace/work/pvm-area-opt/src/pvm_cfg.v:296: warning: @* is sensitive to all 19 words in array 'eng_cfg'.
+/workspace/work/pvm-area-opt/src/pvm_cfg.v:298: warning: @* is sensitive to all 39 words in array 'fab_cfg'.
+/workspace/work/pvm-area-opt/src/pvm_cfg.v:300: warning: @* is sensitive to all 43 words in array 'mon_cfg'.
+/workspace/work/pvm-area-opt/src/pvm_cfg.v:302: warning: @* is sensitive to all 20 words in array 'pins'.
+CONFIG: TOP=tb_protocols CHECKS=1
+[FAIL] SPI_MODE0_TWO_BYTES
+CHECKS : 1
+ERRORS : 1
+RESULT : FAIL
+/workspace/work/pvm-area-opt/tb_rtl/tb_protocols.v:218: $finish called at 314780000 (1ps)

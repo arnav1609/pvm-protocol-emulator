@@ -7,12 +7,12 @@
  "negative": true,
  "variant_of": "s11_top",
  "tool": "Icarus Verilog version 12.0 (stable) ()",
- "date": "20261120T190405",
+ "date": "20261121T034438",
  "sources": {
   "src/pvm_tick.v": "4e869563873727bb3879b8d07b6ca5d9c7a386d3d654e1e9a8f3568c8492d164",
   "src/pvm_presc.v": "576c08e18bcd572382466d80d20bbfc5c74f85a3a070b2a0c0be04258a7b22dc",
-  "src/pvm_engine.v": "26e610fb18fcf0e6bf6d4769df0ef377d4f3c105929ab790380af09fa385929b",
-  "src/pvm_top.v": "edcf2e016b12588f83ca8c6c99be396972f1768f97f97c474a998c0e35eb91bb",
+  "src/pvm_engine.v": "9ae1c8678af82d6fa48223bab3f2450777fb9ab4e2cc831064c8a276def02a1e",
+  "src/pvm_top.v": "d2b9ad7b20946309041706f1232981de252fe8b2c5ee37bca9e182c312be8590",
   "src/pvm_sync2.v": "f505a72cfc110b0906515bf2479b22ae5787a03f39c72cbe10be4b2719aa8dbf",
   "src/pvm_edge.v": "7c36c2fbf3f57288e90c8d2b2fd93d3d487702804c1d13200bd148870013b5f5",
   "src/pvm_fifo.v": "7f03e00882ac86e8b8890f5bc529172614bb43bd5dd373b618e39ad16475e976",
@@ -25,7 +25,7 @@
   "tb_rtl/tb_top_s11.v": "a4c34b49912b196d2185c81be83011bb55869594f1f452658620954bfc75ff9f",
   "tb_rtl/pvm_trace.v": "bf03e54ee5bc8edd6cac6c3f7f6504cac95967024f8181799cf041ddaadce21e",
   "src/pvm_fabric.v": "ef8e683acef7e8cdd281f7f34da4681acbd5fb1ea71a7b9c0313aaf6399e137e",
-  "src/pvm_mon.v": "090f8587dfa14ebafcbb0c9015dfee765093dca641dd20bc05cafd459bd57580"
+  "src/pvm_mon.v": "51382db13ea324136ff54aa5ad0dbe29ef27129a52a68dc95a45108c26d8f19b"
  },
  "parsed": {
   "passes": [
@@ -39,5 +39,5 @@
   "result": "FAIL",
   "timeout": false
  },
- "cmd": "iverilog -g2005 -Wall -s tb_top_s11 -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s11_top_neg_fault_guard/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/tb_rtl/build/s11_top_neg_fault_guard/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top_s11.v /workspace/work/pvm-protocol-emulator/tb_rtl/pvm_trace.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v"
+ "cmd": "iverilog -g2005 -Wall -s tb_top_s11 -o /workspace/work/pvm-area-opt/tb_rtl/build/s11_top_neg_fault_guard/sim.vvp /workspace/work/pvm-area-opt/src/pvm_tick.v /workspace/work/pvm-area-opt/src/pvm_presc.v /workspace/work/pvm-area-opt/src/pvm_engine.v /workspace/work/pvm-area-opt/src/pvm_top.v /workspace/work/pvm-area-opt/src/pvm_sync2.v /workspace/work/pvm-area-opt/src/pvm_edge.v /workspace/work/pvm-area-opt/src/pvm_fifo.v /workspace/work/pvm-area-opt/src/pvm_crc16.v /workspace/work/pvm-area-opt/src/pvm_imem.v /workspace/work/pvm-area-opt/src/pvm_spi_byte.v /workspace/work/pvm-area-opt/src/pvm_hostif.v /workspace/work/pvm-area-opt/src/pvm_cfg.v /workspace/work/pvm-area-opt/tb_rtl/build/s11_top_neg_fault_guard/pvm_pin_guard.v /workspace/work/pvm-area-opt/tb_rtl/tb_top_s11.v /workspace/work/pvm-area-opt/tb_rtl/pvm_trace.v /workspace/work/pvm-area-opt/src/pvm_fabric.v /workspace/work/pvm-area-opt/src/pvm_mon.v"
 }

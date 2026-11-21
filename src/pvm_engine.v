@@ -63,6 +63,15 @@ module pvm_engine (
                      FAULT_ILLEGAL_OP = 4'd3, FAULT_INVALID_WORD = 4'd4;
     localparam [4:0] OSR_COUNT_RESET = 5'd16;
 
+    function [15:0] rev16;
+        input [15:0] v;
+        integer b;
+        begin
+            for (b = 0; b < 16; b = b + 1)
+                rev16[b] = v[15-b];
+        end
+    endfunction
+
     reg [4:0] pc_q, delayed_pc_q, delay_q, osr_cnt_q, isr_cnt_q;
     reg [15:0] x_q, y_q, osr_q, isr_q, word_q, timeout_count_q;
     reg [7:0] wide_byte_q;
@@ -101,10 +110,20 @@ module pvm_engine (
                             out_shr ? {8'h00, tx_dout} : {tx_dout, 8'h00};
     wire refill = autopull && osr_empty;
     wire [15:0] out_source = refill ? pull_data : osr_q;
-    wire [15:0] out_data = out_shr ? (out_source & shift_mask) : (out_source >> opposite_shift);
+    // opt O4: IN and OUT never issue together, so they share two right shifters.
+    // A left shift is done as reverse -> right shift -> reverse.
+    wire is_in = opcode == OP_IN;
     wire [15:0] in_bits = in_data & shift_mask;
-    wire [15:0] shifted_isr = in_shr ? ((isr_q >> shift_count) | (in_bits << opposite_shift)) :
-                                     ((isr_q << shift_count) | in_bits);
+    wire a_right = is_in ? in_shr : out_shr;
+    wire [15:0] a_src = is_in ? isr_q : out_source;
+    wire [15:0] a_pre = a_right ? a_src : rev16(a_src);
+    wire [15:0] a_shr = a_pre >> shift_count;
+    wire [15:0] shifted_a = a_right ? a_shr : rev16(a_shr);
+    wire [15:0] b_pre = is_in ? rev16(in_bits) : out_source;
+    wire [15:0] b_shr = b_pre >> opposite_shift;
+    wire [15:0] shifted_b = is_in ? rev16(b_shr) : b_shr;
+    wire [15:0] out_data = out_shr ? (out_source & shift_mask) : shifted_b;
+    wire [15:0] shifted_isr = in_shr ? (shifted_a | shifted_b) : (shifted_a | in_bits);
     wire [5:0] in_count_sum = {1'b0, isr_cnt_q} + {1'b0, shift_count};
     wire [4:0] shifted_in_count = in_count_sum >= 6'd16 ? 5'd16 : in_count_sum[4:0];
     wire [5:0] out_count_sum = (refill ? 6'd0 : {1'b0, osr_cnt_q}) + {1'b0, shift_count};
@@ -216,31 +235,36 @@ module pvm_engine (
         end
     endgenerate
 
+    // opt O3: IN and MOV select their source through one shared mux.
+    // IN source codes are remapped to the MOV numbering (IN 4/5/6 = ISR/OSR/FAB, IN 7 = zero).
+    reg [2:0] src_sel;
+    reg [15:0] src_value;
     always @(*) begin
-        case (word[7:5])
-            3'd0: in_data = sampled_pins;
-            3'd1: in_data = x_q;
-            3'd2: in_data = y_q;
-            3'd4: in_data = isr_q;
-            3'd5: in_data = osr_q;
-            3'd6: in_data = {12'd0, lut_out};
-            default: in_data = 16'h0000;
+        if (opcode == OP_MOV)
+            src_sel = word[2:0];
+        else case (word[7:5])
+            3'd4: src_sel = 3'd5;
+            3'd5: src_sel = 3'd6;
+            3'd6: src_sel = 3'd7;
+            3'd7: src_sel = 3'd3;
+            default: src_sel = word[7:5];
         endcase
+        case (src_sel)
+            3'd0: src_value = sampled_pins;
+            3'd1: src_value = x_q;
+            3'd2: src_value = y_q;
+            3'd4: src_value = {13'd0, tx_empty, rx_full, osr_empty};
+            3'd5: src_value = isr_q;
+            3'd6: src_value = osr_q;
+            3'd7: src_value = {12'd0, lut_out};
+            default: src_value = 16'h0000;
+        endcase
+        in_data = src_value;
     end
 
     always @(*) begin
         index = 0;
-        case (word[2:0])
-            3'd0: mov_src = sampled_pins;
-            3'd1: mov_src = x_q;
-            3'd2: mov_src = y_q;
-            3'd3: mov_src = 16'h0000;
-            3'd4: mov_src = {13'd0, tx_empty, rx_full, osr_empty};
-            3'd5: mov_src = isr_q;
-            3'd6: mov_src = osr_q;
-            3'd7: mov_src = {12'd0, lut_out};
-            default: mov_src = 16'h0000;
-        endcase
+        mov_src = src_value;
         case (word[4:3])
             2'd1: mov_data = ~mov_src;
             2'd2: begin
@@ -336,7 +360,7 @@ module pvm_engine (
                     transfer_more = 1'b1;
                 end else begin
                     fifo_pop = refill;
-                    osr_d = out_shr ? (out_source >> shift_count) : (out_source << shift_count);
+                    osr_d = shifted_a;
                     osr_cnt_d = out_count_sum >= 6'd31 ? 5'd31 : out_count_sum[4:0];
                     case (word[7:5])
                         3'd0, 3'd4: begin end

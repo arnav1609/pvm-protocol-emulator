@@ -1,0 +1,52 @@
+{
+ "id": "s06_cfg_a_neg_halt_sticky",
+ "state": "NEG_KILLED",
+ "selection": "S06",
+ "frozen_checks": 23,
+ "checks_basis": "Keep TX_OVF latched on HALT while still clearing RX_UNF and both FIFO contents.",
+ "negative": true,
+ "variant_of": "s06_cfg_a",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261121T034436",
+ "sources": {
+  "src/pvm_imem.v": "7c76a8f08b9b42c9f24740dfbf7ff53e16096617bee357c742fb60470aef40c6",
+  "src/pvm_crc16.v": "216039527e57ea929b369453d09ecb001374623a56ea7b741f56c7cc22b101ac",
+  "src/pvm_fifo.v": "7f03e00882ac86e8b8890f5bc529172614bb43bd5dd373b618e39ad16475e976",
+  "src/pvm_cfg.v": "00b1641390560d18000220e91c65c02266fd02d6046b149f50218f8ed71181cd",
+  "tb_rtl/tb_cfg_a.v": "0c76ed7b2068e22c03bf22f9e3f713fa2a9b1c51978f276e4557503b2afccff9"
+ },
+ "parsed": {
+  "passes": [
+   "RESET_STATE_HALT",
+   "WH_WRITE_HALT_OK",
+   "READ_LATENCY_1",
+   "UNMAPPED_READ_ZERO",
+   "UNMAPPED_WRITE_REJ",
+   "ENABLE_FROM_HALT_REJ",
+   "REGISTER_ROUNDTRIP_ENGINE",
+   "REGISTER_ROUNDTRIP_FABRIC",
+   "REGISTER_ROUNDTRIP_MONITOR",
+   "REGISTER_ROUNDTRIP_PINS",
+   "CRC_MATCH_READY",
+   "ENABLE_PULSE_WIDTH_1",
+   "WH_WRITE_RUN_REJECTED",
+   "CLR_IMEM_ONLY_HALT",
+   "ENGINE_DONE_TO_DONE",
+   "CLR_FAULT_TO_HALT",
+   "ENGINE_FAULT_LATCH",
+   "CRC_MISMATCH_FAULT",
+   "TXFIFO_PUSH_OVF",
+   "RXFIFO_PEEK_NO_POP_ON_RE",
+   "RXFIFO_POP_ON_RACK",
+   "HALT_CLEARS_FIFOS"
+  ],
+  "fails": [
+   "HALT_CLEARS_STICKY"
+  ],
+  "checks": 23,
+  "errors": 1,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_cfg_a -o /workspace/work/pvm-area-opt/tb_rtl/build/s06_cfg_a_neg_halt_sticky/sim.vvp /workspace/work/pvm-area-opt/src/pvm_imem.v /workspace/work/pvm-area-opt/src/pvm_crc16.v /workspace/work/pvm-area-opt/src/pvm_fifo.v /workspace/work/pvm-area-opt/tb_rtl/build/s06_cfg_a_neg_halt_sticky/pvm_cfg.v /workspace/work/pvm-area-opt/tb_rtl/tb_cfg_a.v"
+}

@@ -35,7 +35,12 @@ The owner fills `<githubuser>`. Until then use `tt_um_pvm` as placeholder in tes
 - P5..P11: the **final driven value** of that uo pin (internal read-back, registered once so it aligns with synchronised inputs: 2-cycle delay matched).
 - P12..P19: `uio_in[7:0]` after 2-flop synchroniser.
 
-All external inputs (host pins too) pass through `pvm_sync2` exactly once, in `pvm_top`. Modules never synchronise again.
+Host and protocol input pins pass through `pvm_sync2` exactly once, in `pvm_top`. Modules never synchronise them again.
+
+The reset pin uses its own two-flop release synchronizer in `pvm_top`.
+The core reset asserts asynchronously and releases just after the second
+rising clock edge after external reset release. The registered reset
+consumers resume on the next rising edge. [D-017 reset contract](rev/PVM-IF-D017-RESET-RELEASE.md)
 
 ## Output rule summary (detail in 05/07)
 - `uo_out[7]` = MISO from host interface.

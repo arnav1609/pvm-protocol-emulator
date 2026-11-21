@@ -12,6 +12,16 @@ module pvm_top (
     input  wire       clk,
     input  wire       rst_n
 );
+    // Assert immediately from the pad and release after two core clock edges.
+    (* ASYNC_REG = "TRUE" *) reg [1:0] reset_release;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            reset_release <= 2'b00;
+        else
+            reset_release <= {reset_release[0], 1'b1};
+    end
+    wire core_rst_n = reset_release[1];
+
     wire [2:0] host_in;
     wire [4:0] protocol_ui;
     wire [7:0] protocol_uio;
@@ -87,23 +97,23 @@ module pvm_top (
 
     // Host select resets to its inactive level. Every external input is sampled once.
     pvm_sync2 #(.W(3), .RST_VAL(3'b010)) host_inputs (
-        .clk(clk), .rst_n(rst_n), .d(ui_in[2:0]), .q(host_in)
+        .clk(clk), .rst_n(core_rst_n), .d(ui_in[2:0]), .q(host_in)
     );
     pvm_sync2 #(.W(5)) protocol_ui_inputs (
-        .clk(clk), .rst_n(rst_n), .d(ui_in[7:3]), .q(protocol_ui)
+        .clk(clk), .rst_n(core_rst_n), .d(ui_in[7:3]), .q(protocol_ui)
     );
     pvm_sync2 #(.W(8)) protocol_uio_inputs (
-        .clk(clk), .rst_n(rst_n), .d(uio_in), .q(protocol_uio)
+        .clk(clk), .rst_n(core_rst_n), .d(uio_in), .q(protocol_uio)
     );
 
     pvm_hostif host (
-        .clk(clk), .rst_n(rst_n), .sck(host_in[0]), .cs_n(host_in[1]), .mosi(host_in[2]),
+        .clk(clk), .rst_n(core_rst_n), .sck(host_in[0]), .cs_n(host_in[1]), .mosi(host_in[2]),
         .miso(uo_out[7]), .bus_addr(bus_addr), .bus_wdata(bus_wdata), .bus_we(bus_we),
         .bus_re(bus_re), .bus_rdata(bus_rdata), .bus_rack(bus_rack)
     );
 
     pvm_imem memory (
-        .clk(clk), .rst_n(rst_n), .wr_en(imem_wr_en), .wr_addr(imem_wr_addr),
+        .clk(clk), .rst_n(core_rst_n), .wr_en(imem_wr_en), .wr_addr(imem_wr_addr),
         .wr_data(imem_wr_data), .clr_valid(imem_clr_valid), .rd_pc(engine_rd_pc),
         .entry_pc(entry_pc), .entry_valid(entry_valid),
         .bus_rd_addr(imem_bus_rd_addr), .bus_rd_data(imem_bus_rd_data),
@@ -111,19 +121,19 @@ module pvm_top (
     );
 
     pvm_fifo tx_fifo (
-        .clk(clk), .rst_n(rst_n), .clr(fifo_clr), .push(tx_push), .din(tx_data), .pop(engine_tx_pop),
+        .clk(clk), .rst_n(core_rst_n), .clr(fifo_clr), .push(tx_push), .din(tx_data), .pop(engine_tx_pop),
         .dout(tx_head), .full(unused_tx_full), .empty(tx_empty),
         .level(tx_level), .ovf(tx_fifo_ovf), .unf(unused_tx_unf)
     );
 
     pvm_fifo rx_fifo (
-        .clk(clk), .rst_n(rst_n), .clr(fifo_clr), .push(engine_rx_push), .din(engine_rx_data), .pop(rx_pop),
+        .clk(clk), .rst_n(core_rst_n), .clr(fifo_clr), .push(engine_rx_push), .din(engine_rx_data), .pop(rx_pop),
         .dout(rx_head), .full(rx_full), .empty(unused_rx_empty),
         .level(rx_level), .ovf(unused_rx_ovf), .unf(rx_fifo_unf)
     );
 
     pvm_engine engine (
-        .clk(clk), .rst_n(rst_n), .run(engine_running), .enable_pulse(enable_pulse),
+        .clk(clk), .rst_n(core_rst_n), .run(engine_running), .enable_pulse(enable_pulse),
         .clkdiv(clkdiv), .entry_pc(entry_pc), .wrap_bottom(wrap_bottom), .wrap_top(wrap_top),
         .out_base(out_base), .out_cnt(out_cnt), .set_base(set_base), .set_cnt(set_cnt),
         .in_base(in_base), .side_base(side_base), .side_cnt(side_cnt), .jmp_pin(jmp_pin),
@@ -141,7 +151,7 @@ module pvm_top (
     );
 
     pvm_pin_guard pin_guard (
-        .clk(clk), .rst_n(rst_n), .state(state), .pin_cfg(pin_cfg),
+        .clk(clk), .rst_n(core_rst_n), .state(state), .pin_cfg(pin_cfg),
         .out_val(engine_out), .oe_val(engine_oe), .lut_out(lut_out),
         .arb_en(arb_en), .arb_lost(arb_lost), .arb_sda(arb_sda), .arb_scl(arb_scl),
         .uo_pins(uo_out[6:0]), .uio_out(uio_out), .uio_oe(uio_oe),
@@ -153,7 +163,7 @@ module pvm_top (
     assign {lut_out, unused_cnt_phase, arb_lost, underrun} = 7'd0;
 `else
     pvm_fabric fabric (
-        .clk(clk), .rst_n(rst_n), .run(engine_running), .enable_pulse(enable_pulse),
+        .clk(clk), .rst_n(core_rst_n), .run(engine_running), .enable_pulse(enable_pulse),
         .engine_tick(engine_tick), .pin_in(pin_in), .od_release_intent(od_release_intent),
         .fab_ctrl(fab_ctrl), .fab_wr(fab_wr), .cfg_lut(cfg_lut), .cfg_mode(cfg_mode),
         .cnt_reload(cnt_reload), .cnt_en(cnt_en), .cnt_src(cnt_src), .manch_en(manch_en),
@@ -168,7 +178,7 @@ module pvm_top (
     assign {mon_state, cnt_pass, cnt_viol, cnt_inc, log_flat, log_wptr, log_total} = 219'd0;
 `else
     pvm_mon monitor (
-        .clk(clk), .rst_n(rst_n), .run(engine_running), .halt_clr(halt_pulse),
+        .clk(clk), .rst_n(core_rst_n), .run(engine_running), .halt_clr(halt_pulse),
         .pin_in(pin_in), .lut_out(lut_out), .arb_lost(arb_lost), .underrun(underrun),
         .user_flags(user_flags), .cfg_entries(cfg_entries), .cfg_k(cfg_k), .cfg_m(cfg_m),
         .mon_en(mon_en), .presc(mon_presc), .mon_state(mon_state), .cnt_pass(cnt_pass),
@@ -179,7 +189,7 @@ module pvm_top (
 
     pvm_cfg config_bank (
         .clk(clk),
-        .rst_n(rst_n),
+        .rst_n(core_rst_n),
         .bus_addr(bus_addr),
         .bus_wdata(bus_wdata),
         .bus_we(bus_we),

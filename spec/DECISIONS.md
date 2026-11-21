@@ -126,3 +126,17 @@ S12 remains blocked until G2 passes. Clock and pin-map changes require
 a new owner decision. If both repairs miss the timing target, report
 the remaining path and stop for that decision.
 [Original G2 failure](../results/g2_area_timing.md) · [Trace provenance](../tb_rtl/vectors/golden_provenance.json)
+
+## D-017 — Synchronize reset release
+
+Approved in chat on 21 November 2026 for the optimization candidate.
+Assert the core reset asynchronously and release it after two rising
+clock edges. Retain the existing synchronous reset consumers.
+[Reset interface and verification](rev/PVM-IF-D017-RESET-RELEASE.md)
+
+## D-018 — Optimize monitor and engine area
+
+Approved in chat on 21 November 2026 for candidate implementation and
+physical evaluation. Evaluate O1b/O2/O3/O4 with D-017 at 50 MHz against
+the predeclared timing, area, and physical test criteria.
+[Optimization decision and acceptance](rev/PVM-AREA-D018.md) · [Candidate report](../results/opt_area_timing.md)

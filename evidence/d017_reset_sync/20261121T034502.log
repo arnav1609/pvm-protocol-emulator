@@ -1,0 +1,15 @@
+/workspace/work/pvm-area-opt/src/pvm_mon.v:89: warning: @* is sensitive to all 8 words in array 'targets'.
+/workspace/work/pvm-area-opt/src/pvm_mon.v:90: warning: @* is sensitive to all 8 words in array 'actions'.
+/workspace/work/pvm-area-opt/src/pvm_mon.v:91: warning: @* is sensitive to all 8 words in array 'rule_k'.
+/workspace/work/pvm-area-opt/src/pvm_cfg.v:296: warning: @* is sensitive to all 19 words in array 'eng_cfg'.
+/workspace/work/pvm-area-opt/src/pvm_cfg.v:298: warning: @* is sensitive to all 39 words in array 'fab_cfg'.
+/workspace/work/pvm-area-opt/src/pvm_cfg.v:300: warning: @* is sensitive to all 43 words in array 'mon_cfg'.
+/workspace/work/pvm-area-opt/src/pvm_cfg.v:302: warning: @* is sensitive to all 20 words in array 'pins'.
+CONFIG: TOP=tb_reset_sync CHECKS=3
+[PASS] RESET_ASYNC_ASSERT
+[PASS] RESET_TWO_EDGE_RELEASE
+[PASS] RESET_PULSE_REACHES_CORE
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+/workspace/work/pvm-area-opt/tb_rtl/tb_reset_sync.v:63: $finish called at 56000 (1ps)
