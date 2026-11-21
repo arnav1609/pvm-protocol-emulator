@@ -5,6 +5,10 @@ and the D-017/D-018 changes. Variant D routed from `1a258a1`. The
 physical gate, protocol checks and 32-word fit gate passed.
 [Physical evidence](../results/opt_area_timing.md) · [S14b gate](S14b_protocols_gate.md) · [Fit gate](../results/fit_study.md)
 
+The changed RTL source review is recorded. XSim remains the simulator
+gate pending an available installation or an owner decision on an
+alternate simulator. [Source review](../results/opt_area_timing.md#source-review)
+
 Include the D-017 positive reset bench in the simulator replay. Inspect the
 reset fanout and two-edge release, the monitor arithmetic and the stable
 source selector invariant, and shared engine mux and shift paths.

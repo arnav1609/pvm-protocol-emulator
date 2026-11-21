@@ -96,3 +96,26 @@ cells before placement, buffering, and routing.
 | D | 320,820 | 304,340 |
 
 Variant D's mapped estimate fell 5.1%. [Mapping provenance](../evidence/opt/mapped_area.log)
+
+## Source review
+
+Codex reviewed the merged RTL on 21 November 2026 against `9d12d97`
+and the D-017/D-018 contracts. The merged Verilog and Tiny Tapeout
+configuration match the routed revision `1a258a1`.
+
+- The monitor keeps first-match rule priority. The shared 17-bit
+  arithmetic retains the distinct MIN and MAX equality boundaries
+  and the overflow verdict rules. Per-entry source history is valid
+  whenever a rule can fire because rule writes require HALT and
+  the first active cycle suppresses firing. [Monitor RTL](../src/pvm_mon.v) · [Write gating](../src/pvm_cfg.v)
+- The engine source mux preserves the IN/MOV operand mapping.
+  The shared shifters cover 16-bit encoding and both shift directions.
+  Opcode checks and the WIDE FIFO and EXEC commit paths guard each
+  use of the shared result. [Engine RTL](../src/pvm_engine.v) · [Engine equivalence](../evidence/opt/equiv_engine.log)
+- Every top-level reset consumer uses the synchronized core net.
+  The routed netlist retains the two asynchronously cleared stages.
+  The reset bench checks asynchronous assertion, two-edge release,
+  and capture of a pulse between clocks. [Reset RTL](../src/pvm_top.v) · [Reset bench](../tb_rtl/tb_reset_sync.v)
+
+The review found no change required in the reviewed RTL. The simulator
+freeze gate remains open. [Freeze review packet](../reports/weekly_freeze_review.md)
