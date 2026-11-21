@@ -1,0 +1,36 @@
+baseline slow_setup
+Startpoint: sg13cmos5l_dfrbpq_1 _35835_ (.RESET_B(net2588),
+    .D(_00433_),
+    .Q(\pvm.engine.pin_in[15] ),
+    .CLK(clknet_leaf_47_clk))
+Endpoint: sg13cmos5l_dfrbpq_1 _35478_ (.RESET_B(net3730),
+    .D(_00076_),
+    .Q(\pvm.engine.set_data[1] ),
+    .CLK(clknet_leaf_66_clk))
+baseline fast_hold
+Startpoint: sg13cmos5l_dfrbpq_1 _35889_ (.RESET_B(net1),
+    .D(net2512),
+    .Q(\pvm.reset_release[0] ),
+    .CLK(clknet_leaf_52_clk))
+Endpoint: sg13cmos5l_dfrbpq_1 _35890_ (.RESET_B(net1),
+    .D(net3797),
+    .Q(\pvm.config_bank.crc_accumulator.rst_n ),
+    .CLK(clknet_leaf_52_clk))
+candidate slow_setup
+Startpoint: sg13cmos5l_dfrbpq_1 _33911_ (.RESET_B(net1382),
+    .D(_01085_),
+    .Q(\pvm.config_bank.eng_cfg[13][2] ),
+    .CLK(clknet_leaf_68_clk))
+Endpoint: sg13cmos5l_dfrbpq_1 _35342_ (.RESET_B(net1377),
+    .D(_00043_),
+    .Q(\pvm.engine.set_data[1] ),
+    .CLK(clknet_leaf_100_clk))
+candidate fast_hold
+Startpoint: sg13cmos5l_dfrbpq_1 _35753_ (.RESET_B(net1),
+    .D(net2660),
+    .Q(\pvm.reset_release[0] ),
+    .CLK(clknet_leaf_51_clk))
+Endpoint: sg13cmos5l_dfrbpq_1 _35754_ (.RESET_B(net1),
+    .D(net3813),
+    .Q(\pvm.config_bank.crc_accumulator.rst_n ),
+    .CLK(clknet_leaf_51_clk))

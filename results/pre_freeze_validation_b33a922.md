@@ -34,15 +34,61 @@ three S12 mutants and the D-016 trace mutant were caught.
 
 ## Tiny Tapeout
 
-Run **44922355967** builds variant D from the replacement SHA on
-8×4 IHP SG13CMOS5L tiles at 50 MHz. GDS, precheck, gate-level SPI smoke,
-and Pages deployment are pending. Compare against the routed
-`00ec783` predecessor, whose metrics and layout matched the original
-`1a258a1` baseline byte for byte. That baseline measured 30.9084%
-for both utilization metrics, +2.206 ns slow setup, and +0.108 ns
-worst hold. The candidate must clear the +1.0 ns slow-corner setup
-floor and retain nonnegative hold and the approved area limits.
-[Replacement run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967) · [Predecessor evidence](https://github.com/arnav1609/pvm-protocol-emulator/blob/c20b266/results/pre_freeze_validation_00ec783.md#tiny-tapeout) · [Original routed run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826)
+Run **44922355967** builds full variant D from
+`b33a9227ac187f791a3733b94ac4e32879b10414` at 50 MHz on 8×4 tiles.
+Both runs used LibreLane 3.1.0.dev4 and IHP SG13CMOS5L PDK
+`89d42ee6d2fd9b50b86a1aada6fee6673c3e6008`. The flow configuration
+matches `00ec783`, whose layout and metrics matched the original
+`1a258a1` routed baseline. GitHub Pages serves the replacement
+submission's exact OASIS bytes.
+[Replacement run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967) · [Predecessor evidence](https://github.com/arnav1609/pvm-protocol-emulator/blob/c20b266/results/pre_freeze_validation_00ec783.md#tiny-tapeout) · [Submission](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/artifacts/14717262395) · [Routed reports](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/artifacts/14717307256)
+
+| CI job | Replacement result |
+| --- | --- |
+| GDS | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136900930230) |
+| Gate-level SPI and pin-safety smoke | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136925313687) · [Result and waveform](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/artifacts/14717322699) |
+| Pages viewer | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136925313818) · [Published layout](https://arnav1609.github.io/pvm-protocol-emulator/) |
+| Tiny Tapeout precheck | In progress. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136925313698) |
+
+| Routed variant D metric | `00ec783` | `b33a922` | Delta |
+| --- | ---: | ---: | ---: |
+| Overall utilization, `design__instance__utilization` | 30.9084% | 30.9734% | +0.0650 percentage points |
+| Standard-cell utilization, `design__instance__utilization__stdcell` | 30.9084% | 30.9734% | +0.0650 percentage points |
+| Standard cells | 24,974 | 24,863 | −111 |
+| Standard-cell area | 373,427 µm² | 374,213 µm² | +786 µm² |
+| Worst setup / hold total negative slack | 0 / 0 ns | 0 / 0 ns | 0 / 0 ns |
+| Detailed routing violations | 0 | 0 | 0 |
+
+| Timing corner | Baseline setup | Candidate setup | Baseline hold | Candidate hold |
+| --- | ---: | ---: | ---: | ---: |
+| Slow, 1.08 V / 125 °C | +2.206 ns | +3.180 ns | +0.604 ns | +0.606 ns |
+| Typical, 1.20 V / 25 °C | +8.782 ns | +9.387 ns | +0.286 ns | +0.287 ns |
+| Fast, 1.32 V / −40 °C | +12.639 ns | +13.002 ns | +0.108 ns | +0.108 ns |
+
+Slow setup improved by 0.974 ns and meets the +1.0 ns floor. Hold is
+positive at all three corners. Both utilization measures are below
+the 33.7187% S14 baseline and 40% cap. Slow setup also exceeds
+the +2.461 ns S14 reference used by D-018.
+[Metric deltas and provenance](../evidence/pre_freeze/b33a922/physical/routed_comparison.json) · [Exact routed metrics CSV](../evidence/pre_freeze/b33a922/physical/metrics.csv) · [D-018 budgets](../spec/rev/PVM-AREA-D018.md)
+
+### Routed change analysis
+
+The new SCL qualification is the only RTL delta. The two submissions
+use byte-identical `src/user_config.json` and the same clock, tile count,
+PDK and flow versions. Synthesis reported 20,443 versus 20,375 mapped
+cells and 311,174.627 versus 312,282.621 µm² mapped area. Both report
+122,569.978 µm² of sequential cells. The changed combinational mapping
+and routing account for the modest area increase despite fewer cells.
+
+The worst slow setup path now starts at `pvm.config_bank.eng_cfg[13][2]`
+(`PULL_THRESH` bit 2).
+The baseline worst path started at synchronized `pvm.engine.pin_in[15]`.
+Both end at `pvm.engine.set_data[1]`. The candidate's worst arrival is
+17.150 ns against 20.330 ns required. The baseline's was 18.423 ns
+against 20.629 ns required. The fast hold path still starts at the
+first reset release stage and ends at the second stage's registered
+reset output. The post-route metrics JSON and submission CSV agree.
+[Baseline slow path](../evidence/pre_freeze/b33a922/physical/baseline.slow_setup.rpt) · [Candidate slow path](../evidence/pre_freeze/b33a922/physical/candidate.slow_setup.rpt) · [Resolved cell endpoints](../evidence/pre_freeze/b33a922/physical/critical_path_cells.txt) · [Synthesis report](../evidence/pre_freeze/b33a922/physical/synthesis-stats.txt)
 
 ## Open review
 
