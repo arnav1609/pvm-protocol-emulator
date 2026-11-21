@@ -119,3 +119,13 @@ configuration match the routed revision `1a258a1`.
 
 The review found no change required in the reviewed RTL. The simulator
 freeze gate remains open. [Freeze review packet](../reports/weekly_freeze_review.md)
+
+## Additional simulator replay
+
+Verilator 5.032 with timing enabled passed all 24 distinct positive
+Verilog bench configurations on the merged RTL. Those include the
+engine, monitor, four system variants, pin protocols, and the D-017
+reset bench. The D-016 CSV comparisons remain in the Icarus evidence.
+This provides a second simulation result while the XSim requirement
+awaits an available installation or the owner's decision.
+[Verilator commands and results](../evidence/opt/verilator_timing.log)

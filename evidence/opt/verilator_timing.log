@@ -1,0 +1,467 @@
+Source revision 2d71225e3a6010a0b942ed12d329e06ba6d13a7e
+Verilator 5.032 2025-01-01 rev (Debian 5.032-1+b2)
+24 unique positive bench configurations
+PASS_FRESH     s01_primitives  checks=17
+PASS_FRESH     s02_fifo  checks=9
+PASS_FRESH     s02_crc16  checks=5
+PASS_FRESH     s03_imem  checks=8
+PASS_FRESH     s04_spi_byte  checks=8
+PASS_FRESH     s05_hostif  checks=11
+PASS_FRESH     s06_cfg_a  checks=23
+PASS_FRESH     s07_cfg_b  checks=22
+PASS_FRESH     s08_pin_guard  checks=17
+PASS_FRESH     s09_engine_a  checks=33
+PASS_FRESH     s10_engine_b  checks=40
+PASS_FRESH     s11_engine_c  checks=12
+PASS_FRESH     s11_top  checks=2
+PASS_FRESH     s12_fabric  checks=21
+PASS_FRESH     s13_mon  checks=24
+PASS_FRESH     s13_mon_non_intrusion  checks=1
+PASS_FRESH     s14_top_full  checks=3
+PASS_FRESH     s14_top_engine_only  checks=3
+PASS_FRESH     s14_top_fabric  checks=3
+PASS_FRESH     s14_top_monitor  checks=3
+PASS_FRESH     s14b_uart  checks=1
+PASS_FRESH     s14b_spi  checks=1
+PASS_FRESH     s14b_i2c  checks=1
+PASS_FRESH     d017_reset_sync  checks=3
+SUMMARY jobs=24 accepted=24 rejected=0
+
+s01_primitives
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_primitives --Mdir /tmp/pvm-verilator-fast-build/s01_primitives -o sim /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_primitives.v
+CONFIG: TOP=tb_primitives CHECKS=17
+[PASS] SYNC_RESET_VAL
+[PASS] SYNC_LATENCY_2
+[PASS] EDGE_RISE
+[PASS] EDGE_FALL
+[PASS] EDGE_NO_CHANGE
+[PASS] TICK_DIV0
+[PASS] TICK_DIV1
+[PASS] TICK_DIV5_PERIOD
+[PASS] TICK_DIV65535
+[PASS] TICK_RESTART
+[PASS] TICK_RUN_LOW_NO_TICK
+[PASS] PRESC_SEL0
+[PASS] PRESC_SEL1
+[PASS] PRESC_SEL2
+[PASS] PRESC_SEL3
+[PASS] PRESC_RESTART
+[PASS] MID_RUN_RESET
+CHECKS : 17
+ERRORS : 0
+RESULT : PASS
+
+s02_fifo
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_fifo --Mdir /tmp/pvm-verilator-fast-build/s02_fifo -o sim /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_fifo.v
+CONFIG: TOP=tb_fifo CHECKS=9
+[PASS] RESET_EMPTY
+[PASS] FULL_FLAG
+[PASS] OVF_DROP
+[PASS] ORDER_4
+[PASS] UNF
+[PASS] PUSHPOP_FULL
+[PASS] PUSHPOP_EMPTY
+[PASS] WRAP
+[PASS] CLR
+CHECKS : 9
+ERRORS : 0
+RESULT : PASS
+
+s02_crc16
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_crc16 --Mdir /tmp/pvm-verilator-fast-build/s02_crc16 -o sim /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_crc16.v
+CONFIG: TOP=tb_crc16 CHECKS=5
+[PASS] VEC_EMPTY
+[PASS] VEC_123456789
+[PASS] VEC_00
+[PASS] EN_LOW_HOLD
+[PASS] CLR_RESTART
+CHECKS : 5
+ERRORS : 0
+RESULT : PASS
+
+s03_imem
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_imem --Mdir /tmp/pvm-verilator-fast-build/s03_imem -o sim /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_imem.v
+CONFIG: TOP=tb_imem CHECKS=8
+[PASS] RESET_INVALID
+[PASS] LOWBYTE_NOT_VALID
+[PASS] BUS_READ_MASK
+[PASS] HIGHBYTE_SETS_VALID
+[PASS] ALL32_PATTERN
+[PASS] BOUNDARY_WORD31
+[PASS] REWRITE_SAME_WORD
+[PASS] CLR_VALID
+CHECKS : 8
+ERRORS : 0
+RESULT : PASS
+
+s04_spi_byte
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_spi_byte --Mdir /tmp/pvm-verilator-fast-build/s04_spi_byte -o sim /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_spi_byte.v
+CONFIG: TOP=tb_spi_byte CHECKS=8
+[PASS] RX_A5
+[PASS] TX_LOAD_96
+[PASS] TX_DEFAULT_ZERO
+[PASS] FRAME_START_END
+[PASS] RX_BACK_TO_BACK_16BYTES
+[PASS] CS_ABORT_MIDBYTE
+[PASS] SCK_GLITCH_WHEN_CS_HIGH
+[PASS] SLOWEST_SCK
+CHECKS : 8
+ERRORS : 0
+RESULT : PASS
+
+s05_hostif
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_hostif --Mdir /tmp/pvm-verilator-fast-build/s05_hostif -o sim /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_hostif.v
+CONFIG: TOP=tb_hostif CHECKS=11
+[PASS] WRITE_SINGLE
+[PASS] WRITE_BURST_16
+[PASS] WRITE_ADDR_WRAP_FFFF
+[PASS] READ_SINGLE
+[PASS] READ_BURST_8
+[PASS] READ_RACK_SEQUENCE
+[PASS] ID_BYTES
+[PASS] UNKNOWN_CMD_IGNORED
+[PASS] ABORT_IN_ADDR
+[PASS] ABORT_IN_DATA
+[PASS] ONE_STROBE_PER_CYCLE
+CHECKS : 11
+ERRORS : 0
+RESULT : PASS
+
+s06_cfg_a
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_cfg_a --Mdir /tmp/pvm-verilator-fast-build/s06_cfg_a -o sim /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_cfg_a.v
+CONFIG: TOP=tb_cfg_a CHECKS=23
+[PASS] RESET_STATE_HALT
+[PASS] WH_WRITE_HALT_OK
+[PASS] READ_LATENCY_1
+[PASS] UNMAPPED_READ_ZERO
+[PASS] UNMAPPED_WRITE_REJ
+[PASS] ENABLE_FROM_HALT_REJ
+[PASS] REGISTER_ROUNDTRIP_ENGINE
+[PASS] REGISTER_ROUNDTRIP_FABRIC
+[PASS] REGISTER_ROUNDTRIP_MONITOR
+[PASS] REGISTER_ROUNDTRIP_PINS
+[PASS] CRC_MATCH_READY
+[PASS] ENABLE_PULSE_WIDTH_1
+[PASS] WH_WRITE_RUN_REJECTED
+[PASS] CLR_IMEM_ONLY_HALT
+[PASS] ENGINE_DONE_TO_DONE
+[PASS] CLR_FAULT_TO_HALT
+[PASS] ENGINE_FAULT_LATCH
+[PASS] CRC_MISMATCH_FAULT
+[PASS] TXFIFO_PUSH_OVF
+[PASS] RXFIFO_PEEK_NO_POP_ON_RE
+[PASS] RXFIFO_POP_ON_RACK
+[PASS] HALT_CLEARS_STICKY
+[PASS] HALT_CLEARS_FIFOS
+CHECKS : 23
+ERRORS : 0
+RESULT : PASS
+
+s07_cfg_b
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_cfg_b --Mdir /tmp/pvm-verilator-fast-build/s07_cfg_b -o sim /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_cfg_b.v
+CONFIG: TOP=tb_cfg_b CHECKS=22
+[PASS] OD_ON_UO
+[PASS] OUTPUT_ON_UI
+[PASS] OWNER_WITH_INPUT_MODE
+[PASS] OWNER7
+[PASS] MODE3
+[PASS] OUT_CNT_17
+[PASS] SET_CNT_6
+[PASS] SIDE_CNT_3
+[PASS] BASE_20
+[PASS] WRAP_INVERTED
+[PASS] ENTRY_INVALID
+[PASS] LUTMODE3
+[PASS] MANCH_NO_CNT
+[PASS] ARB_N0
+[PASS] ARB_PIN_NOT_UIO
+[PASS] ARB_PIN_NOT_OD
+[PASS] MON_GUARD3
+[PASS] MON_ACTION7
+[PASS] CRC_BEFORE_PIN
+[PASS] LEGAL_IMAGE_READY
+[PASS] IMAGE_ID_LATCHED
+[PASS] REVALIDATE_AFTER_HALT
+CHECKS : 22
+ERRORS : 0
+RESULT : PASS
+
+s08_pin_guard
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_pin_guard --Mdir /tmp/pvm-verilator-fast-build/s08_pin_guard -o sim /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_pin_guard.v
+CONFIG: TOP=tb_pin_guard CHECKS=17
+[PASS] NOT_RUN_SAFE
+[PASS] OWNER_NONE_IDLE
+[PASS] ENGINE_PUSHPULL
+[PASS] ENGINE_OE_UIO
+[PASS] UO_ALWAYS_ENABLED
+[PASS] FABRIC_OWNER_L0
+[PASS] FABRIC_OWNER_L1
+[PASS] FABRIC_OWNER_L2
+[PASS] FABRIC_OWNER_L3
+[PASS] INVERT
+[PASS] OD_LOW_DRIVES
+[PASS] OD_HIGH_RELEASES
+[PASS] OD_NEVER_OE_AND_1
+[PASS] ARB_FORCE_RELEASE
+[PASS] ARB_OTHER_PINS_UNAFFECTED
+[PASS] LATENCY_1_CYCLE
+[PASS] READBACK_ALIGNED
+CHECKS : 17
+ERRORS : 0
+RESULT : PASS
+
+s09_engine_a
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_engine_a --Mdir /tmp/pvm-verilator-fast-build/s09_engine_a -o sim /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_engine_a.v /workspace/work/pvm-protocol-emulator/tb_rtl/pvm_trace.v
+CONFIG: TOP=tb_engine_a CHECKS=33
+[PASS] CLKDIV1_TIMING
+[PASS] CLKDIV3_TIMING
+[PASS] DELAY_MAX_31
+[PASS] SIDESET_1BIT
+[PASS] SIDESET_2BIT_PRIORITY_OVER_SET
+[PASS] WRAP
+[PASS] JMP_COND_0_TAKEN
+[PASS] JMP_COND_1_TAKEN
+[PASS] JMP_COND_1_NOT_TAKEN
+[PASS] JMP_COND_2_TAKEN
+[PASS] JMP_COND_2_NOT_TAKEN
+[PASS] JMP_COND_3_TAKEN
+[PASS] JMP_COND_3_NOT_TAKEN
+[PASS] JMP_COND_4_TAKEN
+[PASS] JMP_COND_4_NOT_TAKEN
+[PASS] JMP_COND_5_TAKEN
+[PASS] JMP_COND_5_NOT_TAKEN
+[PASS] JMP_COND_6_TAKEN
+[PASS] JMP_COND_6_NOT_TAKEN
+[PASS] JMP_COND_7_NOT_TAKEN
+[PASS] XDEC_LOOP_COUNT
+[PASS] SET_PINS_BASE_WRAP_MOD20
+[PASS] SET_PINDIRS
+[PASS] SET_FAB_PULSE
+[PASS] MOV_X_Y_INVERT_REVERSE
+[PASS] MOV_PC
+[PASS] EVT_SET_CLR_FLAGS
+[PASS] EVT_CLR_ARB_PULSE
+[PASS] EVT_DONE
+[PASS] INVALID_WORD_FAULT_PC
+[PASS] ILLEGAL_ENCODINGS
+[PASS] ENABLE_REINIT
+[PASS] WORKED_ENCODINGS
+CHECKS : 33
+ERRORS : 0
+RESULT : PASS
+
+s10_engine_b
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_engine_b --Mdir /tmp/pvm-verilator-fast-build/s10_engine_b -o sim /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_engine_b.v /workspace/work/pvm-protocol-emulator/tb_rtl/pvm_trace.v
+CONFIG: TOP=tb_engine_b CHECKS=40
+[PASS] PULL_BLOCK_STALL_THEN_GO
+[PASS] PULL_NONBLOCK_EMPTY_COPIES_X
+[PASS] PULL_IFEMPTY_SKIP
+[PASS] PUSH_BLOCK_FULL_STALL
+[PASS] PUSH_NONBLOCK_DROP
+[PASS] PUSH_IFFULL
+[PASS] OUT_SHR_LSB_FIRST
+[PASS] OUT_SHL_MSB_FIRST
+[PASS] OUT_COUNT_16
+[PASS] OUT_PINDIRS
+[PASS] OUT_PC
+[PASS] IN_PINS_BASE
+[PASS] IN_SHR
+[PASS] IN_SHL
+[PASS] AUTOPULL_THRESH_8
+[PASS] AUTOPUSH_THRESH_8
+[PASS] WIDE_PULL_2BYTES_LE
+[PASS] WIDE_PUSH_NEEDS_2_SLOTS
+[PASS] WIDE_NO_PARTIAL_STALL
+[PASS] WIDE_AUTOPULL
+[PASS] WIDE_AUTOPUSH
+[PASS] JMP_COND_7_TAKEN
+[PASS] OUT_EXEC_PARENT_AND_INJECTED_DELAY
+[PASS] OUT_EXEC_WRAP
+[PASS] OUT_EXEC_JUMP
+[PASS] OUT_EXEC_SIDESET_WAIT
+[PASS] OUT_EXEC_NESTED_FAULT
+[PASS] OUT_EXEC_ILLEGAL_FAULT
+[PASS] OUT_EXEC_WAIT_TIMEOUT
+[PASS] OUT_EXEC_BLOCKING_FIFO
+[PASS] MOV_EXEC_PARENT_AND_INJECTED_DELAY
+[PASS] MOV_EXEC_WRAP
+[PASS] MOV_EXEC_JUMP
+[PASS] MOV_EXEC_SIDESET_WAIT
+[PASS] MOV_EXEC_NESTED_FAULT
+[PASS] MOV_EXEC_ILLEGAL_FAULT
+[PASS] MOV_EXEC_WAIT_TIMEOUT
+[PASS] MOV_EXEC_BLOCKING_FIFO
+[PASS] UART_TX_0x35_WAVEFORM
+[PASS] UART_RX_LOOPBACK
+CHECKS : 40
+ERRORS : 0
+RESULT : PASS
+
+s11_engine_c
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_engine_c --Mdir /tmp/pvm-verilator-fast-build/s11_engine_c -o sim /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_engine_c.v /workspace/work/pvm-protocol-emulator/tb_rtl/pvm_trace.v
+CONFIG: TOP=tb_engine_c CHECKS=12
+[PASS] WAIT_PIN_POL0
+[PASS] WAIT_PIN_POL1
+[PASS] WAIT_FAB
+[PASS] WAIT_FLAG_ARB
+[PASS] WAIT_SIDESET_APPLIED_DURING_STALL
+[PASS] DELAY_AFTER_WAIT_ONLY
+[PASS] TIMEOUT_EXACT_COUNT
+[PASS] TIMEOUT_COMPLETION_WINS
+[PASS] TIMEOUT_0_DISABLED
+[PASS] TIMEOUT_ON_PULL
+[PASS] TIMEOUT_ON_PUSH
+[PASS] FAULT_STOPS_ENGINE
+CHECKS : 12
+ERRORS : 0
+RESULT : PASS
+
+s11_top
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top_s11 --Mdir /tmp/pvm-verilator-fast-build/s11_top -o sim /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top_s11.v /workspace/work/pvm-protocol-emulator/tb_rtl/pvm_trace.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v
+CONFIG: TOP=tb_top_s11 CHECKS=2
+[PASS] SPI_UART_TX_SMOKE
+[PASS] FAULT_OUTPUTS_SAFE
+CHECKS : 2
+ERRORS : 0
+RESULT : PASS
+
+s12_fabric
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_fabric --Mdir /tmp/pvm-verilator-fast-build/s12_fabric -o sim /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_fabric.v
+CONFIG: TOP=tb_fabric CHECKS=21
+[PASS] LUT_ALL_16_TT_RANDOM
+[PASS] LAYER2_SEES_L0_L1
+[PASS] NO_L2_TO_L1
+[PASS] MODE_RISE_PULSE
+[PASS] MODE_MAJ3_FILTERS_1CYCLE_GLITCH
+[PASS] MODE_MAJ3_PASSES_3CYCLE
+[PASS] GROUP1_MAPPING
+[PASS] CNT_PERIOD_RELOAD_249
+[PASS] CNT_RELOAD_0
+[PASS] CNT_RELOAD_1023
+[PASS] CNT_SRC_ENGINE_TICK
+[PASS] MANCH_STREAM_16BITS
+[PASS] MANCH_UNDERRUN
+[PASS] MANCH_BOUNDARY_WRITE_QUEUED
+[PASS] ARB_DETECT_AFTER_N
+[PASS] ARB_NO_DETECT_IF_SCL_SHORT
+[PASS] ARB_NO_DETECT_WHEN_DRIVING_LOW
+[PASS] ARB_RELEASE_BOUND_CYCLES
+[PASS] FLAGS_STICKY_AFTER_RUN
+[PASS] ARB_CLEAR_BY_EVT_HOST_HALT
+[PASS] NOT_RUN_CLEARS
+CHECKS : 21
+ERRORS : 0
+RESULT : PASS
+
+s13_mon
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_mon --Mdir /tmp/pvm-verilator-fast-build/s13_mon -o sim /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_mon.v
+CONFIG: TOP=tb_mon CHECKS=24
+[PASS] FIRST_MATCH_PRIORITY
+[PASS] ONE_FIRE_PER_CYCLE
+[PASS] EDGE_RISE_FALL_HIGH_LOW
+[PASS] GUARD_LT_GE
+[PASS] CHECK_MIN_PASS
+[PASS] CHECK_MIN_VIOL
+[PASS] CHECK_MIN_INC
+[PASS] CHECK_MAX_PASS
+[PASS] CHECK_MAX_VIOL
+[PASS] CHECK_MAX_INC
+[PASS] ARITHMETIC_17BIT
+[PASS] MEASURE_LOG_NO_COUNT
+[PASS] VIOLATE_PASS_ACTIONS
+[PASS] I2C_STRETCH_RULE_SET
+[PASS] TIMER_SATURATE_OVF
+[PASS] OVF_INCONCLUSIVE_RULE
+[PASS] LOG_RING_WRAP_4
+[PASS] LOG_TOTAL_SAT_63
+[PASS] COUNTER_SAT_FFFF
+[PASS] STOP_RETAINS_LOG
+[PASS] HALT_CLEARS
+[PASS] PRESC_16_TIMEBASE
+[PASS] MON_EN_0_IDLE
+[PASS] SRC_FLAGS_FABRIC
+CHECKS : 24
+ERRORS : 0
+RESULT : PASS
+
+s13_mon_non_intrusion
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /tmp/pvm-verilator-fast-build/s13_mon_non_intrusion -o sim -DPVM_MON_NON_INTRUSION /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top.v
+CONFIG: TOP=tb_top CHECKS=1
+[PASS] NON_INTRUSION
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+s14_top_full
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /tmp/pvm-verilator-fast-build/s14_top_full -o sim /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top.v
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+
+s14_top_engine_only
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /tmp/pvm-verilator-fast-build/s14_top_engine_only -o sim -DPVM_NO_FABRIC -DPVM_NO_MON /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top.v
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+
+s14_top_fabric
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /tmp/pvm-verilator-fast-build/s14_top_fabric -o sim -DPVM_NO_MON /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top.v
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+
+s14_top_monitor
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /tmp/pvm-verilator-fast-build/s14_top_monitor -o sim -DPVM_NO_FABRIC /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top.v
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+
+s14b_uart
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_protocols --Mdir /tmp/pvm-verilator-fast-build/s14b_uart -o sim -DPVM_PROTOCOL_UART /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_protocols.v
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] UART_TX_0X35_115200
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+s14b_spi
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_protocols --Mdir /tmp/pvm-verilator-fast-build/s14b_spi -o sim -DPVM_PROTOCOL_SPI /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_protocols.v
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] SPI_MODE0_TWO_BYTES
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+s14b_i2c
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_protocols --Mdir /tmp/pvm-verilator-fast-build/s14b_i2c -o sim -DPVM_PROTOCOL_I2C /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_protocols.v
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] I2C_WRITE_OPEN_DRAIN_ACK_STRETCH
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+d017_reset_sync
+verilator --binary --timing --language 1364-2005 -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_reset_sync --Mdir /tmp/pvm-verilator-fast-build/d017_reset_sync -o sim /workspace/work/pvm-protocol-emulator/src/project.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_fabric.v /workspace/work/pvm-protocol-emulator/src/pvm_mon.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_reset_sync.v
+CONFIG: TOP=tb_reset_sync CHECKS=3
+[PASS] RESET_ASYNC_ASSERT
+[PASS] RESET_TWO_EDGE_RELEASE
+[PASS] RESET_PULSE_REACHES_CORE
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
