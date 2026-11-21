@@ -56,7 +56,7 @@ Enabled by MANCH_EN=1 (requires CNT_EN=1, else CFG_INVALID).
 Enabled by ARB_EN=1. Pins ARB_SDA, ARB_SCL must be 12..19 and in MODE open-drain (VALIDATE checks).
 - `scl_hi_cnt` [3:0]: if `pin_in[ARB_SCL]==1` then saturating increment, else 0.
 - `sda_intent_release` = pin_guard's pre-guard intent for ARB_SDA: 1 when the owner's value for that pin is 1 (open-drain released). Provided by pin_guard as `od_release_intent[19:0]`.
-- Set: if RUN and `scl_hi_cnt >= ARB_N` and `sda_intent_release` and `pin_in[ARB_SDA]==0` -> `arb_lost <= 1` (sticky).
+- Set: while RUN and ARB_EN are active, latch sticky `arb_lost` when the current synchronized SCL sample is high, `scl_hi_cnt >= ARB_N`, SDA release intent is set, and the current synchronized SDA sample is low.
 - Effect (in pin_guard): while `arb_lost`, OE of ARB_SDA and ARB_SCL is forced 0 (released), whatever the owner drives.
 - Response bound k: `arb_lost` is set 1 cycle after the synchronised observation; pin OE drops on the following registered output update -> **2 cycles after the synchronised sample, 4 cycles after the pad** (2 synchroniser cycles). Tests must check exactly this.
 - Clear: EVT CLR flag 0 (engine), CTRL CLR_FLAGS (host), HALT.

@@ -28,7 +28,7 @@ module pvm_fabric (
     wire bit_boundary = terminal && cnt_phase;
     wire [3:0] fab_in = {fab_ctrl[3:1], manch_en ? act_bit : fab_ctrl[0]};
     wire scl_high = pin_in[arb_scl];
-    wire arb_detect = run && arb_en && scl_hi_cnt >= arb_n &&
+    wire arb_detect = run && arb_en && scl_high && scl_hi_cnt >= arb_n &&
                       od_release_intent[arb_sda] && !pin_in[arb_sda];
 
     genvar n;

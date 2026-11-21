@@ -1617,6 +1617,40 @@
       "expect_fail_checks": [
         "TIMESTAMP_SURVIVES_HALT_RELOAD"
       ]
+    },
+    {
+      "id": "arb_scl_fall",
+      "selection": "D001",
+      "top": "tb_arb_scl_fall",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_fabric.v",
+        "tb_rtl/tb_arb_scl_fall.v"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. ARB_NO_DETECT_ON_SCL_FALL checks that simultaneous SDA and SCL falls do not latch loss after four qualified SCL cycles with ARB_N=3. S12 retains the real-loss four-clock check."
+    },
+    {
+      "id": "arb_scl_fall_neg_stale_count",
+      "selection": "D001",
+      "top": "tb_arb_scl_fall",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_fabric.v",
+        "tb_rtl/tb_arb_scl_fall.v"
+      ],
+      "checks": 1,
+      "checks_basis": "Same frozen D-001 check. Removing the current SCL sample permits a false loss from the previous high count.",
+      "negative": true,
+      "variant_of": "arb_scl_fall",
+      "mutant": {
+        "file": "src/pvm_fabric.v",
+        "anchor": "wire arb_detect = run && arb_en && scl_high && scl_hi_cnt >= arb_n &&",
+        "replace": "wire arb_detect = run && arb_en && scl_hi_cnt >= arb_n &&"
+      },
+      "expect_fail_checks": [
+        "ARB_NO_DETECT_ON_SCL_FALL"
+      ]
     }
   ]
 }
