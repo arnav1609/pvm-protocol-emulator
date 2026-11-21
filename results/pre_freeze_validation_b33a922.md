@@ -1,7 +1,7 @@
 # PVM D-001 freeze candidate
 
 Candidate `b33a9227ac187f791a3733b94ac4e32879b10414` on
-`codex/pvm-rtl`. Kalash owns the source-review verdict and
+`codex/pvm-rtl`. All requested automated gates passed. Kalash owns the source-review verdict and
 `rtl-freeze` tag on the exact candidate after sign-off.
 [Candidate diff](https://github.com/arnav1609/pvm-protocol-emulator/compare/00ec783...b33a922) · [PR #1](https://github.com/arnav1609/pvm-protocol-emulator/pull/1) · [Open owner checklist](owner_review_b33a922.md)
 
@@ -48,7 +48,7 @@ submission's exact OASIS bytes.
 | GDS | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136900930230) |
 | Gate-level SPI and pin-safety smoke | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136925313687) · [Result and waveform](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/artifacts/14717322699) |
 | Pages viewer | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136925313818) · [Published layout](https://arnav1609.github.io/pvm-protocol-emulator/) |
-| Tiny Tapeout precheck | In progress. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136925313698) |
+| Tiny Tapeout precheck | 10/10 passed in 1 h 11 min 39 s. All three KLayout databases report zero violations. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/job/136925313698) · [Raw artifact](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967/artifacts/14720040571) · [Verified summary](../evidence/pre_freeze/b33a922/physical/precheck_summary.json) |
 
 | Routed variant D metric | `00ec783` | `b33a922` | Delta |
 | --- | ---: | ---: | ---: |
