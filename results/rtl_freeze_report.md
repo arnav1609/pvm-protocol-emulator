@@ -117,4 +117,6 @@ Full runner selection accepted 63/63 jobs, including the six S14b protocol jobs.
 
 ## Remaining verification
 
-Kalash’s XSim and source review are the remaining RTL freeze gates. The ISS is a separate toolchain deliverable. [S14b pin-level checks](../reports/S14b_protocols_gate.md) · [Weekly review packet](../reports/weekly_freeze_review.md)
+For the current candidate, D-020 accepts the Verilator replay and
+Kalash’s source-review sign-off remains pending. The ISS is a separate
+toolchain deliverable. [S14b pin-level checks](../reports/S14b_protocols_gate.md) · [Weekly review packet](../reports/weekly_freeze_review.md)

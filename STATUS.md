@@ -1,23 +1,25 @@
 # PVM RTL STATUS
 Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 
-| Stage | Plan date | State (TODO/WIP/PASS/FAIL/BLOCKED) | Gate report | Jobs accepted/total | Claim level | XSim (Kalash, weekly) | ISS cross-check (Arnav) | CI |
+| Stage | Plan date | State (TODO/WIP/PASS/FAIL/BLOCKED) | Gate report | Jobs accepted/total | Claim level | Second simulator | ISS cross-check (Arnav) | CI |
 |---|---|---|---|---|---|---|---|---|
-| S01 | 25 Nov | PASS | [S01 gate](reports/S01_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S02 | 26 Nov | PASS | [S02 gate](reports/S02_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S03 | 27 Nov | PASS | [S03 gate](reports/S03_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S04 | 28 Nov | PASS | [S04 gate](reports/S04_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S05 | 29 Nov | PASS | [S05 gate](reports/S05_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S06 | 30 Nov | PASS | [S06 gate](reports/S06_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S07 | 1 Dec | PASS | [S07 gate](reports/S07_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | Standalone RTL |
-| S08 | 2 Dec | PASS | [S08 gate](reports/S08_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | | [Run #15 green](results/ci_S08.md) |
-| S09 | 3-4 Dec | PASS | [S09 gate](reports/S09_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | ISS pending | Standalone RTL |
-| S10 | 5 Dec | PASS | [S10 gate](reports/S10_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Pending | ISS pending | Standalone RTL |
-| S11 | 6 Dec | PASS | [S11 gate](reports/S11_gate.md) | 6/6 stage, 5/5 trace | Trace-equivalent to pre-repair RTL, mutation-tested | Pending | ISS pending | [G2 passed at 50 MHz](results/g2_timing_repair.md) |
-| S12 | 7-8 Dec | WIP | [S12 gate](reports/S12_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Pending | ISS pending | [Physical gate passed, XSim pending](results/rtl_freeze_report.md) |
-| S13 | 8-9 Dec | WIP | [S13 gate](reports/S13_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Pending | ISS pending | [Physical gate passed, XSim pending](results/rtl_freeze_report.md) |
-| S14 | 10 Dec | WIP | [S14 gate](reports/S14_gate.md) | 8/8 | Icarus-simulated, mutation-tested | Pending | ISS pending | [Physical gate passed, XSim pending](results/rtl_freeze_report.md) |
-| S14b | Before freeze | WIP | [Pin-level protocol gate](reports/S14b_protocols_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Pending | ISS pending | [Variant D CI](results/ci_S14.md) |
+| S01 | 25 Nov | PASS | [S01 gate](reports/S01_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Verilator passed | | Standalone RTL |
+| S02 | 26 Nov | PASS | [S02 gate](reports/S02_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Verilator passed | | Standalone RTL |
+| S03 | 27 Nov | PASS | [S03 gate](reports/S03_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Verilator passed | | Standalone RTL |
+| S04 | 28 Nov | PASS | [S04 gate](reports/S04_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Verilator passed | | Standalone RTL |
+| S05 | 29 Nov | PASS | [S05 gate](reports/S05_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Verilator passed | | Standalone RTL |
+| S06 | 30 Nov | PASS | [S06 gate](reports/S06_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Verilator passed | | Standalone RTL |
+| S07 | 1 Dec | PASS | [S07 gate](reports/S07_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Verilator passed | | Standalone RTL |
+| S08 | 2 Dec | PASS | [S08 gate](reports/S08_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Verilator passed | | [Run #15 green](results/ci_S08.md) |
+| S09 | 3-4 Dec | PASS | [S09 gate](reports/S09_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | Standalone RTL |
+| S10 | 5 Dec | PASS | [S10 gate](reports/S10_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | Standalone RTL |
+| S11 | 6 Dec | PASS | [S11 gate](reports/S11_gate.md) | 6/6 stage, 5/5 trace | Trace-equivalent to pre-repair RTL, mutation-tested | Verilator passed | ISS pending | [G2 passed at 50 MHz](results/g2_timing_repair.md) |
+| S12 | 7-8 Dec | WIP | [S12 gate](reports/S12_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
+| S13 | 8-9 Dec | WIP | [S13 gate](reports/S13_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
+| S14 | 10 Dec | WIP | [S14 gate](reports/S14_gate.md) | 8/8 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
+| S14b | Before freeze | WIP | [Pin-level protocol gate](reports/S14b_protocols_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Variant D CI](results/ci_S14.md) |
+
+D-020 accepts the 24-configuration timing-enabled Verilator replay. Kalash's source-review sign-off remains pending before the freeze. [Freeze checklist](reports/weekly_freeze_review.md#freeze-checklist)
 
 ## Setup
 

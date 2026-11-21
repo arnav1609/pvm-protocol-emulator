@@ -162,3 +162,15 @@ WS2812, PS/2 receive, and DMX512 transmit follow the freeze. The
 outsider draws from all five candidates after the tag. If 1-Wire or
 SWD is drawn, disclose the pre-freeze study.
 [Fit scope and results](../results/fit_study.md)
+
+## D-020 — Use Verilator for the freeze simulator gate
+
+Decision recorded from the project chat on 21 November 2026. Accept
+the timing-enabled Verilator 5.032 replay of the candidate as evidence
+for the second-simulator gate. All 24 distinct positive Verilog
+bench configurations passed at their frozen check counts.
+
+The 67-job Icarus regression continues to cover the mutation checks
+and D-016 trace comparisons. Kalash's source-review sign-off
+remains pending before `rtl-freeze`.
+[Verilator replay](../results/opt_area_timing.md#additional-simulator-replay) · [Freeze review](../reports/weekly_freeze_review.md)

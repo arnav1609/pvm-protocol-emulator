@@ -19,7 +19,9 @@ wait at P13, so the controller advances during the target stretch.
 
 These pin-level jobs are Icarus-simulated and mutation-tested. The
 D-016 trace-equivalence claim covers the pre- and post-repair engine
-comparison. Heet's independent rerun and Kalash's XSim review are pending.
+comparison. The three positive benches passed the D-020 Verilator
+replay. Heet's independent rerun and Kalash's source-review sign-off
+are pending. [Verilator replay](../evidence/opt/verilator_timing.log)
 All three positive benches also passed local functional simulation of
 the routed variant-D netlist with Tiny Tapeout's Icarus 13.0 setup.
 [Gate replay evidence](../evidence/setup/s14_gate_protocols.log) · [Weekly review packet](weekly_freeze_review.md)

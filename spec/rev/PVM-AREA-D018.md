@@ -37,5 +37,7 @@ The proposal pairs D-018 with D-017 for one candidate physical build.
 If setup misses the gate, evaluate O1b withdrawal first. If utilization
 fails to improve, evaluate O1b + O2 without the engine changes. Record
 measured results and the release decision in the candidate gate report.
-XSim and source review are required before the freeze.
+The freeze requires the second-simulator replay accepted under D-020
+and Kalash's source-review sign-off.
+[Decision D-020](../DECISIONS.md#d-020--use-verilator-for-the-freeze-simulator-gate)
 [Candidate gate](../../results/opt_area_timing.md) · [Baseline physical evidence](../../results/ci_S14.md)

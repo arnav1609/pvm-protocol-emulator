@@ -43,8 +43,9 @@ benches. An independent ISS comparison is pending.
 
 ## Remaining review
 
-Kalash’s XSim rerun and S12–S14b source review gate the RTL freeze.
-Heet’s independent verification, the ISS comparison and the G3
+The second-simulator freeze gate passed with Verilator 5.032 and
+timing enabled under D-020. Kalash’s source-review sign-off remains
+pending. Heet’s independent verification, the ISS comparison and the G3
 physical checks on the final submission commit are pending.
 [Freeze review packet](../reports/weekly_freeze_review.md) · [Heet’s handover](verification_handoff.md)
 

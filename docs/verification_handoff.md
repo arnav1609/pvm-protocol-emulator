@@ -36,8 +36,9 @@ experiment variants. [Repository branch](https://github.com/arnav1609/pvm-protoc
    date. Rebuild the D-016 CSVs, run the full regression, and send Kalash
    the summary and links to the logs. Reproduce any failure before
    editing the RTL.
-2. **Review and replay S12–S14b with Kalash.** Use the weekly XSim packet
-   to cover all positive testbenches and build variants. Prioritize
+2. **Review and replay S12–S14b with Kalash.** Use the weekly freeze packet
+   and its accepted Verilator evidence to cover the positive testbenches
+   and build variants. Prioritize
    arbitration release and Manchester boundary timing, monitor verdict
    edges and log order, and open-drain ACK and stretch at the pads.
    Record the first differing cycle and a waveform for any finding.
@@ -68,7 +69,7 @@ python3 tb_rtl/pvm_run.py run --select S14b_protocols
 python3 tb_rtl/pvm_run.py run --select all
 ```
 
-Expected runner results are six of six S14b jobs and 63 of 63 full
-regression jobs accepted. The freeze tag depends on the variant-D
-physical gate, the pin-test evidence, and Kalash's XSim and source
-review. [Weekly review packet](https://github.com/arnav1609/pvm-protocol-emulator/blob/codex/pvm-rtl/reports/weekly_freeze_review.md)
+Expected runner results are six of six S14b jobs and 67 of 67 full
+regression jobs at the current branch tip. The original S14b baseline
+had 63 regression jobs. Kalash's source-review sign-off remains pending
+for the freeze. [Weekly review packet](https://github.com/arnav1609/pvm-protocol-emulator/blob/codex/pvm-rtl/reports/weekly_freeze_review.md)

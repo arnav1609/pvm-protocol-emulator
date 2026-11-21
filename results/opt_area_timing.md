@@ -117,8 +117,8 @@ configuration match the routed revision `1a258a1`.
   The reset bench checks asynchronous assertion, two-edge release,
   and capture of a pulse between clocks. [Reset RTL](../src/pvm_top.v) · [Reset bench](../tb_rtl/tb_reset_sync.v)
 
-The review found no change required in the reviewed RTL. The simulator
-freeze gate remains open. [Freeze review packet](../reports/weekly_freeze_review.md)
+The review found no change required in the reviewed RTL. Kalash's
+source-review sign-off is pending. [Freeze review packet](../reports/weekly_freeze_review.md)
 
 ## Additional simulator replay
 
@@ -126,6 +126,5 @@ Verilator 5.032 with timing enabled passed all 24 distinct positive
 Verilog bench configurations on the merged RTL. Those include the
 engine, monitor, four system variants, pin protocols, and the D-017
 reset bench. The D-016 CSV comparisons remain in the Icarus evidence.
-This provides a second simulation result while the XSim requirement
-awaits an available installation or the owner's decision.
-[Verilator commands and results](../evidence/opt/verilator_timing.log)
+D-020 accepts this timing-enabled run for the second-simulator freeze gate.
+[Verilator commands and results](../evidence/opt/verilator_timing.log) · [Decision D-020](../spec/DECISIONS.md#d-020--use-verilator-for-the-freeze-simulator-gate)

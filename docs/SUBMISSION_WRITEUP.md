@@ -29,7 +29,7 @@ Record event cycles alongside the waveform and publish raw measurements.
 
 | Target | Deliverable |
 | --- | --- |
-| RTL freeze review | Kalash runs XSim and reviews S12–S14b. The physical gate passed. Record the independent review sign-off before tagging. |
+| RTL freeze review | The physical and Verilator gates passed. Kalash records source-review sign-off before tagging. |
 | 13 December 2026 | Review this outline and assign each section. Confirm the tool and AI disclosure, including Claude’s role. |
 | 18 December 2026 | Record F1, F2 and M1 measurements and the held-out demo. |
 | 20 December 2026 | Assemble the first write-up drafts with reproducible commands and evidence links. |
