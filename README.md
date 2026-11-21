@@ -38,7 +38,7 @@ replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 | [Tools and AI use](docs/AI_USE.md) | Design, verification and evidence tooling |
 | [Submission outline](docs/SUBMISSION_WRITEUP.md) | Experiments, demo evidence and remaining deliverables |
 
-The full 8×4 candidate routed at 50 MHz with 33.7187% standard-cell
-utilization and +2.461 ns slow-corner setup slack. The acceptance
-status and links to physical artifacts are in the CI report.
-[Variant D CI](results/ci_S14.md) · [Layout preview](https://arnav1609.github.io/pvm-protocol-emulator/gds_render.png)
+The optimized 8×4 candidate passed precheck at 50 MHz with 30.9084%
+standard-cell utilization and +2.206 ns slow-corner setup slack.
+The 1-Wire and SWD fit studies passed on the same 32-word RTL.
+[Optimization CI](results/opt_area_timing.md) · [Fit study](results/fit_study.md) · [Layout preview](https://arnav1609.github.io/pvm-protocol-emulator/gds_render.png)

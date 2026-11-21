@@ -1,13 +1,11 @@
 # Weekly freeze review packet for Kalash
 
-The candidate includes the engine, fabric, and protocol monitor. Use
-`codex/pvm-rtl` with the S14b tests. The routed variant-D RTL is
-`aa2996b`. The physical gate and protocol checks passed. The freeze
-awaits Kalash’s XSim and source review.
-[Physical evidence](../results/ci_S14.md) · [S14b gate](S14b_protocols_gate.md)
+Use `codex/pvm-rtl`. The candidate includes the engine, fabric, monitor
+and the D-017/D-018 changes. Variant D routed from `1a258a1`. The
+physical gate, protocol checks and 32-word fit gate passed.
+[Physical evidence](../results/opt_area_timing.md) · [S14b gate](S14b_protocols_gate.md) · [Fit gate](../results/fit_study.md)
 
-Review the `opt/area-o1b-o4` candidate using its own physical gate record.
-Include the D-017 positive reset bench in the XSim replay. Inspect the
+Include the D-017 positive reset bench in the simulator replay. Inspect the
 reset fanout and two-edge release, the monitor arithmetic and the stable
 source selector invariant, and shared engine mux and shift paths.
 [Candidate report](../results/opt_area_timing.md)

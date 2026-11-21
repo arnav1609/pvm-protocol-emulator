@@ -132,13 +132,17 @@ the remaining path and stop for that decision.
 Approved in chat on 21 November 2026 for the optimization candidate.
 Assert the core reset asynchronously and release it after two rising
 clock edges. Retain the existing synchronous reset consumers.
-[Reset interface and verification](rev/PVM-IF-D017-RESET-RELEASE.md)
+Keep D-017 in the RTL. It is present in `1a258a1`, which passed the
+reset regression and all physical checks in run `44862976826`.
+[Reset interface and verification](rev/PVM-IF-D017-RESET-RELEASE.md) · [Physical acceptance](../results/opt_area_timing.md)
 
 ## D-018 — Optimize monitor and engine area
 
 Approved in chat on 21 November 2026 for candidate implementation and
 physical evaluation. Evaluate O1b/O2/O3/O4 with D-017 at 50 MHz against
 the predeclared timing, area, and physical test criteria.
+All criteria passed on `1a258a1`. The approved branch integrates all
+four optimizations.
 [Optimization decision and acceptance](rev/PVM-AREA-D018.md) · [Candidate report](../results/opt_area_timing.md)
 
 ## D-019 — Time-box the 32-word fit check before freezing
@@ -149,6 +153,10 @@ checks with a target bus model and measured timing. If both fit in
 passes. If either exceeds 32 words after one optimization pass, stop
 for the owner's D-004 decision. If the programs are unfinished on
 26 November, keep 32 words and record the risk.
+
+The 1-Wire transaction uses 19 words and the SWD read uses 32, with
+both pin-model checks and directed mutations accepted. Retain the
+32-word memory.
 
 WS2812, PS/2 receive, and DMX512 transmit follow the freeze. The
 outsider draws from all five candidates after the tag. If 1-Wire or

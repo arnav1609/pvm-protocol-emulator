@@ -1,9 +1,10 @@
 # PVM verification
 
-The RTL regression accepted 63 of 63 jobs across S01–S14, S14b and
-D-016. That total includes 27 positive jobs and 36 expected-failure
-mutants. Frozen checks and the corresponding fresh job logs are
-listed in the freeze report. [Freeze report](../results/rtl_freeze_report.md)
+The RTL regression accepted 67 of 67 jobs. The baseline covered 63
+jobs across S01–S14, S14b and D-016. D-017 and D-018 add the reset
+bench and three mutants. The separate 1-Wire and SWD suite accepted
+four program-fit jobs, including two mutants.
+[Baseline checks](../results/rtl_freeze_report.md) · [Optimization checks](../results/opt_area_timing.md) · [Fit checks](../results/fit_study.md)
 
 ## Reproduce the evidence
 
@@ -31,10 +32,10 @@ benches. An independent ISS comparison is pending.
   transactions. A cocotb test replaces all three images in the
   integrated RTL over simulated SPI and checks image commitment
   and register readback. [Toolchain test commands](TOOLCHAIN.md)
-- Variant D passed routed timing at 50 MHz with +2.461 ns slow-corner
-  setup slack and 33.7187% utilization. GDS, precheck, gate-level
-  SPI smoke and the Pages viewer also passed.
-  [Physical CI](../results/ci_S14.md)
+- Optimized variant D passed routed timing at 50 MHz with +2.206 ns
+  slow-corner setup slack and 30.9084% utilization. GDS, precheck,
+  gate-level SPI smoke and the Pages viewer passed.
+  [Physical CI](../results/opt_area_timing.md)
 - Functional simulation of the routed variant-D netlist passed all
   three S14b waveforms with the pinned PDK cell models. That local
   replay used functional cell models without delay annotation.

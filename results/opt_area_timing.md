@@ -39,14 +39,15 @@ bash tb_rtl/area_opt/prove.sh engine
 Use the same SG13CMOS5L target, 8×4 tiles, and 20 ns clock as the S14
 baseline. Run 44862976826 built `1a258a16c0f9891c55f01ba076ea7a8a9f68c09e`
 with LibreLane 3.1.0.dev4 and PDK `89d42ee6d2fd9b50b86a1aada6fee6673c3e6008`.
-The routed timing and utilization criteria pass. Tiny Tapeout precheck
-is still running.
+The candidate passed the full physical gate. The precheck took
+1 h 14 min 35 s. All ten checks passed, and the three KLayout report
+databases contain zero violations.
 [Candidate workflow](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826) · [S14 baseline](ci_S14.md)
 
 | Check | Candidate result |
 | --- | --- |
 | GDS | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136720282422) |
-| Tiny Tapeout precheck | [Running](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136742889835) |
+| Tiny Tapeout precheck | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136742889835) · [Reports](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/artifacts/14694909890) |
 | Gate-level SPI smoke | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136742889831) |
 | GitHub Pages viewer deployment | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136742889818) |
 
@@ -59,6 +60,9 @@ is still running.
 | Slow setup slack, 1.08 V / 125 °C | +2.461 ns | +2.206 ns |
 | Typical setup slack, 1.20 V / 25 °C | +7.482 ns | +8.782 ns |
 | Fast setup slack, 1.32 V / −40 °C | +10.476 ns | +12.639 ns |
+| Slow hold slack, 1.08 V / 125 °C | +0.636 ns | +0.604 ns |
+| Typical hold slack, 1.20 V / 25 °C | +0.311 ns | +0.286 ns |
+| Fast hold slack, 1.32 V / −40 °C | +0.122 ns | +0.108 ns |
 | Worst hold slack | +0.122 ns | +0.108 ns |
 | Setup and hold total negative slack | 0 ns each | 0 ns each |
 | Detailed routing violations | 0 | 0 |
