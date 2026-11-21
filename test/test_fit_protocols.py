@@ -7,7 +7,7 @@ from pathlib import Path
 import cocotb
 from cocotb.clock import Clock
 from cocotb.task import bridge
-from cocotb.triggers import FallingEdge
+from cocotb.triggers import FallingEdge, ValueChange, with_timeout
 from cocotb.utils import get_sim_time
 
 from test_toolchain import SimTransport
@@ -153,8 +153,13 @@ async def one_wire_target(pads, presence, result_bit):
 async def one_wire(dut, presence, result_bit, mutation=None):
     host, words = await setup(dut, "one_wire", (0xCC, 0xB4), mutation)
     target = cocotb.start_soon(one_wire_target(Pads(dut, open_drain=True), presence, result_bit))
+    diagnostic = None
+    if presence is not None and mutation is None:
+        diagnostic = cocotb.start_soon(with_timeout(observe_read_slot(dut), 4, "ms"))
     await bridge(host.command)(3)
     timing = await target
+    if diagnostic is not None:
+        timing.update(await diagnostic)
     await bridge(host.wait_done)()
     level = (await bridge(host.read)(0x0F12))[0] >> 4
     require(level == (0 if presence is None else 1), "ONE_WIRE_RX_LEVEL", level)
@@ -162,6 +167,31 @@ async def one_wire(dut, presence, result_bit, mutation=None):
         result = await bridge(host.pop_rx)(1)
         require(result == bytes((result_bit,)), "ONE_WIRE_READ_BIT", result.hex())
     return words, timing
+
+
+async def observe_read_slot(dut):
+    """Timestamp the RTL sample and slot exit while the pin model runs."""
+    async def observe(signal, value, mask):
+        while (int(signal.value) & mask) != value:
+            await ValueChange(signal)
+        return int(get_sim_time(unit="ns"))
+
+    # Skip reset and the sixteen write slots. The next open-drain OE
+    # assertion is the read slot's falling edge.
+    for _ in range(17):
+        await observe(dut.uio_oe, 1, 1)
+        await observe(dut.uio_oe, 0, 1)
+    read_edge = await observe(dut.uio_oe, 1, 1)
+    pvm = dut.user_project.pvm
+    sampled = await observe(pvm.engine.isr_cnt_q, 1, 0x1F)
+    pushed = await observe(pvm.rx_level, 1, 7)
+    done = await observe(pvm.state, 4, 7)
+    sample_ns = sampled - read_edge
+    slot_ns = pushed - read_edge
+    require(0 < sample_ns <= 15_000 and 60_000 <= slot_ns <= 120_000,
+            "READ_SLOT", (sample_ns, slot_ns))
+    return {"read_sample_ns": sample_ns, "read_slot_to_push_ns": slot_ns,
+            "read_fall_to_done_ns": done - read_edge}
 
 
 def lsb_first(value, width):
@@ -192,18 +222,23 @@ async def swd_target(pads, request, ack, data, parity):
                 require(not pads.driven and pads.target is None, "SWD_TURNAROUND", index)
             else:
                 require(not pads.driven and pads.target == bit, "SWD_TARGET_BIT", index)
-                setup_ns.append(now - pads.target_since)
+                # `step` observes registered SWCLK half a core cycle
+                # after the pad edge. Target updates occur at `target_since`.
+                setup_ns.append(now - CORE_NS // 2 - pads.target_since)
             if last_low is not None:
                 low_ns.append(now - last_low)
             last_rise = now
             index += 1
+            if index < len(packet):
+                # ADIv5 B4.3.1: launch or release after the rising edge
+                # that just sampled the previous bit.
+                kind, bit = packet[index]
+                pads.events.append((now + 100, bit if kind == "target" else None))
         elif not pads.swclk and previous:
             high_ns.append(now - last_rise)
             if index == len(packet):
                 break
             last_low = now
-            kind, bit = packet[index]
-            pads.events.append((now + 100, bit if kind == "target" else None))
         previous = pads.swclk
     require(index == len(packet), "SWD_CLOCK_COUNT", (index, len(packet)))
     require(min(high_ns) >= 400 and min(low_ns) >= 400, "SWD_CLOCK_PHASE",
@@ -221,7 +256,7 @@ def reverse_byte(value):
     return sum(((value >> bit) & 1) << (7 - bit) for bit in range(8))
 
 
-async def swd(dut, request, ack, data, parity, mutation=None):
+async def swd(dut, request, ack, data, parity, mutation=None, check_reload=False):
     host, words = await setup(dut, "swd", (request,), mutation)
     target = cocotb.start_soon(swd_target(Pads(dut, open_drain=False), request, ack, data, parity))
     await bridge(host.command)(3)
@@ -236,7 +271,26 @@ async def swd(dut, request, ack, data, parity, mutation=None):
     flags = (await bridge(host.read)(0x0F0B))[0]
     accepted = ack == 1 and parity == (data.bit_count() & 1)
     require(bool(flags & 4) == accepted, "SWD_PARITY_FLAG", (ack, parity, flags))
+    if check_reload:
+        await observe_swd_reload(dut, host)
     return words, timing
+
+
+async def observe_swd_reload(dut, host):
+    async def monitor_clock():
+        while True:
+            require(int(dut.uo_out.value) & 1 == 0, "SWD_RELOAD_IDLE", "SWCLK rose")
+            await ValueChange(dut.uo_out)
+
+    require(await bridge(host.read)(0x0405) == b"\x0a", "SWD_RELOAD_CONFIG", "P5 settings")
+    spare_words = assemble("evt done side 0", side_count=1)
+    image = build_image(spare_words, config={0x0107: 5, 0x0108: 1, 0x0405: 0x0A})
+    clock_monitor = cocotb.start_soon(monitor_clock())
+    try:
+        await bridge(host.load_image)(image)
+    finally:
+        clock_monitor.cancel()
+    dut._log.info("OBSERVE SWD_RELOAD_IDLE P5=0 from DONE through HALT, reload, and READY")
 
 
 @cocotb.test()
@@ -271,8 +325,8 @@ async def fit_swd(dut):
     scenarios = ((0xA5, 1, even, 0), (0xA5, 1, odd, 1),
                  (0xA5, 1, even, 1), (0xA5, 1, odd, 0),
                  (0x87, 2, 0, 0), (0x87, 4, 0, 0))
-    for request, ack, reply, parity in scenarios:
-        words, timing = await swd(dut, request, ack, reply, parity)
+    for index, (request, ack, reply, parity) in enumerate(scenarios):
+        words, timing = await swd(dut, request, ack, reply, parity, check_reload=index == 0)
         dut._log.info("FIT swd words=%d request=%02x ack=%d reply=%08x parity=%d %s",
                       words, request, ack, reply, parity, timing)
     dut._log.info("CHECK PASS SWD_DPIDR_PIN_TRANSACTION")

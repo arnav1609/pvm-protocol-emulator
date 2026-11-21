@@ -21,12 +21,13 @@ ack:
     set x, 31 side 0
     set y, 0 side 0
 data:
-    in pins, 1 side 1
+    # Check the bit for parity before the rising edge advances the target.
     jmp pin, toggle side 0
-    jmp count side 0
+    jmp sample side 0
 toggle:
     mov y, ~y side 0
-count:
+sample:
+    in pins, 1 side 1
     jmp x--, data side 0
     jmp pin, parity_high side 1
     jmp !y, good side 1

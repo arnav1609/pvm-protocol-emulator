@@ -1,0 +1,30 @@
+D-017/D-018 RTL 1a258a16c0f9891c55f01ba076ea7a8a9f68c09e
+2cc54a7989c179fa811904d64e8400ea0fde53d7cfdc1a245836d3d60e1b7b27  tools/examples/fit/one_wire.json
+4571f9609e75407a89bf12481c6e5c38f32c75a3cab0bb90802cb42e3dd99a85  tools/examples/fit/one_wire.pvm
+28776734aec92c93d666e49c7f801fdd9650ad139030f26a607acc4062095505  tools/examples/fit/swd.json
+adc7b7427b4457b88e295f1c89e7819a419e59effb3f36d3e1dace3ffe5645fc  tools/examples/fit/swd.pvm
+2ec4b7ee16873c2c22c7885408dff94a2918807c21bc44306c572883cb1a633c  test/test_fit_protocols.py
+
+Original SWD program with the corrected rising-edge target model:
+                                                        test_fit_protocols.FitFailure: SWD_PARITY_FLAG: (1, 0, 0)
+                                                        ** TESTS=1 PASS=0 FAIL=1 SKIP=0             974470.00           5.04     193446.45  **
+
+Corrected SWD program and 1-Wire timing measurement:
+Run: cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=test_fit_protocols
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb
+3191870.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=(15000, 60000) bit=0 {'reset_low_ns': 520000, 'reset_high_ns': 524000, 'write_zero_ns': 68000, 'write_one_ns': 8000, 'recovery_ns': 8000, 'read_init_ns': 4000, 'read_sample_ns': 11980, 'read_slot_to_push_ns': 75980, 'read_fall_to_done_ns': 80000}
+6383750.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=(60000, 240000) bit=1 {'reset_low_ns': 520000, 'reset_high_ns': 524000, 'write_zero_ns': 68000, 'write_one_ns': 8000, 'recovery_ns': 8000, 'read_init_ns': 4000, 'read_sample_ns': 11980, 'read_slot_to_push_ns': 75980, 'read_fall_to_done_ns': 80000}
+7825030.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=None bit=None {'reset_low_ns': 520000}
+7825030.00ns INFO     cocotb.tb                          CHECK PASS ONE_WIRE_PIN_TRANSACTION
+9622140.00ns INFO     cocotb.tb                          MUTANT KILLED ONE_WIRE_PIN_TRANSACTION WRITE_ZERO_LOW: 32000
+11185550.00ns INFO     cocotb.tb                          OBSERVE SWD_RELOAD_IDLE P5=0 from DONE through HALT, reload, and READY
+11185550.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=2ba01477 parity=0 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+12160030.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=3ba01477 parity=1 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+13134110.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=2ba01477 parity=1 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+14108590.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=3ba01477 parity=0 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+14962970.00ns INFO     cocotb.tb                          FIT swd words=32 request=87 ack=2 reply=00000000 parity=0 {'swclk_rises': 21, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+15817350.00ns INFO     cocotb.tb                          FIT swd words=32 request=87 ack=4 reply=00000000 parity=0 {'swclk_rises': 21, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+15817350.00ns INFO     cocotb.tb                          CHECK PASS SWD_DPIDR_PIN_TRANSACTION
+16791820.00ns INFO     cocotb.tb                          MUTANT KILLED SWD_DPIDR_PIN_TRANSACTION SWD_PARITY_FLAG: (1, 1, 4)
+                                                          ** TESTS=4 PASS=4 FAIL=0 SKIP=0                               16791820.00          85.18     197138.24  **
