@@ -37,9 +37,13 @@ bash tb_rtl/area_opt/prove.sh engine
 ## Physical gate
 
 Use the same SG13CMOS5L target, 8×4 tiles, and 20 ns clock as the S14
-baseline. Routed results are pending. The approval to prepare and test
-this branch precedes Kalash's XSim and source review.
-[Baseline metrics and CI](ci_S14.md)
+baseline. The physical gate is running for
+`1a258a16c0f9891c55f01ba076ea7a8a9f68c09e`. The approval to prepare and
+test this branch precedes Kalash's XSim and source review.
+[Candidate GDS, precheck and gate-level workflow](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826) · [Baseline metrics and CI](ci_S14.md)
+
+GitHub's toolchain/RTL test and datasheet workflows passed for the same
+revision. [Test CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976810) · [Datasheet CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976814)
 
 ## Variant synthesis estimates
 
