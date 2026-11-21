@@ -1,0 +1,29 @@
+
+-- Executing script file `equiv.ys' --
+
+1. Executing RTLIL frontend.
+Input filename: before/converted.il
+Renaming module \tt_um_arnav1609_pvm to \gold.
+
+2. Executing RTLIL frontend.
+Input filename: after/converted.il
+Renaming module \tt_um_arnav1609_pvm to \gate.
+
+3. Executing EQUIV_MAKE pass (creating equiv checking module).
+Proved 1515 previously unproven $equiv cells.
+
+7. Executing EQUIV_INDUCT pass.
+Found 2619 unproven $equiv cells in module eq:
+  Proving existence of base case for step 1. (588367 clauses over 220838 variables)
+  Proving induction step 1. (1283468 clauses over 475651 variables)
+  Proof for induction step holds. Entire workset of 2619 cells proven!
+Proved 2619 previously unproven $equiv cells.
+
+8. Executing EQUIV_STATUS pass.
+Found 4154 $equiv cells in eq:
+  Of those cells 4154 are proven and 0 are unproven.
+  Equivalence successfully proven!
+
+End of script. Logfile hash: 72cafff934, CPU: user 91.21s system 0.77s, MEM: 451.72 MB peak
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+Time spent: 90% 1x equiv_induct (82 sec), 8% 1x equiv_simple (7 sec), ...

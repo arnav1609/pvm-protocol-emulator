@@ -1,0 +1,53 @@
+
+-- Executing script file `equiv-reset.ys' --
+
+1. Executing RTLIL frontend.
+Input filename: before/reset-cone.il
+Renaming module \reset_release_proof to \gold.
+
+2. Executing RTLIL frontend.
+Input filename: after/reset-cone.il
+Renaming module \reset_release_proof to \gate.
+
+3. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: rst_n_gold (\rst_n_gold), rst_n_gate (\rst_n_gate) -> rst_n
+Presumably equivalent wires: pvm.reset_release_gold (\pvm.reset_release_gold), pvm.reset_release_gate (\pvm.reset_release_gate) -> pvm.reset_release
+Presumably equivalent wires: clk_gold (\clk_gold), clk_gate (\clk_gate) -> clk
+Changing input D of cell $flatten\pvm.$procdff$10226_gate ($sdff): { \pvm.reset_release_gate [0] 1'1 } -> { \pvm.reset_release [0] 1'1 }
+Changing input D of cell $flatten\pvm.$procdff$10226_gold ($sdff): { \pvm.reset_release_gold [0] 1'1 } -> { \pvm.reset_release [0] 1'1 }
+
+4. Executing HIERARCHY pass (managing design hierarchy).
+
+4.1. Analyzing design hierarchy..
+Top module:  \eq
+
+4.2. Analyzing design hierarchy..
+Top module:  \eq
+Removing unused module `\gate'.
+Removing unused module `\gold'.
+Removed 2 unused modules.
+
+5. Executing EQUIV_STRUCT pass.
+Running equiv_struct on module eq:
+  Starting iteration 1.
+    Nothing to merge.
+
+6. Executing EQUIV_SIMPLE pass.
+Found 2 unproven $equiv cells (1 groups) in eq:
+ Grouping SAT models for \pvm.reset_release:
+  Trying to prove $equiv for \pvm.reset_release [0]: success!
+  Trying to prove $equiv for \pvm.reset_release [1]: success!
+Proved 2 previously unproven $equiv cells.
+
+7. Executing EQUIV_INDUCT pass.
+No selected unproven $equiv cells found in eq.
+Proved 0 previously unproven $equiv cells.
+
+8. Executing EQUIV_STATUS pass.
+Found 2 $equiv cells in eq:
+  Of those cells 2 are proven and 0 are unproven.
+  Equivalence successfully proven!
+
+End of script. Logfile hash: ec3ed5a295, CPU: user 0.00s system 0.00s, MEM: 8.76 MB peak
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+Time spent: 46% 1x equiv_simple (0 sec), 25% 1x equiv_make (0 sec), ...

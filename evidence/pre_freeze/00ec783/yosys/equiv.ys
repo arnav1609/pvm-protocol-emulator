@@ -1,0 +1,14 @@
+read_rtlil before/converted.il
+rename tt_um_arnav1609_pvm gold
+design -stash gold
+read_rtlil after/converted.il
+rename tt_um_arnav1609_pvm gate
+design -stash gate
+design -copy-from gold -as gold gold
+design -copy-from gate -as gate gate
+equiv_make gold gate eq
+hierarchy -top eq
+equiv_struct
+equiv_simple -short -seq 4
+equiv_induct -seq 4
+equiv_status -assert

@@ -1,0 +1,14 @@
+read_rtlil before/reset-cone.il
+rename reset_release_proof gold
+design -stash gold
+read_rtlil after/reset-cone.il
+rename reset_release_proof gate
+design -stash gate
+design -copy-from gold -as gold gold
+design -copy-from gate -as gate gate
+equiv_make gold gate eq
+hierarchy -top eq
+equiv_struct
+equiv_simple -short -seq 4
+equiv_induct -seq 4
+equiv_status -assert

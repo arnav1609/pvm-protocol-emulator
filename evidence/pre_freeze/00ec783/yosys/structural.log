@@ -1,0 +1,14 @@
+before native reset_release ASYNC_REG=TRUE location=src/pvm_top.v:16.40-16.53
+before native logic cells 3541 scope metadata 20
+[('$adff', {'ARST_POLARITY': '00000000000000000000000000000000', 'ARST_VALUE': '00', 'CLK_POLARITY': '1', 'WIDTH': '00000000000000000000000000000010'}, {'ARST': [44], 'CLK': [43], 'D': ['1', 96], 'Q': [96, 97]})]
+after native reset_release ASYNC_REG=None location=src/pvm_top.v:16.15-16.28
+after native logic cells 3541 scope metadata 20
+[('$adff', {'ARST_POLARITY': '00000000000000000000000000000000', 'ARST_VALUE': '00', 'CLK_POLARITY': '1', 'WIDTH': '00000000000000000000000000000010'}, {'ARST': [44], 'CLK': [43], 'D': ['1', 96], 'Q': [96, 97]})]
+native identical complete JSON after stripping only reset_release ASYNC_REG and source location metadata
+before synth reset_release ASYNC_REG=TRUE location=src/pvm_top.v:16.40-16.53
+before synth logic cells 18831 scope metadata 20
+[('$_AND_', 3937), ('$_DFFE_PP_', 1368), ('$_DFF_PN0_', 2), ('$_DFF_P_', 21), ('$_MUX_', 6126), ('$_NOT_', 1570), ('$_OR_', 3048), ('$_SDFFCE_PN0P_', 932), ('$_SDFFE_PN0P_', 126), ('$_SDFFE_PP0N_', 4), ('$_SDFFE_PP0P_', 490), ('$_SDFFE_PP1P_', 17), ('$_SDFF_PN0_', 80), ('$_SDFF_PN1_', 3), ('$_SDFF_PP0_', 87), ('$_XOR_', 1020), ('$scopeinfo', 20)]
+after synth reset_release ASYNC_REG=None location=src/pvm_top.v:16.15-16.28
+after synth logic cells 18831 scope metadata 20
+[('$_AND_', 3937), ('$_DFFE_PP_', 1368), ('$_DFF_PN0_', 2), ('$_DFF_P_', 21), ('$_MUX_', 6126), ('$_NOT_', 1570), ('$_OR_', 3048), ('$_SDFFCE_PN0P_', 932), ('$_SDFFE_PN0P_', 126), ('$_SDFFE_PP0N_', 4), ('$_SDFFE_PP0P_', 490), ('$_SDFFE_PP1P_', 17), ('$_SDFF_PN0_', 80), ('$_SDFF_PN1_', 3), ('$_SDFF_PP0_', 87), ('$_XOR_', 1020), ('$scopeinfo', 20)]
+synth identical complete JSON after stripping only reset_release ASYNC_REG and source location metadata
