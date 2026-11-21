@@ -1,7 +1,8 @@
 # PVM pre-freeze validation
 
 Candidate `00ec783b0bd7cdb23ad8a00df03c77ec840e2725` on `codex/pvm-rtl`.
-The three approved fixes are in one commit. This evidence branch points back
+The three approved fixes are in one commit. All requested automated gates passed.
+This evidence branch points back
 to the exact tested source. Kalash records the source-review verdict and tags
 that SHA after sign-off.
 [Candidate](https://github.com/arnav1609/pvm-protocol-emulator/commit/00ec783b0bd7cdb23ad8a00df03c77ec840e2725) · [PR #1](https://github.com/arnav1609/pvm-protocol-emulator/pull/1) · [Open owner checklist](owner_review_00ec783.md)
@@ -23,7 +24,7 @@ The registry retains its earlier 67 entries and adds the D-021 pair.
 
 | Gate | Outcome |
 | --- | --- |
-| Native Windows Icarus 12.0 | 69/69 accepted, 29 positives passed and 40 mutants caught. Covers the D-016 five jobs, both D-017 and D-021 jobs, and the S14b UART, SPI and I²C jobs. [Run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888245404) · [Raw logs](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888245404/artifacts/14700696594) |
+| Native Windows Icarus 12.0 | 69/69 accepted, 29 positives passed and 40 mutants caught. Covers the D-016 five jobs, both D-017 and D-021 jobs, and the S14b UART, SPI and I²C jobs. [Run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888245404) · [Actions artifact](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888245404/artifacts/14700696594) · [69 current job logs](../evidence/pre_freeze/00ec783/windows-icarus-current-00ec783.zip) |
 | Verilator 5.032 timing replay | 50/50 passed across 25 distinct positive builds using randomized-init seeds 1 and 2. [Coverage map and lint inventory](verilator_replay_00ec783.md) · [Raw build, run and lint logs](../evidence/pre_freeze/00ec783/verilator/raw_logs.tar.gz) |
 | Verilator `-Wall` lint | A/B/C/D raw warnings were 23/8/18/4, identical to the prior inventory by class, location and text. All four scoped reruns exited cleanly with zero unwaived diagnostics. [Prior waiver inventory](verilator_replay_35f8d94.md#rtl-lint) |
 
@@ -70,7 +71,7 @@ candidate submission artifact.
 | GDS | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136797581954) |
 | Gate-level SPI and pin-safety smoke | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136818407973) · [Result and waveform](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/artifacts/14703079915) |
 | GitHub Pages viewer | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136818407981) · [Published layout](https://arnav1609.github.io/pvm-protocol-emulator/) |
-| Tiny Tapeout precheck | In progress. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136818407989) |
+| Tiny Tapeout precheck | Passed in 54 min 32 s. All 10 checks passed and all three KLayout report databases contained zero violations. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136818407989) · [Actions artifact](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/artifacts/14704479341) · [Parsed results](../evidence/pre_freeze/00ec783/physical/precheck_summary.json) |
 
 | Routed variant D metric | Baseline and candidate |
 | --- | ---: |

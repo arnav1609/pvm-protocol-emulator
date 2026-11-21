@@ -1,0 +1,49 @@
+{
+  "cases": {
+    "KLayout pin label overlapping drawing": {
+      "seconds": 1.27,
+      "status": "pass"
+    },
+    "KLayout SG13CMOS5L DRC": {
+      "seconds": 3179.03,
+      "status": "pass"
+    },
+    "KLayout zero area": {
+      "seconds": 2.19,
+      "status": "pass"
+    },
+    "KLayout Checks": {
+      "seconds": 0.12,
+      "status": "pass"
+    },
+    "Pin check": {
+      "seconds": 0.23,
+      "status": "pass"
+    },
+    "Boundary check": {
+      "seconds": 0.21,
+      "status": "pass"
+    },
+    "Layer check": {
+      "seconds": 0.17,
+      "status": "pass"
+    },
+    "Cell name check": {
+      "seconds": 0.1,
+      "status": "pass"
+    },
+    "Analog pin check": {
+      "seconds": 0.0,
+      "status": "pass"
+    },
+    "Verilog syntax check": {
+      "seconds": 12.3,
+      "status": "pass"
+    }
+  },
+  "violations": {
+    "drc_sg13cmos5l.xml": 0,
+    "drc_zero_area.xml": 0,
+    "drc_pin_label_purposes_overlapping_drawing.xml": 0
+  }
+}
