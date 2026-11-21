@@ -24,7 +24,7 @@ The registry retains its earlier 67 entries and adds the D-021 pair.
 | Gate | Outcome |
 | --- | --- |
 | Native Windows Icarus 12.0 | 69/69 accepted, 29 positives passed and 40 mutants caught. Covers the D-016 five jobs, both D-017 and D-021 jobs, and the S14b UART, SPI and I²C jobs. [Run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888245404) · [Raw logs](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888245404/artifacts/14700696594) |
-| Verilator 5.032 timing replay | In progress on the exact candidate. Two seeds for each of 25 distinct builds. |
+| Verilator 5.032 timing replay | 50/50 passed across 25 distinct positive builds using randomized-init seeds 1 and 2. [Coverage map and lint inventory](verilator_replay_00ec783.md) · [Raw build, run and lint logs](../evidence/pre_freeze/00ec783/verilator/raw_logs.tar.gz) |
 | Verilator `-Wall` lint | A/B/C/D raw warnings were 23/8/18/4, identical to the prior inventory by class, location and text. All four scoped reruns exited cleanly with zero unwaived diagnostics. [Prior waiver inventory](verilator_replay_35f8d94.md#rtl-lint) |
 
 The first Windows run also accepted all 69 jobs. Its workflow failed
