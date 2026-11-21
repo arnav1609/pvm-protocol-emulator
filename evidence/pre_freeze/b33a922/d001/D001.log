@@ -1,0 +1,3 @@
+PASS_FRESH       arb_scl_fall  (evidence/arb_scl_fall/20261121T160151.log)
+NEG_KILLED       arb_scl_fall_neg_stale_count  (evidence/arb_scl_fall_neg_stale_count/20261121T160151.log)
+SUMMARY selection=D001 jobs=2 accepted=2 rejected=0

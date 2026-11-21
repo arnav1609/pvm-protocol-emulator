@@ -1,0 +1,5 @@
+PASS_FRESH       s12_fabric  (evidence/s12_fabric/20261121T160151.log)
+NEG_KILLED       s12_fabric_neg_layer_feedback  (evidence/s12_fabric_neg_layer_feedback/20261121T160151.log)
+NEG_KILLED       s12_fabric_neg_maj2  (evidence/s12_fabric_neg_maj2/20261121T160151.log)
+NEG_KILLED       s12_fabric_neg_ignore_arb_n  (evidence/s12_fabric_neg_ignore_arb_n/20261121T160151.log)
+SUMMARY selection=S12 jobs=4 accepted=4 rejected=0

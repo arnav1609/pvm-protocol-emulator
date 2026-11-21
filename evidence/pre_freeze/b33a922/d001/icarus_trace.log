@@ -1,0 +1,6 @@
+PASS_FRESH       s11_trace_equiv_tb_engine_a  (evidence/s11_trace_equiv_tb_engine_a/20261121T160205.log)
+PASS_FRESH       s11_trace_equiv_tb_engine_b  (evidence/s11_trace_equiv_tb_engine_b/20261121T160205.log)
+PASS_FRESH       s11_trace_equiv_tb_engine_c  (evidence/s11_trace_equiv_tb_engine_c/20261121T160205.log)
+PASS_FRESH       s11_trace_equiv_tb_top_s11  (evidence/s11_trace_equiv_tb_top_s11/20261121T160208.log)
+NEG_KILLED       s11_trace_equiv_tb_engine_c_neg_delayed_out  (evidence/s11_trace_equiv_tb_engine_c_neg_delayed_out/20261121T160208.log)
+SUMMARY selection=G2_TRACE jobs=5 accepted=5 rejected=0

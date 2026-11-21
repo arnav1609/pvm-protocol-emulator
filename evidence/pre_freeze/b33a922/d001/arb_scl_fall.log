@@ -1,0 +1,6 @@
+CONFIG: TOP=tb_arb_scl_fall CHECKS=1
+[PASS] ARB_NO_DETECT_ON_SCL_FALL
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+/workspace/work/pvm-arb-b33a922/source/tb_rtl/tb_arb_scl_fall.v:63: $finish called at 231000 (1ps)
