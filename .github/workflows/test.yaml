@@ -1,49 +1,87 @@
 name: test
-on: [push, workflow_dispatch]
+run-name: Windows Icarus regression for 00ec783
+on: workflow_dispatch
+permissions:
+  contents: read
 jobs:
-  test:
-    runs-on: ubuntu-24.04
+  windows-icarus:
+    runs-on: windows-2025
+    timeout-minutes: 25
     steps:
-      - name: Checkout repo
+      - name: Set Git checkout to Windows CRLF
+        run: git config --global core.autocrlf true
+      - name: Check out the freeze candidate
         uses: actions/checkout@v6
         with:
-          submodules: recursive
-
-      - name: Install iverilog
-        shell: bash
-        run: sudo apt-get update && sudo apt-get install -y iverilog
-
-      # Set Python up and install cocotb
-      - name: Setup python
-        uses: actions/setup-python@v6
+          ref: 00ec783b0bd7cdb23ad8a00df03c77ec840e2725
+          fetch-depth: 0
+          path: candidate
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
-
-      - name: Install Python packages
-        shell: bash
-        run: pip install -r test/requirements.txt
-
-      - name: Run tests
+          python-version: '3.12'
+      - name: Install Windows Icarus 12.0
         run: |
-          python -m unittest discover -s tools/tests -v
-          cd test
-          make clean
-          PYTHONPATH=.. make COCOTB_TEST_MODULES=test,test_toolchain
-          # make will return success even if the tests fail, so check results.xml for failed tests
-          python -m cocotb_tools.check_results results.xml
+          $installer = Join-Path $env:RUNNER_TEMP iverilog-12.exe
+          $destination = Join-Path $env:RUNNER_TEMP iverilog-12
+          Invoke-WebRequest https://bleyer.org/icarus/iverilog-v12-20220611-x64_setup.exe -OutFile $installer
+          $expected = 'a614057374dfaed5da0fe454cdeb410e54981fd85dbd28bd472f4ccb765deb84'
+          if ((Get-FileHash $installer -Algorithm SHA256).Hash -ne $expected) {
+            throw 'Unexpected installer digest'
+          }
+          $args = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-', "/DIR=$destination")
+          $installed = Start-Process -FilePath $installer -ArgumentList $args -Wait -PassThru
+          if ($installed.ExitCode -ne 0 -or !(Test-Path "$destination\bin\iverilog.exe")) {
+            throw "Icarus installation failed ($($installed.ExitCode))"
+          }
+          "$destination\bin" >> $env:GITHUB_PATH
+      - name: Verify candidate and golden bytes, then run the registry
+        working-directory: candidate
+        env:
+          PYTHONUNBUFFERED: '1'
+        run: |
+          $sha = git rev-parse HEAD
+          if ($sha -ne '00ec783b0bd7cdb23ad8a00df03c77ec840e2725') { throw "Wrong SHA $sha" }
+          if ((git config --get core.autocrlf) -ne 'true') { throw 'CRLF checkout inactive' }
+          Write-Output "Candidate SHA $sha, Windows runner $env:RUNNER_OS"
+          python -c "import sys; print(sys.version, sys.platform); assert sys.platform == 'win32'"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          $iv = iverilog -V 2>$null
+          Write-Output ($iv | Select-Object -First 1)
+          if ($iv[0] -notmatch 'Icarus Verilog version 12\.0') { throw 'Unexpected Icarus version' }
+          $attrs = git check-attr text -- (Get-ChildItem tb_rtl/vectors/golden_*.csv)
+          $attrs | Write-Output
+          if ($attrs.Count -ne 4 -or ($attrs | Where-Object { $_ -notmatch ': text: unset$' })) {
+            throw 'Golden CSV attributes missing'
+          }
+          @'
+          import hashlib
+          import json
+          from pathlib import Path
+          import subprocess
 
-      - name: Test Summary
-        uses: test-summary/action@v2.4
-        with:
-          paths: "test/results.xml"
+          manifest = json.loads(Path("tb_rtl/vectors/golden_provenance.json").read_text())
+          for trace in manifest["traces"].values():
+              path = trace["file"]
+              data = Path(path).read_bytes()
+              assert data == subprocess.check_output(["git", "show", "HEAD:" + path]), path
+              actual = hashlib.sha256(data).hexdigest()
+              assert actual == trace["sha256"], path
+              print("GOLDEN_MATCH", path, actual)
+          '@ | python - | Tee-Object -FilePath windows-golden.log
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tb_rtl/pvm_run.py selftest | Tee-Object -FilePath windows-selftest.log
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tb_rtl/pvm_run.py run --select all | Tee-Object -FilePath windows-regression.log
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          if (!(Select-String windows-regression.log 'SUMMARY selection=all jobs=69 accepted=69 rejected=0' -Quiet)) {
+            throw 'Unexpected regression summary'
+          }
+      - name: Upload Windows logs
         if: always()
-
-      - name: upload waveform and test results
-        if: success() || failure()
         uses: actions/upload-artifact@v7
         with:
-          name: test-results
+          name: windows-icarus-00ec783
           path: |
-            test/tb.fst
-            test/results.xml
-            test/output/*
+            candidate/windows-*.log
+            candidate/evidence/**/20*.log
+            candidate/evidence/**/latest.json
