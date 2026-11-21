@@ -1555,6 +1555,68 @@
         "PUSH_IFFULL",
         "AUTOPUSH_THRESH_8"
       ]
+    },
+    {
+      "id": "mon_timestamp_pause",
+      "selection": "D021",
+      "top": "tb_mon_timestamp_pause",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_mon_timestamp_pause.v"
+      ],
+      "checks": 6,
+      "checks_basis": "Frozen before the first run on 2026-11-21: TIMESTAMP_MON_DISABLED, TIMESTAMP_RUN_PRESCALE, TIMESTAMP_HOLDS_DONE, TIMESTAMP_SURVIVES_HALT_RELOAD, TIMESTAMP_RESUMES, TIMESTAMP_CHIP_RESET."
+    },
+    {
+      "id": "mon_timestamp_pause_neg_clear_on_halt",
+      "selection": "D021",
+      "top": "tb_mon_timestamp_pause",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_mon_timestamp_pause.v"
+      ],
+      "checks": 6,
+      "checks_basis": "Same six frozen D-021 checks. Clear only the timestamp on HALT and expect the lifetime check to reject it.",
+      "negative": true,
+      "variant_of": "mon_timestamp_pause",
+      "mutant": {
+        "file": "src/pvm_mon.v",
+        "anchor": "if (!rst_n) begin\n            tstamp <= 16'd0;",
+        "replace": "if (!rst_n || halt_clr) begin\n            tstamp <= 16'd0;"
+      },
+      "expect_fail_checks": [
+        "TIMESTAMP_SURVIVES_HALT_RELOAD"
+      ]
     }
   ]
 }

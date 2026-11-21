@@ -4,7 +4,10 @@
 
 ## 1. Timebase
 - Prescaler enable `men` = every 1 / 16 / 256 / 4096 core cycles (MON_CTRL.PRESC). Use a shared `pvm_tick`-style divider.
-- `tstamp` 16-bit free-running counter, increments on `men` while MON_EN=1 (wraps).
+- `tstamp` is a 16-bit counter that advances at the configured
+  prescaler rate only in RUN with MON_EN set. It holds otherwise,
+  including across HALT and image reloads, and resets to zero on chip
+  reset (`rst_n`). It wraps modulo 65,536. [D-021](DECISIONS.md#d-021--monitor-timestamp-lifetime)
 - `t` 16-bit interval timer: increments on `men`, **saturates at 0xFFFF** and sets `ovf`. Reset by actions (below) and at monitor start.
 - Monitor runs when MON_EN=1 and engine state is RUN. At RUN entry: state = 0, t = 0, ovf = 0, counters unchanged (cleared only by HALT).
 

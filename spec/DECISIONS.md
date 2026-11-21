@@ -178,3 +178,13 @@ The approved follow-up on candidate `35f8d94` passed both randomized
 initialization seeds for each of the 24 builds. The coverage map and
 per-warning lint waivers are recorded in the candidate report.
 [Seeded replay and lint](../results/verilator_replay_35f8d94.md) · [Freeze review](../reports/weekly_freeze_review.md)
+
+## D-021 — Monitor timestamp lifetime
+
+Approved by Kalash in chat on 21 November 2026. Keep the monitor's
+existing timestamp behavior. Advance the 16-bit timestamp at the
+configured prescaler rate only during RUN with MON_EN set. Hold it
+otherwise, including through HALT and image reload. Chip reset
+clears it to zero. Continuity is modulo 65,536. HALT clears the log
+and verdict counters as specified separately.
+[Monitor timebase](06_MONITOR.md#1-timebase) · [Timestamp bench](../tb_rtl/tb_mon_timestamp_pause.v)

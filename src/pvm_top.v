@@ -13,7 +13,7 @@ module pvm_top (
     input  wire       rst_n
 );
     // Assert immediately from the pad and release after two core clock edges.
-    (* ASYNC_REG = "TRUE" *) reg [1:0] reset_release;
+    reg [1:0] reset_release;
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n)
             reset_release <= 2'b00;
