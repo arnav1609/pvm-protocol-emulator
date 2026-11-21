@@ -37,10 +37,43 @@ bash tb_rtl/area_opt/prove.sh engine
 ## Physical gate
 
 Use the same SG13CMOS5L target, 8×4 tiles, and 20 ns clock as the S14
-baseline. The physical gate is running for
-`1a258a16c0f9891c55f01ba076ea7a8a9f68c09e`. The approval to prepare and
-test this branch precedes Kalash's XSim and source review.
-[Candidate GDS, precheck and gate-level workflow](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826) · [Baseline metrics and CI](ci_S14.md)
+baseline. Run 44862976826 built `1a258a16c0f9891c55f01ba076ea7a8a9f68c09e`
+with LibreLane 3.1.0.dev4 and PDK `89d42ee6d2fd9b50b86a1aada6fee6673c3e6008`.
+The routed timing and utilization criteria pass. Tiny Tapeout precheck
+is still running.
+[Candidate workflow](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826) · [S14 baseline](ci_S14.md)
+
+| Check | Candidate result |
+| --- | --- |
+| GDS | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136720282422) |
+| Tiny Tapeout precheck | [Running](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136742889835) |
+| Gate-level SPI smoke | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136742889831) |
+| GitHub Pages viewer deployment | [Passed](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/job/136742889818) |
+
+| Routed metric at 50 MHz | S14 baseline | D-017/D-018 candidate |
+| --- | ---: | ---: |
+| Overall utilization, `design__instance__utilization` | 33.7187% | 30.9084% |
+| Standard-cell utilization, `design__instance__utilization__stdcell` | 33.7187% | 30.9084% |
+| Standard cells | 28,091 | 24,974 |
+| Standard-cell area | 407,380 µm² | 373,427 µm² |
+| Slow setup slack, 1.08 V / 125 °C | +2.461 ns | +2.206 ns |
+| Typical setup slack, 1.20 V / 25 °C | +7.482 ns | +8.782 ns |
+| Fast setup slack, 1.32 V / −40 °C | +10.476 ns | +12.639 ns |
+| Worst hold slack | +0.122 ns | +0.108 ns |
+| Setup and hold total negative slack | 0 ns each | 0 ns each |
+| Detailed routing violations | 0 | 0 |
+
+Both utilization measures fell by 2.8103 percentage points. The
+slow-corner setup slack meets the +1.0 ns requirement and is 0.255 ns
+below baseline, within the allowed 0.5 ns drop. The final metrics JSON
+and the submission metrics CSV agree.
+[Machine-readable comparison](../evidence/opt/routed_metrics.json) · [Routed reports](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/artifacts/14693537379) · [Netlist and submission](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826/artifacts/14694105704)
+
+UART, SPI, and I²C passed a functional replay of the candidate routed
+netlist with Icarus 13.0 and the pinned PDK cell models. The replay used
+functional models without delay annotation. The Pages OASIS matches the
+candidate submission OASIS byte for byte.
+[Netlist protocol replays](../evidence/opt/gate_protocols.log) · [Published layout](https://arnav1609.github.io/pvm-protocol-emulator/)
 
 GitHub's toolchain/RTL test and datasheet workflows passed for the same
 revision. [Test CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976810) · [Datasheet CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976814)
