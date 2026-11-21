@@ -18,10 +18,10 @@ applies.
   both command bytes `0xCC` and `0xB4`, and the returned power-supply
   bit. Exercise early presence, late presence, and no target.
 - SWD uses an initialized ADIv5 link, one-cycle turnaround, and
-  `ORUNDETECT=0`. Check the DPIDR read request, OK/WAIT/FAULT ACK,
-  the 32-bit OK response, parity rejection, and the return to idle.
-  Link initialization and other transactions are outside the tested
-  scope.
+  `ORUNDETECT=0`. Check a DPIDR read with the 32-bit OK response and
+  parity rejection. AP read requests exercise WAIT and FAULT. Check
+  return to idle after all responses. Link initialization and writes
+  are outside the tested scope.
 
 Neither program requires a host transaction between ENABLE and the
 end of the wire transaction. The SPI host loads a complete image and
@@ -51,6 +51,33 @@ frozen 67-job RTL and mutation registry stays directly comparable.
 
 ## Results
 
-Simulation pending. The outsider draws from the full pool after the
-tag. If the draw lands on 1-Wire or SWD, disclose the pre-freeze study
-and implement the final program after the draw.
+Both transactions fit on the routed candidate RTL `1a258a1`. The two
+positive jobs passed and both mutants were caught. The 32-word
+instruction memory meets the D-019 fit gate.
+
+| Candidate | Words | Fits | CLKDIV at 50 MHz | Measured pad timing |
+| --- | ---: | --- | ---: | --- |
+| 1-Wire power-supply read | 19 | Yes | 200 | Reset low 520 µs and high 524 µs before the first slot, 40 µs and 44 µs above their minima. Write-zero low 68 µs, write-one low 8 µs, minimum recovery 8 µs, read initiation low 4 µs. |
+| SWD read transaction | 32 | Yes | 20 | Minimum SWCLK high and low phases 400 ns. The target data was stable for at least 300 ns at the modeled pins before the rising edge, leaving 240 ns after budgeting three core clocks for input and output registration. |
+
+The 1-Wire program samples presence near 64 µs. The model exercised
+both ends of the allowed presence-onset range, both returned bit
+values, and an absent target. The shortened write-zero pulse measured
+32 µs and failed the frozen check. The model uses a logical pull-up.
+
+The SWD test observed two one-clock turnarounds and eight idle clocks.
+OK cases transferred the data and parity and exercised both parity
+values and both corruptions. WAIT and FAULT cases transferred only
+the ACK. The parity mutant raised FLAG 2 for corrupt data and failed
+the frozen check. The clock varies with the instruction path and
+reaches 1.25 MHz in the shortest cells. The image uses all 32 words.
+
+Use the normal image builder with `one_wire.json` and two TX preloads,
+`0xCC` and `0xB4`, or with `swd.json` and `0xA5` for DPIDR. The
+bus models run each transaction without a host round-trip in the
+timing window.
+[Fit programs](../tools/examples/fit/) · [Pin models](../test/test_fit_protocols.py) · [Simulation and mutation log](../evidence/opt/fit_study.log)
+
+The outsider draws from the full pool after the tag. If the draw
+lands on 1-Wire or SWD, disclose the pre-freeze study and implement the
+final program after the draw.

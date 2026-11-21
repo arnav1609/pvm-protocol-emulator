@@ -1,0 +1,24 @@
+RTL revision 1a258a16c0f9891c55f01ba076ea7a8a9f68c09e
+2cc54a7989c179fa811904d64e8400ea0fde53d7cfdc1a245836d3d60e1b7b27  tools/examples/fit/one_wire.json
+4571f9609e75407a89bf12481c6e5c38f32c75a3cab0bb90802cb42e3dd99a85  tools/examples/fit/one_wire.pvm
+28776734aec92c93d666e49c7f801fdd9650ad139030f26a607acc4062095505  tools/examples/fit/swd.json
+8328734423b44e343c47f0a7088f854c770ff4319984ef87cc21dcf4d1d94df1  tools/examples/fit/swd.pvm
+e226604e027414339197ec5ef6c7d4624289154b87a984d607509bb11c2d45ed  test/test_fit_protocols.py
+Run: cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=test_fit_protocols
+
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb
+3191870.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=(15000, 60000) bit=0 {'reset_low_ns': 520000, 'reset_high_ns': 524000, 'write_zero_ns': 68000, 'write_one_ns': 8000, 'recovery_ns': 8000, 'read_init_ns': 4000}
+6383750.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=(60000, 240000) bit=1 {'reset_low_ns': 520000, 'reset_high_ns': 524000, 'write_zero_ns': 68000, 'write_one_ns': 8000, 'recovery_ns': 8000, 'read_init_ns': 4000}
+7825030.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=None bit=None {'reset_low_ns': 520000}
+7825030.00ns INFO     cocotb.tb                          CHECK PASS ONE_WIRE_PIN_TRANSACTION
+9622140.00ns INFO     cocotb.tb                          MUTANT KILLED ONE_WIRE_PIN_TRANSACTION WRITE_ZERO_LOW: 32000
+10596610.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=2ba01477 parity=0 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 300}
+11571090.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=3ba01477 parity=1 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 300}
+12545170.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=2ba01477 parity=1 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 300}
+13519650.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=3ba01477 parity=0 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 300}
+14374030.00ns INFO     cocotb.tb                          FIT swd words=32 request=87 ack=2 reply=00000000 parity=0 {'swclk_rises': 21, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 300}
+15228410.00ns INFO     cocotb.tb                          FIT swd words=32 request=87 ack=4 reply=00000000 parity=0 {'swclk_rises': 21, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 300}
+15228410.00ns INFO     cocotb.tb                          CHECK PASS SWD_DPIDR_PIN_TRANSACTION
+16202880.00ns INFO     cocotb.tb                          MUTANT KILLED SWD_DPIDR_PIN_TRANSACTION SWD_PARITY_FLAG: (1, 1, 4)
+                                                          ** TESTS=4 PASS=4 FAIL=0 SKIP=0                               16202880.00          85.87     188692.16  **
