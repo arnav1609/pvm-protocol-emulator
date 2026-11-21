@@ -140,3 +140,17 @@ Approved in chat on 21 November 2026 for candidate implementation and
 physical evaluation. Evaluate O1b/O2/O3/O4 with D-017 at 50 MHz against
 the predeclared timing, area, and physical test criteria.
 [Optimization decision and acceptance](rev/PVM-AREA-D018.md) · [Candidate report](../results/opt_area_timing.md)
+
+## D-019 — Time-box the 32-word fit check before freezing
+
+Approved in chat on 21 November 2026. Require 1-Wire and SWD fit
+checks with a target bus model and measured timing. If both fit in
+32 words, proceed with the freeze once the simulator and review gate
+passes. If either exceeds 32 words after one optimization pass, stop
+for the owner's D-004 decision. If the programs are unfinished on
+26 November, keep 32 words and record the risk.
+
+WS2812, PS/2 receive, and DMX512 transmit follow the freeze. The
+outsider draws from all five candidates after the tag. If 1-Wire or
+SWD is drawn, disclose the pre-freeze study.
+[Fit scope and results](../results/fit_study.md)
