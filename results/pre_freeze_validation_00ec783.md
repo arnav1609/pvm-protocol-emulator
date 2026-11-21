@@ -55,14 +55,41 @@ The mapped proof completed. [Proof commands and outputs](../evidence/pre_freeze/
 
 ## Tiny Tapeout
 
-Run **44888057444** builds the candidate's full variant D with the
-8×4 IHP SG13CMOS5L configuration at 50 MHz. The workflow is in progress.
-The comparison uses the D-017/D-018 routed baseline from run
-44862976826 on `1a258a1`. Its two utilization measures were 30.9084%,
-slow-corner setup slack was +2.206 ns, and worst hold slack was +0.108 ns.
-The candidate requires GDS, precheck, gate-level SPI smoke, Pages viewer,
-and at least +1.0 ns slow-corner setup slack.
-[Candidate workflow](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444) · [Routed baseline](opt_area_timing.md#physical-gate)
+Run **44888057444** built full variant D from
+`00ec783b0bd7cdb23ad8a00df03c77ec840e2725` at 50 MHz on 8×4 tiles.
+Both runs used LibreLane 3.1.0.dev4 and IHP SG13CMOS5L PDK
+`89d42ee6d2fd9b50b86a1aada6fee6673c3e6008`.
+The submission metrics CSV, routed netlist and OASIS match the
+`1a258a1` baseline byte for byte. Every reported area and timing
+delta is zero. The published GitHub Pages OASIS also matches the
+candidate submission artifact.
+[Candidate run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444) · [Routed baseline run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44862976826) · [Candidate submission](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/artifacts/14702489989) · [Routed reports](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/artifacts/14702764069) · [Metrics and provenance](../evidence/pre_freeze/00ec783/physical/routed_comparison.json)
+
+| CI job | Candidate result |
+| --- | --- |
+| GDS | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136797581954) |
+| Gate-level SPI and pin-safety smoke | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136818407973) · [Result and waveform](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/artifacts/14703079915) |
+| GitHub Pages viewer | Passed. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136818407981) · [Published layout](https://arnav1609.github.io/pvm-protocol-emulator/) |
+| Tiny Tapeout precheck | In progress. [Job](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44888057444/job/136818407989) |
+
+| Routed variant D metric | Baseline and candidate |
+| --- | ---: |
+| Overall utilization, `design__instance__utilization` | 30.9084% |
+| Standard-cell utilization, `design__instance__utilization__stdcell` | 30.9084% |
+| Standard cells | 24,974 |
+| Standard-cell area | 373,427 µm² |
+| Worst setup / hold total negative slack | 0 ns / 0 ns |
+| Detailed routing violations | 0 |
+
+| Timing corner | Setup slack | Hold slack |
+| --- | ---: | ---: |
+| Slow, 1.08 V / 125 °C | +2.206 ns | +0.604 ns |
+| Typical, 1.20 V / 25 °C | +8.782 ns | +0.286 ns |
+| Fast, 1.32 V / −40 °C | +12.639 ns | +0.108 ns |
+
+Slow setup clears the +1.0 ns floor and all hold slacks are nonnegative.
+Both utilization measures are below the 33.7187% S14 baseline and the
+40% cap. [Routed metrics CSV](../evidence/pre_freeze/00ec783/physical/metrics.csv) · [D-018 budgets](../spec/rev/PVM-AREA-D018.md)
 
 ## Owner review
 
