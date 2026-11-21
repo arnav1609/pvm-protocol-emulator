@@ -13,13 +13,17 @@ Kalash's source-review sign-off. [Source review](../results/opt_area_timing.md#s
 - [x] Variant D physical gate, including Tiny Tapeout precheck.
 - [x] Icarus regression and D-016 trace comparisons.
 - [x] Timing-enabled Verilator replay accepted under D-020.
+- [x] Two randomized-init seeds per Verilator build, coverage map and lint review.
 - [x] D-019 32-word fit gate.
 - [ ] Kalash records source-review sign-off for the candidate SHA.
 
 Verilator 5.032 passed all 24 distinct positive bench configurations,
 including the D-017 reset bench and S14b I²C. The Icarus regression
 includes the four D-016 trace comparisons and their output-delay mutant.
-[Decision D-020](../spec/DECISIONS.md#d-020--use-verilator-for-the-freeze-simulator-gate) · [Replay evidence](../evidence/opt/verilator_timing.log)
+The follow-up on `35f8d94` passed 48 of 48 seeded runs. Its coverage map
+ties all 28 positive registry jobs to the 24 Verilator builds. All four
+RTL variants passed lint with scoped, documented waivers.
+[Decision D-020](../spec/DECISIONS.md#d-020--use-verilator-for-the-freeze-simulator-gate) · [Seeded replay and lint](../results/verilator_replay_35f8d94.md)
 
 ## Review S12–S14 against the interface
 

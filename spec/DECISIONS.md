@@ -173,4 +173,8 @@ bench configurations passed at their frozen check counts.
 The 67-job Icarus regression continues to cover the mutation checks
 and D-016 trace comparisons. Kalash's source-review sign-off
 remains pending before `rtl-freeze`.
-[Verilator replay](../results/opt_area_timing.md#additional-simulator-replay) · [Freeze review](../reports/weekly_freeze_review.md)
+
+The approved follow-up on candidate `35f8d94` passed both randomized
+initialization seeds for each of the 24 builds. The coverage map and
+per-warning lint waivers are recorded in the candidate report.
+[Seeded replay and lint](../results/verilator_replay_35f8d94.md) · [Freeze review](../reports/weekly_freeze_review.md)

@@ -44,7 +44,10 @@ benches. An independent ISS comparison is pending.
 ## Remaining review
 
 The second-simulator freeze gate passed with Verilator 5.032 and
-timing enabled under D-020. Kalash’s source-review sign-off remains
+timing enabled under D-020. The follow-up passed both randomized
+initialization seeds on all 24 distinct builds. [Replay and lint](../results/verilator_replay_35f8d94.md)
+
+Kalash’s source-review sign-off remains
 pending. Heet’s independent verification, the ISS comparison and the G3
 physical checks on the final submission commit are pending.
 [Freeze review packet](../reports/weekly_freeze_review.md) · [Heet’s handover](verification_handoff.md)

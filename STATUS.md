@@ -19,7 +19,10 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S14 | 10 Dec | WIP | [S14 gate](reports/S14_gate.md) | 8/8 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
 | S14b | Before freeze | WIP | [Pin-level protocol gate](reports/S14b_protocols_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Variant D CI](results/ci_S14.md) |
 
-D-020 accepts the 24-configuration timing-enabled Verilator replay. Kalash's source-review sign-off remains pending before the freeze. [Freeze checklist](reports/weekly_freeze_review.md#freeze-checklist)
+D-020 accepts the 24-configuration timing-enabled Verilator replay.
+The follow-up passed 48 seeded runs and the scoped lint review.
+Kalash's source-review sign-off remains pending before the freeze.
+[Seeded replay and lint](results/verilator_replay_35f8d94.md) · [Freeze checklist](reports/weekly_freeze_review.md#freeze-checklist)
 
 ## Setup
 
