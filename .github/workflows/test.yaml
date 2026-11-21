@@ -73,7 +73,7 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           python tb_rtl/pvm_run.py run --select all | Tee-Object -FilePath windows-regression.log
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          if (!(Select-String windows-regression.log 'SUMMARY selection=all jobs=69 accepted=69 rejected=0' -Quiet)) {
+          if (!(Select-String -Path windows-regression.log -Pattern '^SUMMARY selection=all jobs=69 accepted=69 rejected=0$' -Quiet)) {
             throw 'Unexpected regression summary'
           }
       - name: Upload Windows logs
