@@ -1,0 +1,16 @@
+/workspace/work/pvm-protocol-emulator/src/pvm_mon.v:99: warning: @* is sensitive to all 8 words in array 'targets'.
+/workspace/work/pvm-protocol-emulator/src/pvm_mon.v:100: warning: @* is sensitive to all 8 words in array 'actions'.
+/workspace/work/pvm-protocol-emulator/src/pvm_mon.v:101: warning: @* is sensitive to all 8 words in array 'rule_min'.
+/workspace/work/pvm-protocol-emulator/src/pvm_mon.v:102: warning: @* is sensitive to all 8 words in array 'rule_max'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:296: warning: @* is sensitive to all 19 words in array 'eng_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:298: warning: @* is sensitive to all 39 words in array 'fab_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:300: warning: @* is sensitive to all 43 words in array 'mon_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:302: warning: @* is sensitive to all 20 words in array 'pins'.
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[FAIL] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 1
+RESULT : FAIL
+/workspace/work/pvm-protocol-emulator/tb_rtl/tb_top.v:345: $finish called at 1273080000 (1ps)

@@ -1,0 +1,49 @@
+# ADIv5 DPIDR read on an already-initialized SWD link, ORUNDETECT=0.
+# Preload A5 for DPIDR or another valid SWD read request.
+# Host receives four bit-reversed bytes, then reads FLAG 2.
+# FLAG 2 authorizes the data. A non-OK ACK gives no data; bad parity leaves FLAG 2 clear.
+# P5 is SWCLK (side-set); P12 is half-duplex SWDIO.
+    set pindirs, 1 side 0
+    pull block side 0
+    set x, 7 side 0
+request:
+    out pins, 1 side 0
+    jmp x--, request side 1
+    set pindirs, 0 side 0
+    set y, 4 side 1
+    set x, 2 side 0
+ack:
+    in pins, 1 side 1
+    jmp x--, ack side 0
+    mov x, isr side 0
+    mov isr, null side 0
+    jmp x!=y, turn_high side 0
+    set x, 31 side 0
+    set y, 0 side 0
+data:
+    # Check the bit for parity before the rising edge advances the target.
+    jmp pin, toggle side 0
+    jmp sample side 0
+toggle:
+    mov y, ~y side 0
+sample:
+    in pins, 1 side 1
+    jmp x--, data side 0
+    jmp pin, parity_high side 1
+    jmp !y, good side 1
+    jmp turn_low side 1
+parity_high:
+    jmp !y, turn_low side 1
+good:
+    evt set 2 side 1
+turn_low:
+    jmp turn_high side 0
+turn_high:
+    set pins, 0 side 1
+    set pindirs, 1 side 0
+    set x, 7 side 0
+idle:
+    jmp x--, idle_low side 1
+    evt done side 0
+idle_low:
+    jmp idle side 0

@@ -1,0 +1,74 @@
+{
+  "baseline": {
+    "run": 44778669345,
+    "commit": "aa2996b1d2be115531f00b5ce7b0ace52d964b14",
+    "pdk": {
+      "FLOW_NAME": "LibreLane",
+      "FLOW_VERSION": "3.1.0.dev4",
+      "PDK": "ihp-sg13cmos5l",
+      "PDK_SOURCE": "IHP-Open-PDK",
+      "PDK_VERSION": "89d42ee6d2fd9b50b86a1aada6fee6673c3e6008"
+    },
+    "metrics_json_sha256": "9626910db71773fb928ef966ecd1b77b30397f52fc946898301a284f8da460a1",
+    "metrics_csv_sha256": "be56848110922ab99520821c22dcd6188b47a00e6d888b35b9148f0b20c96e75",
+    "metrics": {
+      "design__instance__count__stdcell": 28091,
+      "design__instance__area__stdcell": 407380,
+      "design__instance__utilization": 0.337187,
+      "design__instance__utilization__stdcell": 0.337187,
+      "timing__setup__ws": 2.460954176764608,
+      "timing__hold__ws": 0.12246815019852454,
+      "timing__setup__tns": 0,
+      "timing__hold__tns": 0,
+      "route__drc_errors": 0,
+      "timing__setup__ws__corner:nom_fast_1p32V_m40C": 10.476264596796407,
+      "timing__setup__tns__corner:nom_fast_1p32V_m40C": 0,
+      "timing__hold__ws__corner:nom_fast_1p32V_m40C": 0.12246815019852454,
+      "timing__hold__tns__corner:nom_fast_1p32V_m40C": 0,
+      "timing__setup__ws__corner:nom_typ_1p20V_25C": 7.482256803696687,
+      "timing__setup__tns__corner:nom_typ_1p20V_25C": 0,
+      "timing__hold__ws__corner:nom_typ_1p20V_25C": 0.31101799793698354,
+      "timing__hold__tns__corner:nom_typ_1p20V_25C": 0,
+      "timing__setup__ws__corner:nom_slow_1p08V_125C": 2.460954176764608,
+      "timing__setup__tns__corner:nom_slow_1p08V_125C": 0,
+      "timing__hold__ws__corner:nom_slow_1p08V_125C": 0.6360459006179391,
+      "timing__hold__tns__corner:nom_slow_1p08V_125C": 0
+    }
+  },
+  "candidate": {
+    "run": 44862976826,
+    "commit": "1a258a16c0f9891c55f01ba076ea7a8a9f68c09e",
+    "pdk": {
+      "FLOW_NAME": "LibreLane",
+      "FLOW_VERSION": "3.1.0.dev4",
+      "PDK": "ihp-sg13cmos5l",
+      "PDK_SOURCE": "IHP-Open-PDK",
+      "PDK_VERSION": "89d42ee6d2fd9b50b86a1aada6fee6673c3e6008"
+    },
+    "metrics_json_sha256": "bd572a508485173a71c723d1f831ccccb8df06fe12608a679d8b866233bb3588",
+    "metrics_csv_sha256": "befbe94f63b10593169569d744f64e4640d4be5f8220989820ece647d2cc160c",
+    "metrics": {
+      "design__instance__count__stdcell": 24974,
+      "design__instance__area__stdcell": 373427,
+      "design__instance__utilization": 0.309084,
+      "design__instance__utilization__stdcell": 0.309084,
+      "timing__setup__ws": 2.2064466434015726,
+      "timing__hold__ws": 0.10763473750274641,
+      "timing__setup__tns": 0,
+      "timing__hold__tns": 0,
+      "route__drc_errors": 0,
+      "timing__setup__ws__corner:nom_fast_1p32V_m40C": 12.639132764802909,
+      "timing__setup__tns__corner:nom_fast_1p32V_m40C": 0,
+      "timing__hold__ws__corner:nom_fast_1p32V_m40C": 0.10763473750274641,
+      "timing__hold__tns__corner:nom_fast_1p32V_m40C": 0,
+      "timing__setup__ws__corner:nom_typ_1p20V_25C": 8.781689401999445,
+      "timing__setup__tns__corner:nom_typ_1p20V_25C": 0,
+      "timing__hold__ws__corner:nom_typ_1p20V_25C": 0.2858279249742345,
+      "timing__hold__tns__corner:nom_typ_1p20V_25C": 0,
+      "timing__setup__ws__corner:nom_slow_1p08V_125C": 2.2064466434015726,
+      "timing__setup__tns__corner:nom_slow_1p08V_125C": 0,
+      "timing__hold__ws__corner:nom_slow_1p08V_125C": 0.6044374061237017,
+      "timing__hold__tns__corner:nom_slow_1p08V_125C": 0
+    }
+  }
+}

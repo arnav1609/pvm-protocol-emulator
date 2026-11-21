@@ -1,0 +1,39 @@
+{
+ "id": "s11_top",
+ "state": "PASS_FRESH",
+ "selection": "S11",
+ "frozen_checks": 2,
+ "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T083943",
+ "sources": {
+  "src/pvm_tick.v": "4e869563873727bb3879b8d07b6ca5d9c7a386d3d654e1e9a8f3568c8492d164",
+  "src/pvm_presc.v": "576c08e18bcd572382466d80d20bbfc5c74f85a3a070b2a0c0be04258a7b22dc",
+  "src/pvm_engine.v": "828682ece5d5b8e113c988b27139203b1b7262df4f6bde6d5fcd7f7316785226",
+  "src/pvm_top.v": "0604d37482a4f61cb7f6237686c215db4ec0e8323a5e39ec27b8a3ee6e5554ef",
+  "src/pvm_sync2.v": "f505a72cfc110b0906515bf2479b22ae5787a03f39c72cbe10be4b2719aa8dbf",
+  "src/pvm_edge.v": "7c36c2fbf3f57288e90c8d2b2fd93d3d487702804c1d13200bd148870013b5f5",
+  "src/pvm_fifo.v": "7f03e00882ac86e8b8890f5bc529172614bb43bd5dd373b618e39ad16475e976",
+  "src/pvm_crc16.v": "216039527e57ea929b369453d09ecb001374623a56ea7b741f56c7cc22b101ac",
+  "src/pvm_imem.v": "25b9e846f9a59d64ce3870822a3e9445ca2f9d940065c6ed510795534adcbb2c",
+  "src/pvm_spi_byte.v": "f0ef43c73573fa0ec9d84fc3d6822188a08b2a7b6f0ac6c1159e6177b3cd0bbc",
+  "src/pvm_hostif.v": "e2ad024b273eb639e2bca23cb41e146900d488cb7224ac4d50d59e014e9109cd",
+  "src/pvm_cfg.v": "00b1641390560d18000220e91c65c02266fd02d6046b149f50218f8ed71181cd",
+  "src/pvm_pin_guard.v": "d2eec875facd465ec88247e140de01757fd64778818f30056ff2982cf822210e",
+  "tb_rtl/tb_top_s11.v": "f63bb19fe7710b1a5e7bfe6a3b0cac96bbb9beb394cd2aae7be99723f4033335"
+ },
+ "parsed": {
+  "passes": [
+   "SPI_UART_TX_SMOKE",
+   "FAULT_OUTPUTS_SAFE"
+  ],
+  "fails": [],
+  "checks": 2,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_top_s11 -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s11_top/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/src/pvm_engine.v /workspace/work/pvm-protocol-emulator/src/pvm_top.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_top_s11.v"
+}

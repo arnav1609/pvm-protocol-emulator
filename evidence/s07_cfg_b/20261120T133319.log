@@ -1,0 +1,31 @@
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:296: warning: @* is sensitive to all 19 words in array 'eng_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:298: warning: @* is sensitive to all 39 words in array 'fab_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:300: warning: @* is sensitive to all 43 words in array 'mon_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:302: warning: @* is sensitive to all 20 words in array 'pins'.
+CONFIG: TOP=tb_cfg_b CHECKS=22
+[PASS] OD_ON_UO
+[PASS] OUTPUT_ON_UI
+[PASS] OWNER_WITH_INPUT_MODE
+[PASS] OWNER7
+[PASS] MODE3
+[PASS] OUT_CNT_17
+[PASS] SET_CNT_6
+[PASS] SIDE_CNT_3
+[PASS] BASE_20
+[PASS] WRAP_INVERTED
+[PASS] ENTRY_INVALID
+[PASS] LUTMODE3
+[PASS] MANCH_NO_CNT
+[PASS] ARB_N0
+[PASS] ARB_PIN_NOT_UIO
+[PASS] ARB_PIN_NOT_OD
+[PASS] MON_GUARD3
+[PASS] MON_ACTION7
+[PASS] CRC_BEFORE_PIN
+[PASS] LEGAL_IMAGE_READY
+[PASS] IMAGE_ID_LATCHED
+[PASS] REVALIDATE_AFTER_HALT
+CHECKS : 22
+ERRORS : 0
+RESULT : PASS
+/workspace/work/pvm-protocol-emulator/tb_rtl/tb_cfg_b.v:247: $finish called at 13311000 (1ps)

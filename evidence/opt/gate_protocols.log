@@ -1,0 +1,32 @@
+Routed netlist from Tiny Tapeout run 44862976826, artifact 14694105704.
+Candidate 1a258a16c0f9891c55f01ba076ea7a8a9f68c09e.
+IHP SG13CMOS5L 89d42ee6d2fd9b50b86a1aada6fee6673c3e6008.
+Icarus Verilog 13.0, functional cell models without delay annotation.
+fce7be712fc8eb77f0bdbffdf5f46665460ceaa01d47bc71a247c9d0c4025cfc  /tmp/pvm-opt-gate-replay/variant-D.v
+ae986803821a9d6c3af9c221c33c3aa58ca23c283d3ad93ed4b3a2c45d6ccb4d  /workspace/work/pvm-s14-gate-protocols/sg13cmos5l_io.v
+5491a3edf7468792b5222e7abe057e0583a407c01b2086d4fd44a55b6cf88055  /workspace/work/pvm-s14-gate-protocols/sg13cmos5l_udp.v
+485945f1b167daa68354548f46c95bdbff7d931516fc5b4edd47f2e2cd555735  /workspace/work/pvm-s14-gate-protocols/sg13cmos5l_stdcell.v
+
+UART
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] UART_TX_0X35_115200
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+tb_rtl/tb_protocols.v:218: $finish called at 384000000 (1ps)
+
+SPI
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] SPI_MODE0_TWO_BYTES
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+tb_rtl/tb_protocols.v:218: $finish called at 314780000 (1ps)
+
+I2C
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] I2C_WRITE_OPEN_DRAIN_ACK_STRETCH
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+tb_rtl/tb_protocols.v:218: $finish called at 599460000 (1ps)

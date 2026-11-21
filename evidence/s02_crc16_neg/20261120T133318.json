@@ -1,0 +1,31 @@
+{
+ "id": "s02_crc16_neg",
+ "state": "NEG_KILLED",
+ "selection": "S02",
+ "frozen_checks": 5,
+ "checks_basis": "Ignore the CRC clear strobe.",
+ "negative": true,
+ "variant_of": "s02_crc16",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T133318",
+ "sources": {
+  "src/pvm_crc16.v": "216039527e57ea929b369453d09ecb001374623a56ea7b741f56c7cc22b101ac",
+  "tb_rtl/tb_crc16.v": "672ad8dd956b26ec2e6dc9750e7243db1d70498fabde0e34e3d6c7431ad6b039"
+ },
+ "parsed": {
+  "passes": [
+   "VEC_EMPTY",
+   "VEC_123456789",
+   "VEC_00",
+   "EN_LOW_HOLD"
+  ],
+  "fails": [
+   "CLR_RESTART"
+  ],
+  "checks": 5,
+  "errors": 1,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_crc16 -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s02_crc16_neg/sim.vvp /workspace/work/pvm-protocol-emulator/tb_rtl/build/s02_crc16_neg/pvm_crc16.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_crc16.v"
+}

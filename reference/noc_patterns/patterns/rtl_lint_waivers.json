@@ -1,0 +1,130 @@
+{
+ "schema": 1,
+ "approved": "Kalash 2026-10-20 B-1: flag, no RTL change before the area decision",
+ "waivers": [
+  {
+   "path": "rtl/dual_lane/noc_network_interface.sv",
+   "line": 1431,
+   "line_sha256": "b709b36f5d7caaec16213e9d6978726dbc6ec16a78b53b13dca26715e3f44ab5",
+   "source": "rx_mac_tag_q[",
+   "reason": "rx MAC word capture: 2-bit counter rx_mac_cnt_q, 4 positions x 32 bits (decoder, not a priority chain); NI measured 263-412 LUTs OOC"
+  },
+  {
+   "path": "rtl/dual_lane/noc_network_interface.sv",
+   "line": 1557,
+   "line_sha256": "b0cb6c89eaf89223ceb240332cb10d72a88d906417720f57caced81a8908dd74",
+   "source": "rx_mac_tag[{rx_mac_cnt_q, 5'd0} +: FLIT_WIDTH] =",
+   "reason": "rx MAC word capture: 2-bit counter rx_mac_cnt_q, 4 positions x 32 bits (decoder, not a priority chain); NI measured 263-412 LUTs OOC"
+  },
+  {
+   "path": "rtl/dual_lane/pq_attest_endpoint.sv",
+   "line": 212,
+   "line_sha256": "a02e2dcf9cc468e8c1790eb1d3920dd29929014cbd94cdba632ed7a5c419daf3",
+   "source": "if (pk == P_SERVE && wcount < CH_WORDS) challenge[32*wcount +: 32] <= rx_payload_data;",
+   "reason": "challenge word capture: wcount guarded < CH_WORDS (7 positions x 32 bits); measured inside endpoint_ooc (19,986 LUTs total)"
+  },
+  {
+   "path": "rtl/dual_lane/pq_rot_verifier.sv",
+   "line": 111,
+   "line_sha256": "e026ea83880654bc68a08af0eaefe818bb743e505355b9052f1050369b1ef7ba",
+   "source": "if(count<16) incoming[count*32+:32]<=rx_payload_data;",
+   "reason": "response word capture: count guarded < 16 (16 positions x 32 bits); verifier not yet synthesized (B-1 estimate)"
+  },
+  {
+   "path": "rtl/dual_lane/SHA3_PAD.sv",
+   "line": 23,
+   "line_sha256": "6034681c3b00ed2d1014ed3928d1b964470cc0fb4620e9056afef72ac86bff5c",
+   "source": "padded_block[valid_bytes*8 +: 8] =",
+   "reason": "D-SYN-1 variant pad-byte write at valid_bytes (137 positions x 8 bits); measured sha3_pad 1,104-1,255 LUTs, equivalence 33,792/0"
+  },
+  {
+   "path": "rtl/dual_lane/noc_network_interface_p7.sv",
+   "line": 1436,
+   "line_sha256": "b709b36f5d7caaec16213e9d6978726dbc6ec16a78b53b13dca26715e3f44ab5",
+   "source": "rx_mac_tag_q[",
+   "reason": "rx MAC word capture: 2-bit counter rx_mac_cnt_q, 4 positions x 32 bits (decoder, not a priority chain); NI measured 263-412 LUTs OOC; same line in the generated P7 NI variant (scripts/prepare_p7ni.py, +3 header/parameter lines)"
+  },
+  {
+   "path": "rtl/dual_lane/noc_network_interface_p7.sv",
+   "line": 1562,
+   "line_sha256": "b0cb6c89eaf89223ceb240332cb10d72a88d906417720f57caced81a8908dd74",
+   "source": "rx_mac_tag[{rx_mac_cnt_q, 5'd0} +: FLIT_WIDTH] =",
+   "reason": "rx MAC word capture: 2-bit counter rx_mac_cnt_q, 4 positions x 32 bits (decoder, not a priority chain); NI measured 263-412 LUTs OOC; same line in the generated P7 NI variant (scripts/prepare_p7ni.py, +3 header/parameter lines)"
+  },
+  {
+   "path": "rtl/dual_lane/noc_l2_auth.sv",
+   "line": 97,
+   "rule": "valid_ready_comb",
+   "line_sha256": "34be3afcf9261ea5d2bae95e2ef276237ce65c39f7c49064536e06d1c059906f",
+   "source": "always_comb begin",
+   "reason": "B-2 accepted rev-6 wrapper (not in any P7 source list); its noc_tx_ready feeds the mesh directly, qualified by B-2/B-3 runs; kept as history (S1 rule 2026-10-21)"
+  },
+  {
+   "path": "rtl/dual_lane/noc_network_interface.sv",
+   "line": 938,
+   "rule": "valid_ready_comb",
+   "line_sha256": "34be3afcf9261ea5d2bae95e2ef276237ce65c39f7c49064536e06d1c059906f",
+   "source": "always_comb begin",
+   "reason": "NI RX output block: rx_ready comes from the tile consumer, which is always-ready in every subsystem (rready = 1) and in the benches; no path from rx_*_valid back to rx_ready (S1 rule 2026-10-21)"
+  },
+  {
+   "path": "rtl/dual_lane/noc_network_interface_p7.sv",
+   "line": 943,
+   "rule": "valid_ready_comb",
+   "line_sha256": "34be3afcf9261ea5d2bae95e2ef276237ce65c39f7c49064536e06d1c059906f",
+   "source": "always_comb begin",
+   "reason": "generated P7 copy of the same NI RX block (scripts/prepare_p7ni.py): same always-ready consumer argument (S1 rule 2026-10-21)"
+  },
+  {
+   "path": "rtl/dual_lane/pq_noc_subsystem.sv",
+   "line": 84,
+   "rule": "valid_ready_comb",
+   "line_sha256": "34be3afcf9261ea5d2bae95e2ef276237ce65c39f7c49064536e06d1c059906f",
+   "source": "always_comb begin",
+   "reason": "rev-6 subsystem (history, F234-REV6 runs only); the P7 subsystem uses continuous assignments for this mux (S1 rule 2026-10-21)"
+  },
+  {
+   "path": "rtl/dual_lane/kmac_128_xp.sv",
+   "line": 202,
+   "line_sha256": "7d5d8e1267b70528db5a490707557b89d29697cac8fa7b1fa4ca3cb377620be5",
+   "source": "final_block[(msg_len_reg +",
+   "reason": "S3 (2026-11-02): inherited verbatim from production kmac_128.sv:194-196 (KMAC domain byte after right_encode(L), offset msg_len_reg + 2/3); the same logic is in all four registered KMAC engines; not introduced by S3. Flagged to Kalash in the S3 gate report."
+  },
+  {
+   "path": "rtl/dual_lane/kmac_128_a5.sv",
+   "line": 204,
+   "line_sha256": "7d5d8e1267b70528db5a490707557b89d29697cac8fa7b1fa4ca3cb377620be5",
+   "source": "final_block[(msg_len_reg +",
+   "reason": "S3 (2026-11-02): inherited verbatim from production kmac_128.sv:194-196 (KMAC domain byte after right_encode(L), offset msg_len_reg + 2/3); the same logic is in all four registered KMAC engines; not introduced by S3. Flagged to Kalash in the S3 gate report. (S4-A5 copy of the same inherited production line)"
+  },
+  {
+   "path": "rtl/dual_lane/kmac_128_xp_a5.sv",
+   "line": 211,
+   "line_sha256": "7d5d8e1267b70528db5a490707557b89d29697cac8fa7b1fa4ca3cb377620be5",
+   "source": "final_block[(msg_len_reg +",
+   "reason": "S3 (2026-11-02): inherited verbatim from production kmac_128.sv:194-196 (KMAC domain byte after right_encode(L), offset msg_len_reg + 2/3); the same logic is in all four registered KMAC engines; not introduced by S3. Flagged to Kalash in the S3 gate report. (S4-A5 copy of the same inherited production line)"
+  },
+  {
+   "path": "rtl/dual_lane/noc_network_interface_p7_i9.sv",
+   "line": 1483,
+   "line_sha256": "b709b36f5d7caaec16213e9d6978726dbc6ec16a78b53b13dca26715e3f44ab5",
+   "source": "rx_mac_tag_q[",
+   "reason": "rx MAC word capture: 2-bit counter rx_mac_cnt_q, 4 positions x 32 bits (decoder, not a priority chain); NI measured 263-412 LUTs OOC; same line in the generated P7 NI variant (scripts/prepare_p7ni.py, +3 header/parameter lines) (I-9 copy, scripts/prepare_i9.py: same inherited line, +47 lines; M-F1 rev 8)"
+  },
+  {
+   "path": "rtl/dual_lane/noc_network_interface_p7_i9.sv",
+   "line": 1609,
+   "line_sha256": "b0cb6c89eaf89223ceb240332cb10d72a88d906417720f57caced81a8908dd74",
+   "source": "rx_mac_tag[{rx_mac_cnt_q, 5'd0} +: FLIT_WIDTH] =",
+   "reason": "rx MAC word capture: 2-bit counter rx_mac_cnt_q, 4 positions x 32 bits (decoder, not a priority chain); NI measured 263-412 LUTs OOC; same line in the generated P7 NI variant (scripts/prepare_p7ni.py, +3 header/parameter lines) (I-9 copy, scripts/prepare_i9.py: same inherited line, +47 lines; M-F1 rev 8)"
+  },
+  {
+   "path": "rtl/dual_lane/noc_network_interface_p7_i9.sv",
+   "line": 990,
+   "rule": "valid_ready_comb",
+   "line_sha256": "34be3afcf9261ea5d2bae95e2ef276237ce65c39f7c49064536e06d1c059906f",
+   "source": "always_comb begin",
+   "reason": "generated P7 copy of the same NI RX block (scripts/prepare_p7ni.py): same always-ready consumer argument (S1 rule 2026-10-21) (I-9 copy, scripts/prepare_i9.py: same inherited line, +47 lines; M-F1 rev 8)"
+  }
+ ]
+}

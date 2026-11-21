@@ -1,0 +1,9 @@
+Yosys 0.52 hierarchy, proc, opt_clean, check -assert and no-dlatch assertions passed.
+cnt_inc connects only to config_bank.cnt_inc
+cnt_pass connects only to config_bank.cnt_pass
+cnt_viol connects only to config_bank.cnt_viol
+log_flat connects only to config_bank.log_flat
+log_total connects only to config_bank.log_total
+log_wptr connects only to config_bank.log_wptr
+mon_state connects only to config_bank.mon_state
+Layer 1 sources contain no LUT outputs. Layer 2 selects only registered L0/L1.

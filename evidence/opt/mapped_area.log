@@ -1,0 +1,24 @@
+d2b9ad7b20946309041706f1232981de252fe8b2c5ee37bca9e182c312be8590  src/pvm_top.v
+51382db13ea324136ff54aa5ad0dbe29ef27129a52a68dc95a45108c26d8f19b  src/pvm_mon.v
+9ae1c8678af82d6fa48223bab3f2450777fb9ab4e2cc831064c8a276def02a1e  src/pvm_engine.v
+34163f3e7de9f854afac57332ba06f1739b78e7ac35660a8a5ddd39c570124ad  /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib
+
+Variant A
+-- Running command `read_verilog -D PVM_NO_FABRIC -D PVM_NO_MON src/*.v; synth -flatten -top tt_um_arnav1609_pvm -noabc; dfflibmap -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; abc -exe /workspace/work/pvm-tools/abc/usr/bin/berkeley-abc -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; read_liberty -lib /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; clean; check -assert; stat -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib' --
+   Chip area for module '\tt_um_arnav1609_pvm': 256758.616800
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+
+Variant B
+-- Running command `read_verilog -D PVM_NO_MON src/*.v; synth -flatten -top tt_um_arnav1609_pvm -noabc; dfflibmap -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; abc -exe /workspace/work/pvm-tools/abc/usr/bin/berkeley-abc -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; read_liberty -lib /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; clean; check -assert; stat -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib' --
+   Chip area for module '\tt_um_arnav1609_pvm': 272672.152200
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+
+Variant C
+-- Running command `read_verilog -D PVM_NO_FABRIC src/*.v; synth -flatten -top tt_um_arnav1609_pvm -noabc; dfflibmap -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; abc -exe /workspace/work/pvm-tools/abc/usr/bin/berkeley-abc -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; read_liberty -lib /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; clean; check -assert; stat -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib' --
+   Chip area for module '\tt_um_arnav1609_pvm': 288168.413400
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+
+Variant D
+-- Running command `read_verilog  src/*.v; synth -flatten -top tt_um_arnav1609_pvm -noabc; dfflibmap -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; abc -exe /workspace/work/pvm-tools/abc/usr/bin/berkeley-abc -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; read_liberty -lib /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib; clean; check -assert; stat -liberty /workspace/work/pvm-s14-variant-synth/sg13cmos5l_stdcell_typ_1p20V_25C.lib' --
+   Chip area for module '\tt_um_arnav1609_pvm': 304339.669200
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)

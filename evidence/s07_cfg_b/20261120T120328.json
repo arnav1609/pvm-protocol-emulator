@@ -1,0 +1,49 @@
+{
+ "id": "s07_cfg_b",
+ "state": "PASS_FRESH",
+ "selection": "S07",
+ "frozen_checks": 22,
+ "checks_basis": "Frozen on 2026-11-20 before first run: OD_ON_UO, OUTPUT_ON_UI, OWNER_WITH_INPUT_MODE, OWNER7, MODE3, OUT_CNT_17, SET_CNT_6, SIDE_CNT_3, BASE_20, WRAP_INVERTED, ENTRY_INVALID, LUTMODE3, MANCH_NO_CNT, ARB_N0, ARB_PIN_NOT_UIO, ARB_PIN_NOT_OD, MON_GUARD3, MON_ACTION7, CRC_BEFORE_PIN, LEGAL_IMAGE_READY, IMAGE_ID_LATCHED, REVALIDATE_AFTER_HALT.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T120328",
+ "sources": {
+  "src/pvm_imem.v": "7c76a8f08b9b42c9f24740dfbf7ff53e16096617bee357c742fb60470aef40c6",
+  "src/pvm_crc16.v": "216039527e57ea929b369453d09ecb001374623a56ea7b741f56c7cc22b101ac",
+  "src/pvm_cfg.v": "00b1641390560d18000220e91c65c02266fd02d6046b149f50218f8ed71181cd",
+  "tb_rtl/tb_cfg_b.v": "742ca960197f3d4b1f76793f0922b55998dad204c83d1e82d2f994a698161435"
+ },
+ "parsed": {
+  "passes": [
+   "OD_ON_UO",
+   "OUTPUT_ON_UI",
+   "OWNER_WITH_INPUT_MODE",
+   "OWNER7",
+   "MODE3",
+   "OUT_CNT_17",
+   "SET_CNT_6",
+   "SIDE_CNT_3",
+   "BASE_20",
+   "WRAP_INVERTED",
+   "ENTRY_INVALID",
+   "LUTMODE3",
+   "MANCH_NO_CNT",
+   "ARB_N0",
+   "ARB_PIN_NOT_UIO",
+   "ARB_PIN_NOT_OD",
+   "MON_GUARD3",
+   "MON_ACTION7",
+   "CRC_BEFORE_PIN",
+   "LEGAL_IMAGE_READY",
+   "IMAGE_ID_LATCHED",
+   "REVALIDATE_AFTER_HALT"
+  ],
+  "fails": [],
+  "checks": 22,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_cfg_b -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s07_cfg_b/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_cfg_b.v"
+}

@@ -1,0 +1,51 @@
+{
+ "id": "s13_mon_neg_timer_wrap",
+ "state": "NEG_KILLED",
+ "selection": "S13",
+ "frozen_checks": 24,
+ "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: FIRST_MATCH_PRIORITY, ONE_FIRE_PER_CYCLE, EDGE_RISE_FALL_HIGH_LOW, GUARD_LT_GE, CHECK_MIN_PASS, CHECK_MIN_VIOL, CHECK_MIN_INC, CHECK_MAX_PASS, CHECK_MAX_VIOL, CHECK_MAX_INC, ARITHMETIC_17BIT, MEASURE_LOG_NO_COUNT, VIOLATE_PASS_ACTIONS, I2C_STRETCH_RULE_SET, TIMER_SATURATE_OVF, OVF_INCONCLUSIVE_RULE, LOG_RING_WRAP_4, LOG_TOTAL_SAT_63, COUNTER_SAT_FFFF, STOP_RETAINS_LOG, HALT_CLEARS, PRESC_16_TIMEBASE, MON_EN_0_IDLE, SRC_FLAGS_FABRIC.",
+ "negative": true,
+ "variant_of": "s13_mon",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T165512",
+ "sources": {
+  "src/pvm_presc.v": "576c08e18bcd572382466d80d20bbfc5c74f85a3a070b2a0c0be04258a7b22dc",
+  "src/pvm_mon.v": "090f8587dfa14ebafcbb0c9015dfee765093dca641dd20bc05cafd459bd57580",
+  "tb_rtl/tb_mon.v": "52394970410ea1257673b1c161fe1ee8d6fd011375c06b75312961f2a0044354"
+ },
+ "parsed": {
+  "passes": [
+   "FIRST_MATCH_PRIORITY",
+   "ONE_FIRE_PER_CYCLE",
+   "EDGE_RISE_FALL_HIGH_LOW",
+   "GUARD_LT_GE",
+   "CHECK_MIN_PASS",
+   "CHECK_MIN_VIOL",
+   "CHECK_MIN_INC",
+   "CHECK_MAX_PASS",
+   "CHECK_MAX_VIOL",
+   "CHECK_MAX_INC",
+   "ARITHMETIC_17BIT",
+   "MEASURE_LOG_NO_COUNT",
+   "VIOLATE_PASS_ACTIONS",
+   "I2C_STRETCH_RULE_SET",
+   "LOG_RING_WRAP_4",
+   "LOG_TOTAL_SAT_63",
+   "COUNTER_SAT_FFFF",
+   "STOP_RETAINS_LOG",
+   "HALT_CLEARS",
+   "PRESC_16_TIMEBASE",
+   "MON_EN_0_IDLE",
+   "SRC_FLAGS_FABRIC"
+  ],
+  "fails": [
+   "TIMER_SATURATE_OVF",
+   "OVF_INCONCLUSIVE_RULE"
+  ],
+  "checks": 24,
+  "errors": 2,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_mon -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s13_mon_neg_timer_wrap/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/tb_rtl/build/s13_mon_neg_timer_wrap/pvm_mon.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_mon.v"
+}

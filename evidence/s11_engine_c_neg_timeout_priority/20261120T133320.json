@@ -1,0 +1,41 @@
+{
+ "id": "s11_engine_c_neg_timeout_priority",
+ "state": "NEG_KILLED",
+ "selection": "S11",
+ "frozen_checks": 12,
+ "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
+ "negative": true,
+ "variant_of": "s11_engine_c",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T133320",
+ "sources": {
+  "src/pvm_tick.v": "4e869563873727bb3879b8d07b6ca5d9c7a386d3d654e1e9a8f3568c8492d164",
+  "src/pvm_presc.v": "576c08e18bcd572382466d80d20bbfc5c74f85a3a070b2a0c0be04258a7b22dc",
+  "src/pvm_engine.v": "26e610fb18fcf0e6bf6d4769df0ef377d4f3c105929ab790380af09fa385929b",
+  "tb_rtl/tb_engine_c.v": "21c569bfd6a479baffc1fb69f267478ca8929e11fc8b0d76bc4826091226b96f",
+  "tb_rtl/pvm_trace.v": "bf03e54ee5bc8edd6cac6c3f7f6504cac95967024f8181799cf041ddaadce21e"
+ },
+ "parsed": {
+  "passes": [
+   "WAIT_PIN_POL0",
+   "WAIT_PIN_POL1",
+   "WAIT_FAB",
+   "WAIT_FLAG_ARB",
+   "WAIT_SIDESET_APPLIED_DURING_STALL",
+   "DELAY_AFTER_WAIT_ONLY",
+   "TIMEOUT_EXACT_COUNT",
+   "TIMEOUT_0_DISABLED",
+   "TIMEOUT_ON_PULL",
+   "TIMEOUT_ON_PUSH",
+   "FAULT_STOPS_ENGINE"
+  ],
+  "fails": [
+   "TIMEOUT_COMPLETION_WINS"
+  ],
+  "checks": 12,
+  "errors": 1,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_engine_c -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s11_engine_c_neg_timeout_priority/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/tb_rtl/build/s11_engine_c_neg_timeout_priority/pvm_engine.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_engine_c.v /workspace/work/pvm-protocol-emulator/tb_rtl/pvm_trace.v"
+}

@@ -1,0 +1,32 @@
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:296: warning: @* is sensitive to all 19 words in array 'eng_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:298: warning: @* is sensitive to all 39 words in array 'fab_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:300: warning: @* is sensitive to all 43 words in array 'mon_cfg'.
+/workspace/work/pvm-protocol-emulator/src/pvm_cfg.v:302: warning: @* is sensitive to all 20 words in array 'pins'.
+CONFIG: TOP=tb_cfg_a CHECKS=23
+[PASS] RESET_STATE_HALT
+[PASS] WH_WRITE_HALT_OK
+[PASS] READ_LATENCY_1
+[PASS] UNMAPPED_READ_ZERO
+[PASS] UNMAPPED_WRITE_REJ
+[PASS] ENABLE_FROM_HALT_REJ
+[PASS] REGISTER_ROUNDTRIP_ENGINE
+[PASS] REGISTER_ROUNDTRIP_FABRIC
+[PASS] REGISTER_ROUNDTRIP_MONITOR
+[PASS] REGISTER_ROUNDTRIP_PINS
+[PASS] CRC_MATCH_READY
+[PASS] ENABLE_PULSE_WIDTH_1
+[PASS] WH_WRITE_RUN_REJECTED
+[PASS] CLR_IMEM_ONLY_HALT
+[PASS] ENGINE_DONE_TO_DONE
+[PASS] CLR_FAULT_TO_HALT
+[PASS] ENGINE_FAULT_LATCH
+[PASS] CRC_MISMATCH_FAULT
+[PASS] TXFIFO_PUSH_OVF
+[PASS] RXFIFO_PEEK_NO_POP_ON_RE
+[PASS] RXFIFO_POP_ON_RACK
+[PASS] HALT_CLEARS_STICKY
+[PASS] HALT_CLEARS_FIFOS
+CHECKS : 23
+ERRORS : 0
+RESULT : PASS
+/workspace/work/pvm-protocol-emulator/tb_rtl/tb_cfg_a.v:387: $finish called at 7831000 (1ps)

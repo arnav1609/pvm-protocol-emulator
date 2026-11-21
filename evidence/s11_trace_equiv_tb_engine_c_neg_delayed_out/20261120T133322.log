@@ -1,0 +1,22 @@
+TB: CONFIG: TOP=tb_engine_c CHECKS=12
+TB: [PASS] WAIT_PIN_POL0
+TB: [PASS] WAIT_PIN_POL1
+TB: [PASS] WAIT_FAB
+TB: [PASS] WAIT_FLAG_ARB
+TB: [FAIL] WAIT_SIDESET_APPLIED_DURING_STALL
+TB: [PASS] DELAY_AFTER_WAIT_ONLY
+TB: [PASS] TIMEOUT_EXACT_COUNT
+TB: [PASS] TIMEOUT_COMPLETION_WINS
+TB: [PASS] TIMEOUT_0_DISABLED
+TB: [PASS] TIMEOUT_ON_PULL
+TB: [PASS] TIMEOUT_ON_PUSH
+TB: [PASS] FAULT_STOPS_ENGINE
+TB: CHECKS : 12
+TB: ERRORS : 1
+TB: RESULT : FAIL
+TB: /workspace/work/pvm-protocol-emulator/tb_rtl/tb_engine_c.v:213: $finish called at 3971000 (1ps)
+TRACE_COMPARE {"golden": "tb_rtl/vectors/golden_tb_engine_c.csv", "golden_sha256": "f8ee6ffbed7984be55a0865006213a2bb0c93481e5db28da8bf352e9558377e2", "actual_sha256": "ff29d9c2f0625e1de8fc7bd8262cfd8e43c75cc673e3189b197626e29838151b", "golden_cycles": 199, "actual_cycles": 199, "different_fields": ["out_val"], "first_difference": {"cycle": 23, "values": [["out_val", "20000", "00000"]]}}
+[FAIL] TRACE_EQUAL_TB_ENGINE_C
+CHECKS : 1
+ERRORS : 1
+RESULT : FAIL

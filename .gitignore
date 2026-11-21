@@ -11,3 +11,7 @@ test/sim_build
 test/__pycache__/
 test/results.xml
 test/gate_level_netlist.v
+
+/tb_rtl/build/
+/tb_rtl/__pycache__/
+/tools/**/__pycache__/

@@ -25,9 +25,10 @@ jobs:
 
       - name: Run tests
         run: |
+          python -m unittest discover -s tools/tests -v
           cd test
           make clean
-          make
+          PYTHONPATH=.. make COCOTB_TEST_MODULES=test,test_toolchain
           # make will return success even if the tests fail, so check results.xml for failed tests
           python -m cocotb_tools.check_results results.xml
 

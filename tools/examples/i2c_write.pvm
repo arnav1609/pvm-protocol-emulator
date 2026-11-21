@@ -1,0 +1,22 @@
+# S14b I2C controller write. Preload 0xA0 (0x50 with write bit), then 0x3C.
+# P12 = SDA, P13 = SCL. External pull-ups and a responding target required.
+    set pins, 3 side 1
+    set pindirs, 3 side 1
+    wait 1 pin 13 side 1
+    set pins, 2 side 1      # START
+    set y, 1 side 0
+next_byte:
+    pull block side 0
+    set x, 7 side 0
+next_bit:
+    out pins, 1 side 0
+    wait 1 pin 13 side 1    # Wait for pad high, including a target stretch.
+    jmp x--, next_bit side 1
+    set pins, 1 side 0      # Release SDA for ACK.
+    wait 1 pin 13 side 1
+    wait 0 pin 12 side 1
+    jmp y--, next_byte side 0
+    set pins, 0 side 0
+    wait 1 pin 13 side 1
+    set pins, 3 side 1      # STOP
+    evt done side 1

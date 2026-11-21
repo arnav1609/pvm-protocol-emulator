@@ -1,0 +1,45 @@
+{
+ "id": "s01_primitives",
+ "state": "PASS_FRESH",
+ "selection": "S01",
+ "frozen_checks": 17,
+ "checks_basis": "17 checks frozen before first run on 2026-11-20: SYNC_LATENCY_2, SYNC_RESET_VAL, EDGE_RISE, EDGE_FALL, EDGE_NO_CHANGE, TICK_DIV0, TICK_DIV1, TICK_DIV5_PERIOD, TICK_DIV65535, TICK_RESTART, TICK_RUN_LOW_NO_TICK, PRESC_SEL0, PRESC_SEL1, PRESC_SEL2, PRESC_SEL3, PRESC_RESTART, MID_RUN_RESET.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T080320",
+ "sources": {
+  "src/pvm_sync2.v": "f505a72cfc110b0906515bf2479b22ae5787a03f39c72cbe10be4b2719aa8dbf",
+  "src/pvm_edge.v": "7c36c2fbf3f57288e90c8d2b2fd93d3d487702804c1d13200bd148870013b5f5",
+  "src/pvm_tick.v": "4e869563873727bb3879b8d07b6ca5d9c7a386d3d654e1e9a8f3568c8492d164",
+  "src/pvm_presc.v": "576c08e18bcd572382466d80d20bbfc5c74f85a3a070b2a0c0be04258a7b22dc",
+  "tb_rtl/tb_primitives.v": "f2af8aa6f3d7673e08eb4a36876378957c01b1198f4d8c17aef3f1da96da9f41"
+ },
+ "parsed": {
+  "passes": [
+   "SYNC_RESET_VAL",
+   "SYNC_LATENCY_2",
+   "EDGE_RISE",
+   "EDGE_FALL",
+   "EDGE_NO_CHANGE",
+   "TICK_DIV0",
+   "TICK_DIV1",
+   "TICK_DIV5_PERIOD",
+   "TICK_DIV65535",
+   "TICK_RESTART",
+   "TICK_RUN_LOW_NO_TICK",
+   "PRESC_SEL0",
+   "PRESC_SEL1",
+   "PRESC_SEL2",
+   "PRESC_SEL3",
+   "PRESC_RESTART",
+   "MID_RUN_RESET"
+  ],
+  "fails": [],
+  "checks": 17,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_primitives -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s01_primitives/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_tick.v /workspace/work/pvm-protocol-emulator/src/pvm_presc.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_primitives.v"
+}
