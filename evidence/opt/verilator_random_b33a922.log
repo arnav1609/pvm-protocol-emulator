@@ -1,0 +1,1624 @@
+b33a9227ac187f791a3733b94ac4e32879b10414
+Verilator 5.032 2025-01-01 rev (Debian 5.032-1+b2)
+Date 21 November 2026 IST
+
+s01_primitives
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_primitives --Mdir /workspace/work/pvm-arb-b33a922/runs/s01_primitives/obj -o sim src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v tb_rtl/tb_primitives.v
+/workspace/work/pvm-arb-b33a922/runs/s01_primitives/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_primitives CHECKS=17
+[PASS] SYNC_RESET_VAL
+[PASS] SYNC_LATENCY_2
+[PASS] EDGE_RISE
+[PASS] EDGE_FALL
+[PASS] EDGE_NO_CHANGE
+[PASS] TICK_DIV0
+[PASS] TICK_DIV1
+[PASS] TICK_DIV5_PERIOD
+[PASS] TICK_DIV65535
+[PASS] TICK_RESTART
+[PASS] TICK_RUN_LOW_NO_TICK
+[PASS] PRESC_SEL0
+[PASS] PRESC_SEL1
+[PASS] PRESC_SEL2
+[PASS] PRESC_SEL3
+[PASS] PRESC_RESTART
+[PASS] MID_RUN_RESET
+CHECKS : 17
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_primitives.v:216: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.934 s; speed 1.608 ms/s
+- Verilator: cpu 0.926 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s01_primitives/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_primitives CHECKS=17
+[PASS] SYNC_RESET_VAL
+[PASS] SYNC_LATENCY_2
+[PASS] EDGE_RISE
+[PASS] EDGE_FALL
+[PASS] EDGE_NO_CHANGE
+[PASS] TICK_DIV0
+[PASS] TICK_DIV1
+[PASS] TICK_DIV5_PERIOD
+[PASS] TICK_DIV65535
+[PASS] TICK_RESTART
+[PASS] TICK_RUN_LOW_NO_TICK
+[PASS] PRESC_SEL0
+[PASS] PRESC_SEL1
+[PASS] PRESC_SEL2
+[PASS] PRESC_SEL3
+[PASS] PRESC_RESTART
+[PASS] MID_RUN_RESET
+CHECKS : 17
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_primitives.v:216: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.737 s; speed 2.022 ms/s
+- Verilator: cpu 0.736 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s02_fifo
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_fifo --Mdir /workspace/work/pvm-arb-b33a922/runs/s02_fifo/obj -o sim src/pvm_fifo.v tb_rtl/tb_fifo.v
+/workspace/work/pvm-arb-b33a922/runs/s02_fifo/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_fifo CHECKS=9
+SEED ace3
+[PASS] RESET_EMPTY
+[PASS] FULL_FLAG
+[PASS] OVF_DROP
+[PASS] ORDER_4
+[PASS] UNF
+[PASS] PUSHPOP_FULL
+[PASS] PUSHPOP_EMPTY
+[PASS] WRAP
+[PASS] CLR
+CHECKS : 9
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_fifo.v:150: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1us; walltime 0.001 s; speed 1.083 ms/s
+- Verilator: cpu 0.001 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s02_fifo/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_fifo CHECKS=9
+SEED ace3
+[PASS] RESET_EMPTY
+[PASS] FULL_FLAG
+[PASS] OVF_DROP
+[PASS] ORDER_4
+[PASS] UNF
+[PASS] PUSHPOP_FULL
+[PASS] PUSHPOP_EMPTY
+[PASS] WRAP
+[PASS] CLR
+CHECKS : 9
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_fifo.v:150: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1us; walltime 0.001 s; speed 1.120 ms/s
+- Verilator: cpu 0.001 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s02_crc16
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_crc16 --Mdir /workspace/work/pvm-arb-b33a922/runs/s02_crc16/obj -o sim src/pvm_crc16.v tb_rtl/tb_crc16.v
+/workspace/work/pvm-arb-b33a922/runs/s02_crc16/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_crc16 CHECKS=5
+[PASS] VEC_EMPTY
+[PASS] VEC_123456789
+[PASS] VEC_00
+[PASS] EN_LOW_HOLD
+[PASS] CLR_RESTART
+CHECKS : 5
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_crc16.v:84: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 380ns; walltime 0.000 s; speed 878.241 us/s
+- Verilator: cpu 0.000 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s02_crc16/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_crc16 CHECKS=5
+[PASS] VEC_EMPTY
+[PASS] VEC_123456789
+[PASS] VEC_00
+[PASS] EN_LOW_HOLD
+[PASS] CLR_RESTART
+CHECKS : 5
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_crc16.v:84: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 380ns; walltime 0.000 s; speed 752.177 us/s
+- Verilator: cpu 0.001 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s03_imem
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_imem --Mdir /workspace/work/pvm-arb-b33a922/runs/s03_imem/obj -o sim src/pvm_imem.v tb_rtl/tb_imem.v
+%Warning-PINMISSING: tb_rtl/tb_imem.v:19:14: Cell has missing pin: 'entry_valid'
+/workspace/work/pvm-arb-b33a922/runs/s03_imem/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_imem CHECKS=8
+[PASS] RESET_INVALID
+[PASS] LOWBYTE_NOT_VALID
+[PASS] BUS_READ_MASK
+[PASS] HIGHBYTE_SETS_VALID
+[PASS] ALL32_PATTERN
+[PASS] BOUNDARY_WORD31
+[PASS] REWRITE_SAME_WORD
+[PASS] CLR_VALID
+CHECKS : 8
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_imem.v:123: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 4us; walltime 0.002 s; speed 1.697 ms/s
+- Verilator: cpu 0.002 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s03_imem/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_imem CHECKS=8
+[PASS] RESET_INVALID
+[PASS] LOWBYTE_NOT_VALID
+[PASS] BUS_READ_MASK
+[PASS] HIGHBYTE_SETS_VALID
+[PASS] ALL32_PATTERN
+[PASS] BOUNDARY_WORD31
+[PASS] REWRITE_SAME_WORD
+[PASS] CLR_VALID
+CHECKS : 8
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_imem.v:123: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 4us; walltime 0.003 s; speed 1.887 ms/s
+- Verilator: cpu 0.002 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s04_spi_byte
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_spi_byte --Mdir /workspace/work/pvm-arb-b33a922/runs/s04_spi_byte/obj -o sim src/pvm_edge.v src/pvm_sync2.v src/pvm_spi_byte.v tb_rtl/tb_spi_byte.v
+/workspace/work/pvm-arb-b33a922/runs/s04_spi_byte/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_spi_byte CHECKS=8
+SEED 9d67
+[PASS] RX_A5
+[PASS] TX_LOAD_96
+[PASS] TX_DEFAULT_ZERO
+[PASS] FRAME_START_END
+[PASS] RX_BACK_TO_BACK_16BYTES
+[PASS] CS_ABORT_MIDBYTE
+[PASS] SCK_GLITCH_WHEN_CS_HIGH
+[PASS] SLOWEST_SCK
+CHECKS : 8
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_spi_byte.v:155: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 69us; walltime 0.040 s; speed 1.738 ms/s
+- Verilator: cpu 0.040 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s04_spi_byte/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_spi_byte CHECKS=8
+SEED 9d67
+[PASS] RX_A5
+[PASS] TX_LOAD_96
+[PASS] TX_DEFAULT_ZERO
+[PASS] FRAME_START_END
+[PASS] RX_BACK_TO_BACK_16BYTES
+[PASS] CS_ABORT_MIDBYTE
+[PASS] SCK_GLITCH_WHEN_CS_HIGH
+[PASS] SLOWEST_SCK
+CHECKS : 8
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_spi_byte.v:155: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 69us; walltime 0.035 s; speed 1.968 ms/s
+- Verilator: cpu 0.035 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s05_hostif
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_hostif --Mdir /workspace/work/pvm-arb-b33a922/runs/s05_hostif/obj -o sim src/pvm_edge.v src/pvm_sync2.v src/pvm_spi_byte.v src/pvm_hostif.v tb_rtl/tb_hostif.v
+/workspace/work/pvm-arb-b33a922/runs/s05_hostif/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_hostif CHECKS=11
+SEED 679d
+[PASS] WRITE_SINGLE
+[PASS] WRITE_BURST_16
+[PASS] WRITE_ADDR_WRAP_FFFF
+[PASS] READ_SINGLE
+[PASS] READ_BURST_8
+[PASS] READ_RACK_SEQUENCE
+[PASS] ID_BYTES
+[PASS] UNKNOWN_CMD_IGNORED
+[PASS] ABORT_IN_ADDR
+[PASS] ABORT_IN_DATA
+[PASS] ONE_STROBE_PER_CYCLE
+CHECKS : 11
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_hostif.v:262: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 159us; walltime 0.063 s; speed 2.509 ms/s
+- Verilator: cpu 0.063 s on 1 threads; alloced 20 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s05_hostif/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_hostif CHECKS=11
+SEED 679d
+[PASS] WRITE_SINGLE
+[PASS] WRITE_BURST_16
+[PASS] WRITE_ADDR_WRAP_FFFF
+[PASS] READ_SINGLE
+[PASS] READ_BURST_8
+[PASS] READ_RACK_SEQUENCE
+[PASS] ID_BYTES
+[PASS] UNKNOWN_CMD_IGNORED
+[PASS] ABORT_IN_ADDR
+[PASS] ABORT_IN_DATA
+[PASS] ONE_STROBE_PER_CYCLE
+CHECKS : 11
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_hostif.v:262: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 159us; walltime 0.064 s; speed 2.482 ms/s
+- Verilator: cpu 0.064 s on 1 threads; alloced 20 MB
+Seed 2 verdict PASS_FRESH
+
+s06_cfg_a
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_cfg_a --Mdir /workspace/work/pvm-arb-b33a922/runs/s06_cfg_a/obj -o sim src/pvm_imem.v src/pvm_crc16.v src/pvm_fifo.v src/pvm_cfg.v tb_rtl/tb_cfg_a.v
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'halt_pulse'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'clr_flags_pulse'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'clkdiv'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'out_base'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'out_cnt'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'set_base'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'in_base'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'side_base'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'jmp_pin'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'set_cnt'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'side_cnt'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'wrap_bottom'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'wrap_top'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'shiftctrl'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'pull_thresh'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'push_thresh'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'timeout'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'to_presc'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'cfg_lut'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'cfg_mode'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'cnt_reload'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'cnt_en'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'cnt_src'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'manch_en'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'arb_en'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'arb_n'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'arb_sda'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'arb_scl'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'cfg_entries'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'cfg_k'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'cfg_m'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'mon_en'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'mon_presc'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:36:13: Cell has missing pin: 'pin_cfg'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:53:14: Cell has missing pin: 'instr'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:53:14: Cell has missing pin: 'instr_valid'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:60:14: Cell has missing pin: 'dout'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:60:14: Cell has missing pin: 'full'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:60:14: Cell has missing pin: 'empty'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:60:14: Cell has missing pin: 'unf'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:64:14: Cell has missing pin: 'full'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:64:14: Cell has missing pin: 'empty'
+%Warning-PINMISSING: tb_rtl/tb_cfg_a.v:64:14: Cell has missing pin: 'ovf'
+/workspace/work/pvm-arb-b33a922/runs/s06_cfg_a/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_cfg_a CHECKS=23
+[PASS] RESET_STATE_HALT
+[PASS] WH_WRITE_HALT_OK
+[PASS] READ_LATENCY_1
+[PASS] UNMAPPED_READ_ZERO
+[PASS] UNMAPPED_WRITE_REJ
+[PASS] ENABLE_FROM_HALT_REJ
+[PASS] REGISTER_ROUNDTRIP_ENGINE
+[PASS] REGISTER_ROUNDTRIP_FABRIC
+[PASS] REGISTER_ROUNDTRIP_MONITOR
+[PASS] REGISTER_ROUNDTRIP_PINS
+[PASS] CRC_MATCH_READY
+[PASS] ENABLE_PULSE_WIDTH_1
+[PASS] WH_WRITE_RUN_REJECTED
+[PASS] CLR_IMEM_ONLY_HALT
+[PASS] ENGINE_DONE_TO_DONE
+[PASS] CLR_FAULT_TO_HALT
+[PASS] ENGINE_FAULT_LATCH
+[PASS] CRC_MISMATCH_FAULT
+[PASS] TXFIFO_PUSH_OVF
+[PASS] RXFIFO_PEEK_NO_POP_ON_RE
+[PASS] RXFIFO_POP_ON_RACK
+[PASS] HALT_CLEARS_STICKY
+[PASS] HALT_CLEARS_FIFOS
+CHECKS : 23
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_cfg_a.v:387: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 8us; walltime 0.005 s; speed 1.535 ms/s
+- Verilator: cpu 0.005 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s06_cfg_a/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_cfg_a CHECKS=23
+[PASS] RESET_STATE_HALT
+[PASS] WH_WRITE_HALT_OK
+[PASS] READ_LATENCY_1
+[PASS] UNMAPPED_READ_ZERO
+[PASS] UNMAPPED_WRITE_REJ
+[PASS] ENABLE_FROM_HALT_REJ
+[PASS] REGISTER_ROUNDTRIP_ENGINE
+[PASS] REGISTER_ROUNDTRIP_FABRIC
+[PASS] REGISTER_ROUNDTRIP_MONITOR
+[PASS] REGISTER_ROUNDTRIP_PINS
+[PASS] CRC_MATCH_READY
+[PASS] ENABLE_PULSE_WIDTH_1
+[PASS] WH_WRITE_RUN_REJECTED
+[PASS] CLR_IMEM_ONLY_HALT
+[PASS] ENGINE_DONE_TO_DONE
+[PASS] CLR_FAULT_TO_HALT
+[PASS] ENGINE_FAULT_LATCH
+[PASS] CRC_MISMATCH_FAULT
+[PASS] TXFIFO_PUSH_OVF
+[PASS] RXFIFO_PEEK_NO_POP_ON_RE
+[PASS] RXFIFO_POP_ON_RACK
+[PASS] HALT_CLEARS_STICKY
+[PASS] HALT_CLEARS_FIFOS
+CHECKS : 23
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_cfg_a.v:387: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 8us; walltime 0.004 s; speed 1.813 ms/s
+- Verilator: cpu 0.004 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s07_cfg_b
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_cfg_b --Mdir /workspace/work/pvm-arb-b33a922/runs/s07_cfg_b/obj -o sim src/pvm_imem.v src/pvm_crc16.v src/pvm_cfg.v tb_rtl/tb_cfg_b.v
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'tx_push'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'tx_data'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'rx_pop'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'fifo_clr'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'enable_pulse'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'halt_pulse'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'clr_flags_pulse'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'clkdiv'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'out_base'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'out_cnt'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'set_base'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'in_base'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'side_base'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'jmp_pin'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'set_cnt'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'side_cnt'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'wrap_bottom'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'wrap_top'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'shiftctrl'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'pull_thresh'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'push_thresh'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'timeout'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'to_presc'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'cfg_lut'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'cfg_mode'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'cnt_reload'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'cnt_en'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'cnt_src'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'manch_en'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'arb_en'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'arb_n'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'arb_sda'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'arb_scl'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'cfg_entries'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'cfg_k'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'cfg_m'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'mon_en'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'mon_presc'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:26:13: Cell has missing pin: 'pin_cfg'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:38:14: Cell has missing pin: 'instr'
+%Warning-PINMISSING: tb_rtl/tb_cfg_b.v:38:14: Cell has missing pin: 'instr_valid'
+/workspace/work/pvm-arb-b33a922/runs/s07_cfg_b/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_cfg_b CHECKS=22
+[PASS] OD_ON_UO
+[PASS] OUTPUT_ON_UI
+[PASS] OWNER_WITH_INPUT_MODE
+[PASS] OWNER7
+[PASS] MODE3
+[PASS] OUT_CNT_17
+[PASS] SET_CNT_6
+[PASS] SIDE_CNT_3
+[PASS] BASE_20
+[PASS] WRAP_INVERTED
+[PASS] ENTRY_INVALID
+[PASS] LUTMODE3
+[PASS] MANCH_NO_CNT
+[PASS] ARB_N0
+[PASS] ARB_PIN_NOT_UIO
+[PASS] ARB_PIN_NOT_OD
+[PASS] MON_GUARD3
+[PASS] MON_ACTION7
+[PASS] CRC_BEFORE_PIN
+[PASS] LEGAL_IMAGE_READY
+[PASS] IMAGE_ID_LATCHED
+[PASS] REVALIDATE_AFTER_HALT
+CHECKS : 22
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_cfg_b.v:247: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 13us; walltime 0.008 s; speed 1.651 ms/s
+- Verilator: cpu 0.008 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s07_cfg_b/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_cfg_b CHECKS=22
+[PASS] OD_ON_UO
+[PASS] OUTPUT_ON_UI
+[PASS] OWNER_WITH_INPUT_MODE
+[PASS] OWNER7
+[PASS] MODE3
+[PASS] OUT_CNT_17
+[PASS] SET_CNT_6
+[PASS] SIDE_CNT_3
+[PASS] BASE_20
+[PASS] WRAP_INVERTED
+[PASS] ENTRY_INVALID
+[PASS] LUTMODE3
+[PASS] MANCH_NO_CNT
+[PASS] ARB_N0
+[PASS] ARB_PIN_NOT_UIO
+[PASS] ARB_PIN_NOT_OD
+[PASS] MON_GUARD3
+[PASS] MON_ACTION7
+[PASS] CRC_BEFORE_PIN
+[PASS] LEGAL_IMAGE_READY
+[PASS] IMAGE_ID_LATCHED
+[PASS] REVALIDATE_AFTER_HALT
+CHECKS : 22
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_cfg_b.v:247: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 13us; walltime 0.007 s; speed 1.764 ms/s
+- Verilator: cpu 0.008 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s08_pin_guard
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_pin_guard --Mdir /workspace/work/pvm-arb-b33a922/runs/s08_pin_guard/obj -o sim src/pvm_pin_guard.v tb_rtl/tb_pin_guard.v
+/workspace/work/pvm-arb-b33a922/runs/s08_pin_guard/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_pin_guard CHECKS=17
+SEED 93b52af7
+[PASS] NOT_RUN_SAFE
+[PASS] OWNER_NONE_IDLE
+[PASS] ENGINE_PUSHPULL
+[PASS] ENGINE_OE_UIO
+[PASS] UO_ALWAYS_ENABLED
+[PASS] FABRIC_OWNER_L0
+[PASS] FABRIC_OWNER_L1
+[PASS] FABRIC_OWNER_L2
+[PASS] FABRIC_OWNER_L3
+[PASS] INVERT
+[PASS] OD_LOW_DRIVES
+[PASS] OD_HIGH_RELEASES
+[PASS] OD_NEVER_OE_AND_1
+[PASS] ARB_FORCE_RELEASE
+[PASS] ARB_OTHER_PINS_UNAFFECTED
+[PASS] LATENCY_1_CYCLE
+[PASS] READBACK_ALIGNED
+CHECKS : 17
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_pin_guard.v:187: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 40us; walltime 0.042 s; speed 968.913 us/s
+- Verilator: cpu 0.042 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s08_pin_guard/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_pin_guard CHECKS=17
+SEED 93b52af7
+[PASS] NOT_RUN_SAFE
+[PASS] OWNER_NONE_IDLE
+[PASS] ENGINE_PUSHPULL
+[PASS] ENGINE_OE_UIO
+[PASS] UO_ALWAYS_ENABLED
+[PASS] FABRIC_OWNER_L0
+[PASS] FABRIC_OWNER_L1
+[PASS] FABRIC_OWNER_L2
+[PASS] FABRIC_OWNER_L3
+[PASS] INVERT
+[PASS] OD_LOW_DRIVES
+[PASS] OD_HIGH_RELEASES
+[PASS] OD_NEVER_OE_AND_1
+[PASS] ARB_FORCE_RELEASE
+[PASS] ARB_OTHER_PINS_UNAFFECTED
+[PASS] LATENCY_1_CYCLE
+[PASS] READBACK_ALIGNED
+CHECKS : 17
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_pin_guard.v:187: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 40us; walltime 0.028 s; speed 1.432 ms/s
+- Verilator: cpu 0.028 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s09_engine_a
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_engine_a --Mdir /workspace/work/pvm-arb-b33a922/runs/s09_engine_a/obj -o sim src/pvm_tick.v src/pvm_presc.v src/pvm_engine.v tb_rtl/tb_engine_a.v tb_rtl/pvm_trace.v
+%Warning-PINMISSING: tb_rtl/tb_engine_a.v:32:16: Cell has missing pin: 'tx_pop'
+%Warning-PINMISSING: tb_rtl/tb_engine_a.v:32:16: Cell has missing pin: 'rx_push'
+%Warning-PINMISSING: tb_rtl/tb_engine_a.v:32:16: Cell has missing pin: 'rx_din'
+/workspace/work/pvm-arb-b33a922/runs/s09_engine_a/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_engine_a CHECKS=33
+[PASS] CLKDIV1_TIMING
+[PASS] CLKDIV3_TIMING
+[PASS] DELAY_MAX_31
+[PASS] SIDESET_1BIT
+[PASS] SIDESET_2BIT_PRIORITY_OVER_SET
+[PASS] WRAP
+[PASS] JMP_COND_0_TAKEN
+[PASS] JMP_COND_1_TAKEN
+[PASS] JMP_COND_1_NOT_TAKEN
+[PASS] JMP_COND_2_TAKEN
+[PASS] JMP_COND_2_NOT_TAKEN
+[PASS] JMP_COND_3_TAKEN
+[PASS] JMP_COND_3_NOT_TAKEN
+[PASS] JMP_COND_4_TAKEN
+[PASS] JMP_COND_4_NOT_TAKEN
+[PASS] JMP_COND_5_TAKEN
+[PASS] JMP_COND_5_NOT_TAKEN
+[PASS] JMP_COND_6_TAKEN
+[PASS] JMP_COND_6_NOT_TAKEN
+[PASS] JMP_COND_7_NOT_TAKEN
+[PASS] XDEC_LOOP_COUNT
+[PASS] SET_PINS_BASE_WRAP_MOD20
+[PASS] SET_PINDIRS
+[PASS] SET_FAB_PULSE
+[PASS] MOV_X_Y_INVERT_REVERSE
+[PASS] MOV_PC
+[PASS] EVT_SET_CLR_FLAGS
+[PASS] EVT_CLR_ARB_PULSE
+[PASS] EVT_DONE
+[PASS] INVALID_WORD_FAULT_PC
+[PASS] ILLEGAL_ENCODINGS
+[PASS] ENABLE_REINIT
+[PASS] WORKED_ENCODINGS
+CHECKS : 33
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_engine_a.v:471: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 7us; walltime 0.006 s; speed 1.247 ms/s
+- Verilator: cpu 0.006 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s09_engine_a/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_engine_a CHECKS=33
+[PASS] CLKDIV1_TIMING
+[PASS] CLKDIV3_TIMING
+[PASS] DELAY_MAX_31
+[PASS] SIDESET_1BIT
+[PASS] SIDESET_2BIT_PRIORITY_OVER_SET
+[PASS] WRAP
+[PASS] JMP_COND_0_TAKEN
+[PASS] JMP_COND_1_TAKEN
+[PASS] JMP_COND_1_NOT_TAKEN
+[PASS] JMP_COND_2_TAKEN
+[PASS] JMP_COND_2_NOT_TAKEN
+[PASS] JMP_COND_3_TAKEN
+[PASS] JMP_COND_3_NOT_TAKEN
+[PASS] JMP_COND_4_TAKEN
+[PASS] JMP_COND_4_NOT_TAKEN
+[PASS] JMP_COND_5_TAKEN
+[PASS] JMP_COND_5_NOT_TAKEN
+[PASS] JMP_COND_6_TAKEN
+[PASS] JMP_COND_6_NOT_TAKEN
+[PASS] JMP_COND_7_NOT_TAKEN
+[PASS] XDEC_LOOP_COUNT
+[PASS] SET_PINS_BASE_WRAP_MOD20
+[PASS] SET_PINDIRS
+[PASS] SET_FAB_PULSE
+[PASS] MOV_X_Y_INVERT_REVERSE
+[PASS] MOV_PC
+[PASS] EVT_SET_CLR_FLAGS
+[PASS] EVT_CLR_ARB_PULSE
+[PASS] EVT_DONE
+[PASS] INVALID_WORD_FAULT_PC
+[PASS] ILLEGAL_ENCODINGS
+[PASS] ENABLE_REINIT
+[PASS] WORKED_ENCODINGS
+CHECKS : 33
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_engine_a.v:471: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 7us; walltime 0.005 s; speed 1.382 ms/s
+- Verilator: cpu 0.005 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s10_engine_b
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_engine_b --Mdir /workspace/work/pvm-arb-b33a922/runs/s10_engine_b/obj -o sim src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_engine.v tb_rtl/tb_engine_b.v tb_rtl/pvm_trace.v
+%Warning-WIDTHTRUNC: tb_rtl/tb_engine_b.v:293:13: Operator TASKREF 'check' expects 384 bits on the Function Argument, but Function Argument's REPLICATE generates 400 bits.
+%Warning-WIDTHEXPAND: tb_rtl/tb_engine_b.v:299:13: Operator TASKREF 'check' expects 384 bits on the Function Argument, but Function Argument's REPLICATE generates 232 bits.
+%Warning-WIDTHEXPAND: tb_rtl/tb_engine_b.v:305:13: Operator TASKREF 'check' expects 384 bits on the Function Argument, but Function Argument's REPLICATE generates 232 bits.
+%Warning-WIDTHEXPAND: tb_rtl/tb_engine_b.v:317:13: Operator TASKREF 'check' expects 384 bits on the Function Argument, but Function Argument's REPLICATE generates 296 bits.
+%Warning-WIDTHEXPAND: tb_rtl/tb_engine_b.v:321:13: Operator TASKREF 'check' expects 384 bits on the Function Argument, but Function Argument's REPLICATE generates 296 bits.
+%Warning-WIDTHEXPAND: tb_rtl/tb_engine_b.v:325:13: Operator TASKREF 'check' expects 384 bits on the Function Argument, but Function Argument's REPLICATE generates 304 bits.
+%Warning-WIDTHEXPAND: tb_rtl/tb_engine_b.v:334:13: Operator TASKREF 'check' expects 384 bits on the Function Argument, but Function Argument's REPLICATE generates 296 bits.
+%Warning-WIDTHEXPAND: tb_rtl/tb_engine_b.v:353:13: Operator TASKREF 'check' expects 384 bits on the Function Argument, but Function Argument's REPLICATE generates 304 bits.
+%Warning-WIDTHTRUNC: tb_rtl/tb_engine_b.v:631:29: Operator ASSIGN expects 1 bits on the Assign RHS, but Assign RHS's AND generates 32 or 8 bits.
+/workspace/work/pvm-arb-b33a922/runs/s10_engine_b/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_engine_b CHECKS=40
+[PASS] PULL_BLOCK_STALL_THEN_GO
+[PASS] PULL_NONBLOCK_EMPTY_COPIES_X
+[PASS] PULL_IFEMPTY_SKIP
+[PASS] PUSH_BLOCK_FULL_STALL
+[PASS] PUSH_NONBLOCK_DROP
+[PASS] PUSH_IFFULL
+[PASS] OUT_SHR_LSB_FIRST
+[PASS] OUT_SHL_MSB_FIRST
+[PASS] OUT_COUNT_16
+[PASS] OUT_PINDIRS
+[PASS] OUT_PC
+[PASS] IN_PINS_BASE
+[PASS] IN_SHR
+[PASS] IN_SHL
+[PASS] AUTOPULL_THRESH_8
+[PASS] AUTOPUSH_THRESH_8
+[PASS] WIDE_PULL_2BYTES_LE
+[PASS] WIDE_PUSH_NEEDS_2_SLOTS
+[PASS] WIDE_NO_PARTIAL_STALL
+[PASS] WIDE_AUTOPULL
+[PASS] WIDE_AUTOPUSH
+[PASS] JMP_COND_7_TAKEN
+[PASS] OUT_EXEC_PARENT_AND_INJECTED_DELAY
+[PASS] OUT_EXEC_WRAP
+[PASS] OUT_EXEC_JUMP
+[PASS] OUT_EXEC_SIDESET_WAIT
+[PASS] OUT_EXEC_NESTED_FAULT
+[PASS] OUT_EXEC_ILLEGAL_FAULT
+[PASS] OUT_EXEC_WAIT_TIMEOUT
+[PASS] OUT_EXEC_BLOCKING_FIFO
+[PASS] MOV_EXEC_PARENT_AND_INJECTED_DELAY
+[PASS] MOV_EXEC_WRAP
+[PASS] MOV_EXEC_JUMP
+[PASS] MOV_EXEC_SIDESET_WAIT
+[PASS] MOV_EXEC_NESTED_FAULT
+[PASS] MOV_EXEC_ILLEGAL_FAULT
+[PASS] MOV_EXEC_WAIT_TIMEOUT
+[PASS] MOV_EXEC_BLOCKING_FIFO
+[PASS] UART_TX_0x35_WAVEFORM
+[PASS] UART_RX_LOOPBACK
+CHECKS : 40
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_engine_b.v:664: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 9us; walltime 0.006 s; speed 1.379 ms/s
+- Verilator: cpu 0.006 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s10_engine_b/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_engine_b CHECKS=40
+[PASS] PULL_BLOCK_STALL_THEN_GO
+[PASS] PULL_NONBLOCK_EMPTY_COPIES_X
+[PASS] PULL_IFEMPTY_SKIP
+[PASS] PUSH_BLOCK_FULL_STALL
+[PASS] PUSH_NONBLOCK_DROP
+[PASS] PUSH_IFFULL
+[PASS] OUT_SHR_LSB_FIRST
+[PASS] OUT_SHL_MSB_FIRST
+[PASS] OUT_COUNT_16
+[PASS] OUT_PINDIRS
+[PASS] OUT_PC
+[PASS] IN_PINS_BASE
+[PASS] IN_SHR
+[PASS] IN_SHL
+[PASS] AUTOPULL_THRESH_8
+[PASS] AUTOPUSH_THRESH_8
+[PASS] WIDE_PULL_2BYTES_LE
+[PASS] WIDE_PUSH_NEEDS_2_SLOTS
+[PASS] WIDE_NO_PARTIAL_STALL
+[PASS] WIDE_AUTOPULL
+[PASS] WIDE_AUTOPUSH
+[PASS] JMP_COND_7_TAKEN
+[PASS] OUT_EXEC_PARENT_AND_INJECTED_DELAY
+[PASS] OUT_EXEC_WRAP
+[PASS] OUT_EXEC_JUMP
+[PASS] OUT_EXEC_SIDESET_WAIT
+[PASS] OUT_EXEC_NESTED_FAULT
+[PASS] OUT_EXEC_ILLEGAL_FAULT
+[PASS] OUT_EXEC_WAIT_TIMEOUT
+[PASS] OUT_EXEC_BLOCKING_FIFO
+[PASS] MOV_EXEC_PARENT_AND_INJECTED_DELAY
+[PASS] MOV_EXEC_WRAP
+[PASS] MOV_EXEC_JUMP
+[PASS] MOV_EXEC_SIDESET_WAIT
+[PASS] MOV_EXEC_NESTED_FAULT
+[PASS] MOV_EXEC_ILLEGAL_FAULT
+[PASS] MOV_EXEC_WAIT_TIMEOUT
+[PASS] MOV_EXEC_BLOCKING_FIFO
+[PASS] UART_TX_0x35_WAVEFORM
+[PASS] UART_RX_LOOPBACK
+CHECKS : 40
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_engine_b.v:664: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 9us; walltime 0.006 s; speed 1.450 ms/s
+- Verilator: cpu 0.006 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s11_engine_c
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_engine_c --Mdir /workspace/work/pvm-arb-b33a922/runs/s11_engine_c/obj -o sim src/pvm_tick.v src/pvm_presc.v src/pvm_engine.v tb_rtl/tb_engine_c.v tb_rtl/pvm_trace.v
+/workspace/work/pvm-arb-b33a922/runs/s11_engine_c/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_engine_c CHECKS=12
+[PASS] WAIT_PIN_POL0
+[PASS] WAIT_PIN_POL1
+[PASS] WAIT_FAB
+[PASS] WAIT_FLAG_ARB
+[PASS] WAIT_SIDESET_APPLIED_DURING_STALL
+[PASS] DELAY_AFTER_WAIT_ONLY
+[PASS] TIMEOUT_EXACT_COUNT
+[PASS] TIMEOUT_COMPLETION_WINS
+[PASS] TIMEOUT_0_DISABLED
+[PASS] TIMEOUT_ON_PULL
+[PASS] TIMEOUT_ON_PUSH
+[PASS] FAULT_STOPS_ENGINE
+CHECKS : 12
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_engine_c.v:213: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 4us; walltime 0.004 s; speed 960.274 us/s
+- Verilator: cpu 0.004 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s11_engine_c/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_engine_c CHECKS=12
+[PASS] WAIT_PIN_POL0
+[PASS] WAIT_PIN_POL1
+[PASS] WAIT_FAB
+[PASS] WAIT_FLAG_ARB
+[PASS] WAIT_SIDESET_APPLIED_DURING_STALL
+[PASS] DELAY_AFTER_WAIT_ONLY
+[PASS] TIMEOUT_EXACT_COUNT
+[PASS] TIMEOUT_COMPLETION_WINS
+[PASS] TIMEOUT_0_DISABLED
+[PASS] TIMEOUT_ON_PULL
+[PASS] TIMEOUT_ON_PUSH
+[PASS] FAULT_STOPS_ENGINE
+CHECKS : 12
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_engine_c.v:213: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 4us; walltime 0.004 s; speed 873.575 us/s
+- Verilator: cpu 0.005 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s11_top
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top_s11 --Mdir /workspace/work/pvm-arb-b33a922/runs/s11_top/obj -o sim src/pvm_tick.v src/pvm_presc.v src/pvm_engine.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_pin_guard.v tb_rtl/tb_top_s11.v tb_rtl/pvm_trace.v src/pvm_fabric.v src/pvm_mon.v
+/workspace/work/pvm-arb-b33a922/runs/s11_top/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_top_s11 CHECKS=2
+[PASS] SPI_UART_TX_SMOKE
+[PASS] FAULT_OUTPUTS_SAFE
+CHECKS : 2
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top_s11.v:217: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 532us; walltime 0.263 s; speed 2.024 ms/s
+- Verilator: cpu 0.263 s on 1 threads; alloced 25 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s11_top/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_top_s11 CHECKS=2
+[PASS] SPI_UART_TX_SMOKE
+[PASS] FAULT_OUTPUTS_SAFE
+CHECKS : 2
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top_s11.v:217: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 532us; walltime 0.262 s; speed 2.028 ms/s
+- Verilator: cpu 0.262 s on 1 threads; alloced 25 MB
+Seed 2 verdict PASS_FRESH
+
+s12_fabric
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_fabric --Mdir /workspace/work/pvm-arb-b33a922/runs/s12_fabric/obj -o sim src/pvm_sync2.v src/pvm_pin_guard.v src/pvm_fabric.v tb_rtl/tb_fabric.v
+%Warning-WIDTHEXPAND: tb_rtl/tb_fabric.v:84:34: Operator ADD expects 32 bits on the LHS, but LHS's VARREF 'reload' generates 10 bits.
+%Warning-WIDTHTRUNC: tb_rtl/tb_fabric.v:112:25: Operator ASSIGN expects 20 bits on the Assign RHS, but Assign RHS's RAND generates 32 bits.
+%Warning-WIDTHTRUNC: tb_rtl/tb_fabric.v:113:22: Operator ASSIGN expects 4 bits on the Assign RHS, but Assign RHS's RAND generates 32 bits.
+%Warning-WIDTHTRUNC: tb_rtl/tb_fabric.v:115:24: Operator ASSIGN expects 16 bits on the Assign RHS, but Assign RHS's RAND generates 32 bits.
+%Warning-WIDTHTRUNC: tb_rtl/tb_fabric.v:115:51: Operator ASSIGN expects 16 bits on the Assign RHS, but Assign RHS's RAND generates 32 bits.
+%Warning-WIDTHTRUNC: tb_rtl/tb_fabric.v:117:33: Operator ASSIGN expects 1 bits on the Assign RHS, but Assign RHS's MODDIVS generates 32 bits.
+/workspace/work/pvm-arb-b33a922/runs/s12_fabric/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_fabric CHECKS=21
+LUT random seed=20261120, vectors=1000
+[PASS] LUT_ALL_16_TT_RANDOM
+[PASS] LAYER2_SEES_L0_L1
+[PASS] NO_L2_TO_L1
+[PASS] MODE_RISE_PULSE
+[PASS] MODE_MAJ3_FILTERS_1CYCLE_GLITCH
+[PASS] MODE_MAJ3_PASSES_3CYCLE
+[PASS] GROUP1_MAPPING
+[PASS] CNT_PERIOD_RELOAD_249
+[PASS] CNT_RELOAD_0
+[PASS] CNT_RELOAD_1023
+[PASS] CNT_SRC_ENGINE_TICK
+[PASS] MANCH_STREAM_16BITS
+[PASS] MANCH_UNDERRUN
+[PASS] MANCH_BOUNDARY_WRITE_QUEUED
+[PASS] ARB_DETECT_AFTER_N
+[PASS] ARB_NO_DETECT_IF_SCL_SHORT
+[PASS] ARB_NO_DETECT_WHEN_DRIVING_LOW
+[PASS] ARB_RELEASE_BOUND_CYCLES
+[PASS] FLAGS_STICKY_AFTER_RUN
+[PASS] ARB_CLEAR_BY_EVT_HOST_HALT
+[PASS] NOT_RUN_CLEARS
+CHECKS : 21
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_fabric.v:277: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 243us; walltime 0.150 s; speed 1.620 ms/s
+- Verilator: cpu 0.150 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s12_fabric/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_fabric CHECKS=21
+LUT random seed=20261120, vectors=1000
+[PASS] LUT_ALL_16_TT_RANDOM
+[PASS] LAYER2_SEES_L0_L1
+[PASS] NO_L2_TO_L1
+[PASS] MODE_RISE_PULSE
+[PASS] MODE_MAJ3_FILTERS_1CYCLE_GLITCH
+[PASS] MODE_MAJ3_PASSES_3CYCLE
+[PASS] GROUP1_MAPPING
+[PASS] CNT_PERIOD_RELOAD_249
+[PASS] CNT_RELOAD_0
+[PASS] CNT_RELOAD_1023
+[PASS] CNT_SRC_ENGINE_TICK
+[PASS] MANCH_STREAM_16BITS
+[PASS] MANCH_UNDERRUN
+[PASS] MANCH_BOUNDARY_WRITE_QUEUED
+[PASS] ARB_DETECT_AFTER_N
+[PASS] ARB_NO_DETECT_IF_SCL_SHORT
+[PASS] ARB_NO_DETECT_WHEN_DRIVING_LOW
+[PASS] ARB_RELEASE_BOUND_CYCLES
+[PASS] FLAGS_STICKY_AFTER_RUN
+[PASS] ARB_CLEAR_BY_EVT_HOST_HALT
+[PASS] NOT_RUN_CLEARS
+CHECKS : 21
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_fabric.v:277: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 243us; walltime 0.151 s; speed 1.610 ms/s
+- Verilator: cpu 0.151 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s13_mon
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_mon --Mdir /workspace/work/pvm-arb-b33a922/runs/s13_mon/obj -o sim src/pvm_presc.v src/pvm_mon.v tb_rtl/tb_mon.v
+%Warning-WIDTHEXPAND: tb_rtl/tb_mon.v:88:13: Operator ASSIGN expects 32 bits on the Assign RHS, but Assign RHS's VARREF 'elapsed' generates 16 bits.
+%Warning-WIDTHEXPAND: tb_rtl/tb_mon.v:105:13: Operator ASSIGN expects 32 bits on the Assign RHS, but Assign RHS's VARREF 'low_time' generates 16 bits.
+/workspace/work/pvm-arb-b33a922/runs/s13_mon/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_mon CHECKS=24
+[PASS] FIRST_MATCH_PRIORITY
+[PASS] ONE_FIRE_PER_CYCLE
+[PASS] EDGE_RISE_FALL_HIGH_LOW
+[PASS] GUARD_LT_GE
+[PASS] CHECK_MIN_PASS
+[PASS] CHECK_MIN_VIOL
+[PASS] CHECK_MIN_INC
+[PASS] CHECK_MAX_PASS
+[PASS] CHECK_MAX_VIOL
+[PASS] CHECK_MAX_INC
+[PASS] ARITHMETIC_17BIT
+[PASS] MEASURE_LOG_NO_COUNT
+[PASS] VIOLATE_PASS_ACTIONS
+[PASS] I2C_STRETCH_RULE_SET
+[PASS] TIMER_SATURATE_OVF
+[PASS] OVF_INCONCLUSIVE_RULE
+[PASS] LOG_RING_WRAP_4
+[PASS] LOG_TOTAL_SAT_63
+[PASS] COUNTER_SAT_FFFF
+[PASS] STOP_RETAINS_LOG
+[PASS] HALT_CLEARS
+[PASS] PRESC_16_TIMEBASE
+[PASS] MON_EN_0_IDLE
+[PASS] SRC_FLAGS_FABRIC
+CHECKS : 24
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_mon.v:246: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 1.140 s; speed 1.253 ms/s
+- Verilator: cpu 1.091 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s13_mon/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_mon CHECKS=24
+[PASS] FIRST_MATCH_PRIORITY
+[PASS] ONE_FIRE_PER_CYCLE
+[PASS] EDGE_RISE_FALL_HIGH_LOW
+[PASS] GUARD_LT_GE
+[PASS] CHECK_MIN_PASS
+[PASS] CHECK_MIN_VIOL
+[PASS] CHECK_MIN_INC
+[PASS] CHECK_MAX_PASS
+[PASS] CHECK_MAX_VIOL
+[PASS] CHECK_MAX_INC
+[PASS] ARITHMETIC_17BIT
+[PASS] MEASURE_LOG_NO_COUNT
+[PASS] VIOLATE_PASS_ACTIONS
+[PASS] I2C_STRETCH_RULE_SET
+[PASS] TIMER_SATURATE_OVF
+[PASS] OVF_INCONCLUSIVE_RULE
+[PASS] LOG_RING_WRAP_4
+[PASS] LOG_TOTAL_SAT_63
+[PASS] COUNTER_SAT_FFFF
+[PASS] STOP_RETAINS_LOG
+[PASS] HALT_CLEARS
+[PASS] PRESC_16_TIMEBASE
+[PASS] MON_EN_0_IDLE
+[PASS] SRC_FLAGS_FABRIC
+CHECKS : 24
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_mon.v:246: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.989 s; speed 1.384 ms/s
+- Verilator: cpu 0.987 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+s13_mon_non_intrusion
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /workspace/work/pvm-arb-b33a922/runs/s13_mon_non_intrusion/obj -o sim -DPVM_MON_NON_INTRUSION src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_top.v
+/workspace/work/pvm-arb-b33a922/runs/s13_mon_non_intrusion/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_top CHECKS=1
+[PASS] NON_INTRUSION
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 849us; walltime 0.601 s; speed 1.419 ms/s
+- Verilator: cpu 0.598 s on 1 threads; alloced 30 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s13_mon_non_intrusion/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_top CHECKS=1
+[PASS] NON_INTRUSION
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 849us; walltime 0.657 s; speed 1.303 ms/s
+- Verilator: cpu 0.652 s on 1 threads; alloced 30 MB
+Seed 2 verdict PASS_FRESH
+
+s14_top_full
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /workspace/work/pvm-arb-b33a922/runs/s14_top_full/obj -o sim src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_top.v
+/workspace/work/pvm-arb-b33a922/runs/s14_top_full/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 1.016 s; speed 1.255 ms/s
+- Verilator: cpu 1.014 s on 1 threads; alloced 37 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s14_top_full/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 1.186 s; speed 1.078 ms/s
+- Verilator: cpu 1.181 s on 1 threads; alloced 37 MB
+Seed 2 verdict PASS_FRESH
+
+s14_top_engine_only
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /workspace/work/pvm-arb-b33a922/runs/s14_top_engine_only/obj -o sim -DPVM_NO_FABRIC -DPVM_NO_MON src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_top.v
+/workspace/work/pvm-arb-b33a922/runs/s14_top_engine_only/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.836 s; speed 1.526 ms/s
+- Verilator: cpu 0.834 s on 1 threads; alloced 37 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s14_top_engine_only/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.856 s; speed 1.489 ms/s
+- Verilator: cpu 0.855 s on 1 threads; alloced 37 MB
+Seed 2 verdict PASS_FRESH
+
+s14_top_fabric
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /workspace/work/pvm-arb-b33a922/runs/s14_top_fabric/obj -o sim -DPVM_NO_MON src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_top.v
+/workspace/work/pvm-arb-b33a922/runs/s14_top_fabric/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.628 s; speed 2.033 ms/s
+- Verilator: cpu 0.626 s on 1 threads; alloced 37 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s14_top_fabric/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.683 s; speed 1.917 ms/s
+- Verilator: cpu 0.664 s on 1 threads; alloced 37 MB
+Seed 2 verdict PASS_FRESH
+
+s14_top_monitor
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_top --Mdir /workspace/work/pvm-arb-b33a922/runs/s14_top_monitor/obj -o sim -DPVM_NO_FABRIC src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_top.v
+/workspace/work/pvm-arb-b33a922/runs/s14_top_monitor/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.922 s; speed 1.385 ms/s
+- Verilator: cpu 0.919 s on 1 threads; alloced 37 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s14_top_monitor/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_top CHECKS=3
+[PASS] IMAGE_SWAP_UART_TO_SPI
+[PASS] FAULT_THEN_RECOVER
+[PASS] DESELECT_RESET_RELOAD
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_top.v:345: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 1ms; walltime 0.904 s; speed 1.415 ms/s
+- Verilator: cpu 0.900 s on 1 threads; alloced 37 MB
+Seed 2 verdict PASS_FRESH
+
+s14b_uart
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_protocols --Mdir /workspace/work/pvm-arb-b33a922/runs/s14b_uart/obj -o sim -DPVM_PROTOCOL_UART src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_protocols.v
+/workspace/work/pvm-arb-b33a922/runs/s14b_uart/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] UART_TX_0X35_115200
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_protocols.v:218: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 384us; walltime 0.206 s; speed 1.864 ms/s
+- Verilator: cpu 0.206 s on 1 threads; alloced 22 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s14b_uart/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] UART_TX_0X35_115200
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_protocols.v:218: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 384us; walltime 0.329 s; speed 1.168 ms/s
+- Verilator: cpu 0.329 s on 1 threads; alloced 22 MB
+Seed 2 verdict PASS_FRESH
+
+s14b_spi
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_protocols --Mdir /workspace/work/pvm-arb-b33a922/runs/s14b_spi/obj -o sim -DPVM_PROTOCOL_SPI src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_protocols.v
+/workspace/work/pvm-arb-b33a922/runs/s14b_spi/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] SPI_MODE0_TWO_BYTES
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_protocols.v:218: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 315us; walltime 0.165 s; speed 1.904 ms/s
+- Verilator: cpu 0.165 s on 1 threads; alloced 22 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s14b_spi/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] SPI_MODE0_TWO_BYTES
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_protocols.v:218: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 315us; walltime 0.174 s; speed 1.813 ms/s
+- Verilator: cpu 0.174 s on 1 threads; alloced 22 MB
+Seed 2 verdict PASS_FRESH
+
+s14b_i2c
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_protocols --Mdir /workspace/work/pvm-arb-b33a922/runs/s14b_i2c/obj -o sim -DPVM_PROTOCOL_I2C src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_protocols.v
+/workspace/work/pvm-arb-b33a922/runs/s14b_i2c/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] I2C_WRITE_OPEN_DRAIN_ACK_STRETCH
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_protocols.v:218: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 599us; walltime 0.472 s; speed 1.271 ms/s
+- Verilator: cpu 0.472 s on 1 threads; alloced 25 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/s14b_i2c/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] I2C_WRITE_OPEN_DRAIN_ACK_STRETCH
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_protocols.v:218: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 599us; walltime 0.459 s; speed 1.307 ms/s
+- Verilator: cpu 0.459 s on 1 threads; alloced 25 MB
+Seed 2 verdict PASS_FRESH
+
+d017_reset_sync
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_reset_sync --Mdir /workspace/work/pvm-arb-b33a922/runs/d017_reset_sync/obj -o sim src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_reset_sync.v
+/workspace/work/pvm-arb-b33a922/runs/d017_reset_sync/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_reset_sync CHECKS=3
+[PASS] RESET_ASYNC_ASSERT
+[PASS] RESET_TWO_EDGE_RELEASE
+[PASS] RESET_PULSE_REACHES_CORE
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_reset_sync.v:63: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 60ns; walltime 0.000 s; speed 128.042 us/s
+- Verilator: cpu 0.000 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/d017_reset_sync/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_reset_sync CHECKS=3
+[PASS] RESET_ASYNC_ASSERT
+[PASS] RESET_TWO_EDGE_RELEASE
+[PASS] RESET_PULSE_REACHES_CORE
+CHECKS : 3
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_reset_sync.v:63: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 60ns; walltime 0.000 s; speed 152.913 us/s
+- Verilator: cpu 0.000 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+mon_timestamp_pause
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_mon_timestamp_pause --Mdir /workspace/work/pvm-arb-b33a922/runs/mon_timestamp_pause/obj -o sim src/project.v src/pvm_top.v src/pvm_sync2.v src/pvm_edge.v src/pvm_tick.v src/pvm_presc.v src/pvm_fifo.v src/pvm_crc16.v src/pvm_imem.v src/pvm_spi_byte.v src/pvm_hostif.v src/pvm_cfg.v src/pvm_engine.v src/pvm_fabric.v src/pvm_mon.v src/pvm_pin_guard.v tb_rtl/tb_mon_timestamp_pause.v
+/workspace/work/pvm-arb-b33a922/runs/mon_timestamp_pause/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_mon_timestamp_pause CHECKS=6
+[PASS] TIMESTAMP_MON_DISABLED
+[PASS] TIMESTAMP_RUN_PRESCALE
+[PASS] TIMESTAMP_HOLDS_DONE
+TIMESTAMP: held=213 restart=213 first=215 second=219
+[PASS] TIMESTAMP_SURVIVES_HALT_RELOAD
+[PASS] TIMESTAMP_RESUMES
+[PASS] TIMESTAMP_CHIP_RESET
+CHECKS : 6
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_mon_timestamp_pause.v:240: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 659us; walltime 0.312 s; speed 2.113 ms/s
+- Verilator: cpu 0.312 s on 1 threads; alloced 28 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/mon_timestamp_pause/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_mon_timestamp_pause CHECKS=6
+[PASS] TIMESTAMP_MON_DISABLED
+[PASS] TIMESTAMP_RUN_PRESCALE
+[PASS] TIMESTAMP_HOLDS_DONE
+TIMESTAMP: held=213 restart=213 first=215 second=219
+[PASS] TIMESTAMP_SURVIVES_HALT_RELOAD
+[PASS] TIMESTAMP_RESUMES
+[PASS] TIMESTAMP_CHIP_RESET
+CHECKS : 6
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_mon_timestamp_pause.v:240: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 659us; walltime 0.328 s; speed 2.013 ms/s
+- Verilator: cpu 0.327 s on 1 threads; alloced 28 MB
+Seed 2 verdict PASS_FRESH
+
+arb_scl_fall
+verilator --binary --timing --language 1364-2005 --x-assign unique --x-initial unique -Wno-fatal -CFLAGS -O0 -j 1 --top-module tb_arb_scl_fall --Mdir /workspace/work/pvm-arb-b33a922/runs/arb_scl_fall/obj -o sim src/pvm_sync2.v src/pvm_fabric.v tb_rtl/tb_arb_scl_fall.v
+/workspace/work/pvm-arb-b33a922/runs/arb_scl_fall/obj/sim +verilator+rand+reset+2 +verilator+seed+1
+CONFIG: TOP=tb_arb_scl_fall CHECKS=1
+[PASS] ARB_NO_DETECT_ON_SCL_FALL
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_arb_scl_fall.v:63: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 240ns; walltime 0.000 s; speed 496.069 us/s
+- Verilator: cpu 0.000 s on 1 threads; alloced 17 MB
+Seed 1 verdict PASS_FRESH
+/workspace/work/pvm-arb-b33a922/runs/arb_scl_fall/obj/sim +verilator+rand+reset+2 +verilator+seed+2
+CONFIG: TOP=tb_arb_scl_fall CHECKS=1
+[PASS] ARB_NO_DETECT_ON_SCL_FALL
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+- tb_rtl/tb_arb_scl_fall.v:63: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.032 2025-01-01
+- Verilator: $finish at 240ns; walltime 0.000 s; speed 641.062 us/s
+- Verilator: cpu 0.000 s on 1 threads; alloced 17 MB
+Seed 2 verdict PASS_FRESH
+
+Icarus D-016 rerun with python3 tb_rtl/pvm_run.py run --select G2_TRACE
+PASS_FRESH       s11_trace_equiv_tb_engine_a  (evidence/s11_trace_equiv_tb_engine_a/20261121T160205.log)
+PASS_FRESH       s11_trace_equiv_tb_engine_b  (evidence/s11_trace_equiv_tb_engine_b/20261121T160205.log)
+PASS_FRESH       s11_trace_equiv_tb_engine_c  (evidence/s11_trace_equiv_tb_engine_c/20261121T160205.log)
+PASS_FRESH       s11_trace_equiv_tb_top_s11  (evidence/s11_trace_equiv_tb_top_s11/20261121T160208.log)
+NEG_KILLED       s11_trace_equiv_tb_engine_c_neg_delayed_out  (evidence/s11_trace_equiv_tb_engine_c_neg_delayed_out/20261121T160208.log)
+SUMMARY selection=G2_TRACE jobs=5 accepted=5 rejected=0
+
+s11_trace_equiv_tb_engine_a PASS_FRESH
+TRACE_COMPARE {"golden": "tb_rtl/vectors/golden_tb_engine_a.csv", "golden_sha256": "39258b8630635a8788033ee0ccb4b4aa433f4cc4887bc45cb7a1b1d5ae47c12f", "actual_sha256": "39258b8630635a8788033ee0ccb4b4aa433f4cc4887bc45cb7a1b1d5ae47c12f", "golden_cycles": 366, "actual_cycles": 366, "different_fields": [], "first_difference": null}
+[PASS] TRACE_EQUAL_TB_ENGINE_A
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+s11_trace_equiv_tb_engine_b PASS_FRESH
+TRACE_COMPARE {"golden": "tb_rtl/vectors/golden_tb_engine_b.csv", "golden_sha256": "b24085642d5d2f78c2117e31ee67208e0d6456fa5ebecfab7cc1cf5e4776ec7f", "actual_sha256": "b24085642d5d2f78c2117e31ee67208e0d6456fa5ebecfab7cc1cf5e4776ec7f", "golden_cycles": 427, "actual_cycles": 427, "different_fields": [], "first_difference": null}
+[PASS] TRACE_EQUAL_TB_ENGINE_B
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+s11_trace_equiv_tb_engine_c PASS_FRESH
+TRACE_COMPARE {"golden": "tb_rtl/vectors/golden_tb_engine_c.csv", "golden_sha256": "f8ee6ffbed7984be55a0865006213a2bb0c93481e5db28da8bf352e9558377e2", "actual_sha256": "f8ee6ffbed7984be55a0865006213a2bb0c93481e5db28da8bf352e9558377e2", "golden_cycles": 199, "actual_cycles": 199, "different_fields": [], "first_difference": null}
+[PASS] TRACE_EQUAL_TB_ENGINE_C
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+s11_trace_equiv_tb_top_s11 PASS_FRESH
+TRACE_COMPARE {"golden": "tb_rtl/vectors/golden_tb_top_s11.csv", "golden_sha256": "46946631df861e6a3161b85e7d33676836acd64f978acce92db3d1ddd17fb521", "actual_sha256": "46946631df861e6a3161b85e7d33676836acd64f978acce92db3d1ddd17fb521", "golden_cycles": 26586, "actual_cycles": 26586, "different_fields": [], "first_difference": null}
+[PASS] TRACE_EQUAL_TB_TOP_S11
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+s11_trace_equiv_tb_engine_c_neg_delayed_out NEG_KILLED
+TRACE_COMPARE {"golden": "tb_rtl/vectors/golden_tb_engine_c.csv", "golden_sha256": "f8ee6ffbed7984be55a0865006213a2bb0c93481e5db28da8bf352e9558377e2", "actual_sha256": "ff29d9c2f0625e1de8fc7bd8262cfd8e43c75cc673e3189b197626e29838151b", "golden_cycles": 199, "actual_cycles": 199, "different_fields": ["out_val"], "first_difference": {"cycle": 23, "values": [["out_val", "20000", "00000"]]}}
+[FAIL] TRACE_EQUAL_TB_ENGINE_C
+CHECKS : 1
+ERRORS : 1
+RESULT : FAIL
+
+Variant A raw lint
+%Warning-DECLFILENAME: src/project.v:6:8: Filename 'project' does not match MODULE name: 'tt_um_arnav1609_pvm'
+    6 | module tt_um_arnav1609_pvm (
+      |        ^~~~~~~~~~~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.032
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:30:17: Signal is not used: 'od_release_intent'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   30 |     wire [19:0] od_release_intent;
+      |                 ^~~~~~~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:45:10: Signal is not used: 'engine_tick'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   45 |     wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+      |          ^~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:45:23: Signal is not used: 'fab_wr'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   45 |     wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+      |                       ^~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:45:31: Signal is not used: 'evt_clr_arb'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   45 |     wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+      |                               ^~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:45:44: Signal is not used: 'evt_clr_unf'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   45 |     wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+      |                                            ^~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:46:16: Signal is not used: 'fab_ctrl'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   46 |     wire [3:0] fab_ctrl;
+      |                ^~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:62:10: Signal is not used: 'halt_pulse'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   62 |     wire halt_pulse;
+      |          ^~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:63:10: Signal is not used: 'clr_flags_pulse'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   63 |     wire clr_flags_pulse;
+      |          ^~~~~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:80:18: Signal is not used: 'cfg_lut'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   80 |     wire [127:0] cfg_lut;
+      |                  ^~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:81:17: Signal is not used: 'cfg_mode'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   81 |     wire [11:0] cfg_mode;
+      |                 ^~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:82:16: Signal is not used: 'cnt_reload'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   82 |     wire [9:0] cnt_reload;
+      |                ^~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:83:10: Signal is not used: 'cnt_en'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   83 |     wire cnt_en;
+      |          ^~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:84:10: Signal is not used: 'cnt_src'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   84 |     wire cnt_src;
+      |          ^~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:85:10: Signal is not used: 'manch_en'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   85 |     wire manch_en;
+      |          ^~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:86:16: Signal is not used: 'arb_n'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   86 |     wire [3:0] arb_n;
+      |                ^~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:87:18: Signal is not used: 'cfg_entries'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   87 |     wire [191:0] cfg_entries;
+      |                  ^~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:88:17: Signal is not used: 'cfg_k'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   88 |     wire [63:0] cfg_k;
+      |                 ^~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:89:17: Signal is not used: 'cfg_m'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   89 |     wire [15:0] cfg_m;
+      |                 ^~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:90:10: Signal is not used: 'mon_en'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   90 |     wire mon_en;
+      |          ^~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:91:16: Signal is not used: 'mon_presc'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   91 |     wire [1:0] mon_presc;
+      |                ^~~~~~~~~
+%Warning-BLKSEQ: src/pvm_engine.v:163:17: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+  163 |             sum = {1'b0, base} + {1'b0, offset};
+      |                 ^
+%Warning-BLKSEQ: src/pvm_engine.v:165:21: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+  165 |                 sum = sum - 6'd20;
+      |                     ^
+%Error: Exiting due to 23 warning(s)
+
+Variant A scoped waivers
+`verilator_config
+lint_off -rule DECLFILENAME -file "src/project.v" -lines 6
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 30
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 45
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 46
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 62
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 63
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 80
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 81
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 82
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 83
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 84
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 85
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 86
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 87
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 88
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 89
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 90
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 91
+lint_off -rule BLKSEQ -file "src/pvm_engine.v" -lines 163
+lint_off -rule BLKSEQ -file "src/pvm_engine.v" -lines 165
+
+Variant A scoped lint
+- V e r i l a t i o n   R e p o r t: Verilator 5.032 2025-01-01 rev (Debian 5.032-1+b2)
+- Verilator: Built from 1.023 MB sources in 17 modules, into 1.131 MB in 5 C++ files needing 0.000 MB
+- Verilator: Walltime 0.546 s (elab=0.078, cvt=0.390, bld=0.000); cpu 0.277 s on 1 threads; alloced 17.289 MB
+
+Variant B raw lint
+%Warning-DECLFILENAME: src/project.v:6:8: Filename 'project' does not match MODULE name: 'tt_um_arnav1609_pvm'
+    6 | module tt_um_arnav1609_pvm (
+      |        ^~~~~~~~~~~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.032
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:87:18: Signal is not used: 'cfg_entries'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   87 |     wire [191:0] cfg_entries;
+      |                  ^~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:88:17: Signal is not used: 'cfg_k'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   88 |     wire [63:0] cfg_k;
+      |                 ^~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:89:17: Signal is not used: 'cfg_m'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   89 |     wire [15:0] cfg_m;
+      |                 ^~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:90:10: Signal is not used: 'mon_en'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   90 |     wire mon_en;
+      |          ^~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:91:16: Signal is not used: 'mon_presc'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   91 |     wire [1:0] mon_presc;
+      |                ^~~~~~~~~
+%Warning-BLKSEQ: src/pvm_engine.v:163:17: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+  163 |             sum = {1'b0, base} + {1'b0, offset};
+      |                 ^
+%Warning-BLKSEQ: src/pvm_engine.v:165:21: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+  165 |                 sum = sum - 6'd20;
+      |                     ^
+%Error: Exiting due to 8 warning(s)
+
+Variant B scoped waivers
+`verilator_config
+lint_off -rule DECLFILENAME -file "src/project.v" -lines 6
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 87
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 88
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 89
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 90
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 91
+lint_off -rule BLKSEQ -file "src/pvm_engine.v" -lines 163
+lint_off -rule BLKSEQ -file "src/pvm_engine.v" -lines 165
+
+Variant B scoped lint
+- V e r i l a t i o n   R e p o r t: Verilator 5.032 2025-01-01 rev (Debian 5.032-1+b2)
+- Verilator: Built from 1.011 MB sources in 17 modules, into 1.319 MB in 6 C++ files needing 0.000 MB
+- Verilator: Walltime 0.426 s (elab=0.065, cvt=0.299, bld=0.000); cpu 0.283 s on 1 threads; alloced 18.094 MB
+
+Variant C raw lint
+%Warning-DECLFILENAME: src/project.v:6:8: Filename 'project' does not match MODULE name: 'tt_um_arnav1609_pvm'
+    6 | module tt_um_arnav1609_pvm (
+      |        ^~~~~~~~~~~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.032
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:30:17: Signal is not used: 'od_release_intent'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   30 |     wire [19:0] od_release_intent;
+      |                 ^~~~~~~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:45:10: Signal is not used: 'engine_tick'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   45 |     wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+      |          ^~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:45:23: Signal is not used: 'fab_wr'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   45 |     wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+      |                       ^~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:45:31: Signal is not used: 'evt_clr_arb'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   45 |     wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+      |                               ^~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:45:44: Signal is not used: 'evt_clr_unf'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   45 |     wire engine_tick, fab_wr, evt_clr_arb, evt_clr_unf;
+      |                                            ^~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:46:16: Signal is not used: 'fab_ctrl'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   46 |     wire [3:0] fab_ctrl;
+      |                ^~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:63:10: Signal is not used: 'clr_flags_pulse'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   63 |     wire clr_flags_pulse;
+      |          ^~~~~~~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:80:18: Signal is not used: 'cfg_lut'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   80 |     wire [127:0] cfg_lut;
+      |                  ^~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:81:17: Signal is not used: 'cfg_mode'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   81 |     wire [11:0] cfg_mode;
+      |                 ^~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:82:16: Signal is not used: 'cnt_reload'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   82 |     wire [9:0] cnt_reload;
+      |                ^~~~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:83:10: Signal is not used: 'cnt_en'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   83 |     wire cnt_en;
+      |          ^~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:84:10: Signal is not used: 'cnt_src'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   84 |     wire cnt_src;
+      |          ^~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:85:10: Signal is not used: 'manch_en'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   85 |     wire manch_en;
+      |          ^~~~~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_top.v:86:16: Signal is not used: 'arb_n'
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm'
+   86 |     wire [3:0] arb_n;
+      |                ^~~~~
+%Warning-UNUSEDSIGNAL: src/pvm_mon.v:57:25: Bits of signal are not used: 'entry'[23:21]
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm.monitor'
+   57 |             wire [23:0] entry = cfg_entries[e*24+:24];
+      |                         ^~~~~
+%Warning-BLKSEQ: src/pvm_engine.v:163:17: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+  163 |             sum = {1'b0, base} + {1'b0, offset};
+      |                 ^
+%Warning-BLKSEQ: src/pvm_engine.v:165:21: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+  165 |                 sum = sum - 6'd20;
+      |                     ^
+%Error: Exiting due to 18 warning(s)
+
+Variant C scoped waivers
+`verilator_config
+lint_off -rule DECLFILENAME -file "src/project.v" -lines 6
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 30
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 45
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 46
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 63
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 80
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 81
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 82
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 83
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 84
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 85
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_top.v" -lines 86
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_mon.v" -lines 57
+lint_off -rule BLKSEQ -file "src/pvm_engine.v" -lines 163
+lint_off -rule BLKSEQ -file "src/pvm_engine.v" -lines 165
+
+Variant C scoped lint
+- V e r i l a t i o n   R e p o r t: Verilator 5.032 2025-01-01 rev (Debian 5.032-1+b2)
+- Verilator: Built from 1.019 MB sources in 17 modules, into 1.311 MB in 6 C++ files needing 0.000 MB
+- Verilator: Walltime 0.476 s (elab=0.035, cvt=0.351, bld=0.000); cpu 0.313 s on 1 threads; alloced 18.297 MB
+
+Variant D raw lint
+%Warning-DECLFILENAME: src/project.v:6:8: Filename 'project' does not match MODULE name: 'tt_um_arnav1609_pvm'
+    6 | module tt_um_arnav1609_pvm (
+      |        ^~~~~~~~~~~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/DECLFILENAME?v=5.032
+                       ... Use "/* verilator lint_off DECLFILENAME */" and lint_on around source to disable this message.
+%Warning-UNUSEDSIGNAL: src/pvm_mon.v:57:25: Bits of signal are not used: 'entry'[23:21]
+                                          : ... note: In instance 'tt_um_arnav1609_pvm.pvm.monitor'
+   57 |             wire [23:0] entry = cfg_entries[e*24+:24];
+      |                         ^~~~~
+%Warning-BLKSEQ: src/pvm_engine.v:163:17: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+  163 |             sum = {1'b0, base} + {1'b0, offset};
+      |                 ^
+%Warning-BLKSEQ: src/pvm_engine.v:165:21: Blocking assignment '=' in sequential logic process
+                                        : ... Suggest using delayed assignment '<='
+  165 |                 sum = sum - 6'd20;
+      |                     ^
+%Error: Exiting due to 4 warning(s)
+
+Variant D scoped waivers
+`verilator_config
+lint_off -rule DECLFILENAME -file "src/project.v" -lines 6
+lint_off -rule UNUSEDSIGNAL -file "src/pvm_mon.v" -lines 57
+lint_off -rule BLKSEQ -file "src/pvm_engine.v" -lines 163
+lint_off -rule BLKSEQ -file "src/pvm_engine.v" -lines 165
+
+Variant D scoped lint
+- V e r i l a t i o n   R e p o r t: Verilator 5.032 2025-01-01 rev (Debian 5.032-1+b2)
+- Verilator: Built from 1.008 MB sources in 17 modules, into 1.499 MB in 6 C++ files needing 0.000 MB
+- Verilator: Walltime 0.527 s (elab=0.067, cvt=0.393, bld=0.000); cpu 0.361 s on 1 threads; alloced 19.305 MB

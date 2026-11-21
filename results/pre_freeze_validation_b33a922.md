@@ -29,7 +29,7 @@ three S12 mutants and the D-016 trace mutant were caught.
 | Gate | Result |
 | --- | --- |
 | Windows Icarus 12.0 | 71/71 accepted. 30 positive jobs passed and 41 mutants failed exactly their named checks. The Windows workflow verified the candidate SHA and all four golden CSV hashes with CRLF checkout enabled. [Run](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922358383) · [Raw Actions artifact](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922358383/artifacts/14714327163) · [71 current job logs](../evidence/pre_freeze/b33a922/windows-icarus-current-b33a922.zip) |
-| Timing-enabled Verilator 5.032 | Pending. 26 distinct builds, each replayed with randomized-init seeds 1 and 2. |
+| Timing-enabled Verilator 5.032 | 52/52 passed across 26 distinct builds with randomized-init seeds 1 and 2. [Build and coverage map](verilator_replay_b33a922.md) · [Raw logs](../evidence/pre_freeze/b33a922/verilator/raw_logs.tar.gz) |
 | Verilator `-Wall` lint | A/B/C/D pass with zero unwaived warnings. The raw inventory is identical to `00ec783` at 23/8/18/4 warning instances. [Waiver inventory](https://github.com/arnav1609/pvm-protocol-emulator/blob/c20b266/results/verilator_replay_00ec783.md#rtl-lint) |
 
 ## Tiny Tapeout
