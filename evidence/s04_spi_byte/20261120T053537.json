@@ -1,0 +1,35 @@
+{
+ "id": "s04_spi_byte",
+ "state": "PASS_FRESH",
+ "selection": "S04",
+ "frozen_checks": 8,
+ "checks_basis": "Frozen on 2026-11-20 before first run: RX_A5, RX_BACK_TO_BACK_16BYTES, TX_LOAD_96, TX_DEFAULT_ZERO, CS_ABORT_MIDBYTE, FRAME_START_END, SCK_GLITCH_WHEN_CS_HIGH, SLOWEST_SCK.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T053537",
+ "sources": {
+  "src/pvm_edge.v": "7c36c2fbf3f57288e90c8d2b2fd93d3d487702804c1d13200bd148870013b5f5",
+  "src/pvm_sync2.v": "f505a72cfc110b0906515bf2479b22ae5787a03f39c72cbe10be4b2719aa8dbf",
+  "src/pvm_spi_byte.v": "f0ef43c73573fa0ec9d84fc3d6822188a08b2a7b6f0ac6c1159e6177b3cd0bbc",
+  "tb_rtl/tb_spi_byte.v": "dffb497c9c92b01778c8290183f30027242fd8e698651298d677cfe53652701a"
+ },
+ "parsed": {
+  "passes": [
+   "RX_A5",
+   "TX_LOAD_96",
+   "TX_DEFAULT_ZERO",
+   "FRAME_START_END",
+   "RX_BACK_TO_BACK_16BYTES",
+   "CS_ABORT_MIDBYTE",
+   "SCK_GLITCH_WHEN_CS_HIGH",
+   "SLOWEST_SCK"
+  ],
+  "fails": [],
+  "checks": 8,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_spi_byte -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s04_spi_byte/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_edge.v /workspace/work/pvm-protocol-emulator/src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_spi_byte.v"
+}

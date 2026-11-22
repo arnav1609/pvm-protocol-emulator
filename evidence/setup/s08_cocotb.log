@@ -1,0 +1,25 @@
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '/workspace/work/pvm-protocol-emulator/test'
+mkdir -p sim_build/rtl
+/workspace/work/pvm-tools/iverilog/usr/bin/iverilog -o sim_build/rtl/sim.vvp -s tb -g2012 -I/workspace/work/pvm-protocol-emulator/test/../src -f sim_build/rtl/cmds.f  /workspace/work/pvm-protocol-emulator/test/../src/project.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_top.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_sync2.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_edge.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_tick.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_presc.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_imem.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_spi_byte.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_hostif.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_cfg.v /workspace/work/pvm-protocol-emulator/test/../src/pvm_pin_guard.v /workspace/work/pvm-protocol-emulator/test/tb.v
+rm -f results.xml
+COCOTB_TEST_MODULES=test COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+         /workspace/work/pvm-tools/iverilog/usr/bin/vvp -M /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/rtl/sim.vvp -fst
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at /workspace/work/pvm-tools/cocotb-env/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with 1795153201
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running test.test_host_and_pin_safety (1/1)
+197010.00ns INFO     cocotb.regression                  test.test_host_and_pin_safety passed
+197010.00ns INFO     cocotb.regression                  ***************************************************************************************
+                                                        ** TEST                           STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        ***************************************************************************************
+                                                        ** test.test_host_and_pin_safety   PASS      197010.00           0.93     212281.47  **
+                                                        ***************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0              197010.00           0.93     211337.64  **
+                                                        ***************************************************************************************
+FST info: dumpfile tb.fst opened for output.
+make[1]: Leaving directory '/workspace/work/pvm-protocol-emulator/test'

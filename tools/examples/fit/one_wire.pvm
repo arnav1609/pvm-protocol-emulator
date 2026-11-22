@@ -1,0 +1,29 @@
+# Standard-speed DS18B20 READ POWER SUPPLY after SKIP ROM.
+# Preload 0xCC, 0xB4. Result is one RX byte (bit 0). No presence yields no RX byte.
+# Tick 4 us. P12 side-set is open-drain. The direction remains enabled during RUN.
+    set pindirs, 1 side 1
+    set x, 7 side 0 [1]
+reset_hold:
+    jmp x--, reset_hold side 0 [15]
+    set x, 6 side 1 [15]
+    jmp pin, done side 1
+recovery:
+    jmp x--, recovery side 1 [15]
+    set y, 1 side 1
+next_byte:
+    pull block side 1
+next_bit:
+    out x, 1 side 0
+    jmp !x, write_zero side 0
+    jmp write_end side 1 [15]
+write_zero:
+    jmp write_end side 0 [14]
+write_end:
+    jmp !osre, next_bit side 1 [1]
+    jmp y--, next_byte side 1
+    set x, 0 side 0
+    set x, 0 side 1 [1]
+    in pins, 1 side 1 [15]
+    push block side 1
+done:
+    evt done side 1

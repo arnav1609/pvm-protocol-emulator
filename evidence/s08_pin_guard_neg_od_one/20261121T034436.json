@@ -1,0 +1,43 @@
+{
+ "id": "s08_pin_guard_neg_od_one",
+ "state": "NEG_KILLED",
+ "selection": "S08",
+ "frozen_checks": 17,
+ "checks_basis": "Drive data high in open-drain mode.",
+ "negative": true,
+ "variant_of": "s08_pin_guard",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261121T034436",
+ "sources": {
+  "src/pvm_pin_guard.v": "d2eec875facd465ec88247e140de01757fd64778818f30056ff2982cf822210e",
+  "tb_rtl/tb_pin_guard.v": "1cc63eacda80279f3527cd62b89f8d5887e160a8b1763fdd34f10066bb775581"
+ },
+ "parsed": {
+  "passes": [
+   "NOT_RUN_SAFE",
+   "OWNER_NONE_IDLE",
+   "ENGINE_PUSHPULL",
+   "ENGINE_OE_UIO",
+   "UO_ALWAYS_ENABLED",
+   "FABRIC_OWNER_L0",
+   "FABRIC_OWNER_L1",
+   "FABRIC_OWNER_L2",
+   "FABRIC_OWNER_L3",
+   "INVERT",
+   "ARB_FORCE_RELEASE",
+   "ARB_OTHER_PINS_UNAFFECTED",
+   "LATENCY_1_CYCLE",
+   "READBACK_ALIGNED"
+  ],
+  "fails": [
+   "OD_LOW_DRIVES",
+   "OD_HIGH_RELEASES",
+   "OD_NEVER_OE_AND_1"
+  ],
+  "checks": 17,
+  "errors": 3,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_pin_guard -o /workspace/work/pvm-area-opt/tb_rtl/build/s08_pin_guard_neg_od_one/sim.vvp /workspace/work/pvm-area-opt/tb_rtl/build/s08_pin_guard_neg_od_one/pvm_pin_guard.v /workspace/work/pvm-area-opt/tb_rtl/tb_pin_guard.v"
+}

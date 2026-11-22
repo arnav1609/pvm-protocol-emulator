@@ -1,0 +1,41 @@
+{
+ "id": "s11_trace_equiv_tb_engine_b",
+ "state": "PASS_FRESH",
+ "selection": "G2_TRACE",
+ "frozen_checks": 1,
+ "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_ENGINE_B compares every cycle to RTL commit 4b13f45.",
+ "negative": false,
+ "variant_of": null,
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261121T034438",
+ "sources": {
+  "src/pvm_tick.v": "4e869563873727bb3879b8d07b6ca5d9c7a386d3d654e1e9a8f3568c8492d164",
+  "src/pvm_presc.v": "576c08e18bcd572382466d80d20bbfc5c74f85a3a070b2a0c0be04258a7b22dc",
+  "src/pvm_fifo.v": "7f03e00882ac86e8b8890f5bc529172614bb43bd5dd373b618e39ad16475e976",
+  "src/pvm_engine.v": "9ae1c8678af82d6fa48223bab3f2450777fb9ab4e2cc831064c8a276def02a1e",
+  "tb_rtl/tb_engine_b.v": "5168321ff96161088d3d386bcfb0b17e1932c8b97f046ae34dd88947281c1e13",
+  "tb_rtl/pvm_trace.v": "bf03e54ee5bc8edd6cac6c3f7f6504cac95967024f8181799cf041ddaadce21e",
+  "tb_rtl/pvm_trace_jobs.py": "329a44f5c78106b0e619f6c54571e675606ea1a456398e82609a91ce0432dd4f",
+  "tb_rtl/pvm_run.py": "b3cc939d48f6fa07d481bf9e6b2e65c4df399912a7c2e554c114684149c44d57"
+ },
+ "parsed": {
+  "passes": [
+   "TRACE_EQUAL_TB_ENGINE_B"
+  ],
+  "fails": [],
+  "checks": 1,
+  "errors": 0,
+  "result": "PASS",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_engine_b -o /workspace/work/pvm-area-opt/tb_rtl/build/s11_trace_equiv_tb_engine_b/sim.vvp /workspace/work/pvm-area-opt/src/pvm_tick.v /workspace/work/pvm-area-opt/src/pvm_presc.v /workspace/work/pvm-area-opt/src/pvm_fifo.v /workspace/work/pvm-area-opt/src/pvm_engine.v /workspace/work/pvm-area-opt/tb_rtl/tb_engine_b.v /workspace/work/pvm-area-opt/tb_rtl/pvm_trace.v",
+ "trace": {
+  "golden": "tb_rtl/vectors/golden_tb_engine_b.csv",
+  "golden_sha256": "b24085642d5d2f78c2117e31ee67208e0d6456fa5ebecfab7cc1cf5e4776ec7f",
+  "actual_sha256": "b24085642d5d2f78c2117e31ee67208e0d6456fa5ebecfab7cc1cf5e4776ec7f",
+  "golden_cycles": 427,
+  "actual_cycles": 427,
+  "different_fields": [],
+  "first_difference": null
+ }
+}

@@ -1,0 +1,30 @@
+Variant D routed functional netlist from Tiny Tapeout run 44778669345, artifact 14658475695.
+RTL aa2996b1d2be115531f00b5ce7b0ace52d964b14. Testbench from 450f8e7.
+Icarus Verilog 13.0 from TinyTapeout/iverilog v13.0.
+PDK IHP SG13CMOS5L 89d42ee6d2fd9b50b86a1aada6fee6673c3e6008.
+iverilog -g2012 -s tb_protocols -DFUNCTIONAL -DSIM -DGL_TEST -DPVM_PROTOCOL_<UART|SPI|I2C> with routed netlist and models. No delay annotation.
+0262ae3717cfd437297f5bd4b51fbf1997f74a042732add818e61bdcfc2e49fb  variant-D.v
+ae986803821a9d6c3af9c221c33c3aa58ca23c283d3ad93ed4b3a2c45d6ccb4d  sg13cmos5l_io.v
+5491a3edf7468792b5222e7abe057e0583a407c01b2086d4fd44a55b6cf88055  sg13cmos5l_udp.v
+485945f1b167daa68354548f46c95bdbff7d931516fc5b4edd47f2e2cd555735  sg13cmos5l_stdcell.v
+
+UART
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] UART_TX_0X35_115200
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+SPI
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] SPI_MODE0_TWO_BYTES
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+
+I2C
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] I2C_WRITE_OPEN_DRAIN_ACK_STRETCH
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS

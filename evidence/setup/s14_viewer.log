@@ -1,0 +1,11 @@
+Published OASIS is byte-identical to the OASIS in Tiny Tapeout artifact 14658475695.
+SHA-256 3e3d8b0169557469fc5ee70c82f7351747f3c364e76df9fcd796cd34ed0f601d
+Top cell tt_um_arnav1609_pvm contains VPWR and VGND text labels on layer 50 datatype 25.
+Both labels are present in the routed GDS. The routed LEF declares VPWR USE POWER and VGND USE GROUND.
+Explorer wasm from https://gds-explorer.tinytapeout.com/web/explorer.wasm
+SHA-256 c2ba3b6072b7fb04004f9415408607b534e5b49efa4f65afaae01626124622a3
+Direct replay through the published WASI shim using ihp-sg13cmos5l:
+  OASIS: Error: missing power/ground labels in top cell. Geometry entries 0.
+  GDS: Error: missing power/ground labels in top cell. Geometry entries 0.
+The same parser recognizes the ihp-sg13g2 profile. Its binary contains no ihp-sg13cmos5l profile name.
+The Pages deployment and 2D image serve HTTP 200.

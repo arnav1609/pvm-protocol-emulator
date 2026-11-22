@@ -1,0 +1,1656 @@
+{
+  "schema": 1,
+  "jobs": [
+    {
+      "id": "s01_primitives",
+      "selection": "S01",
+      "top": "tb_primitives",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "tb_rtl/tb_primitives.v"
+      ],
+      "checks": 17,
+      "checks_basis": "17 checks frozen before first run on 2026-11-20: SYNC_LATENCY_2, SYNC_RESET_VAL, EDGE_RISE, EDGE_FALL, EDGE_NO_CHANGE, TICK_DIV0, TICK_DIV1, TICK_DIV5_PERIOD, TICK_DIV65535, TICK_RESTART, TICK_RUN_LOW_NO_TICK, PRESC_SEL0, PRESC_SEL1, PRESC_SEL2, PRESC_SEL3, PRESC_RESTART, MID_RUN_RESET."
+    },
+    {
+      "id": "s01_primitives_neg_sync_bypass",
+      "selection": "S01",
+      "top": "tb_primitives",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "tb_rtl/tb_primitives.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Same frozen checks as s01_primitives, with the synchronizer output bypassing the first flop to target SYNC_LATENCY_2.",
+      "negative": true,
+      "variant_of": "s01_primitives",
+      "mutant": {
+        "file": "src/pvm_sync2.v",
+        "anchor": "q <= sample_q;",
+        "replace": "q <= d;"
+      },
+      "expect_fail_checks": [
+        "SYNC_LATENCY_2"
+      ]
+    },
+    {
+      "id": "s02_fifo",
+      "selection": "S02",
+      "top": "tb_fifo",
+      "sources": [
+        "src/pvm_fifo.v",
+        "tb_rtl/tb_fifo.v"
+      ],
+      "checks": 9,
+      "checks_basis": "Frozen 2026-11-20 before first run: RESET_EMPTY, ORDER_4, FULL_FLAG, OVF_DROP, UNF, PUSHPOP_FULL, PUSHPOP_EMPTY, WRAP, CLR."
+    },
+    {
+      "id": "s02_fifo_neg",
+      "selection": "S02",
+      "top": "tb_fifo",
+      "sources": [
+        "src/pvm_fifo.v",
+        "tb_rtl/tb_fifo.v"
+      ],
+      "checks": 9,
+      "checks_basis": "Suppress overflow reporting while preserving FIFO contents.",
+      "negative": true,
+      "variant_of": "s02_fifo",
+      "mutant": {
+        "file": "src/pvm_fifo.v",
+        "anchor": "ovf <= push && !push_ok;",
+        "replace": "ovf <= 1'b0;"
+      },
+      "expect_fail_checks": [
+        "OVF_DROP",
+        "WRAP"
+      ]
+    },
+    {
+      "id": "s02_crc16",
+      "selection": "S02",
+      "top": "tb_crc16",
+      "sources": [
+        "src/pvm_crc16.v",
+        "tb_rtl/tb_crc16.v"
+      ],
+      "checks": 5,
+      "checks_basis": "Frozen 2026-11-20 before first run: VEC_123456789, VEC_EMPTY, VEC_00, CLR_RESTART, EN_LOW_HOLD."
+    },
+    {
+      "id": "s02_crc16_neg",
+      "selection": "S02",
+      "top": "tb_crc16",
+      "sources": [
+        "src/pvm_crc16.v",
+        "tb_rtl/tb_crc16.v"
+      ],
+      "checks": 5,
+      "checks_basis": "Ignore the CRC clear strobe.",
+      "negative": true,
+      "variant_of": "s02_crc16",
+      "mutant": {
+        "file": "src/pvm_crc16.v",
+        "anchor": "if (!rst_n || clr)",
+        "replace": "if (!rst_n)"
+      },
+      "expect_fail_checks": [
+        "CLR_RESTART"
+      ]
+    },
+    {
+      "id": "s03_imem",
+      "selection": "S03",
+      "top": "tb_imem",
+      "sources": [
+        "src/pvm_imem.v",
+        "tb_rtl/tb_imem.v"
+      ],
+      "checks": 8,
+      "checks_basis": "Frozen on 2026-11-20 before first run: RESET_INVALID, LOWBYTE_NOT_VALID, HIGHBYTE_SETS_VALID, ALL32_PATTERN, BUS_READ_MASK, CLR_VALID, REWRITE_SAME_WORD, BOUNDARY_WORD31."
+    },
+    {
+      "id": "s03_imem_neg_unmasked",
+      "selection": "S03",
+      "top": "tb_imem",
+      "sources": [
+        "src/pvm_imem.v",
+        "tb_rtl/tb_imem.v"
+      ],
+      "checks": 8,
+      "checks_basis": "Serve stale bytes on bus reads when instruction validity is clear.",
+      "negative": true,
+      "variant_of": "s03_imem",
+      "mutant": {
+        "file": "src/pvm_imem.v",
+        "anchor": "valid_q[bus_word] ? bus_byte : 8'h00",
+        "replace": "bus_byte"
+      },
+      "expect_fail_checks": [
+        "BUS_READ_MASK",
+        "CLR_VALID"
+      ]
+    },
+    {
+      "id": "s04_spi_byte",
+      "selection": "S04",
+      "top": "tb_spi_byte",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "tb_rtl/tb_spi_byte.v"
+      ],
+      "checks": 8,
+      "checks_basis": "Frozen on 2026-11-20 before first run: RX_A5, RX_BACK_TO_BACK_16BYTES, TX_LOAD_96, TX_DEFAULT_ZERO, CS_ABORT_MIDBYTE, FRAME_START_END, SCK_GLITCH_WHEN_CS_HIGH, SLOWEST_SCK."
+    },
+    {
+      "id": "s04_spi_byte_neg_msb",
+      "selection": "S04",
+      "top": "tb_spi_byte",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "tb_rtl/tb_spi_byte.v"
+      ],
+      "checks": 8,
+      "checks_basis": "Drop the first MISO bit of a pending byte.",
+      "negative": true,
+      "variant_of": "s04_spi_byte",
+      "mutant": {
+        "file": "src/pvm_spi_byte.v",
+        "anchor": "miso_q <= next_tx_byte[7];",
+        "replace": "miso_q <= 1'b0;"
+      },
+      "expect_fail_checks": [
+        "TX_LOAD_96"
+      ]
+    },
+    {
+      "id": "s05_hostif",
+      "selection": "S05",
+      "top": "tb_hostif",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "tb_rtl/tb_hostif.v"
+      ],
+      "checks": 11,
+      "checks_basis": "Frozen on 2026-11-20 before first run: WRITE_SINGLE, WRITE_BURST_16, WRITE_ADDR_WRAP_FFFF, READ_SINGLE, READ_BURST_8, READ_RACK_SEQUENCE, ID_BYTES, UNKNOWN_CMD_IGNORED, ABORT_IN_ADDR, ABORT_IN_DATA, ONE_STROBE_PER_CYCLE."
+    },
+    {
+      "id": "s05_hostif_neg_write_offset",
+      "selection": "S05",
+      "top": "tb_hostif",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "tb_rtl/tb_hostif.v"
+      ],
+      "checks": 11,
+      "checks_basis": "Increment the address before each write.",
+      "negative": true,
+      "variant_of": "s05_hostif",
+      "mutant": {
+        "file": "src/pvm_hostif.v",
+        "anchor": "assign bus_addr = addr_q;",
+        "replace": "assign bus_addr = bus_we ? addr_q + 16'd1 : addr_q;"
+      },
+      "expect_fail_checks": [
+        "WRITE_SINGLE",
+        "WRITE_BURST_16",
+        "WRITE_ADDR_WRAP_FFFF",
+        "ABORT_IN_DATA"
+      ]
+    },
+    {
+      "id": "s05_hostif_neg_no_ack",
+      "selection": "S05",
+      "top": "tb_hostif",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "tb_rtl/tb_hostif.v"
+      ],
+      "checks": 11,
+      "checks_basis": "Drop read acknowledgement strobes.",
+      "negative": true,
+      "variant_of": "s05_hostif",
+      "mutant": {
+        "file": "src/pvm_hostif.v",
+        "anchor": "bus_rack = 1'b1;",
+        "replace": "bus_rack = 1'b0;"
+      },
+      "expect_fail_checks": [
+        "READ_RACK_SEQUENCE"
+      ]
+    },
+    {
+      "id": "s05_hostif_neg_early_tx",
+      "selection": "S05",
+      "top": "tb_hostif",
+      "sources": [
+        "src/pvm_edge.v",
+        "src/pvm_sync2.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "tb_rtl/tb_hostif.v"
+      ],
+      "checks": 11,
+      "checks_basis": "Load transmit data before the bus read response is valid.",
+      "negative": true,
+      "variant_of": "s05_hostif",
+      "mutant": {
+        "file": "src/pvm_hostif.v",
+        "anchor": "assign read_tx_load = read_tx_pending_q;",
+        "replace": "assign read_tx_load = bus_re;"
+      },
+      "expect_fail_checks": [
+        "READ_SINGLE",
+        "READ_BURST_8"
+      ]
+    },
+    {
+      "id": "s06_cfg_a",
+      "selection": "S06",
+      "top": "tb_cfg_a",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_fifo.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_a.v"
+      ],
+      "checks": 23,
+      "checks_basis": "Frozen on 2026-11-20 after D-012 and before first run: RESET_STATE_HALT, WH_WRITE_HALT_OK, WH_WRITE_RUN_REJECTED, READ_LATENCY_1, UNMAPPED_READ_ZERO, UNMAPPED_WRITE_REJ, CRC_MATCH_READY, CRC_MISMATCH_FAULT, ENABLE_PULSE_WIDTH_1, ENABLE_FROM_HALT_REJ, CLR_IMEM_ONLY_HALT, CLR_FAULT_TO_HALT, ENGINE_DONE_TO_DONE, ENGINE_FAULT_LATCH, TXFIFO_PUSH_OVF, RXFIFO_PEEK_NO_POP_ON_RE, RXFIFO_POP_ON_RACK, HALT_CLEARS_STICKY, HALT_CLEARS_FIFOS, REGISTER_ROUNDTRIP_ENGINE, REGISTER_ROUNDTRIP_FABRIC, REGISTER_ROUNDTRIP_MONITOR, REGISTER_ROUNDTRIP_PINS."
+    },
+    {
+      "id": "s06_cfg_a_neg_halt_sticky",
+      "selection": "S06",
+      "top": "tb_cfg_a",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_fifo.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_a.v"
+      ],
+      "checks": 23,
+      "checks_basis": "Keep TX_OVF latched on HALT while still clearing RX_UNF and both FIFO contents.",
+      "negative": true,
+      "variant_of": "s06_cfg_a",
+      "mutant": {
+        "file": "src/pvm_cfg.v",
+        "anchor": "tx_ovf_q <= 1'b0;\n                rx_unf_q <= 1'b0;",
+        "replace": "tx_ovf_q <= tx_ovf_q;\n                rx_unf_q <= 1'b0;"
+      },
+      "expect_fail_checks": [
+        "HALT_CLEARS_STICKY"
+      ]
+    },
+    {
+      "id": "s07_cfg_b",
+      "selection": "S07",
+      "top": "tb_cfg_b",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_b.v"
+      ],
+      "checks": 22,
+      "checks_basis": "Frozen on 2026-11-20 before first run: OD_ON_UO, OUTPUT_ON_UI, OWNER_WITH_INPUT_MODE, OWNER7, MODE3, OUT_CNT_17, SET_CNT_6, SIDE_CNT_3, BASE_20, WRAP_INVERTED, ENTRY_INVALID, LUTMODE3, MANCH_NO_CNT, ARB_N0, ARB_PIN_NOT_UIO, ARB_PIN_NOT_OD, MON_GUARD3, MON_ACTION7, CRC_BEFORE_PIN, LEGAL_IMAGE_READY, IMAGE_ID_LATCHED, REVALIDATE_AFTER_HALT."
+    },
+    {
+      "id": "s07_cfg_b_neg_od_on_uo",
+      "selection": "S07",
+      "top": "tb_cfg_b",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_b.v"
+      ],
+      "checks": 22,
+      "checks_basis": "Skip the open-drain-on-output-only pin check.",
+      "negative": true,
+      "variant_of": "s07_cfg_b",
+      "mutant": {
+        "file": "src/pvm_cfg.v",
+        "anchor": "pin_od_on_uo || pin_output_on_ui || pin_owner_on_input",
+        "replace": "pin_output_on_ui || pin_owner_on_input"
+      },
+      "expect_fail_checks": [
+        "OD_ON_UO"
+      ]
+    },
+    {
+      "id": "s07_cfg_b_neg_crc_order",
+      "selection": "S07",
+      "top": "tb_cfg_b",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_b.v"
+      ],
+      "checks": 22,
+      "checks_basis": "Move the CRC phase after pin validation.",
+      "negative": true,
+      "variant_of": "s07_cfg_b",
+      "mutant": {
+        "file": "src/pvm_cfg.v",
+        "anchor": "V_START = V_CRC, V_AFTER_CRC = V_PINS, V_AFTER_PINS = V_ENGINE",
+        "replace": "V_START = V_PINS, V_AFTER_CRC = V_ENGINE, V_AFTER_PINS = V_CRC"
+      },
+      "expect_fail_checks": [
+        "CRC_BEFORE_PIN"
+      ]
+    },
+    {
+      "id": "s07_cfg_b_neg_image_id",
+      "selection": "S07",
+      "top": "tb_cfg_b",
+      "sources": [
+        "src/pvm_imem.v",
+        "src/pvm_crc16.v",
+        "src/pvm_cfg.v",
+        "tb_rtl/tb_cfg_b.v"
+      ],
+      "checks": 22,
+      "checks_basis": "Drop the configuration ID latch at commit.",
+      "negative": true,
+      "variant_of": "s07_cfg_b",
+      "mutant": {
+        "file": "src/pvm_cfg.v",
+        "anchor": "{image_crc_q, image_ver_committed_q} <= {crc_expect_q, image_ver_q};",
+        "replace": "{image_crc_q, image_ver_committed_q} <= 24'h000000;"
+      },
+      "expect_fail_checks": [
+        "IMAGE_ID_LATCHED",
+        "REVALIDATE_AFTER_HALT"
+      ]
+    },
+    {
+      "id": "s08_pin_guard",
+      "selection": "S08",
+      "top": "tb_pin_guard",
+      "sources": [
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_pin_guard.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Frozen on 2026-11-20 before first run: NOT_RUN_SAFE, OWNER_NONE_IDLE, ENGINE_PUSHPULL, ENGINE_OE_UIO, UO_ALWAYS_ENABLED, FABRIC_OWNER_L0, FABRIC_OWNER_L1, FABRIC_OWNER_L2, FABRIC_OWNER_L3, INVERT, OD_LOW_DRIVES, OD_HIGH_RELEASES, OD_NEVER_OE_AND_1, ARB_FORCE_RELEASE, ARB_OTHER_PINS_UNAFFECTED, LATENCY_1_CYCLE, READBACK_ALIGNED."
+    },
+    {
+      "id": "s08_pin_guard_neg_od_one",
+      "selection": "S08",
+      "top": "tb_pin_guard",
+      "sources": [
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_pin_guard.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Drive data high in open-drain mode.",
+      "negative": true,
+      "variant_of": "s08_pin_guard",
+      "mutant": {
+        "file": "src/pvm_pin_guard.v",
+        "anchor": "open_drain ? 1'b0 : value",
+        "replace": "open_drain ? 1'b1 : value"
+      },
+      "expect_fail_checks": [
+        "OD_LOW_DRIVES",
+        "OD_HIGH_RELEASES",
+        "OD_NEVER_OE_AND_1"
+      ]
+    },
+    {
+      "id": "s08_pin_guard_neg_run_gate",
+      "selection": "S08",
+      "top": "tb_pin_guard",
+      "sources": [
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_pin_guard.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Leave bidirectional output enables active outside RUN.",
+      "negative": true,
+      "variant_of": "s08_pin_guard",
+      "mutant": {
+        "file": "src/pvm_pin_guard.v",
+        "anchor": "running && !arb_block && owner_enable",
+        "replace": "!arb_block && owner_enable"
+      },
+      "expect_fail_checks": [
+        "NOT_RUN_SAFE"
+      ]
+    },
+    {
+      "id": "s08_pin_guard_neg_arb",
+      "selection": "S08",
+      "top": "tb_pin_guard",
+      "sources": [
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_pin_guard.v"
+      ],
+      "checks": 17,
+      "checks_basis": "Ignore arbitration loss for configured SDA and SCL.",
+      "negative": true,
+      "variant_of": "s08_pin_guard",
+      "mutant": {
+        "file": "src/pvm_pin_guard.v",
+        "anchor": "arb_en && arb_lost && ((PIN == arb_sda) || (PIN == arb_scl))",
+        "replace": "1'b0"
+      },
+      "expect_fail_checks": [
+        "ARB_FORCE_RELEASE"
+      ]
+    },
+    {
+      "id": "s09_engine_a",
+      "selection": "S09",
+      "top": "tb_engine_a",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_a.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 33,
+      "checks_basis": "Frozen on 2026-11-20 before the first run. TB-model-checked (ISS pending). cond 0 has no not-taken case; cond 7 taken deferred to S10 (needs PULL). Checks: CLKDIV1_TIMING, CLKDIV3_TIMING, DELAY_MAX_31, SIDESET_1BIT, SIDESET_2BIT_PRIORITY_OVER_SET, WRAP, JMP_COND_0_TAKEN, JMP_COND_1_TAKEN, JMP_COND_1_NOT_TAKEN, JMP_COND_2_TAKEN, JMP_COND_2_NOT_TAKEN, JMP_COND_3_TAKEN, JMP_COND_3_NOT_TAKEN, JMP_COND_4_TAKEN, JMP_COND_4_NOT_TAKEN, JMP_COND_5_TAKEN, JMP_COND_5_NOT_TAKEN, JMP_COND_6_TAKEN, JMP_COND_6_NOT_TAKEN, JMP_COND_7_NOT_TAKEN, XDEC_LOOP_COUNT, SET_PINS_BASE_WRAP_MOD20, SET_PINDIRS, SET_FAB_PULSE, MOV_X_Y_INVERT_REVERSE, MOV_PC, EVT_SET_CLR_FLAGS, EVT_CLR_ARB_PULSE, EVT_DONE, INVALID_WORD_FAULT_PC, ILLEGAL_ENCODINGS, ENABLE_REINIT, WORKED_ENCODINGS. D-016 +TRACE only records CSV; all frozen checks remain unchanged."
+    },
+    {
+      "id": "s09_engine_a_neg_jmp7",
+      "selection": "S09",
+      "top": "tb_engine_a",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_a.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 33,
+      "checks_basis": "Frozen on 2026-11-20 before the first run. TB-model-checked (ISS pending). cond 0 has no not-taken case; cond 7 taken deferred to S10 (needs PULL). Checks: CLKDIV1_TIMING, CLKDIV3_TIMING, DELAY_MAX_31, SIDESET_1BIT, SIDESET_2BIT_PRIORITY_OVER_SET, WRAP, JMP_COND_0_TAKEN, JMP_COND_1_TAKEN, JMP_COND_1_NOT_TAKEN, JMP_COND_2_TAKEN, JMP_COND_2_NOT_TAKEN, JMP_COND_3_TAKEN, JMP_COND_3_NOT_TAKEN, JMP_COND_4_TAKEN, JMP_COND_4_NOT_TAKEN, JMP_COND_5_TAKEN, JMP_COND_5_NOT_TAKEN, JMP_COND_6_TAKEN, JMP_COND_6_NOT_TAKEN, JMP_COND_7_NOT_TAKEN, XDEC_LOOP_COUNT, SET_PINS_BASE_WRAP_MOD20, SET_PINDIRS, SET_FAB_PULSE, MOV_X_Y_INVERT_REVERSE, MOV_PC, EVT_SET_CLR_FLAGS, EVT_CLR_ARB_PULSE, EVT_DONE, INVALID_WORD_FAULT_PC, ILLEGAL_ENCODINGS, ENABLE_REINIT, WORKED_ENCODINGS. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
+      "negative": true,
+      "variant_of": "s09_engine_a",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "3'd7: jump_taken = !osr_empty;",
+        "replace": "3'd7: jump_taken = osr_empty;"
+      },
+      "expect_fail_checks": [
+        "JMP_COND_7_NOT_TAKEN"
+      ]
+    },
+    {
+      "id": "s10_engine_b",
+      "selection": "S10",
+      "top": "tb_engine_b",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_b.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 40,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). D-014 uses two consecutive engine ticks; D-015 freezes injected instruction timing and faults. JMP_COND_7_TAKEN was deferred from S09 until PULL. Checks: PULL_BLOCK_STALL_THEN_GO, PULL_NONBLOCK_EMPTY_COPIES_X, PULL_IFEMPTY_SKIP, PUSH_BLOCK_FULL_STALL, PUSH_NONBLOCK_DROP, PUSH_IFFULL, OUT_SHR_LSB_FIRST, OUT_SHL_MSB_FIRST, OUT_COUNT_16, OUT_PINDIRS, OUT_PC, IN_PINS_BASE, IN_SHR, IN_SHL, AUTOPULL_THRESH_8, AUTOPUSH_THRESH_8, WIDE_PULL_2BYTES_LE, WIDE_PUSH_NEEDS_2_SLOTS, WIDE_NO_PARTIAL_STALL, WIDE_AUTOPULL, WIDE_AUTOPUSH, JMP_COND_7_TAKEN, OUT_EXEC_PARENT_AND_INJECTED_DELAY, OUT_EXEC_WRAP, OUT_EXEC_JUMP, OUT_EXEC_SIDESET_WAIT, OUT_EXEC_NESTED_FAULT, OUT_EXEC_ILLEGAL_FAULT, OUT_EXEC_WAIT_TIMEOUT, OUT_EXEC_BLOCKING_FIFO, MOV_EXEC_PARENT_AND_INJECTED_DELAY, MOV_EXEC_WRAP, MOV_EXEC_JUMP, MOV_EXEC_SIDESET_WAIT, MOV_EXEC_NESTED_FAULT, MOV_EXEC_ILLEGAL_FAULT, MOV_EXEC_WAIT_TIMEOUT, MOV_EXEC_BLOCKING_FIFO, UART_TX_0x35_WAVEFORM, UART_RX_LOOPBACK. D-016 +TRACE only records CSV; all frozen checks remain unchanged."
+    },
+    {
+      "id": "s10_engine_b_neg_wide_pull_byte_order",
+      "selection": "S10",
+      "top": "tb_engine_b",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_b.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 40,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). D-014 uses two consecutive engine ticks; D-015 freezes injected instruction timing and faults. JMP_COND_7_TAKEN was deferred from S09 until PULL. Checks: PULL_BLOCK_STALL_THEN_GO, PULL_NONBLOCK_EMPTY_COPIES_X, PULL_IFEMPTY_SKIP, PUSH_BLOCK_FULL_STALL, PUSH_NONBLOCK_DROP, PUSH_IFFULL, OUT_SHR_LSB_FIRST, OUT_SHL_MSB_FIRST, OUT_COUNT_16, OUT_PINDIRS, OUT_PC, IN_PINS_BASE, IN_SHR, IN_SHL, AUTOPULL_THRESH_8, AUTOPUSH_THRESH_8, WIDE_PULL_2BYTES_LE, WIDE_PUSH_NEEDS_2_SLOTS, WIDE_NO_PARTIAL_STALL, WIDE_AUTOPULL, WIDE_AUTOPUSH, JMP_COND_7_TAKEN, OUT_EXEC_PARENT_AND_INJECTED_DELAY, OUT_EXEC_WRAP, OUT_EXEC_JUMP, OUT_EXEC_SIDESET_WAIT, OUT_EXEC_NESTED_FAULT, OUT_EXEC_ILLEGAL_FAULT, OUT_EXEC_WAIT_TIMEOUT, OUT_EXEC_BLOCKING_FIFO, MOV_EXEC_PARENT_AND_INJECTED_DELAY, MOV_EXEC_WRAP, MOV_EXEC_JUMP, MOV_EXEC_SIDESET_WAIT, MOV_EXEC_NESTED_FAULT, MOV_EXEC_ILLEGAL_FAULT, MOV_EXEC_WAIT_TIMEOUT, MOV_EXEC_BLOCKING_FIFO, UART_TX_0x35_WAVEFORM, UART_RX_LOOPBACK. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
+      "negative": true,
+      "variant_of": "s10_engine_b",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "wide ? {tx_dout, wide_byte_q} :",
+        "replace": "wide ? {wide_byte_q, tx_dout} :"
+      },
+      "expect_fail_checks": [
+        "WIDE_PULL_2BYTES_LE",
+        "WIDE_AUTOPULL"
+      ]
+    },
+    {
+      "id": "s11_engine_c",
+      "top": "tb_engine_c",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_c.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 12,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged."
+    },
+    {
+      "id": "s11_engine_c_neg_timeout_priority",
+      "top": "tb_engine_c",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_c.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 12,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
+      "negative": true,
+      "variant_of": "s11_engine_c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "(issue_cycle ? (!issue_fault && waiting) : stalled_q);",
+        "replace": "(stalled_q || (issue_cycle && !issue_fault && waiting));"
+      },
+      "expect_fail_checks": [
+        "TIMEOUT_COMPLETION_WINS"
+      ]
+    },
+    {
+      "id": "s11_engine_c_neg_wait_polarity",
+      "top": "tb_engine_c",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_c.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 12,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
+      "negative": true,
+      "variant_of": "s11_engine_c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "waiting = !illegal && (pin_in[word[4:0]] != word[7]);",
+        "replace": "waiting = !illegal && (pin_in[word[4:0]] != 1'b1);"
+      },
+      "expect_fail_checks": [
+        "WAIT_PIN_POL0"
+      ]
+    },
+    {
+      "id": "s11_engine_c_neg_fault_keep_running",
+      "top": "tb_engine_c",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_c.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 12,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: WAIT_PIN_POL0, WAIT_PIN_POL1, WAIT_FAB, WAIT_FLAG_ARB, WAIT_SIDESET_APPLIED_DURING_STALL, DELAY_AFTER_WAIT_ONLY, TIMEOUT_EXACT_COUNT, TIMEOUT_COMPLETION_WINS, TIMEOUT_0_DISABLED, TIMEOUT_ON_PULL, TIMEOUT_ON_PUSH, FAULT_STOPS_ENGINE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
+      "negative": true,
+      "variant_of": "s11_engine_c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": ".run(run && !stopped_q),\n        .restart(enable_pulse), .div(clkdiv), .tick(engine_tick)",
+        "replace": ".run(run),\n        .restart(enable_pulse), .div(clkdiv), .tick(engine_tick)"
+      },
+      "expect_fail_checks": [
+        "FAULT_STOPS_ENGINE"
+      ]
+    },
+    {
+      "id": "s11_top",
+      "top": "tb_top_s11",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top_s11.v",
+        "tb_rtl/pvm_trace.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v"
+      ],
+      "checks": 2,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE. D-016 +TRACE only records CSV; all frozen checks remain unchanged."
+    },
+    {
+      "id": "s11_top_neg_fault_guard",
+      "top": "tb_top_s11",
+      "selection": "S11",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_engine.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top_s11.v",
+        "tb_rtl/pvm_trace.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v"
+      ],
+      "checks": 2,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: SPI_UART_TX_SMOKE, FAULT_OUTPUTS_SAFE. D-016 +TRACE only records CSV; all frozen checks remain unchanged.",
+      "negative": true,
+      "variant_of": "s11_top",
+      "mutant": {
+        "file": "src/pvm_pin_guard.v",
+        "anchor": "wire running = state == 3'd3;",
+        "replace": "wire running = state == 3'd3 || state == 3'd5;"
+      },
+      "expect_fail_checks": [
+        "FAULT_OUTPUTS_SAFE"
+      ]
+    },
+    {
+      "id": "s11_trace_equiv_tb_engine_a",
+      "selection": "G2_TRACE",
+      "trace_of": "s09_engine_a",
+      "trace_check": "TRACE_EQUAL_TB_ENGINE_A",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_ENGINE_A compares every cycle to RTL commit 4b13f45."
+    },
+    {
+      "id": "s11_trace_equiv_tb_engine_b",
+      "selection": "G2_TRACE",
+      "trace_of": "s10_engine_b",
+      "trace_check": "TRACE_EQUAL_TB_ENGINE_B",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_ENGINE_B compares every cycle to RTL commit 4b13f45."
+    },
+    {
+      "id": "s11_trace_equiv_tb_engine_c",
+      "selection": "G2_TRACE",
+      "trace_of": "s11_engine_c",
+      "trace_check": "TRACE_EQUAL_TB_ENGINE_C",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_ENGINE_C compares every cycle to RTL commit 4b13f45."
+    },
+    {
+      "id": "s11_trace_equiv_tb_top_s11",
+      "selection": "G2_TRACE",
+      "trace_of": "s11_top",
+      "trace_check": "TRACE_EQUAL_TB_TOP_S11",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. One check TRACE_EQUAL_TB_TOP_S11 compares every cycle to RTL commit 4b13f45."
+    },
+    {
+      "id": "s11_trace_equiv_tb_engine_c_neg_delayed_out",
+      "selection": "G2_TRACE",
+      "trace_of": "s11_engine_c",
+      "trace_check": "TRACE_EQUAL_TB_ENGINE_C",
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 for D-016. The copied RTL publishes out_val one cycle late. TRACE_EQUAL_TB_ENGINE_C must detect the shift.",
+      "negative": true,
+      "variant_of": "s11_trace_equiv_tb_engine_c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "delay_output": "out_val"
+      },
+      "expect_fail_checks": [
+        "TRACE_EQUAL_TB_ENGINE_C"
+      ]
+    },
+    {
+      "id": "s12_fabric",
+      "selection": "S12",
+      "top": "tb_fabric",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_pin_guard.v",
+        "src/pvm_fabric.v",
+        "tb_rtl/tb_fabric.v"
+      ],
+      "checks": 21,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: LUT_ALL_16_TT_RANDOM, LAYER2_SEES_L0_L1, NO_L2_TO_L1, MODE_RISE_PULSE, MODE_MAJ3_FILTERS_1CYCLE_GLITCH, MODE_MAJ3_PASSES_3CYCLE, GROUP1_MAPPING, CNT_PERIOD_RELOAD_249, CNT_RELOAD_0, CNT_RELOAD_1023, CNT_SRC_ENGINE_TICK, MANCH_STREAM_16BITS, MANCH_UNDERRUN, MANCH_BOUNDARY_WRITE_QUEUED, ARB_DETECT_AFTER_N, ARB_NO_DETECT_IF_SCL_SHORT, ARB_NO_DETECT_WHEN_DRIVING_LOW, ARB_RELEASE_BOUND_CYCLES, FLAGS_STICKY_AFTER_RUN, ARB_CLEAR_BY_EVT_HOST_HALT, NOT_RUN_CLEARS."
+    },
+    {
+      "id": "s12_fabric_neg_layer_feedback",
+      "selection": "S12",
+      "top": "tb_fabric",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_pin_guard.v",
+        "src/pvm_fabric.v",
+        "tb_rtl/tb_fabric.v"
+      ],
+      "checks": 21,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: LUT_ALL_16_TT_RANDOM, LAYER2_SEES_L0_L1, NO_L2_TO_L1, MODE_RISE_PULSE, MODE_MAJ3_FILTERS_1CYCLE_GLITCH, MODE_MAJ3_PASSES_3CYCLE, GROUP1_MAPPING, CNT_PERIOD_RELOAD_249, CNT_RELOAD_0, CNT_RELOAD_1023, CNT_SRC_ENGINE_TICK, MANCH_STREAM_16BITS, MANCH_UNDERRUN, MANCH_BOUNDARY_WRITE_QUEUED, ARB_DETECT_AFTER_N, ARB_NO_DETECT_IF_SCL_SHORT, ARB_NO_DETECT_WHEN_DRIVING_LOW, ARB_RELEASE_BOUND_CYCLES, FLAGS_STICKY_AFTER_RUN, ARB_CLEAR_BY_EVT_HOST_HALT, NOT_RUN_CLEARS.",
+      "negative": true,
+      "variant_of": "s12_fabric",
+      "mutant": {
+        "file": "src/pvm_fabric.v",
+        "anchor": "{arb_lost, cnt_phase, 1'b1, 1'b0, fab_in, group_pins}",
+        "replace": "{arb_lost, cnt_phase, 1'b1, lut_out[3], fab_in, group_pins}"
+      },
+      "expect_fail_checks": [
+        "LUT_ALL_16_TT_RANDOM",
+        "NO_L2_TO_L1"
+      ]
+    },
+    {
+      "id": "s12_fabric_neg_maj2",
+      "selection": "S12",
+      "top": "tb_fabric",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_pin_guard.v",
+        "src/pvm_fabric.v",
+        "tb_rtl/tb_fabric.v"
+      ],
+      "checks": 21,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: LUT_ALL_16_TT_RANDOM, LAYER2_SEES_L0_L1, NO_L2_TO_L1, MODE_RISE_PULSE, MODE_MAJ3_FILTERS_1CYCLE_GLITCH, MODE_MAJ3_PASSES_3CYCLE, GROUP1_MAPPING, CNT_PERIOD_RELOAD_249, CNT_RELOAD_0, CNT_RELOAD_1023, CNT_SRC_ENGINE_TICK, MANCH_STREAM_16BITS, MANCH_UNDERRUN, MANCH_BOUNDARY_WRITE_QUEUED, ARB_DETECT_AFTER_N, ARB_NO_DETECT_IF_SCL_SHORT, ARB_NO_DETECT_WHEN_DRIVING_LOW, ARB_RELEASE_BOUND_CYCLES, FLAGS_STICKY_AFTER_RUN, ARB_CLEAR_BY_EVT_HOST_HALT, NOT_RUN_CLEARS.",
+      "negative": true,
+      "variant_of": "s12_fabric",
+      "mutant": {
+        "file": "src/pvm_fabric.v",
+        "anchor": "(history_q[2] && history_q[1]) ||\n                                         (history_q[2] && history_q[0]) ||\n                                         (history_q[1] && history_q[0])",
+        "replace": "history_q[1] || history_q[0]"
+      },
+      "expect_fail_checks": [
+        "MODE_MAJ3_FILTERS_1CYCLE_GLITCH",
+        "MODE_MAJ3_PASSES_3CYCLE"
+      ]
+    },
+    {
+      "id": "s12_fabric_neg_ignore_arb_n",
+      "selection": "S12",
+      "top": "tb_fabric",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_pin_guard.v",
+        "src/pvm_fabric.v",
+        "tb_rtl/tb_fabric.v"
+      ],
+      "checks": 21,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: LUT_ALL_16_TT_RANDOM, LAYER2_SEES_L0_L1, NO_L2_TO_L1, MODE_RISE_PULSE, MODE_MAJ3_FILTERS_1CYCLE_GLITCH, MODE_MAJ3_PASSES_3CYCLE, GROUP1_MAPPING, CNT_PERIOD_RELOAD_249, CNT_RELOAD_0, CNT_RELOAD_1023, CNT_SRC_ENGINE_TICK, MANCH_STREAM_16BITS, MANCH_UNDERRUN, MANCH_BOUNDARY_WRITE_QUEUED, ARB_DETECT_AFTER_N, ARB_NO_DETECT_IF_SCL_SHORT, ARB_NO_DETECT_WHEN_DRIVING_LOW, ARB_RELEASE_BOUND_CYCLES, FLAGS_STICKY_AFTER_RUN, ARB_CLEAR_BY_EVT_HOST_HALT, NOT_RUN_CLEARS.",
+      "negative": true,
+      "variant_of": "s12_fabric",
+      "mutant": {
+        "file": "src/pvm_fabric.v",
+        "anchor": "scl_hi_cnt >= arb_n",
+        "replace": "scl_hi_cnt != 4'd0"
+      },
+      "expect_fail_checks": [
+        "ARB_DETECT_AFTER_N",
+        "ARB_NO_DETECT_IF_SCL_SHORT"
+      ]
+    },
+    {
+      "id": "s13_mon",
+      "selection": "S13",
+      "top": "tb_mon",
+      "sources": [
+        "src/pvm_presc.v",
+        "src/pvm_mon.v",
+        "tb_rtl/tb_mon.v"
+      ],
+      "checks": 24,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: FIRST_MATCH_PRIORITY, ONE_FIRE_PER_CYCLE, EDGE_RISE_FALL_HIGH_LOW, GUARD_LT_GE, CHECK_MIN_PASS, CHECK_MIN_VIOL, CHECK_MIN_INC, CHECK_MAX_PASS, CHECK_MAX_VIOL, CHECK_MAX_INC, ARITHMETIC_17BIT, MEASURE_LOG_NO_COUNT, VIOLATE_PASS_ACTIONS, I2C_STRETCH_RULE_SET, TIMER_SATURATE_OVF, OVF_INCONCLUSIVE_RULE, LOG_RING_WRAP_4, LOG_TOTAL_SAT_63, COUNTER_SAT_FFFF, STOP_RETAINS_LOG, HALT_CLEARS, PRESC_16_TIMEBASE, MON_EN_0_IDLE, SRC_FLAGS_FABRIC."
+    },
+    {
+      "id": "s13_mon_neg_min_off_by_one",
+      "selection": "S13",
+      "top": "tb_mon",
+      "sources": [
+        "src/pvm_presc.v",
+        "src/pvm_mon.v",
+        "tb_rtl/tb_mon.v"
+      ],
+      "checks": 24,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: FIRST_MATCH_PRIORITY, ONE_FIRE_PER_CYCLE, EDGE_RISE_FALL_HIGH_LOW, GUARD_LT_GE, CHECK_MIN_PASS, CHECK_MIN_VIOL, CHECK_MIN_INC, CHECK_MAX_PASS, CHECK_MAX_VIOL, CHECK_MAX_INC, ARITHMETIC_17BIT, MEASURE_LOG_NO_COUNT, VIOLATE_PASS_ACTIONS, I2C_STRETCH_RULE_SET, TIMER_SATURATE_OVF, OVF_INCONCLUSIVE_RULE, LOG_RING_WRAP_4, LOG_TOTAL_SAT_63, COUNTER_SAT_FFFF, STOP_RETAINS_LOG, HALT_CLEARS, PRESC_16_TIMEBASE, MON_EN_0_IDLE, SRC_FLAGS_FABRIC. D-018 O1b re-anchors the same CHECK_MIN_PASS equality mutation at t-M >= K; count and expected failure retained.",
+      "negative": true,
+      "variant_of": "s13_mon",
+      "mutant": {
+        "file": "src/pvm_mon.v",
+        "anchor": "t_minus_m[15:0] >= limit) ? PASS",
+        "replace": "t_minus_m[15:0] > limit) ? PASS"
+      },
+      "expect_fail_checks": [
+        "CHECK_MIN_PASS"
+      ]
+    },
+    {
+      "id": "s13_mon_neg_multiple_fires",
+      "selection": "S13",
+      "top": "tb_mon",
+      "sources": [
+        "src/pvm_presc.v",
+        "src/pvm_mon.v",
+        "tb_rtl/tb_mon.v"
+      ],
+      "checks": 24,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: FIRST_MATCH_PRIORITY, ONE_FIRE_PER_CYCLE, EDGE_RISE_FALL_HIGH_LOW, GUARD_LT_GE, CHECK_MIN_PASS, CHECK_MIN_VIOL, CHECK_MIN_INC, CHECK_MAX_PASS, CHECK_MAX_VIOL, CHECK_MAX_INC, ARITHMETIC_17BIT, MEASURE_LOG_NO_COUNT, VIOLATE_PASS_ACTIONS, I2C_STRETCH_RULE_SET, TIMER_SATURATE_OVF, OVF_INCONCLUSIVE_RULE, LOG_RING_WRAP_4, LOG_TOTAL_SAT_63, COUNTER_SAT_FFFF, STOP_RETAINS_LOG, HALT_CLEARS, PRESC_16_TIMEBASE, MON_EN_0_IDLE, SRC_FLAGS_FABRIC.",
+      "negative": true,
+      "variant_of": "s13_mon",
+      "mutant": {
+        "file": "src/pvm_mon.v",
+        "anchor": "assign selected[e] = matching_rules[e] && !(|matching_rules[e-1:0]);",
+        "replace": "assign selected[e] = matching_rules[e];"
+      },
+      "expect_fail_checks": [
+        "FIRST_MATCH_PRIORITY",
+        "ONE_FIRE_PER_CYCLE"
+      ]
+    },
+    {
+      "id": "s13_mon_neg_timer_wrap",
+      "selection": "S13",
+      "top": "tb_mon",
+      "sources": [
+        "src/pvm_presc.v",
+        "src/pvm_mon.v",
+        "tb_rtl/tb_mon.v"
+      ],
+      "checks": 24,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). Checks: FIRST_MATCH_PRIORITY, ONE_FIRE_PER_CYCLE, EDGE_RISE_FALL_HIGH_LOW, GUARD_LT_GE, CHECK_MIN_PASS, CHECK_MIN_VIOL, CHECK_MIN_INC, CHECK_MAX_PASS, CHECK_MAX_VIOL, CHECK_MAX_INC, ARITHMETIC_17BIT, MEASURE_LOG_NO_COUNT, VIOLATE_PASS_ACTIONS, I2C_STRETCH_RULE_SET, TIMER_SATURATE_OVF, OVF_INCONCLUSIVE_RULE, LOG_RING_WRAP_4, LOG_TOTAL_SAT_63, COUNTER_SAT_FFFF, STOP_RETAINS_LOG, HALT_CLEARS, PRESC_16_TIMEBASE, MON_EN_0_IDLE, SRC_FLAGS_FABRIC.",
+      "negative": true,
+      "variant_of": "s13_mon",
+      "mutant": {
+        "file": "src/pvm_mon.v",
+        "anchor": "if (t == 16'hffff)",
+        "replace": "if (1'b0)"
+      },
+      "expect_fail_checks": [
+        "TIMER_SATURATE_OVF",
+        "OVF_INCONCLUSIVE_RULE"
+      ]
+    },
+    {
+      "id": "s13_mon_non_intrusion",
+      "selection": "S13",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [
+        "PVM_MON_NON_INTRUSION"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). NON_INTRUSION compares 2000 cycles using identical UART images with MON_EN=0/1."
+    },
+    {
+      "id": "s13_mon_non_intrusion_neg",
+      "selection": "S13",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [
+        "PVM_MON_NON_INTRUSION"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). NON_INTRUSION compares 2000 cycles using identical UART images with MON_EN=0/1.",
+      "negative": true,
+      "variant_of": "s13_mon_non_intrusion",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": ".run(engine_running), .enable_pulse(enable_pulse),\n        .clkdiv",
+        "replace": ".run(engine_running && !mon_en), .enable_pulse(enable_pulse),\n        .clkdiv"
+      },
+      "expect_fail_checks": [
+        "NON_INTRUSION"
+      ]
+    },
+    {
+      "id": "s14_top_full",
+      "selection": "S14",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates."
+    },
+    {
+      "id": "s14_top_full_neg",
+      "selection": "S14",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates.",
+      "negative": true,
+      "variant_of": "s14_top_full",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": "        .eng_fault_req(eng_fault_req),\n        .eng_fault_code(eng_fault_code),",
+        "replace": "        .eng_fault_req(1'b0),\n        .eng_fault_code(eng_fault_code),"
+      },
+      "expect_fail_checks": [
+        "FAULT_THEN_RECOVER"
+      ]
+    },
+    {
+      "id": "s14_top_engine_only",
+      "selection": "S14",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [
+        "PVM_NO_FABRIC",
+        "PVM_NO_MON"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates."
+    },
+    {
+      "id": "s14_top_engine_only_neg",
+      "selection": "S14",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [
+        "PVM_NO_FABRIC",
+        "PVM_NO_MON"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates.",
+      "negative": true,
+      "variant_of": "s14_top_engine_only",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": "        .eng_fault_req(eng_fault_req),\n        .eng_fault_code(eng_fault_code),",
+        "replace": "        .eng_fault_req(1'b0),\n        .eng_fault_code(eng_fault_code),"
+      },
+      "expect_fail_checks": [
+        "FAULT_THEN_RECOVER"
+      ]
+    },
+    {
+      "id": "s14_top_fabric",
+      "selection": "S14",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [
+        "PVM_NO_MON"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates."
+    },
+    {
+      "id": "s14_top_fabric_neg",
+      "selection": "S14",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [
+        "PVM_NO_MON"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates.",
+      "negative": true,
+      "variant_of": "s14_top_fabric",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": "        .eng_fault_req(eng_fault_req),\n        .eng_fault_code(eng_fault_code),",
+        "replace": "        .eng_fault_req(1'b0),\n        .eng_fault_code(eng_fault_code),"
+      },
+      "expect_fail_checks": [
+        "FAULT_THEN_RECOVER"
+      ]
+    },
+    {
+      "id": "s14_top_monitor",
+      "selection": "S14",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [
+        "PVM_NO_FABRIC"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates."
+    },
+    {
+      "id": "s14_top_monitor_neg",
+      "selection": "S14",
+      "top": "tb_top",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_top.v"
+      ],
+      "defines": [
+        "PVM_NO_FABRIC"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-20 before first run. TB-model-checked (ISS pending). IMAGE_SWAP_UART_TO_SPI, FAULT_THEN_RECOVER, DESELECT_RESET_RELOAD. FULL_REGRESSION and LINT_CLEAN are external gates.",
+      "negative": true,
+      "variant_of": "s14_top_monitor",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": "        .eng_fault_req(eng_fault_req),\n        .eng_fault_code(eng_fault_code),",
+        "replace": "        .eng_fault_req(1'b0),\n        .eng_fault_code(eng_fault_code),"
+      },
+      "expect_fail_checks": [
+        "FAULT_THEN_RECOVER"
+      ]
+    },
+    {
+      "id": "s14b_uart",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_UART"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). UART_TX_0X35_115200. UART P5 on every 434-clock bit cell."
+    },
+    {
+      "id": "s14b_uart_neg",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_UART"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). UART_TX_0X35_115200. UART P5 on every 434-clock bit cell.",
+      "negative": true,
+      "variant_of": "s14b_uart",
+      "mutant": {
+        "file": "src/pvm_tick.v",
+        "anchor": "elapsed_q == div - 16'd1",
+        "replace": "elapsed_q == div"
+      },
+      "expect_fail_checks": [
+        "UART_TX_0X35_115200"
+      ]
+    },
+    {
+      "id": "s14b_spi",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_SPI"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). SPI_MODE0_TWO_BYTES. Two MSB-first bytes with exact SCK high and low widths."
+    },
+    {
+      "id": "s14b_spi_neg",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_SPI"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). SPI_MODE0_TWO_BYTES. Two MSB-first bytes with exact SCK high and low widths.",
+      "negative": true,
+      "variant_of": "s14b_spi",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": ".out_shr(shiftctrl[0])",
+        "replace": ".out_shr(!shiftctrl[0])"
+      },
+      "expect_fail_checks": [
+        "SPI_MODE0_TWO_BYTES"
+      ]
+    },
+    {
+      "id": "s14b_i2c",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_I2C"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). I2C_WRITE_OPEN_DRAIN_ACK_STRETCH. Address 0x50, one byte, both ACKs and external SCL stretch through open-drain pins."
+    },
+    {
+      "id": "s14b_i2c_neg",
+      "selection": "S14b_protocols",
+      "top": "tb_protocols",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_protocols.v"
+      ],
+      "defines": [
+        "PVM_PROTOCOL_I2C"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. TB-model-checked (ISS pending). I2C_WRITE_OPEN_DRAIN_ACK_STRETCH. Address 0x50, one byte, both ACKs and external SCL stretch through open-drain pins.",
+      "negative": true,
+      "variant_of": "s14b_i2c",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "waiting = !illegal && (pin_in[word[4:0]] != word[7]);",
+        "replace": "waiting = !illegal && word[4:0] != 5'd13 && (pin_in[word[4:0]] != word[7]);"
+      },
+      "expect_fail_checks": [
+        "I2C_WRITE_OPEN_DRAIN_ACK_STRETCH"
+      ]
+    },
+    {
+      "id": "d017_reset_sync",
+      "selection": "D017",
+      "top": "tb_reset_sync",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_reset_sync.v"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-21 before first run. RESET_ASYNC_ASSERT, RESET_TWO_EDGE_RELEASE and RESET_PULSE_REACHES_CORE exercise the top-level reset net and synchronous consumers."
+    },
+    {
+      "id": "d017_reset_sync_neg_one_edge",
+      "selection": "D017",
+      "top": "tb_reset_sync",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_reset_sync.v"
+      ],
+      "checks": 3,
+      "checks_basis": "Frozen 2026-11-21 before first run. Use the first synchronizer stage to introduce early reset release.",
+      "negative": true,
+      "variant_of": "d017_reset_sync",
+      "mutant": {
+        "file": "src/pvm_top.v",
+        "anchor": "wire core_rst_n = reset_release[1];",
+        "replace": "wire core_rst_n = reset_release[0];"
+      },
+      "expect_fail_checks": [
+        "RESET_TWO_EDGE_RELEASE"
+      ]
+    },
+    {
+      "id": "s13_mon_neg_o2_no_history",
+      "selection": "D018",
+      "top": "tb_mon",
+      "sources": [
+        "src/pvm_presc.v",
+        "src/pvm_mon.v",
+        "tb_rtl/tb_mon.v"
+      ],
+      "checks": 24,
+      "checks_basis": "Frozen 2026-11-21 before first run. Holding the edge history low affects both generic edge detection and the I2C stretch rules. Expected checks from the supplied O2 scratch probe.",
+      "negative": true,
+      "variant_of": "s13_mon",
+      "mutant": {
+        "file": "src/pvm_mon.v",
+        "anchor": "else prev_high <= now_high;",
+        "replace": "else prev_high <= 1'b0;"
+      },
+      "expect_fail_checks": [
+        "EDGE_RISE_FALL_HIGH_LOW",
+        "I2C_STRETCH_RULE_SET"
+      ]
+    },
+    {
+      "id": "s10_engine_b_neg_o4_left_shift",
+      "selection": "D018",
+      "top": "tb_engine_b",
+      "sources": [
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_engine.v",
+        "tb_rtl/tb_engine_b.v",
+        "tb_rtl/pvm_trace.v"
+      ],
+      "checks": 40,
+      "checks_basis": "Frozen 2026-11-21 before first run. Bypassing the shared shifter input reversal affects left shifts and their explicit and automatic ISR pushes. Expected checks from the supplied O4 scratch probe.",
+      "negative": true,
+      "variant_of": "s10_engine_b",
+      "mutant": {
+        "file": "src/pvm_engine.v",
+        "anchor": "wire [15:0] a_pre = a_right ? a_src : rev16(a_src);",
+        "replace": "wire [15:0] a_pre = a_src;"
+      },
+      "expect_fail_checks": [
+        "OUT_SHL_MSB_FIRST",
+        "IN_SHL",
+        "PUSH_IFFULL",
+        "AUTOPUSH_THRESH_8"
+      ]
+    },
+    {
+      "id": "mon_timestamp_pause",
+      "selection": "D021",
+      "top": "tb_mon_timestamp_pause",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_mon_timestamp_pause.v"
+      ],
+      "checks": 6,
+      "checks_basis": "Frozen before the first run on 2026-11-21: TIMESTAMP_MON_DISABLED, TIMESTAMP_RUN_PRESCALE, TIMESTAMP_HOLDS_DONE, TIMESTAMP_SURVIVES_HALT_RELOAD, TIMESTAMP_RESUMES, TIMESTAMP_CHIP_RESET."
+    },
+    {
+      "id": "mon_timestamp_pause_neg_clear_on_halt",
+      "selection": "D021",
+      "top": "tb_mon_timestamp_pause",
+      "sources": [
+        "src/project.v",
+        "src/pvm_top.v",
+        "src/pvm_sync2.v",
+        "src/pvm_edge.v",
+        "src/pvm_tick.v",
+        "src/pvm_presc.v",
+        "src/pvm_fifo.v",
+        "src/pvm_crc16.v",
+        "src/pvm_imem.v",
+        "src/pvm_spi_byte.v",
+        "src/pvm_hostif.v",
+        "src/pvm_cfg.v",
+        "src/pvm_engine.v",
+        "src/pvm_fabric.v",
+        "src/pvm_mon.v",
+        "src/pvm_pin_guard.v",
+        "tb_rtl/tb_mon_timestamp_pause.v"
+      ],
+      "checks": 6,
+      "checks_basis": "Same six frozen D-021 checks. Clear only the timestamp on HALT and expect the lifetime check to reject it.",
+      "negative": true,
+      "variant_of": "mon_timestamp_pause",
+      "mutant": {
+        "file": "src/pvm_mon.v",
+        "anchor": "if (!rst_n) begin\n            tstamp <= 16'd0;",
+        "replace": "if (!rst_n || halt_clr) begin\n            tstamp <= 16'd0;"
+      },
+      "expect_fail_checks": [
+        "TIMESTAMP_SURVIVES_HALT_RELOAD"
+      ]
+    },
+    {
+      "id": "arb_scl_fall",
+      "selection": "D001",
+      "top": "tb_arb_scl_fall",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_fabric.v",
+        "tb_rtl/tb_arb_scl_fall.v"
+      ],
+      "checks": 1,
+      "checks_basis": "Frozen 2026-11-21 before first run. ARB_NO_DETECT_ON_SCL_FALL checks that simultaneous SDA and SCL falls do not latch loss after four qualified SCL cycles with ARB_N=3. S12 retains the real-loss four-clock check."
+    },
+    {
+      "id": "arb_scl_fall_neg_stale_count",
+      "selection": "D001",
+      "top": "tb_arb_scl_fall",
+      "sources": [
+        "src/pvm_sync2.v",
+        "src/pvm_fabric.v",
+        "tb_rtl/tb_arb_scl_fall.v"
+      ],
+      "checks": 1,
+      "checks_basis": "Same frozen D-001 check. Removing the current SCL sample permits a false loss from the previous high count.",
+      "negative": true,
+      "variant_of": "arb_scl_fall",
+      "mutant": {
+        "file": "src/pvm_fabric.v",
+        "anchor": "wire arb_detect = run && arb_en && scl_high && scl_hi_cnt >= arb_n &&",
+        "replace": "wire arb_detect = run && arb_en && scl_hi_cnt >= arb_n &&"
+      },
+      "expect_fail_checks": [
+        "ARB_NO_DETECT_ON_SCL_FALL"
+      ]
+    }
+  ]
+}

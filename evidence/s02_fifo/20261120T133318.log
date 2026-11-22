@@ -1,0 +1,15 @@
+CONFIG: TOP=tb_fifo CHECKS=9
+SEED ace3
+[PASS] RESET_EMPTY
+[PASS] FULL_FLAG
+[PASS] OVF_DROP
+[PASS] ORDER_4
+[PASS] UNF
+[PASS] PUSHPOP_FULL
+[PASS] PUSHPOP_EMPTY
+[PASS] WRAP
+[PASS] CLR
+CHECKS : 9
+ERRORS : 0
+RESULT : PASS
+/workspace/work/pvm-protocol-emulator/tb_rtl/tb_fifo.v:150: $finish called at 1020000 (1ps)

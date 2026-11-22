@@ -1,0 +1,10 @@
+CONFIG: TOP=tb_crc16 CHECKS=5
+[PASS] VEC_EMPTY
+[PASS] VEC_123456789
+[PASS] VEC_00
+[PASS] EN_LOW_HOLD
+[FAIL] CLR_RESTART
+CHECKS : 5
+ERRORS : 1
+RESULT : FAIL
+/workspace/work/pvm-protocol-emulator/tb_rtl/tb_crc16.v:84: $finish called at 371000 (1ps)

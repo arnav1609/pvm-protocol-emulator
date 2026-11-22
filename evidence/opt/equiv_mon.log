@@ -1,0 +1,2546 @@
+D-018 pvm_mon at baseline 9d12d97c7b155bc0412ff56f31c8ec9f5737932c
+Yosys 0.52 (git sha1 fee39a3284c90249e1d9684cf6944ffbbcbb8f90)
+
+-- Running command `
+    read_verilog src/pvm_presc.v /tmp/tmp.B2URfYCGj8/gold.v
+    prep -flatten -top pvm_mon
+    rename pvm_mon gold
+    design -stash gold
+    read_verilog src/pvm_presc.v /tmp/tmp.B2URfYCGj8/gate.v
+    prep -flatten -top pvm_mon
+    rename pvm_mon gate
+    design -stash gate
+    design -copy-from gold -as gold gold
+    design -copy-from gate -as gate gate
+    equiv_make -blacklist tb_rtl/area_opt/blacklist_mon_O1b.txt gold gate eq
+    hierarchy -top eq
+    equiv_simple -seq 4
+    equiv_induct -seq 4
+    equiv_status -assert
+' --
+
+1. Executing Verilog-2005 frontend: src/pvm_presc.v
+Parsing Verilog input from `src/pvm_presc.v' to AST representation.
+Generating RTLIL representation for module `\pvm_presc'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: /tmp/tmp.B2URfYCGj8/gold.v
+Parsing Verilog input from `/tmp/tmp.B2URfYCGj8/gold.v' to AST representation.
+Generating RTLIL representation for module `\pvm_mon'.
+Successfully finished Verilog frontend.
+
+3. Executing PREP pass.
+
+3.1. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1.1. Analyzing design hierarchy..
+Top module:  \pvm_mon
+Used module:     \pvm_presc
+
+3.1.2. Analyzing design hierarchy..
+Top module:  \pvm_mon
+Used module:     \pvm_presc
+Removed 0 unused modules.
+
+3.2. Executing PROC pass (convert processes to netlists).
+
+3.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 16 dead cases from process $proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360 in module pvm_mon.
+Marked 16 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gold.v:123$355 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gold.v:123$350 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gold.v:123$345 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gold.v:123$340 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99 in module pvm_mon.
+Marked 4 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88 in module pvm_mon.
+Marked 9 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$src/pvm_presc.v:30$9 in module pvm_presc.
+Removed 1 dead cases from process $proc$src/pvm_presc.v:18$1 in module pvm_presc.
+Marked 1 switch rules as full_case in process $proc$src/pvm_presc.v:18$1 in module pvm_presc.
+Removed a total of 17 dead cases.
+
+3.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 2 redundant assignments.
+Promoted 81 assignments to connections.
+
+3.2.4. Executing PROC_INIT pass (extract init attributes).
+
+3.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~49 debug messages>
+
+3.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+     1/16: $1$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$31_DATA[1:0]$476
+     2/16: $1$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$30_DATA[1:0]$475
+     3/16: $1$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$29_DATA[1:0]$474
+     4/16: $1$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$28_DATA[1:0]$473
+     5/16: $1$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$27_DATA[1:0]$472
+     6/16: $1$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$26_DATA[1:0]$471
+     7/16: $1$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$25_DATA[1:0]$470
+     8/16: $1$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$24_DATA[1:0]$469
+     9/16: $1$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$23_DATA[1:0]$468
+    10/16: $1$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$22_DATA[1:0]$467
+    11/16: $1$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$21_DATA[1:0]$466
+    12/16: $1$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$20_DATA[1:0]$465
+    13/16: $1$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$19_DATA[1:0]$464
+    14/16: $1$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$18_DATA[1:0]$463
+    15/16: $1$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$17_DATA[1:0]$462
+    16/16: $1$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$16_DATA[1:0]$461
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$355'.
+     1/1: $0\log_slots[3].entry_q[39:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$350'.
+     1/1: $0\log_slots[2].entry_q[39:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$345'.
+     1/1: $0\log_slots[1].entry_q[39:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$340'.
+     1/1: $0\log_slots[0].entry_q[39:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99'.
+     1/5: $0\log_total[5:0]
+     2/5: $0\log_wptr[1:0]
+     3/5: $0\cnt_inc[15:0]
+     4/5: $0\cnt_viol[15:0]
+     5/5: $0\cnt_pass[15:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+     1/5: $0\src_prev[31:0]
+     2/5: $0\tstamp[15:0]
+     3/5: $0\t[15:0]
+     4/5: $0\ovf[0:0]
+     5/5: $0\mon_state[2:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+     1/41: $1\verdict[1:0]
+     2/41: $8\verdict_max[1:0]
+     3/41: $8\verdict_min[1:0]
+     4/41: $8\action[2:0]
+     5/41: $8\target[2:0]
+     6/41: $8\rule[2:0]
+     7/41: $7\verdict_max[1:0]
+     8/41: $7\verdict_min[1:0]
+     9/41: $7\action[2:0]
+    10/41: $7\target[2:0]
+    11/41: $7\rule[2:0]
+    12/41: $6\verdict_max[1:0]
+    13/41: $6\verdict_min[1:0]
+    14/41: $6\action[2:0]
+    15/41: $6\target[2:0]
+    16/41: $6\rule[2:0]
+    17/41: $5\verdict_max[1:0]
+    18/41: $5\verdict_min[1:0]
+    19/41: $5\action[2:0]
+    20/41: $5\target[2:0]
+    21/41: $5\rule[2:0]
+    22/41: $4\verdict_max[1:0]
+    23/41: $4\verdict_min[1:0]
+    24/41: $4\action[2:0]
+    25/41: $4\target[2:0]
+    26/41: $4\rule[2:0]
+    27/41: $3\verdict_max[1:0]
+    28/41: $3\verdict_min[1:0]
+    29/41: $3\action[2:0]
+    30/41: $3\target[2:0]
+    31/41: $3\rule[2:0]
+    32/41: $2\verdict_max[1:0]
+    33/41: $2\verdict_min[1:0]
+    34/41: $2\action[2:0]
+    35/41: $2\target[2:0]
+    36/41: $2\rule[2:0]
+    37/41: $1\verdict_max[1:0]
+    38/41: $1\verdict_min[1:0]
+    39/41: $1\action[2:0]
+    40/41: $1\target[2:0]
+    41/41: $1\rule[2:0]
+Creating decoders for process `\pvm_presc.$proc$src/pvm_presc.v:30$9'.
+     1/1: $0\elapsed_q[11:0]
+Creating decoders for process `\pvm_presc.$proc$src/pvm_presc.v:18$1'.
+     1/1: $1\last_cycle[0:0]
+
+3.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\pvm_mon.\min_verdict[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\min_verdict[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\min_verdict[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\min_verdict[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\max_verdict[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\max_verdict[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\max_verdict[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\max_verdict[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\targets[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\targets[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\targets[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\targets[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\targets[4]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\targets[5]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\targets[6]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\targets[7]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\actions[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\actions[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\actions[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\actions[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\actions[4]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\actions[5]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\actions[6]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\actions[7]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_min[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_min[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_min[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_min[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_min[4]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_min[5]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_min[6]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_min[7]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_max[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_max[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_max[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_max[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_max[4]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_max[5]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_max[6]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule_max[7]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$16_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$16_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$17_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$17_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$18_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$18_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$19_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$19_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$20_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$20_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$21_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$21_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$22_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$22_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$23_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$23_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$24_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$24_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$25_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$25_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$26_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$26_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$27_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$27_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$28_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$28_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$29_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$29_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$30_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\min_verdict$/tmp/tmp.B2URfYCGj8/gold.v:85$30_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$31_ADDR' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.$mem2reg_rd$\max_verdict$/tmp/tmp.B2URfYCGj8/gold.v:86$31_DATA' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+No latch inferred for signal `\pvm_mon.\rule' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+No latch inferred for signal `\pvm_mon.\target' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+No latch inferred for signal `\pvm_mon.\action' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+No latch inferred for signal `\pvm_mon.\verdict_min' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+No latch inferred for signal `\pvm_mon.\verdict_max' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+No latch inferred for signal `\pvm_mon.\verdict' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+No latch inferred for signal `\pvm_mon.\i' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+No latch inferred for signal `\pvm_presc.\last_cycle' from process `\pvm_presc.$proc$src/pvm_presc.v:18$1'.
+
+3.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\pvm_mon.\log_slots[3].entry_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$355'.
+  created $dff cell `$procdff$788' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_slots[2].entry_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$350'.
+  created $dff cell `$procdff$789' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_slots[1].entry_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$345'.
+  created $dff cell `$procdff$790' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_slots[0].entry_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$340'.
+  created $dff cell `$procdff$791' with positive edge clock.
+Creating register for signal `\pvm_mon.\cnt_pass' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99'.
+  created $dff cell `$procdff$792' with positive edge clock.
+Creating register for signal `\pvm_mon.\cnt_viol' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99'.
+  created $dff cell `$procdff$793' with positive edge clock.
+Creating register for signal `\pvm_mon.\cnt_inc' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99'.
+  created $dff cell `$procdff$794' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_wptr' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99'.
+  created $dff cell `$procdff$795' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_total' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99'.
+  created $dff cell `$procdff$796' with positive edge clock.
+Creating register for signal `\pvm_mon.\mon_state' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+  created $dff cell `$procdff$797' with positive edge clock.
+Creating register for signal `\pvm_mon.\active_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+  created $dff cell `$procdff$798' with positive edge clock.
+Creating register for signal `\pvm_mon.\ovf' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+  created $dff cell `$procdff$799' with positive edge clock.
+Creating register for signal `\pvm_mon.\t' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+  created $dff cell `$procdff$800' with positive edge clock.
+Creating register for signal `\pvm_mon.\tstamp' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+  created $dff cell `$procdff$801' with positive edge clock.
+Creating register for signal `\pvm_mon.\src_prev' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+  created $dff cell `$procdff$802' with positive edge clock.
+Creating register for signal `\pvm_presc.\elapsed_q' using process `\pvm_presc.$proc$src/pvm_presc.v:30$9'.
+  created $dff cell `$procdff$803' with positive edge clock.
+
+3.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 16 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:0$360'.
+Found and cleaned up 2 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$355'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$355'.
+Found and cleaned up 2 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$350'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$350'.
+Found and cleaned up 2 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$345'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$345'.
+Found and cleaned up 2 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$340'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:123$340'.
+Found and cleaned up 7 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:161$99'.
+Found and cleaned up 7 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:132$88'.
+Found and cleaned up 9 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gold.v:90$36'.
+Found and cleaned up 1 empty switch in `\pvm_presc.$proc$src/pvm_presc.v:30$9'.
+Removing empty process `pvm_presc.$proc$src/pvm_presc.v:30$9'.
+Found and cleaned up 1 empty switch in `\pvm_presc.$proc$src/pvm_presc.v:18$1'.
+Removing empty process `pvm_presc.$proc$src/pvm_presc.v:18$1'.
+Cleaned up 49 empty switches.
+
+3.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+<suppressed ~45 debug messages>
+Optimizing module pvm_presc.
+<suppressed ~1 debug messages>
+
+3.3. Executing FLATTEN pass (flatten design).
+Deleting now unused module pvm_presc.
+<suppressed ~1 debug messages>
+
+3.4. Executing FUTURE pass.
+
+3.5. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+3.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+Removed 5 unused cells and 378 unused wires.
+<suppressed ~6 debug messages>
+
+3.7. Executing CHECK pass (checking for obvious problems).
+Checking module pvm_mon...
+Found and reported 0 problems.
+
+3.8. Executing OPT pass (performing simple optimizations).
+
+3.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+3.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pvm_mon'.
+<suppressed ~189 debug messages>
+Removed a total of 63 cells.
+
+3.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pvm_mon..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~77 debug messages>
+
+3.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pvm_mon.
+Performed a total of 0 changes.
+
+3.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pvm_mon'.
+Removed a total of 0 cells.
+
+3.8.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+Removed 0 unused cells and 63 unused wires.
+<suppressed ~1 debug messages>
+
+3.8.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+3.8.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.8.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pvm_mon..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~77 debug messages>
+
+3.8.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pvm_mon.
+Performed a total of 0 changes.
+
+3.8.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pvm_mon'.
+Removed a total of 0 cells.
+
+3.8.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+
+3.8.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+3.8.14. Finished OPT passes. (There is nothing left to do.)
+
+3.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 3) from port B of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:115$81 ($ge).
+Removed top 2 bits (of 3) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:116$85 ($eq).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:139$90 ($add).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:156$98 ($add).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:169$102 ($add).
+Removed top 5 bits (of 6) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:171$105 ($add).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:173$108 ($add).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:174$111 ($add).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:175$114 ($add).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:55$115 ($add).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:55$115 ($add).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gold.v:56$116 ($sub).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gold.v:56$116 ($sub).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:55$118 ($add).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:55$118 ($add).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gold.v:56$119 ($sub).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gold.v:56$119 ($sub).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:55$121 ($add).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:55$121 ($add).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gold.v:56$122 ($sub).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gold.v:56$122 ($sub).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:55$124 ($add).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gold.v:55$124 ($add).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gold.v:56$125 ($sub).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gold.v:56$125 ($sub).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:77$138 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:77$162 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:77$189 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:77$216 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:77$243 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:77$270 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:77$297 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:77$324 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gold.v:126$348 ($eq).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:60$394 ($ge).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$lt$/tmp/tmp.B2URfYCGj8/gold.v:61$396 ($lt).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:61$398 ($mux).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:63$401 ($ge).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$le$/tmp/tmp.B2URfYCGj8/gold.v:64$404 ($le).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$gt$/tmp/tmp.B2URfYCGj8/gold.v:65$406 ($gt).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:65$407 ($mux).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:60$411 ($ge).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$lt$/tmp/tmp.B2URfYCGj8/gold.v:61$413 ($lt).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:61$415 ($mux).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:63$418 ($ge).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$le$/tmp/tmp.B2URfYCGj8/gold.v:64$421 ($le).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$gt$/tmp/tmp.B2URfYCGj8/gold.v:65$423 ($gt).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:65$424 ($mux).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:60$428 ($ge).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$lt$/tmp/tmp.B2URfYCGj8/gold.v:61$430 ($lt).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:61$432 ($mux).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:63$435 ($ge).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$le$/tmp/tmp.B2URfYCGj8/gold.v:64$438 ($le).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$gt$/tmp/tmp.B2URfYCGj8/gold.v:65$440 ($gt).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:65$441 ($mux).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:60$445 ($ge).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$lt$/tmp/tmp.B2URfYCGj8/gold.v:61$447 ($lt).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:61$449 ($mux).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gold.v:63$452 ($ge).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$le$/tmp/tmp.B2URfYCGj8/gold.v:64$455 ($le).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$gt$/tmp/tmp.B2URfYCGj8/gold.v:65$457 ($gt).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:65$458 ($mux).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$480_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$490_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$500_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$510_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$520_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$530_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$540_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$550_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$613_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell pvm_mon.$procmux$658_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell pvm_mon.$procmux$659_CMP0 ($eq).
+Removed top 1 bits (of 3) from mux cell pvm_mon.$procmux$733 ($mux).
+Removed top 1 bits (of 3) from mux cell pvm_mon.$procmux$748 ($mux).
+Removed top 2 bits (of 3) from mux cell pvm_mon.$procmux$763 ($mux).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$flatten\timebase.$procmux$786_CMP0 ($eq).
+Removed top 11 bits (of 12) from port B of cell pvm_mon.$flatten\timebase.$add$src/pvm_presc.v:34$14 ($add).
+Removed top 2 bits (of 3) from wire pvm_mon.$2\rule[2:0].
+Removed top 1 bits (of 3) from wire pvm_mon.$3\rule[2:0].
+Removed top 1 bits (of 3) from wire pvm_mon.$4\rule[2:0].
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:61$398_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:61$415_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:61$432_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:61$449_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:65$407_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:65$424_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:65$441_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gold.v:65$458_Y.
+
+3.10. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+Removed 0 unused cells and 11 unused wires.
+<suppressed ~1 debug messages>
+
+3.11. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+3.12. Executing OPT pass (performing simple optimizations).
+
+3.12.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+3.12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pvm_mon'.
+Removed a total of 0 cells.
+
+3.12.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+
+3.12.4. Finished fast OPT passes.
+
+3.13. Printing statistics.
+
+=== pvm_mon ===
+
+   Number of wires:                562
+   Number of wire bits:           2804
+   Number of public wires:         168
+   Number of public wire bits:    1565
+   Number of ports:                 21
+   Number of port bits:            530
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                508
+     $add                           12
+     $dff                           16
+     $eq                            63
+     $ge                             9
+     $gt                             4
+     $le                             5
+     $logic_and                     95
+     $logic_not                     59
+     $logic_or                      22
+     $lt                             8
+     $mux                          126
+     $or                            28
+     $pmux                          18
+     $reduce_and                     7
+     $reduce_or                      7
+     $scopeinfo                      1
+     $shiftx                        24
+     $sub                            4
+
+3.14. Executing CHECK pass (checking for obvious problems).
+Checking module pvm_mon...
+Found and reported 0 problems.
+Renaming module \pvm_mon to \gold.
+
+4. Executing Verilog-2005 frontend: src/pvm_presc.v
+Parsing Verilog input from `src/pvm_presc.v' to AST representation.
+Generating RTLIL representation for module `\pvm_presc'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: /tmp/tmp.B2URfYCGj8/gate.v
+Parsing Verilog input from `/tmp/tmp.B2URfYCGj8/gate.v' to AST representation.
+Generating RTLIL representation for module `\pvm_mon'.
+Successfully finished Verilog frontend.
+
+6. Executing PREP pass.
+
+6.1. Executing HIERARCHY pass (managing design hierarchy).
+
+6.1.1. Analyzing design hierarchy..
+Top module:  \pvm_mon
+Used module:     \pvm_presc
+
+6.1.2. Analyzing design hierarchy..
+Top module:  \pvm_mon
+Used module:     \pvm_presc
+Removed 0 unused modules.
+
+6.2. Executing PROC pass (convert processes to netlists).
+
+6.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+6.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1163 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1158 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1153 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1148 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915 in module pvm_mon.
+Marked 4 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904 in module pvm_mon.
+Marked 9 switch rules as full_case in process $proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837 in module pvm_mon.
+Marked 1 switch rules as full_case in process $proc$src/pvm_presc.v:30$824 in module pvm_presc.
+Removed 1 dead cases from process $proc$src/pvm_presc.v:18$816 in module pvm_presc.
+Marked 1 switch rules as full_case in process $proc$src/pvm_presc.v:18$816 in module pvm_presc.
+Removed a total of 1 dead cases.
+
+6.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 2 redundant assignments.
+Promoted 35 assignments to connections.
+
+6.2.4. Executing PROC_INIT pass (extract init attributes).
+
+6.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+6.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~33 debug messages>
+
+6.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1163'.
+     1/1: $0\log_slots[3].entry_q[39:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1158'.
+     1/1: $0\log_slots[2].entry_q[39:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1153'.
+     1/1: $0\log_slots[1].entry_q[39:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1148'.
+     1/1: $0\log_slots[0].entry_q[39:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915'.
+     1/5: $0\log_total[5:0]
+     2/5: $0\log_wptr[1:0]
+     3/5: $0\cnt_inc[15:0]
+     4/5: $0\cnt_viol[15:0]
+     5/5: $0\cnt_pass[15:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+     1/5: $0\src_prev[31:0]
+     2/5: $0\tstamp[15:0]
+     3/5: $0\t[15:0]
+     4/5: $0\ovf[0:0]
+     5/5: $0\mon_state[2:0]
+Creating decoders for process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+     1/33: $1\verdict[1:0]
+     2/33: $8\sel_k[1:0]
+     3/33: $8\action[2:0]
+     4/33: $8\target[2:0]
+     5/33: $8\rule[2:0]
+     6/33: $7\sel_k[1:0]
+     7/33: $7\action[2:0]
+     8/33: $7\target[2:0]
+     9/33: $7\rule[2:0]
+    10/33: $6\sel_k[1:0]
+    11/33: $6\action[2:0]
+    12/33: $6\target[2:0]
+    13/33: $6\rule[2:0]
+    14/33: $5\sel_k[1:0]
+    15/33: $5\action[2:0]
+    16/33: $5\target[2:0]
+    17/33: $5\rule[2:0]
+    18/33: $4\sel_k[1:0]
+    19/33: $4\action[2:0]
+    20/33: $4\target[2:0]
+    21/33: $4\rule[2:0]
+    22/33: $3\sel_k[1:0]
+    23/33: $3\action[2:0]
+    24/33: $3\target[2:0]
+    25/33: $3\rule[2:0]
+    26/33: $2\sel_k[1:0]
+    27/33: $2\action[2:0]
+    28/33: $2\target[2:0]
+    29/33: $2\rule[2:0]
+    30/33: $1\sel_k[1:0]
+    31/33: $1\action[2:0]
+    32/33: $1\target[2:0]
+    33/33: $1\rule[2:0]
+Creating decoders for process `\pvm_presc.$proc$src/pvm_presc.v:30$824'.
+     1/1: $0\elapsed_q[11:0]
+Creating decoders for process `\pvm_presc.$proc$src/pvm_presc.v:18$816'.
+     1/1: $1\last_cycle[0:0]
+
+6.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\pvm_mon.\targets[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\targets[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\targets[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\targets[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\targets[4]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\targets[5]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\targets[6]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\targets[7]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\actions[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\actions[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\actions[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\actions[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\actions[4]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\actions[5]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\actions[6]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\actions[7]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule_k[0]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule_k[1]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule_k[2]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule_k[3]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule_k[4]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule_k[5]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule_k[6]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule_k[7]' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+No latch inferred for signal `\pvm_mon.\rule' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_mon.\target' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_mon.\action' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_mon.\verdict_min' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_mon.\verdict_max' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_mon.\verdict' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_mon.\i' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_mon.\sel_k' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_mon.\limit' from process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+No latch inferred for signal `\pvm_presc.\last_cycle' from process `\pvm_presc.$proc$src/pvm_presc.v:18$816'.
+
+6.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\pvm_mon.\log_slots[3].entry_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1163'.
+  created $dff cell `$procdff$1376' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_slots[2].entry_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1158'.
+  created $dff cell `$procdff$1377' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_slots[1].entry_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1153'.
+  created $dff cell `$procdff$1378' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_slots[0].entry_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1148'.
+  created $dff cell `$procdff$1379' with positive edge clock.
+Creating register for signal `\pvm_mon.\cnt_pass' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915'.
+  created $dff cell `$procdff$1380' with positive edge clock.
+Creating register for signal `\pvm_mon.\cnt_viol' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915'.
+  created $dff cell `$procdff$1381' with positive edge clock.
+Creating register for signal `\pvm_mon.\cnt_inc' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915'.
+  created $dff cell `$procdff$1382' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_wptr' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915'.
+  created $dff cell `$procdff$1383' with positive edge clock.
+Creating register for signal `\pvm_mon.\log_total' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915'.
+  created $dff cell `$procdff$1384' with positive edge clock.
+Creating register for signal `\pvm_mon.\mon_state' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+  created $dff cell `$procdff$1385' with positive edge clock.
+Creating register for signal `\pvm_mon.\active_q' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+  created $dff cell `$procdff$1386' with positive edge clock.
+Creating register for signal `\pvm_mon.\ovf' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+  created $dff cell `$procdff$1387' with positive edge clock.
+Creating register for signal `\pvm_mon.\t' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+  created $dff cell `$procdff$1388' with positive edge clock.
+Creating register for signal `\pvm_mon.\tstamp' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+  created $dff cell `$procdff$1389' with positive edge clock.
+Creating register for signal `\pvm_mon.\src_prev' using process `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+  created $dff cell `$procdff$1390' with positive edge clock.
+Creating register for signal `\pvm_presc.\elapsed_q' using process `\pvm_presc.$proc$src/pvm_presc.v:30$824'.
+  created $dff cell `$procdff$1391' with positive edge clock.
+
+6.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+6.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:0$1168'.
+Found and cleaned up 2 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1163'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1163'.
+Found and cleaned up 2 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1158'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1158'.
+Found and cleaned up 2 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1153'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1153'.
+Found and cleaned up 2 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1148'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:118$1148'.
+Found and cleaned up 7 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:156$915'.
+Found and cleaned up 7 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:127$904'.
+Found and cleaned up 9 empty switches in `\pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+Removing empty process `pvm_mon.$proc$/tmp/tmp.B2URfYCGj8/gate.v:78$837'.
+Found and cleaned up 1 empty switch in `\pvm_presc.$proc$src/pvm_presc.v:30$824'.
+Removing empty process `pvm_presc.$proc$src/pvm_presc.v:30$824'.
+Found and cleaned up 1 empty switch in `\pvm_presc.$proc$src/pvm_presc.v:18$816'.
+Removing empty process `pvm_presc.$proc$src/pvm_presc.v:18$816'.
+Cleaned up 33 empty switches.
+
+6.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+<suppressed ~28 debug messages>
+Optimizing module pvm_presc.
+<suppressed ~1 debug messages>
+
+6.3. Executing FLATTEN pass (flatten design).
+Deleting now unused module pvm_presc.
+<suppressed ~1 debug messages>
+
+6.4. Executing FUTURE pass.
+
+6.5. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+6.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+Removed 5 unused cells and 239 unused wires.
+<suppressed ~6 debug messages>
+
+6.7. Executing CHECK pass (checking for obvious problems).
+Checking module pvm_mon...
+Found and reported 0 problems.
+
+6.8. Executing OPT pass (performing simple optimizations).
+
+6.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+6.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pvm_mon'.
+<suppressed ~87 debug messages>
+Removed a total of 29 cells.
+
+6.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pvm_mon..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~49 debug messages>
+
+6.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pvm_mon.
+Performed a total of 0 changes.
+
+6.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pvm_mon'.
+Removed a total of 0 cells.
+
+6.8.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+Removed 0 unused cells and 29 unused wires.
+<suppressed ~1 debug messages>
+
+6.8.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+6.8.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.8.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \pvm_mon..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~49 debug messages>
+
+6.8.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \pvm_mon.
+Performed a total of 0 changes.
+
+6.8.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pvm_mon'.
+Removed a total of 0 cells.
+
+6.8.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+
+6.8.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+6.8.14. Finished OPT passes. (There is nothing left to do.)
+
+6.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:66$1024 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:66$1051 ($eq).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gate.v:41$835 ($sub).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$sub$/tmp/tmp.B2URfYCGj8/gate.v:41$835 ($sub).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:66$997 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:66$970 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:66$946 ($eq).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:170$930 ($add).
+Removed top 1 bits (of 17) from port A of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:40$834 ($add).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:40$834 ($add).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:169$927 ($add).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:168$924 ($add).
+Removed top 5 bits (of 6) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:166$921 ($add).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:164$918 ($add).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:151$914 ($add).
+Removed top 15 bits (of 16) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:134$906 ($add).
+Removed top 2 bits (of 3) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:111$901 ($eq).
+Removed top 1 bits (of 3) from port B of cell pvm_mon.$ge$/tmp/tmp.B2URfYCGj8/gate.v:110$897 ($ge).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gate.v:99$890 ($mux).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$le$/tmp/tmp.B2URfYCGj8/gate.v:98$886 ($le).
+Removed top 1 bits (of 2) from mux cell pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gate.v:96$880 ($mux).
+Removed top 1 bits (of 17) from port B of cell pvm_mon.$lt$/tmp/tmp.B2URfYCGj8/gate.v:96$879 ($lt).
+Removed top 31 bits (of 32) from port B of cell pvm_mon.$add$/tmp/tmp.B2URfYCGj8/gate.v:0$871 ($add).
+Removed top 27 bits (of 32) from port B of cell pvm_mon.$mul$/tmp/tmp.B2URfYCGj8/gate.v:93$870 ($mul).
+Removed top 25 bits (of 32) from port Y of cell pvm_mon.$mul$/tmp/tmp.B2URfYCGj8/gate.v:93$870 ($mul).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:66$1078 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:66$1105 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:66$1132 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$eq$/tmp/tmp.B2URfYCGj8/gate.v:121$1156 ($eq).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$procmux$1225_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell pvm_mon.$procmux$1270_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell pvm_mon.$procmux$1271_CMP0 ($eq).
+Removed top 1 bits (of 3) from mux cell pvm_mon.$procmux$1330 ($mux).
+Removed top 1 bits (of 3) from mux cell pvm_mon.$procmux$1342 ($mux).
+Removed top 2 bits (of 3) from mux cell pvm_mon.$procmux$1354 ($mux).
+Removed top 1 bits (of 2) from port B of cell pvm_mon.$flatten\timebase.$procmux$1374_CMP0 ($eq).
+Removed top 11 bits (of 12) from port B of cell pvm_mon.$flatten\timebase.$add$src/pvm_presc.v:34$829 ($add).
+Removed top 2 bits (of 3) from wire pvm_mon.$2\rule[2:0].
+Removed top 1 bits (of 3) from wire pvm_mon.$3\rule[2:0].
+Removed top 1 bits (of 3) from wire pvm_mon.$4\rule[2:0].
+Removed top 25 bits (of 32) from wire pvm_mon.$mul$/tmp/tmp.B2URfYCGj8/gate.v:93$870_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gate.v:96$880_Y.
+Removed top 1 bits (of 2) from wire pvm_mon.$ternary$/tmp/tmp.B2URfYCGj8/gate.v:99$890_Y.
+
+6.10. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+6.11. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+6.12. Executing OPT pass (performing simple optimizations).
+
+6.12.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module pvm_mon.
+
+6.12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\pvm_mon'.
+Removed a total of 0 cells.
+
+6.12.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \pvm_mon..
+
+6.12.4. Finished fast OPT passes.
+
+6.13. Printing statistics.
+
+=== pvm_mon ===
+
+   Number of wires:                450
+   Number of wire bits:           2523
+   Number of public wires:         140
+   Number of public wire bits:    1317
+   Number of ports:                 21
+   Number of port bits:            530
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                396
+     $add                           10
+     $dff                           16
+     $eq                            39
+     $ge                             3
+     $gt                             2
+     $le                             2
+     $logic_and                     83
+     $logic_not                     48
+     $logic_or                      22
+     $lt                             5
+     $mul                            1
+     $mux                          100
+     $not                            1
+     $or                            21
+     $pmux                           2
+     $reduce_and                     7
+     $reduce_or                      7
+     $scopeinfo                      1
+     $shiftx                        25
+     $sub                            1
+
+6.14. Executing CHECK pass (checking for obvious problems).
+Checking module pvm_mon...
+Found and reported 0 problems.
+Renaming module \pvm_mon to \gate.
+
+7. Executing EQUIV_MAKE pass (creating equiv checking module).
+Presumably equivalent wires: action_gold (\action_gold), action_gate (\action_gate) -> action
+Presumably equivalent wires: actions[0]_gold (\cfg_entries_gold [20:18]), actions[0]_gate (\cfg_entries_gate [20:18]) -> actions[0]
+Presumably equivalent wires: actions[1]_gold (\cfg_entries_gold [44:42]), actions[1]_gate (\cfg_entries_gate [44:42]) -> actions[1]
+Presumably equivalent wires: actions[2]_gold (\cfg_entries_gold [68:66]), actions[2]_gate (\cfg_entries_gate [68:66]) -> actions[2]
+Presumably equivalent wires: actions[3]_gold (\cfg_entries_gold [92:90]), actions[3]_gate (\cfg_entries_gate [92:90]) -> actions[3]
+Presumably equivalent wires: actions[4]_gold (\cfg_entries_gold [116:114]), actions[4]_gate (\cfg_entries_gate [116:114]) -> actions[4]
+Presumably equivalent wires: actions[5]_gold (\cfg_entries_gold [140:138]), actions[5]_gate (\cfg_entries_gate [140:138]) -> actions[5]
+Presumably equivalent wires: actions[6]_gold (\cfg_entries_gold [164:162]), actions[6]_gate (\cfg_entries_gate [164:162]) -> actions[6]
+Presumably equivalent wires: actions[7]_gold (\cfg_entries_gold [188:186]), actions[7]_gate (\cfg_entries_gate [188:186]) -> actions[7]
+Presumably equivalent wires: active_gold (\active_gold), active_gate (\active_gate) -> active
+Presumably equivalent wires: active_q_gold (\active_q_gold), active_q_gate (\active_q_gate) -> active_q
+Presumably equivalent wires: arb_lost_gold (\arb_lost_gold), arb_lost_gate (\arb_lost_gate) -> arb_lost
+Presumably equivalent wires: cfg_entries_gold (\cfg_entries_gold), cfg_entries_gate (\cfg_entries_gate) -> cfg_entries
+Presumably equivalent wires: cfg_k_gold (\cfg_k_gold), cfg_k_gate (\cfg_k_gate) -> cfg_k
+Presumably equivalent wires: cfg_m_gold (\cfg_m_gold), cfg_m_gate (\cfg_m_gate) -> cfg_m
+Presumably equivalent wires: clk_gold (\clk_gold), clk_gate (\clk_gate) -> clk
+Presumably equivalent wires: cnt_inc_gold (\cnt_inc_gold), cnt_inc_gate (\cnt_inc_gate) -> cnt_inc
+Presumably equivalent wires: cnt_pass_gold (\cnt_pass_gold), cnt_pass_gate (\cnt_pass_gate) -> cnt_pass
+Presumably equivalent wires: cnt_viol_gold (\cnt_viol_gold), cnt_viol_gate (\cnt_viol_gate) -> cnt_viol
+Presumably equivalent wires: fire_gold (\fire_gold), fire_gate (\fire_gate) -> fire
+Presumably equivalent wires: halt_clr_gold (\halt_clr_gold), halt_clr_gate (\halt_clr_gate) -> halt_clr
+Presumably equivalent wires: i_gold (8), i_gate (8) -> i
+Presumably equivalent wires: less_than_k_gold (\less_than_k_gold), less_than_k_gate (\less_than_k_gate) -> less_than_k
+Presumably equivalent wires: log_entry_gold ({ \tstamp_gold \t_gold 2'00 \ovf_gold \verdict_gold \rule_gold }), log_entry_gate ({ \tstamp_gate \t_gate 2'00 \ovf_gate \verdict_gate \rule_gate }) -> log_entry
+Presumably equivalent wires: log_event_gold (\log_event_gold), log_event_gate (\log_event_gate) -> log_event
+Presumably equivalent wires: log_flat_gold ({ \log_slots[3].entry_q_gold \log_slots[2].entry_q_gold \log_slots[1].entry_q_gold \log_slots[0].entry_q_gold }), log_flat_gate ({ \log_slots[3].entry_q_gate \log_slots[2].entry_q_gate \log_slots[1].entry_q_gate \log_slots[0].entry_q_gate }) -> log_flat
+Presumably equivalent wires: log_slots[0].entry_q_gold (\log_slots[0].entry_q_gold), log_slots[0].entry_q_gate (\log_slots[0].entry_q_gate) -> log_slots[0].entry_q
+Presumably equivalent wires: log_slots[1].entry_q_gold (\log_slots[1].entry_q_gold), log_slots[1].entry_q_gate (\log_slots[1].entry_q_gate) -> log_slots[1].entry_q
+Presumably equivalent wires: log_slots[2].entry_q_gold (\log_slots[2].entry_q_gold), log_slots[2].entry_q_gate (\log_slots[2].entry_q_gate) -> log_slots[2].entry_q
+Presumably equivalent wires: log_slots[3].entry_q_gold (\log_slots[3].entry_q_gold), log_slots[3].entry_q_gate (\log_slots[3].entry_q_gate) -> log_slots[3].entry_q
+Presumably equivalent wires: log_total_gold (\log_total_gold), log_total_gate (\log_total_gate) -> log_total
+Presumably equivalent wires: log_wptr_gold (\log_wptr_gold), log_wptr_gate (\log_wptr_gate) -> log_wptr
+Presumably equivalent wires: lut_out_gold (\lut_out_gold), lut_out_gate (\lut_out_gate) -> lut_out
+Presumably equivalent wires: matching_rules_gold (\matching_rules_gold), matching_rules_gate (\matching_rules_gate) -> matching_rules
+Presumably equivalent wires: men_gold (\men_gold), men_gate (\men_gate) -> men
+Presumably equivalent wires: mon_en_gold (\mon_en_gold), mon_en_gate (\mon_en_gate) -> mon_en
+Presumably equivalent wires: mon_state_gold (\mon_state_gold), mon_state_gate (\mon_state_gate) -> mon_state
+Presumably equivalent wires: ovf_gold (\ovf_gold), ovf_gate (\ovf_gate) -> ovf
+Presumably equivalent wires: pin_in_gold (\pin_in_gold), pin_in_gate (\pin_in_gate) -> pin_in
+Presumably equivalent wires: presc_gold (\presc_gold), presc_gate (\presc_gate) -> presc
+Presumably equivalent wires: reset_timer_gold (\reset_timer_gold), reset_timer_gate (\reset_timer_gate) -> reset_timer
+Presumably equivalent wires: rst_n_gold (\rst_n_gold), rst_n_gate (\rst_n_gate) -> rst_n
+Presumably equivalent wires: rule_gold (\rule_gold), rule_gate (\rule_gate) -> rule
+Presumably equivalent wires: rules[0].entry_gold (\cfg_entries_gold [23:0]), rules[0].entry_gate (\cfg_entries_gate [23:0]) -> rules[0].entry
+Presumably equivalent wires: rules[0].event_match_gold (\rules[0].event_match_gold), rules[0].event_match_gate (\rules[0].event_match_gate) -> rules[0].event_match
+Presumably equivalent wires: rules[0].guard_match_gold (\rules[0].guard_match_gold), rules[0].guard_match_gate (\rules[0].guard_match_gate) -> rules[0].guard_match
+Presumably equivalent wires: rules[0].k_idx_gold (\cfg_entries_gold [17:16]), rules[0].k_idx_gate (\cfg_entries_gate [17:16]) -> rules[0].k_idx
+Presumably equivalent wires: rules[0].now_high_gold (\rules[0].now_high_gold), rules[0].now_high_gate (\rules[0].now_high_gate) -> rules[0].now_high
+Presumably equivalent wires: rules[0].prev_high_gold (\rules[0].prev_high_gold), rules[0].prev_high_gate (\rules[0].prev_high_gate) -> rules[0].prev_high
+Presumably equivalent wires: rules[0].source_id_gold (\cfg_entries_gold [12:8]), rules[0].source_id_gate (\cfg_entries_gate [12:8]) -> rules[0].source_id
+Presumably equivalent wires: rules[1].entry_gold (\cfg_entries_gold [47:24]), rules[1].entry_gate (\cfg_entries_gate [47:24]) -> rules[1].entry
+Presumably equivalent wires: rules[1].event_match_gold (\rules[1].event_match_gold), rules[1].event_match_gate (\rules[1].event_match_gate) -> rules[1].event_match
+Presumably equivalent wires: rules[1].guard_match_gold (\rules[1].guard_match_gold), rules[1].guard_match_gate (\rules[1].guard_match_gate) -> rules[1].guard_match
+Presumably equivalent wires: rules[1].k_idx_gold (\cfg_entries_gold [41:40]), rules[1].k_idx_gate (\cfg_entries_gate [41:40]) -> rules[1].k_idx
+Presumably equivalent wires: rules[1].now_high_gold (\rules[1].now_high_gold), rules[1].now_high_gate (\rules[1].now_high_gate) -> rules[1].now_high
+Presumably equivalent wires: rules[1].prev_high_gold (\rules[1].prev_high_gold), rules[1].prev_high_gate (\rules[1].prev_high_gate) -> rules[1].prev_high
+Presumably equivalent wires: rules[1].source_id_gold (\cfg_entries_gold [36:32]), rules[1].source_id_gate (\cfg_entries_gate [36:32]) -> rules[1].source_id
+Presumably equivalent wires: rules[2].entry_gold (\cfg_entries_gold [71:48]), rules[2].entry_gate (\cfg_entries_gate [71:48]) -> rules[2].entry
+Presumably equivalent wires: rules[2].event_match_gold (\rules[2].event_match_gold), rules[2].event_match_gate (\rules[2].event_match_gate) -> rules[2].event_match
+Presumably equivalent wires: rules[2].guard_match_gold (\rules[2].guard_match_gold), rules[2].guard_match_gate (\rules[2].guard_match_gate) -> rules[2].guard_match
+Presumably equivalent wires: rules[2].k_idx_gold (\cfg_entries_gold [65:64]), rules[2].k_idx_gate (\cfg_entries_gate [65:64]) -> rules[2].k_idx
+Presumably equivalent wires: rules[2].now_high_gold (\rules[2].now_high_gold), rules[2].now_high_gate (\rules[2].now_high_gate) -> rules[2].now_high
+Presumably equivalent wires: rules[2].prev_high_gold (\rules[2].prev_high_gold), rules[2].prev_high_gate (\rules[2].prev_high_gate) -> rules[2].prev_high
+Presumably equivalent wires: rules[2].source_id_gold (\cfg_entries_gold [60:56]), rules[2].source_id_gate (\cfg_entries_gate [60:56]) -> rules[2].source_id
+Presumably equivalent wires: rules[3].entry_gold (\cfg_entries_gold [95:72]), rules[3].entry_gate (\cfg_entries_gate [95:72]) -> rules[3].entry
+Presumably equivalent wires: rules[3].event_match_gold (\rules[3].event_match_gold), rules[3].event_match_gate (\rules[3].event_match_gate) -> rules[3].event_match
+Presumably equivalent wires: rules[3].guard_match_gold (\rules[3].guard_match_gold), rules[3].guard_match_gate (\rules[3].guard_match_gate) -> rules[3].guard_match
+Presumably equivalent wires: rules[3].k_idx_gold (\cfg_entries_gold [89:88]), rules[3].k_idx_gate (\cfg_entries_gate [89:88]) -> rules[3].k_idx
+Presumably equivalent wires: rules[3].now_high_gold (\rules[3].now_high_gold), rules[3].now_high_gate (\rules[3].now_high_gate) -> rules[3].now_high
+Presumably equivalent wires: rules[3].prev_high_gold (\rules[3].prev_high_gold), rules[3].prev_high_gate (\rules[3].prev_high_gate) -> rules[3].prev_high
+Presumably equivalent wires: rules[3].source_id_gold (\cfg_entries_gold [84:80]), rules[3].source_id_gate (\cfg_entries_gate [84:80]) -> rules[3].source_id
+Presumably equivalent wires: rules[4].entry_gold (\cfg_entries_gold [119:96]), rules[4].entry_gate (\cfg_entries_gate [119:96]) -> rules[4].entry
+Presumably equivalent wires: rules[4].event_match_gold (\rules[4].event_match_gold), rules[4].event_match_gate (\rules[4].event_match_gate) -> rules[4].event_match
+Presumably equivalent wires: rules[4].guard_match_gold (\rules[4].guard_match_gold), rules[4].guard_match_gate (\rules[4].guard_match_gate) -> rules[4].guard_match
+Presumably equivalent wires: rules[4].k_idx_gold (\cfg_entries_gold [113:112]), rules[4].k_idx_gate (\cfg_entries_gate [113:112]) -> rules[4].k_idx
+Presumably equivalent wires: rules[4].now_high_gold (\rules[4].now_high_gold), rules[4].now_high_gate (\rules[4].now_high_gate) -> rules[4].now_high
+Presumably equivalent wires: rules[4].prev_high_gold (\rules[4].prev_high_gold), rules[4].prev_high_gate (\rules[4].prev_high_gate) -> rules[4].prev_high
+Presumably equivalent wires: rules[4].source_id_gold (\cfg_entries_gold [108:104]), rules[4].source_id_gate (\cfg_entries_gate [108:104]) -> rules[4].source_id
+Presumably equivalent wires: rules[5].entry_gold (\cfg_entries_gold [143:120]), rules[5].entry_gate (\cfg_entries_gate [143:120]) -> rules[5].entry
+Presumably equivalent wires: rules[5].event_match_gold (\rules[5].event_match_gold), rules[5].event_match_gate (\rules[5].event_match_gate) -> rules[5].event_match
+Presumably equivalent wires: rules[5].guard_match_gold (\rules[5].guard_match_gold), rules[5].guard_match_gate (\rules[5].guard_match_gate) -> rules[5].guard_match
+Presumably equivalent wires: rules[5].k_idx_gold (\cfg_entries_gold [137:136]), rules[5].k_idx_gate (\cfg_entries_gate [137:136]) -> rules[5].k_idx
+Presumably equivalent wires: rules[5].now_high_gold (\rules[5].now_high_gold), rules[5].now_high_gate (\rules[5].now_high_gate) -> rules[5].now_high
+Presumably equivalent wires: rules[5].prev_high_gold (\rules[5].prev_high_gold), rules[5].prev_high_gate (\rules[5].prev_high_gate) -> rules[5].prev_high
+Presumably equivalent wires: rules[5].source_id_gold (\cfg_entries_gold [132:128]), rules[5].source_id_gate (\cfg_entries_gate [132:128]) -> rules[5].source_id
+Presumably equivalent wires: rules[6].entry_gold (\cfg_entries_gold [167:144]), rules[6].entry_gate (\cfg_entries_gate [167:144]) -> rules[6].entry
+Presumably equivalent wires: rules[6].event_match_gold (\rules[6].event_match_gold), rules[6].event_match_gate (\rules[6].event_match_gate) -> rules[6].event_match
+Presumably equivalent wires: rules[6].guard_match_gold (\rules[6].guard_match_gold), rules[6].guard_match_gate (\rules[6].guard_match_gate) -> rules[6].guard_match
+Presumably equivalent wires: rules[6].k_idx_gold (\cfg_entries_gold [161:160]), rules[6].k_idx_gate (\cfg_entries_gate [161:160]) -> rules[6].k_idx
+Presumably equivalent wires: rules[6].now_high_gold (\rules[6].now_high_gold), rules[6].now_high_gate (\rules[6].now_high_gate) -> rules[6].now_high
+Presumably equivalent wires: rules[6].prev_high_gold (\rules[6].prev_high_gold), rules[6].prev_high_gate (\rules[6].prev_high_gate) -> rules[6].prev_high
+Presumably equivalent wires: rules[6].source_id_gold (\cfg_entries_gold [156:152]), rules[6].source_id_gate (\cfg_entries_gate [156:152]) -> rules[6].source_id
+Presumably equivalent wires: rules[7].entry_gold (\cfg_entries_gold [191:168]), rules[7].entry_gate (\cfg_entries_gate [191:168]) -> rules[7].entry
+Presumably equivalent wires: rules[7].event_match_gold (\rules[7].event_match_gold), rules[7].event_match_gate (\rules[7].event_match_gate) -> rules[7].event_match
+Presumably equivalent wires: rules[7].guard_match_gold (\rules[7].guard_match_gold), rules[7].guard_match_gate (\rules[7].guard_match_gate) -> rules[7].guard_match
+Presumably equivalent wires: rules[7].k_idx_gold (\cfg_entries_gold [185:184]), rules[7].k_idx_gate (\cfg_entries_gate [185:184]) -> rules[7].k_idx
+Presumably equivalent wires: rules[7].now_high_gold (\rules[7].now_high_gold), rules[7].now_high_gate (\rules[7].now_high_gate) -> rules[7].now_high
+Presumably equivalent wires: rules[7].prev_high_gold (\rules[7].prev_high_gold), rules[7].prev_high_gate (\rules[7].prev_high_gate) -> rules[7].prev_high
+Presumably equivalent wires: rules[7].source_id_gold (\cfg_entries_gold [180:176]), rules[7].source_id_gate (\cfg_entries_gate [180:176]) -> rules[7].source_id
+Presumably equivalent wires: run_gold (\run_gold), run_gate (\run_gate) -> run
+Presumably equivalent wires: selected_gold ({ \selected_gold [7:1] \matching_rules_gold [0] }), selected_gate ({ \selected_gate [7:1] \matching_rules_gate [0] }) -> selected
+Presumably equivalent wires: sources_gold ({ \user_flags_gold \underrun_gold \arb_lost_gold \lut_out_gold \pin_in_gold }), sources_gate ({ \user_flags_gate \underrun_gate \arb_lost_gate \lut_out_gate \pin_in_gate }) -> sources
+Presumably equivalent wires: src_prev_gold (\src_prev_gold), src_prev_gate (\src_prev_gate) -> src_prev
+Presumably equivalent wires: start_gold (\start_gold), start_gate (\start_gate) -> start
+Presumably equivalent wires: t_gold (\t_gold), t_gate (\t_gate) -> t
+Presumably equivalent wires: target_gold (\target_gold), target_gate (\target_gate) -> target
+Presumably equivalent wires: targets[0]_gold (\cfg_entries_gold [5:3]), targets[0]_gate (\cfg_entries_gate [5:3]) -> targets[0]
+Presumably equivalent wires: targets[1]_gold (\cfg_entries_gold [29:27]), targets[1]_gate (\cfg_entries_gate [29:27]) -> targets[1]
+Presumably equivalent wires: targets[2]_gold (\cfg_entries_gold [53:51]), targets[2]_gate (\cfg_entries_gate [53:51]) -> targets[2]
+Presumably equivalent wires: targets[3]_gold (\cfg_entries_gold [77:75]), targets[3]_gate (\cfg_entries_gate [77:75]) -> targets[3]
+Presumably equivalent wires: targets[4]_gold (\cfg_entries_gold [101:99]), targets[4]_gate (\cfg_entries_gate [101:99]) -> targets[4]
+Presumably equivalent wires: targets[5]_gold (\cfg_entries_gold [125:123]), targets[5]_gate (\cfg_entries_gate [125:123]) -> targets[5]
+Presumably equivalent wires: targets[6]_gold (\cfg_entries_gold [149:147]), targets[6]_gate (\cfg_entries_gate [149:147]) -> targets[6]
+Presumably equivalent wires: targets[7]_gold (\cfg_entries_gold [173:171]), targets[7]_gate (\cfg_entries_gate [173:171]) -> targets[7]
+Presumably equivalent wires: timebase.clk_gold (\clk_gold), timebase.clk_gate (\clk_gate) -> timebase.clk
+Presumably equivalent wires: timebase.elapsed_q_gold (\timebase.elapsed_q_gold), timebase.elapsed_q_gate (\timebase.elapsed_q_gate) -> timebase.elapsed_q
+Presumably equivalent wires: timebase.en_gold (\men_gold), timebase.en_gate (\men_gate) -> timebase.en
+Presumably equivalent wires: timebase.last_cycle_gold (\timebase.last_cycle_gold), timebase.last_cycle_gate (\timebase.last_cycle_gate) -> timebase.last_cycle
+Presumably equivalent wires: timebase.restart_gold (\timebase.restart_gold), timebase.restart_gate (\timebase.restart_gate) -> timebase.restart
+Presumably equivalent wires: timebase.rst_n_gold (\rst_n_gold), timebase.rst_n_gate (\rst_n_gate) -> timebase.rst_n
+Presumably equivalent wires: timebase.run_gold (\active_gold), timebase.run_gate (\active_gate) -> timebase.run
+Presumably equivalent wires: timebase.sel_gold (\presc_gold), timebase.sel_gate (\presc_gate) -> timebase.sel
+Presumably equivalent wires: tstamp_gold (\tstamp_gold), tstamp_gate (\tstamp_gate) -> tstamp
+Presumably equivalent wires: underrun_gold (\underrun_gold), underrun_gate (\underrun_gate) -> underrun
+Presumably equivalent wires: user_flags_gold (\user_flags_gold), user_flags_gate (\user_flags_gate) -> user_flags
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gate.v:134$906_gate ($add): \tstamp_gate -> \tstamp
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gate.v:151$914_gate ($add): \t_gate -> \t
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gate.v:164$918_gate ($add): \log_wptr_gate -> \log_wptr
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gate.v:166$921_gate ($add): \log_total_gate -> \log_total
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gate.v:168$924_gate ($add): \cnt_pass_gate -> \cnt_pass
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gate.v:169$927_gate ($add): \cnt_viol_gate -> \cnt_viol
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gate.v:170$930_gate ($add): \cnt_inc_gate -> \cnt_inc
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gate.v:40$834_gate ($add): \t_gate -> \t
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:111$901_gate ($eq): \action_gate -> \action
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:121$1151_gate ($logic_not): \log_wptr_gate -> \log_wptr
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:121$1156_gate ($eq): \log_wptr_gate -> \log_wptr
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:121$1161_gate ($eq): \log_wptr_gate -> \log_wptr
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:121$1166_gate ($eq): \log_wptr_gate -> \log_wptr
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:148$913_gate ($eq): \t_gate -> \t
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:68$1006_gate ($eq): \mon_state_gate -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:68$1033_gate ($eq): \mon_state_gate -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:68$1060_gate ($eq): \mon_state_gate -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:68$1087_gate ($eq): \mon_state_gate -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:68$1114_gate ($eq): \mon_state_gate -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:68$1141_gate ($eq): \mon_state_gate -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:68$955_gate ($eq): \mon_state_gate -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gate.v:68$979_gate ($eq): \mon_state_gate -> \mon_state
+Changing input A of cell $flatten\timebase.$add$src/pvm_presc.v:34$829_gate ($add): \timebase.elapsed_q_gate -> \timebase.elapsed_q
+Changing input B of cell $flatten\timebase.$logic_and$src/pvm_presc.v:28$820_gate ($logic_and): \active_gate -> \active
+Changing input B of cell $flatten\timebase.$logic_and$src/pvm_presc.v:28$823_gate ($logic_and): \timebase.last_cycle_gate -> \timebase.last_cycle
+Changing input A of cell $flatten\timebase.$logic_not$src/pvm_presc.v:28$821_gate ($logic_not): \timebase.restart_gate -> \timebase.restart
+Changing input A of cell $flatten\timebase.$logic_not$src/pvm_presc.v:31$826_gate ($logic_not): \active_gate -> \active
+Changing input B of cell $flatten\timebase.$logic_or$src/pvm_presc.v:31$828_gate ($logic_or): \timebase.restart_gate -> \timebase.restart
+Changing input A of cell $flatten\timebase.$reduce_and$src/pvm_presc.v:21$817_gate ($reduce_and): \timebase.elapsed_q_gate [3:0] -> \timebase.elapsed_q [3:0]
+Changing input A of cell $flatten\timebase.$reduce_and$src/pvm_presc.v:22$818_gate ($reduce_and): \timebase.elapsed_q_gate [7:0] -> \timebase.elapsed_q [7:0]
+Changing input A of cell $flatten\timebase.$reduce_and$src/pvm_presc.v:23$819_gate ($reduce_and): \timebase.elapsed_q_gate -> \timebase.elapsed_q
+Changing input A of cell $ge$/tmp/tmp.B2URfYCGj8/gate.v:110$897_gate ($ge): \action_gate -> \action
+Changing input A of cell $le$/tmp/tmp.B2URfYCGj8/gate.v:110$899_gate ($le): \action_gate -> \action
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:109$894_gate ($logic_and): \active_gate -> \active
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:110$898_gate ($logic_and): \fire_gate -> \fire
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:111$903_gate ($logic_and): \fire_gate -> \fire
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:121$1152_gate ($logic_and): \log_event_gate -> \log_event
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:121$1157_gate ($logic_and): \log_event_gate -> \log_event
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:121$1162_gate ($logic_and): \log_event_gate -> \log_event
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:121$1167_gate ($logic_and): \log_event_gate -> \log_event
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:136$909_gate ($logic_and): \active_gate -> \active
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:28$833_gate ($logic_and): \active_gate -> \active
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1018_gate ($logic_and): \rules[3].prev_high_gate -> \rules[3].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1020_gate ($logic_and): \rules[3].now_high_gate -> \rules[3].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1045_gate ($logic_and): \rules[4].prev_high_gate -> \rules[4].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1047_gate ($logic_and): \rules[4].now_high_gate -> \rules[4].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1072_gate ($logic_and): \rules[5].prev_high_gate -> \rules[5].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1074_gate ($logic_and): \rules[5].now_high_gate -> \rules[5].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1099_gate ($logic_and): \rules[6].prev_high_gate -> \rules[6].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1101_gate ($logic_and): \rules[6].now_high_gate -> \rules[6].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1126_gate ($logic_and): \rules[7].prev_high_gate -> \rules[7].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$1128_gate ($logic_and): \rules[7].now_high_gate -> \rules[7].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$940_gate ($logic_and): \rules[0].prev_high_gate -> \rules[0].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$942_gate ($logic_and): \rules[0].now_high_gate -> \rules[0].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$964_gate ($logic_and): \rules[1].prev_high_gate -> \rules[1].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$966_gate ($logic_and): \rules[1].now_high_gate -> \rules[1].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$991_gate ($logic_and): \rules[2].prev_high_gate -> \rules[2].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:64$993_gate ($logic_and): \rules[2].now_high_gate -> \rules[2].now_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1008_gate ($logic_and): \rules[2].event_match_gate -> \rules[2].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1009_gate ($logic_and): \rules[2].guard_match_gate -> \rules[2].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1035_gate ($logic_and): \rules[3].event_match_gate -> \rules[3].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1036_gate ($logic_and): \rules[3].guard_match_gate -> \rules[3].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1062_gate ($logic_and): \rules[4].event_match_gate -> \rules[4].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1063_gate ($logic_and): \rules[4].guard_match_gate -> \rules[4].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1089_gate ($logic_and): \rules[5].event_match_gate -> \rules[5].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1090_gate ($logic_and): \rules[5].guard_match_gate -> \rules[5].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1116_gate ($logic_and): \rules[6].event_match_gate -> \rules[6].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1117_gate ($logic_and): \rules[6].guard_match_gate -> \rules[6].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1143_gate ($logic_and): \rules[7].event_match_gate -> \rules[7].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$1144_gate ($logic_and): \rules[7].guard_match_gate -> \rules[7].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$957_gate ($logic_and): \rules[0].event_match_gate -> \rules[0].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$958_gate ($logic_and): \rules[0].guard_match_gate -> \rules[0].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$981_gate ($logic_and): \rules[1].event_match_gate -> \rules[1].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:68$982_gate ($logic_and): \rules[1].guard_match_gate -> \rules[1].guard_match
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:70$1012_gate ($logic_and): \matching_rules_gate [2] -> \matching_rules [2]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:70$1039_gate ($logic_and): \matching_rules_gate [3] -> \matching_rules [3]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:70$1066_gate ($logic_and): \matching_rules_gate [4] -> \matching_rules [4]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:70$1093_gate ($logic_and): \matching_rules_gate [5] -> \matching_rules [5]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:70$1120_gate ($logic_and): \matching_rules_gate [6] -> \matching_rules [6]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:70$1147_gate ($logic_and): \matching_rules_gate [7] -> \matching_rules [7]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:70$985_gate ($logic_and): \matching_rules_gate [1] -> \matching_rules [1]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:94$875_gate ($logic_and): \ovf_gate -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gate.v:97$885_gate ($logic_and): \ovf_gate -> \ovf
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:109$893_gate ($logic_not): \start_gate -> \start
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:28$832_gate ($logic_not): \active_q_gate -> \active_q
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:63$1015_gate ($logic_not): \rules[3].now_high_gate -> \rules[3].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:63$1042_gate ($logic_not): \rules[4].now_high_gate -> \rules[4].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:63$1069_gate ($logic_not): \rules[5].now_high_gate -> \rules[5].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:63$1096_gate ($logic_not): \rules[6].now_high_gate -> \rules[6].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:63$1123_gate ($logic_not): \rules[7].now_high_gate -> \rules[7].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:63$937_gate ($logic_not): \rules[0].now_high_gate -> \rules[0].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:63$961_gate ($logic_not): \rules[1].now_high_gate -> \rules[1].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:63$988_gate ($logic_not): \rules[2].now_high_gate -> \rules[2].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:64$1019_gate ($logic_not): \rules[3].prev_high_gate -> \rules[3].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:64$1046_gate ($logic_not): \rules[4].prev_high_gate -> \rules[4].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:64$1073_gate ($logic_not): \rules[5].prev_high_gate -> \rules[5].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:64$1100_gate ($logic_not): \rules[6].prev_high_gate -> \rules[6].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:64$1127_gate ($logic_not): \rules[7].prev_high_gate -> \rules[7].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:64$941_gate ($logic_not): \rules[0].prev_high_gate -> \rules[0].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:64$965_gate ($logic_not): \rules[1].prev_high_gate -> \rules[1].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:64$992_gate ($logic_not): \rules[2].prev_high_gate -> \rules[2].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gate.v:70$984_gate ($logic_not): \matching_rules_gate [0] -> \matching_rules [0]
+Changing input B of cell $logic_or$/tmp/tmp.B2URfYCGj8/gate.v:111$902_gate ($logic_or): \log_event_gate -> \log_event
+Changing input B of cell $logic_or$/tmp/tmp.B2URfYCGj8/gate.v:137$912_gate ($logic_or): \start_gate -> \start
+Changing input A of cell $logic_or$/tmp/tmp.B2URfYCGj8/gate.v:48$836_gate ($logic_or): \start_gate -> \start
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gate.v:55$931_gate ($lt): \t_gate -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gate.v:55$932_gate ($lt): \t_gate -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gate.v:55$933_gate ($lt): \t_gate -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gate.v:55$934_gate ($lt): \t_gate -> \t
+Changing input A of cell $procmux$1169_gate ($mux): \log_slots[3].entry_q_gate -> \log_slots[3].entry_q
+Changing input B of cell $procmux$1169_gate ($mux): { \tstamp_gate \t_gate 2'00 \ovf_gate \verdict_gate \rule_gate } -> { \tstamp \t 2'00 \ovf \verdict_gate \rule }
+Changing input A of cell $procmux$1174_gate ($mux): \log_slots[2].entry_q_gate -> \log_slots[2].entry_q
+Changing input B of cell $procmux$1174_gate ($mux): { \tstamp_gate \t_gate 2'00 \ovf_gate \verdict_gate \rule_gate } -> { \tstamp \t 2'00 \ovf \verdict_gate \rule }
+Changing input A of cell $procmux$1179_gate ($mux): \log_slots[1].entry_q_gate -> \log_slots[1].entry_q
+Changing input B of cell $procmux$1179_gate ($mux): { \tstamp_gate \t_gate 2'00 \ovf_gate \verdict_gate \rule_gate } -> { \tstamp \t 2'00 \ovf \verdict_gate \rule }
+Changing input A of cell $procmux$1184_gate ($mux): \log_slots[0].entry_q_gate -> \log_slots[0].entry_q
+Changing input B of cell $procmux$1184_gate ($mux): { \tstamp_gate \t_gate 2'00 \ovf_gate \verdict_gate \rule_gate } -> { \tstamp \t 2'00 \ovf \verdict_gate \rule }
+Changing input B of cell $procmux$1189_gate ($mux): \log_total_gate -> \log_total
+Changing input A of cell $procmux$1191_gate ($mux): \log_total_gate -> \log_total
+Changing input S of cell $procmux$1191_gate ($mux): \log_event_gate -> \log_event
+Changing input A of cell $procmux$1196_gate ($mux): \log_wptr_gate -> \log_wptr
+Changing input S of cell $procmux$1196_gate ($mux): \log_event_gate -> \log_event
+Changing input B of cell $procmux$1201_gate ($mux): \cnt_inc_gate -> \cnt_inc
+Changing input A of cell $procmux$1203_gate ($mux): \cnt_inc_gate -> \cnt_inc
+Changing input A of cell $procmux$1205_gate ($mux): \cnt_inc_gate -> \cnt_inc
+Changing input S of cell $procmux$1205_gate ($mux): \log_event_gate -> \log_event
+Changing input B of cell $procmux$1211_gate ($mux): \cnt_viol_gate -> \cnt_viol
+Changing input A of cell $procmux$1213_gate ($mux): \cnt_viol_gate -> \cnt_viol
+Changing input A of cell $procmux$1215_gate ($mux): \cnt_viol_gate -> \cnt_viol
+Changing input S of cell $procmux$1215_gate ($mux): \log_event_gate -> \log_event
+Changing input B of cell $procmux$1222_gate ($mux): \cnt_pass_gate -> \cnt_pass
+Changing input A of cell $procmux$1224_gate ($mux): \cnt_pass_gate -> \cnt_pass
+Changing input A of cell $procmux$1226_gate ($mux): \cnt_pass_gate -> \cnt_pass
+Changing input S of cell $procmux$1226_gate ($mux): \log_event_gate -> \log_event
+Changing input A of cell $procmux$1234_gate ($mux): \tstamp_gate -> \tstamp
+Changing input S of cell $procmux$1234_gate ($mux): \men_gate -> \men
+Changing input B of cell $procmux$1240_gate ($mux): \t_gate -> \t
+Changing input A of cell $procmux$1242_gate ($mux): \t_gate -> \t
+Changing input S of cell $procmux$1242_gate ($mux): \men_gate -> \men
+Changing input S of cell $procmux$1245_gate ($mux): \reset_timer_gate -> \reset_timer
+Changing input A of cell $procmux$1251_gate ($mux): \ovf_gate -> \ovf
+Changing input A of cell $procmux$1253_gate ($mux): \ovf_gate -> \ovf
+Changing input S of cell $procmux$1253_gate ($mux): \men_gate -> \men
+Changing input S of cell $procmux$1256_gate ($mux): \reset_timer_gate -> \reset_timer
+Changing input A of cell $procmux$1261_gate ($mux): \mon_state_gate -> \mon_state
+Changing input B of cell $procmux$1261_gate ($mux): \target_gate -> \target
+Changing input S of cell $procmux$1261_gate ($mux): \fire_gate -> \fire
+Changing input A of cell $procmux$1268_CMP0_gate ($eq): \action_gate -> \action
+Changing input A of cell $procmux$1269_CMP0_gate ($eq): \action_gate -> \action
+Changing input A of cell $procmux$1270_CMP0_gate ($eq): \action_gate -> \action
+Changing input A of cell $procmux$1271_CMP0_gate ($eq): \action_gate -> \action
+Changing input S of cell $procmux$1273_gate ($mux): \selected_gate [7] -> \selected [7]
+Changing input S of cell $procmux$1276_gate ($mux): \selected_gate [7] -> \selected [7]
+Changing input S of cell $procmux$1279_gate ($mux): \selected_gate [7] -> \selected [7]
+Changing input S of cell $procmux$1282_gate ($mux): \selected_gate [7] -> \selected [7]
+Changing input S of cell $procmux$1285_gate ($mux): \selected_gate [6] -> \selected [6]
+Changing input S of cell $procmux$1288_gate ($mux): \selected_gate [6] -> \selected [6]
+Changing input S of cell $procmux$1291_gate ($mux): \selected_gate [6] -> \selected [6]
+Changing input S of cell $procmux$1294_gate ($mux): \selected_gate [6] -> \selected [6]
+Changing input S of cell $procmux$1297_gate ($mux): \selected_gate [5] -> \selected [5]
+Changing input S of cell $procmux$1300_gate ($mux): \selected_gate [5] -> \selected [5]
+Changing input S of cell $procmux$1303_gate ($mux): \selected_gate [5] -> \selected [5]
+Changing input S of cell $procmux$1306_gate ($mux): \selected_gate [5] -> \selected [5]
+Changing input S of cell $procmux$1309_gate ($mux): \selected_gate [4] -> \selected [4]
+Changing input S of cell $procmux$1312_gate ($mux): \selected_gate [4] -> \selected [4]
+Changing input S of cell $procmux$1315_gate ($mux): \selected_gate [4] -> \selected [4]
+Changing input S of cell $procmux$1318_gate ($mux): \selected_gate [4] -> \selected [4]
+Changing input S of cell $procmux$1321_gate ($mux): \selected_gate [3] -> \selected [3]
+Changing input S of cell $procmux$1324_gate ($mux): \selected_gate [3] -> \selected [3]
+Changing input S of cell $procmux$1327_gate ($mux): \selected_gate [3] -> \selected [3]
+Changing input S of cell $procmux$1330_gate ($mux): \selected_gate [3] -> \selected [3]
+Changing input S of cell $procmux$1333_gate ($mux): \selected_gate [2] -> \selected [2]
+Changing input S of cell $procmux$1336_gate ($mux): \selected_gate [2] -> \selected [2]
+Changing input S of cell $procmux$1339_gate ($mux): \selected_gate [2] -> \selected [2]
+Changing input S of cell $procmux$1342_gate ($mux): \selected_gate [2] -> \selected [2]
+Changing input S of cell $procmux$1345_gate ($mux): \selected_gate [1] -> \selected [1]
+Changing input S of cell $procmux$1348_gate ($mux): \selected_gate [1] -> \selected [1]
+Changing input S of cell $procmux$1351_gate ($mux): \selected_gate [1] -> \selected [1]
+Changing input S of cell $procmux$1354_gate ($mux): \selected_gate [1] -> \selected [1]
+Changing input S of cell $procmux$1357_gate ($mux): \matching_rules_gate [0] -> \matching_rules [0]
+Changing input S of cell $procmux$1360_gate ($mux): \matching_rules_gate [0] -> \matching_rules [0]
+Changing input S of cell $procmux$1363_gate ($mux): \matching_rules_gate [0] -> \matching_rules [0]
+Changing input A of cell $reduce_and$/tmp/tmp.B2URfYCGj8/gate.v:165$919_gate ($reduce_and): \log_total_gate -> \log_total
+Changing input A of cell $reduce_and$/tmp/tmp.B2URfYCGj8/gate.v:168$922_gate ($reduce_and): \cnt_pass_gate -> \cnt_pass
+Changing input A of cell $reduce_and$/tmp/tmp.B2URfYCGj8/gate.v:169$925_gate ($reduce_and): \cnt_viol_gate -> \cnt_viol
+Changing input A of cell $reduce_and$/tmp/tmp.B2URfYCGj8/gate.v:170$928_gate ($reduce_and): \cnt_inc_gate -> \cnt_inc
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gate.v:109$895_gate ($reduce_or): { \selected_gate [7:1] \matching_rules_gate [0] } -> { \selected [7:1] \matching_rules [0] }
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gate.v:70$1010_gate ($reduce_or): \matching_rules_gate [1:0] -> \matching_rules [1:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gate.v:70$1037_gate ($reduce_or): \matching_rules_gate [2:0] -> \matching_rules [2:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gate.v:70$1064_gate ($reduce_or): \matching_rules_gate [3:0] -> \matching_rules [3:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gate.v:70$1091_gate ($reduce_or): \matching_rules_gate [4:0] -> \matching_rules [4:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gate.v:70$1118_gate ($reduce_or): \matching_rules_gate [5:0] -> \matching_rules [5:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gate.v:70$1145_gate ($reduce_or): \matching_rules_gate [6:0] -> \matching_rules [6:0]
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1002_gate ($shiftx): \less_than_k_gate -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1014_gate ($shiftx): \src_prev_gate -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1025_gate ($shiftx): \less_than_k_gate -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1041_gate ($shiftx): \src_prev_gate -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1052_gate ($shiftx): \less_than_k_gate -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1068_gate ($shiftx): \src_prev_gate -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1079_gate ($shiftx): \less_than_k_gate -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1095_gate ($shiftx): \src_prev_gate -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1106_gate ($shiftx): \less_than_k_gate -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1122_gate ($shiftx): \src_prev_gate -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$1133_gate ($shiftx): \less_than_k_gate -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$936_gate ($shiftx): \src_prev_gate -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$947_gate ($shiftx): \less_than_k_gate -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$960_gate ($shiftx): \src_prev_gate -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$971_gate ($shiftx): \less_than_k_gate -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gate.v:0$987_gate ($shiftx): \src_prev_gate -> \src_prev
+Changing input A of cell $sub$/tmp/tmp.B2URfYCGj8/gate.v:41$835_gate ($sub): \t_gate -> \t
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gate.v:63$1016_gate ($mux): \rules[3].now_high_gate -> \rules[3].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gate.v:63$1043_gate ($mux): \rules[4].now_high_gate -> \rules[4].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gate.v:63$1070_gate ($mux): \rules[5].now_high_gate -> \rules[5].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gate.v:63$1097_gate ($mux): \rules[6].now_high_gate -> \rules[6].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gate.v:63$1124_gate ($mux): \rules[7].now_high_gate -> \rules[7].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gate.v:63$938_gate ($mux): \rules[0].now_high_gate -> \rules[0].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gate.v:63$962_gate ($mux): \rules[1].now_high_gate -> \rules[1].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gate.v:63$989_gate ($mux): \rules[2].now_high_gate -> \rules[2].now_high
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gold.v:156$98_gold ($add): \t_gold -> \t
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gold.v:169$102_gold ($add): \log_wptr_gold -> \log_wptr
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gold.v:171$105_gold ($add): \log_total_gold -> \log_total
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gold.v:173$108_gold ($add): \cnt_pass_gold -> \cnt_pass
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gold.v:174$111_gold ($add): \cnt_viol_gold -> \cnt_viol
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gold.v:175$114_gold ($add): \cnt_inc_gold -> \cnt_inc
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:116$85_gold ($eq): \action_gold -> \action
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:126$343_gold ($logic_not): \log_wptr_gold -> \log_wptr
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:126$348_gold ($eq): \log_wptr_gold -> \log_wptr
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:126$353_gold ($eq): \log_wptr_gold -> \log_wptr
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:126$358_gold ($eq): \log_wptr_gold -> \log_wptr
+Changing input A of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:153$97_gold ($eq): \t_gold -> \t
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:79$147_gold ($eq): \mon_state_gold -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:79$171_gold ($eq): \mon_state_gold -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:79$198_gold ($eq): \mon_state_gold -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:79$225_gold ($eq): \mon_state_gold -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:79$252_gold ($eq): \mon_state_gold -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:79$279_gold ($eq): \mon_state_gold -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:79$306_gold ($eq): \mon_state_gold -> \mon_state
+Changing input B of cell $eq$/tmp/tmp.B2URfYCGj8/gold.v:79$333_gold ($eq): \mon_state_gold -> \mon_state
+Changing input A of cell $flatten\timebase.$add$src/pvm_presc.v:34$14_gold ($add): \timebase.elapsed_q_gold -> \timebase.elapsed_q
+Changing input B of cell $flatten\timebase.$logic_and$src/pvm_presc.v:28$5_gold ($logic_and): \active_gold -> \active
+Changing input B of cell $flatten\timebase.$logic_and$src/pvm_presc.v:28$8_gold ($logic_and): \timebase.last_cycle_gold -> \timebase.last_cycle
+Changing input A of cell $flatten\timebase.$logic_not$src/pvm_presc.v:28$6_gold ($logic_not): \timebase.restart_gold -> \timebase.restart
+Changing input A of cell $flatten\timebase.$logic_not$src/pvm_presc.v:31$11_gold ($logic_not): \active_gold -> \active
+Changing input B of cell $flatten\timebase.$logic_or$src/pvm_presc.v:31$13_gold ($logic_or): \timebase.restart_gold -> \timebase.restart
+Changing input A of cell $flatten\timebase.$reduce_and$src/pvm_presc.v:21$2_gold ($reduce_and): \timebase.elapsed_q_gold [3:0] -> \timebase.elapsed_q [3:0]
+Changing input A of cell $flatten\timebase.$reduce_and$src/pvm_presc.v:22$3_gold ($reduce_and): \timebase.elapsed_q_gold [7:0] -> \timebase.elapsed_q [7:0]
+Changing input A of cell $flatten\timebase.$reduce_and$src/pvm_presc.v:23$4_gold ($reduce_and): \timebase.elapsed_q_gold -> \timebase.elapsed_q
+Changing input A of cell $ge$/tmp/tmp.B2URfYCGj8/gold.v:115$81_gold ($ge): \action_gold -> \action
+Changing input A of cell $ge$/tmp/tmp.B2URfYCGj8/gold.v:60$394_gold ($ge): \t_gold -> \t
+Changing input A of cell $ge$/tmp/tmp.B2URfYCGj8/gold.v:60$411_gold ($ge): \t_gold -> \t
+Changing input A of cell $ge$/tmp/tmp.B2URfYCGj8/gold.v:60$428_gold ($ge): \t_gold -> \t
+Changing input A of cell $ge$/tmp/tmp.B2URfYCGj8/gold.v:60$445_gold ($ge): \t_gold -> \t
+Changing input A of cell $gt$/tmp/tmp.B2URfYCGj8/gold.v:65$406_gold ($gt): \t_gold -> \t
+Changing input A of cell $gt$/tmp/tmp.B2URfYCGj8/gold.v:65$423_gold ($gt): \t_gold -> \t
+Changing input A of cell $gt$/tmp/tmp.B2URfYCGj8/gold.v:65$440_gold ($gt): \t_gold -> \t
+Changing input A of cell $gt$/tmp/tmp.B2URfYCGj8/gold.v:65$457_gold ($gt): \t_gold -> \t
+Changing input A of cell $le$/tmp/tmp.B2URfYCGj8/gold.v:115$83_gold ($le): \action_gold -> \action
+Changing input A of cell $le$/tmp/tmp.B2URfYCGj8/gold.v:64$404_gold ($le): \t_gold -> \t
+Changing input A of cell $le$/tmp/tmp.B2URfYCGj8/gold.v:64$421_gold ($le): \t_gold -> \t
+Changing input A of cell $le$/tmp/tmp.B2URfYCGj8/gold.v:64$438_gold ($le): \t_gold -> \t
+Changing input A of cell $le$/tmp/tmp.B2URfYCGj8/gold.v:64$455_gold ($le): \t_gold -> \t
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:114$78_gold ($logic_and): \active_gold -> \active
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:115$82_gold ($logic_and): \fire_gold -> \fire
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:116$87_gold ($logic_and): \fire_gold -> \fire
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:126$344_gold ($logic_and): \log_event_gold -> \log_event
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:126$349_gold ($logic_and): \log_event_gold -> \log_event
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:126$354_gold ($logic_and): \log_event_gold -> \log_event
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:126$359_gold ($logic_and): \log_event_gold -> \log_event
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:141$93_gold ($logic_and): \active_gold -> \active
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:28$34_gold ($logic_and): \active_gold -> \active
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:59$393_gold ($logic_and): \ovf_gold -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:59$410_gold ($logic_and): \ovf_gold -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:59$427_gold ($logic_and): \ovf_gold -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:59$444_gold ($logic_and): \ovf_gold -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:63$402_gold ($logic_and): \ovf_gold -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:63$419_gold ($logic_and): \ovf_gold -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:63$436_gold ($logic_and): \ovf_gold -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:63$453_gold ($logic_and): \ovf_gold -> \ovf
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$132_gold ($logic_and): \rules[0].prev_high_gold -> \rules[0].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$134_gold ($logic_and): \rules[0].now_high_gold -> \rules[0].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$156_gold ($logic_and): \rules[1].prev_high_gold -> \rules[1].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$158_gold ($logic_and): \rules[1].now_high_gold -> \rules[1].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$183_gold ($logic_and): \rules[2].prev_high_gold -> \rules[2].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$185_gold ($logic_and): \rules[2].now_high_gold -> \rules[2].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$210_gold ($logic_and): \rules[3].prev_high_gold -> \rules[3].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$212_gold ($logic_and): \rules[3].now_high_gold -> \rules[3].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$237_gold ($logic_and): \rules[4].prev_high_gold -> \rules[4].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$239_gold ($logic_and): \rules[4].now_high_gold -> \rules[4].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$264_gold ($logic_and): \rules[5].prev_high_gold -> \rules[5].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$266_gold ($logic_and): \rules[5].now_high_gold -> \rules[5].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$291_gold ($logic_and): \rules[6].prev_high_gold -> \rules[6].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$293_gold ($logic_and): \rules[6].now_high_gold -> \rules[6].now_high
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$318_gold ($logic_and): \rules[7].prev_high_gold -> \rules[7].prev_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:75$320_gold ($logic_and): \rules[7].now_high_gold -> \rules[7].now_high
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$149_gold ($logic_and): \rules[0].event_match_gold -> \rules[0].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$150_gold ($logic_and): \rules[0].guard_match_gold -> \rules[0].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$173_gold ($logic_and): \rules[1].event_match_gold -> \rules[1].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$174_gold ($logic_and): \rules[1].guard_match_gold -> \rules[1].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$200_gold ($logic_and): \rules[2].event_match_gold -> \rules[2].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$201_gold ($logic_and): \rules[2].guard_match_gold -> \rules[2].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$227_gold ($logic_and): \rules[3].event_match_gold -> \rules[3].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$228_gold ($logic_and): \rules[3].guard_match_gold -> \rules[3].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$254_gold ($logic_and): \rules[4].event_match_gold -> \rules[4].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$255_gold ($logic_and): \rules[4].guard_match_gold -> \rules[4].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$281_gold ($logic_and): \rules[5].event_match_gold -> \rules[5].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$282_gold ($logic_and): \rules[5].guard_match_gold -> \rules[5].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$308_gold ($logic_and): \rules[6].event_match_gold -> \rules[6].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$309_gold ($logic_and): \rules[6].guard_match_gold -> \rules[6].guard_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$335_gold ($logic_and): \rules[7].event_match_gold -> \rules[7].event_match
+Changing input B of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:79$336_gold ($logic_and): \rules[7].guard_match_gold -> \rules[7].guard_match
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:81$177_gold ($logic_and): \matching_rules_gold [1] -> \matching_rules [1]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:81$204_gold ($logic_and): \matching_rules_gold [2] -> \matching_rules [2]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:81$231_gold ($logic_and): \matching_rules_gold [3] -> \matching_rules [3]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:81$258_gold ($logic_and): \matching_rules_gold [4] -> \matching_rules [4]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:81$285_gold ($logic_and): \matching_rules_gold [5] -> \matching_rules [5]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:81$312_gold ($logic_and): \matching_rules_gold [6] -> \matching_rules [6]
+Changing input A of cell $logic_and$/tmp/tmp.B2URfYCGj8/gold.v:81$339_gold ($logic_and): \matching_rules_gold [7] -> \matching_rules [7]
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:114$77_gold ($logic_not): \start_gold -> \start
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:28$33_gold ($logic_not): \active_q_gold -> \active_q
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:74$129_gold ($logic_not): \rules[0].now_high_gold -> \rules[0].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:74$153_gold ($logic_not): \rules[1].now_high_gold -> \rules[1].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:74$180_gold ($logic_not): \rules[2].now_high_gold -> \rules[2].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:74$207_gold ($logic_not): \rules[3].now_high_gold -> \rules[3].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:74$234_gold ($logic_not): \rules[4].now_high_gold -> \rules[4].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:74$261_gold ($logic_not): \rules[5].now_high_gold -> \rules[5].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:74$288_gold ($logic_not): \rules[6].now_high_gold -> \rules[6].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:74$315_gold ($logic_not): \rules[7].now_high_gold -> \rules[7].now_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:75$133_gold ($logic_not): \rules[0].prev_high_gold -> \rules[0].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:75$157_gold ($logic_not): \rules[1].prev_high_gold -> \rules[1].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:75$184_gold ($logic_not): \rules[2].prev_high_gold -> \rules[2].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:75$211_gold ($logic_not): \rules[3].prev_high_gold -> \rules[3].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:75$238_gold ($logic_not): \rules[4].prev_high_gold -> \rules[4].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:75$265_gold ($logic_not): \rules[5].prev_high_gold -> \rules[5].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:75$292_gold ($logic_not): \rules[6].prev_high_gold -> \rules[6].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:75$319_gold ($logic_not): \rules[7].prev_high_gold -> \rules[7].prev_high
+Changing input A of cell $logic_not$/tmp/tmp.B2URfYCGj8/gold.v:81$176_gold ($logic_not): \matching_rules_gold [0] -> \matching_rules [0]
+Changing input B of cell $logic_or$/tmp/tmp.B2URfYCGj8/gold.v:116$86_gold ($logic_or): \log_event_gold -> \log_event
+Changing input B of cell $logic_or$/tmp/tmp.B2URfYCGj8/gold.v:142$96_gold ($logic_or): \start_gold -> \start
+Changing input A of cell $logic_or$/tmp/tmp.B2URfYCGj8/gold.v:48$35_gold ($logic_or): \start_gold -> \start
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gold.v:58$117_gold ($lt): \t_gold -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gold.v:58$120_gold ($lt): \t_gold -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gold.v:58$123_gold ($lt): \t_gold -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gold.v:58$126_gold ($lt): \t_gold -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gold.v:61$396_gold ($lt): \t_gold -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gold.v:61$413_gold ($lt): \t_gold -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gold.v:61$430_gold ($lt): \t_gold -> \t
+Changing input A of cell $lt$/tmp/tmp.B2URfYCGj8/gold.v:61$447_gold ($lt): \t_gold -> \t
+Changing input A of cell $procmux$557_gold ($mux): \log_slots[3].entry_q_gold -> \log_slots[3].entry_q
+Changing input B of cell $procmux$557_gold ($mux): { \tstamp_gold \t_gold 2'00 \ovf_gold \verdict_gold \rule_gold } -> { \tstamp \t 2'00 \ovf \verdict_gold \rule }
+Changing input A of cell $procmux$562_gold ($mux): \log_slots[2].entry_q_gold -> \log_slots[2].entry_q
+Changing input B of cell $procmux$562_gold ($mux): { \tstamp_gold \t_gold 2'00 \ovf_gold \verdict_gold \rule_gold } -> { \tstamp \t 2'00 \ovf \verdict_gold \rule }
+Changing input A of cell $procmux$567_gold ($mux): \log_slots[1].entry_q_gold -> \log_slots[1].entry_q
+Changing input B of cell $procmux$567_gold ($mux): { \tstamp_gold \t_gold 2'00 \ovf_gold \verdict_gold \rule_gold } -> { \tstamp \t 2'00 \ovf \verdict_gold \rule }
+Changing input A of cell $procmux$572_gold ($mux): \log_slots[0].entry_q_gold -> \log_slots[0].entry_q
+Changing input B of cell $procmux$572_gold ($mux): { \tstamp_gold \t_gold 2'00 \ovf_gold \verdict_gold \rule_gold } -> { \tstamp \t 2'00 \ovf \verdict_gold \rule }
+Changing input B of cell $procmux$577_gold ($mux): \log_total_gold -> \log_total
+Changing input A of cell $procmux$579_gold ($mux): \log_total_gold -> \log_total
+Changing input S of cell $procmux$579_gold ($mux): \log_event_gold -> \log_event
+Changing input A of cell $procmux$584_gold ($mux): \log_wptr_gold -> \log_wptr
+Changing input S of cell $procmux$584_gold ($mux): \log_event_gold -> \log_event
+Changing input B of cell $procmux$589_gold ($mux): \cnt_inc_gold -> \cnt_inc
+Changing input A of cell $procmux$591_gold ($mux): \cnt_inc_gold -> \cnt_inc
+Changing input A of cell $procmux$593_gold ($mux): \cnt_inc_gold -> \cnt_inc
+Changing input S of cell $procmux$593_gold ($mux): \log_event_gold -> \log_event
+Changing input B of cell $procmux$599_gold ($mux): \cnt_viol_gold -> \cnt_viol
+Changing input A of cell $procmux$601_gold ($mux): \cnt_viol_gold -> \cnt_viol
+Changing input A of cell $procmux$603_gold ($mux): \cnt_viol_gold -> \cnt_viol
+Changing input S of cell $procmux$603_gold ($mux): \log_event_gold -> \log_event
+Changing input B of cell $procmux$610_gold ($mux): \cnt_pass_gold -> \cnt_pass
+Changing input A of cell $procmux$612_gold ($mux): \cnt_pass_gold -> \cnt_pass
+Changing input A of cell $procmux$614_gold ($mux): \cnt_pass_gold -> \cnt_pass
+Changing input S of cell $procmux$614_gold ($mux): \log_event_gold -> \log_event
+Changing input A of cell $procmux$622_gold ($mux): \tstamp_gold -> \tstamp
+Changing input S of cell $procmux$622_gold ($mux): \men_gold -> \men
+Changing input B of cell $procmux$628_gold ($mux): \t_gold -> \t
+Changing input A of cell $procmux$630_gold ($mux): \t_gold -> \t
+Changing input S of cell $procmux$630_gold ($mux): \men_gold -> \men
+Changing input S of cell $procmux$633_gold ($mux): \reset_timer_gold -> \reset_timer
+Changing input A of cell $procmux$639_gold ($mux): \ovf_gold -> \ovf
+Changing input A of cell $procmux$641_gold ($mux): \ovf_gold -> \ovf
+Changing input S of cell $procmux$641_gold ($mux): \men_gold -> \men
+Changing input S of cell $procmux$644_gold ($mux): \reset_timer_gold -> \reset_timer
+Changing input A of cell $procmux$649_gold ($mux): \mon_state_gold -> \mon_state
+Changing input B of cell $procmux$649_gold ($mux): \target_gold -> \target
+Changing input S of cell $procmux$649_gold ($mux): \fire_gold -> \fire
+Changing input A of cell $procmux$656_CMP0_gold ($eq): \action_gold -> \action
+Changing input A of cell $procmux$657_CMP0_gold ($eq): \action_gold -> \action
+Changing input A of cell $procmux$658_CMP0_gold ($eq): \action_gold -> \action
+Changing input A of cell $procmux$659_CMP0_gold ($eq): \action_gold -> \action
+Changing input S of cell $procmux$661_gold ($mux): \selected_gold [7] -> \selected [7]
+Changing input S of cell $procmux$664_gold ($mux): \selected_gold [7] -> \selected [7]
+Changing input S of cell $procmux$667_gold ($mux): \selected_gold [7] -> \selected [7]
+Changing input S of cell $procmux$670_gold ($mux): \selected_gold [7] -> \selected [7]
+Changing input S of cell $procmux$673_gold ($mux): \selected_gold [7] -> \selected [7]
+Changing input S of cell $procmux$676_gold ($mux): \selected_gold [6] -> \selected [6]
+Changing input S of cell $procmux$679_gold ($mux): \selected_gold [6] -> \selected [6]
+Changing input S of cell $procmux$682_gold ($mux): \selected_gold [6] -> \selected [6]
+Changing input S of cell $procmux$685_gold ($mux): \selected_gold [6] -> \selected [6]
+Changing input S of cell $procmux$688_gold ($mux): \selected_gold [6] -> \selected [6]
+Changing input S of cell $procmux$691_gold ($mux): \selected_gold [5] -> \selected [5]
+Changing input S of cell $procmux$694_gold ($mux): \selected_gold [5] -> \selected [5]
+Changing input S of cell $procmux$697_gold ($mux): \selected_gold [5] -> \selected [5]
+Changing input S of cell $procmux$700_gold ($mux): \selected_gold [5] -> \selected [5]
+Changing input S of cell $procmux$703_gold ($mux): \selected_gold [5] -> \selected [5]
+Changing input S of cell $procmux$706_gold ($mux): \selected_gold [4] -> \selected [4]
+Changing input S of cell $procmux$709_gold ($mux): \selected_gold [4] -> \selected [4]
+Changing input S of cell $procmux$712_gold ($mux): \selected_gold [4] -> \selected [4]
+Changing input S of cell $procmux$715_gold ($mux): \selected_gold [4] -> \selected [4]
+Changing input S of cell $procmux$718_gold ($mux): \selected_gold [4] -> \selected [4]
+Changing input S of cell $procmux$721_gold ($mux): \selected_gold [3] -> \selected [3]
+Changing input S of cell $procmux$724_gold ($mux): \selected_gold [3] -> \selected [3]
+Changing input S of cell $procmux$727_gold ($mux): \selected_gold [3] -> \selected [3]
+Changing input S of cell $procmux$730_gold ($mux): \selected_gold [3] -> \selected [3]
+Changing input S of cell $procmux$733_gold ($mux): \selected_gold [3] -> \selected [3]
+Changing input S of cell $procmux$736_gold ($mux): \selected_gold [2] -> \selected [2]
+Changing input S of cell $procmux$739_gold ($mux): \selected_gold [2] -> \selected [2]
+Changing input S of cell $procmux$742_gold ($mux): \selected_gold [2] -> \selected [2]
+Changing input S of cell $procmux$745_gold ($mux): \selected_gold [2] -> \selected [2]
+Changing input S of cell $procmux$748_gold ($mux): \selected_gold [2] -> \selected [2]
+Changing input S of cell $procmux$751_gold ($mux): \selected_gold [1] -> \selected [1]
+Changing input S of cell $procmux$754_gold ($mux): \selected_gold [1] -> \selected [1]
+Changing input S of cell $procmux$757_gold ($mux): \selected_gold [1] -> \selected [1]
+Changing input S of cell $procmux$760_gold ($mux): \selected_gold [1] -> \selected [1]
+Changing input S of cell $procmux$763_gold ($mux): \selected_gold [1] -> \selected [1]
+Changing input S of cell $procmux$766_gold ($mux): \matching_rules_gold [0] -> \matching_rules [0]
+Changing input S of cell $procmux$769_gold ($mux): \matching_rules_gold [0] -> \matching_rules [0]
+Changing input S of cell $procmux$772_gold ($mux): \matching_rules_gold [0] -> \matching_rules [0]
+Changing input S of cell $procmux$775_gold ($mux): \matching_rules_gold [0] -> \matching_rules [0]
+Changing input A of cell $reduce_and$/tmp/tmp.B2URfYCGj8/gold.v:170$103_gold ($reduce_and): \log_total_gold -> \log_total
+Changing input A of cell $reduce_and$/tmp/tmp.B2URfYCGj8/gold.v:173$106_gold ($reduce_and): \cnt_pass_gold -> \cnt_pass
+Changing input A of cell $reduce_and$/tmp/tmp.B2URfYCGj8/gold.v:174$109_gold ($reduce_and): \cnt_viol_gold -> \cnt_viol
+Changing input A of cell $reduce_and$/tmp/tmp.B2URfYCGj8/gold.v:175$112_gold ($reduce_and): \cnt_inc_gold -> \cnt_inc
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gold.v:114$79_gold ($reduce_or): { \selected_gold [7:1] \matching_rules_gold [0] } -> { \selected [7:1] \matching_rules [0] }
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gold.v:81$202_gold ($reduce_or): \matching_rules_gold [1:0] -> \matching_rules [1:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gold.v:81$229_gold ($reduce_or): \matching_rules_gold [2:0] -> \matching_rules [2:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gold.v:81$256_gold ($reduce_or): \matching_rules_gold [3:0] -> \matching_rules [3:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gold.v:81$283_gold ($reduce_or): \matching_rules_gold [4:0] -> \matching_rules [4:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gold.v:81$310_gold ($reduce_or): \matching_rules_gold [5:0] -> \matching_rules [5:0]
+Changing input A of cell $reduce_or$/tmp/tmp.B2URfYCGj8/gold.v:81$337_gold ($reduce_or): \matching_rules_gold [6:0] -> \matching_rules [6:0]
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$128_gold ($shiftx): \src_prev_gold -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$139_gold ($shiftx): \less_than_k_gold -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$152_gold ($shiftx): \src_prev_gold -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$163_gold ($shiftx): \less_than_k_gold -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$179_gold ($shiftx): \src_prev_gold -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$190_gold ($shiftx): \less_than_k_gold -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$206_gold ($shiftx): \src_prev_gold -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$217_gold ($shiftx): \less_than_k_gold -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$233_gold ($shiftx): \src_prev_gold -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$244_gold ($shiftx): \less_than_k_gold -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$260_gold ($shiftx): \src_prev_gold -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$271_gold ($shiftx): \less_than_k_gold -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$287_gold ($shiftx): \src_prev_gold -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$298_gold ($shiftx): \less_than_k_gold -> \less_than_k
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$314_gold ($shiftx): \src_prev_gold -> \src_prev
+Changing input A of cell $shiftx$/tmp/tmp.B2URfYCGj8/gold.v:0$325_gold ($shiftx): \less_than_k_gold -> \less_than_k
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gold.v:74$130_gold ($mux): \rules[0].now_high_gold -> \rules[0].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gold.v:74$154_gold ($mux): \rules[1].now_high_gold -> \rules[1].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gold.v:74$181_gold ($mux): \rules[2].now_high_gold -> \rules[2].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gold.v:74$208_gold ($mux): \rules[3].now_high_gold -> \rules[3].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gold.v:74$235_gold ($mux): \rules[4].now_high_gold -> \rules[4].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gold.v:74$262_gold ($mux): \rules[5].now_high_gold -> \rules[5].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gold.v:74$289_gold ($mux): \rules[6].now_high_gold -> \rules[6].now_high
+Changing input A of cell $ternary$/tmp/tmp.B2URfYCGj8/gold.v:74$316_gold ($mux): \rules[7].now_high_gold -> \rules[7].now_high
+Changing input A of cell $add$/tmp/tmp.B2URfYCGj8/gold.v:139$90_gold ($add): \tstamp_gold -> \tstamp
+Presumably equivalent cells: timebase_gold timebase_gate ($scopeinfo) -> timebase
+
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1. Analyzing design hierarchy..
+Top module:  \eq
+
+8.2. Analyzing design hierarchy..
+Top module:  \eq
+Removing unused module `\gate'.
+Removing unused module `\gold'.
+Removed 2 unused modules.
+
+9. Executing EQUIV_SIMPLE pass.
+Found 932 unproven $equiv cells (111 groups) in eq:
+ Grouping SAT models for \mon_state:
+  Trying to prove $equiv for \mon_state [0]: success!
+  Trying to prove $equiv for \mon_state [1]: success!
+  Trying to prove $equiv for \mon_state [2]: success!
+ Grouping SAT models for \cnt_pass:
+  Trying to prove $equiv for \cnt_pass [0]: success!
+  Trying to prove $equiv for \cnt_pass [1]: success!
+  Trying to prove $equiv for \cnt_pass [2]: success!
+  Trying to prove $equiv for \cnt_pass [3]: success!
+  Trying to prove $equiv for \cnt_pass [4]: success!
+  Trying to prove $equiv for \cnt_pass [5]: success!
+  Trying to prove $equiv for \cnt_pass [6]: success!
+  Trying to prove $equiv for \cnt_pass [7]: success!
+  Trying to prove $equiv for \cnt_pass [8]: success!
+  Trying to prove $equiv for \cnt_pass [9]: success!
+  Trying to prove $equiv for \cnt_pass [10]: success!
+  Trying to prove $equiv for \cnt_pass [11]: success!
+  Trying to prove $equiv for \cnt_pass [12]: success!
+  Trying to prove $equiv for \cnt_pass [13]: success!
+  Trying to prove $equiv for \cnt_pass [14]: success!
+  Trying to prove $equiv for \cnt_pass [15]: success!
+ Grouping SAT models for \cnt_viol:
+  Trying to prove $equiv for \cnt_viol [0]: success!
+  Trying to prove $equiv for \cnt_viol [1]: success!
+  Trying to prove $equiv for \cnt_viol [2]: success!
+  Trying to prove $equiv for \cnt_viol [3]: success!
+  Trying to prove $equiv for \cnt_viol [4]: success!
+  Trying to prove $equiv for \cnt_viol [5]: success!
+  Trying to prove $equiv for \cnt_viol [6]: success!
+  Trying to prove $equiv for \cnt_viol [7]: success!
+  Trying to prove $equiv for \cnt_viol [8]: success!
+  Trying to prove $equiv for \cnt_viol [9]: success!
+  Trying to prove $equiv for \cnt_viol [10]: success!
+  Trying to prove $equiv for \cnt_viol [11]: success!
+  Trying to prove $equiv for \cnt_viol [12]: success!
+  Trying to prove $equiv for \cnt_viol [13]: success!
+  Trying to prove $equiv for \cnt_viol [14]: success!
+  Trying to prove $equiv for \cnt_viol [15]: success!
+ Grouping SAT models for \cnt_inc:
+  Trying to prove $equiv for \cnt_inc [0]: success!
+  Trying to prove $equiv for \cnt_inc [1]: success!
+  Trying to prove $equiv for \cnt_inc [2]: success!
+  Trying to prove $equiv for \cnt_inc [3]: success!
+  Trying to prove $equiv for \cnt_inc [4]: success!
+  Trying to prove $equiv for \cnt_inc [5]: success!
+  Trying to prove $equiv for \cnt_inc [6]: success!
+  Trying to prove $equiv for \cnt_inc [7]: success!
+  Trying to prove $equiv for \cnt_inc [8]: success!
+  Trying to prove $equiv for \cnt_inc [9]: success!
+  Trying to prove $equiv for \cnt_inc [10]: success!
+  Trying to prove $equiv for \cnt_inc [11]: success!
+  Trying to prove $equiv for \cnt_inc [12]: success!
+  Trying to prove $equiv for \cnt_inc [13]: success!
+  Trying to prove $equiv for \cnt_inc [14]: success!
+  Trying to prove $equiv for \cnt_inc [15]: success!
+ Grouping SAT models for \log_flat:
+  Trying to prove $equiv for \log_flat [0]: success!
+  Trying to prove $equiv for \log_flat [1]: success!
+  Trying to prove $equiv for \log_flat [2]: success!
+  Trying to prove $equiv for \log_flat [3]: success!
+  Trying to prove $equiv for \log_flat [4]: success!
+  Trying to prove $equiv for \log_flat [5]: success!
+  Trying to prove $equiv for \log_flat [6]: success!
+  Trying to prove $equiv for \log_flat [7]: success!
+  Trying to prove $equiv for \log_flat [8]: success!
+  Trying to prove $equiv for \log_flat [9]: success!
+  Trying to prove $equiv for \log_flat [10]: success!
+  Trying to prove $equiv for \log_flat [11]: success!
+  Trying to prove $equiv for \log_flat [12]: success!
+  Trying to prove $equiv for \log_flat [13]: success!
+  Trying to prove $equiv for \log_flat [14]: success!
+  Trying to prove $equiv for \log_flat [15]: success!
+  Trying to prove $equiv for \log_flat [16]: success!
+  Trying to prove $equiv for \log_flat [17]: success!
+  Trying to prove $equiv for \log_flat [18]: success!
+  Trying to prove $equiv for \log_flat [19]: success!
+  Trying to prove $equiv for \log_flat [20]: success!
+  Trying to prove $equiv for \log_flat [21]: success!
+  Trying to prove $equiv for \log_flat [22]: success!
+  Trying to prove $equiv for \log_flat [23]: success!
+  Trying to prove $equiv for \log_flat [24]: success!
+  Trying to prove $equiv for \log_flat [25]: success!
+  Trying to prove $equiv for \log_flat [26]: success!
+  Trying to prove $equiv for \log_flat [27]: success!
+  Trying to prove $equiv for \log_flat [28]: success!
+  Trying to prove $equiv for \log_flat [29]: success!
+  Trying to prove $equiv for \log_flat [30]: success!
+  Trying to prove $equiv for \log_flat [31]: success!
+  Trying to prove $equiv for \log_flat [32]: success!
+  Trying to prove $equiv for \log_flat [33]: success!
+  Trying to prove $equiv for \log_flat [34]: success!
+  Trying to prove $equiv for \log_flat [35]: success!
+  Trying to prove $equiv for \log_flat [36]: success!
+  Trying to prove $equiv for \log_flat [37]: success!
+  Trying to prove $equiv for \log_flat [38]: success!
+  Trying to prove $equiv for \log_flat [39]: success!
+  Trying to prove $equiv for \log_flat [40]: success!
+  Trying to prove $equiv for \log_flat [41]: success!
+  Trying to prove $equiv for \log_flat [42]: success!
+  Trying to prove $equiv for \log_flat [43]: success!
+  Trying to prove $equiv for \log_flat [44]: success!
+  Trying to prove $equiv for \log_flat [45]: success!
+  Trying to prove $equiv for \log_flat [46]: success!
+  Trying to prove $equiv for \log_flat [47]: success!
+  Trying to prove $equiv for \log_flat [48]: success!
+  Trying to prove $equiv for \log_flat [49]: success!
+  Trying to prove $equiv for \log_flat [50]: success!
+  Trying to prove $equiv for \log_flat [51]: success!
+  Trying to prove $equiv for \log_flat [52]: success!
+  Trying to prove $equiv for \log_flat [53]: success!
+  Trying to prove $equiv for \log_flat [54]: success!
+  Trying to prove $equiv for \log_flat [55]: success!
+  Trying to prove $equiv for \log_flat [56]: success!
+  Trying to prove $equiv for \log_flat [57]: success!
+  Trying to prove $equiv for \log_flat [58]: success!
+  Trying to prove $equiv for \log_flat [59]: success!
+  Trying to prove $equiv for \log_flat [60]: success!
+  Trying to prove $equiv for \log_flat [61]: success!
+  Trying to prove $equiv for \log_flat [62]: success!
+  Trying to prove $equiv for \log_flat [63]: success!
+  Trying to prove $equiv for \log_flat [64]: success!
+  Trying to prove $equiv for \log_flat [65]: success!
+  Trying to prove $equiv for \log_flat [66]: success!
+  Trying to prove $equiv for \log_flat [67]: success!
+  Trying to prove $equiv for \log_flat [68]: success!
+  Trying to prove $equiv for \log_flat [69]: success!
+  Trying to prove $equiv for \log_flat [70]: success!
+  Trying to prove $equiv for \log_flat [71]: success!
+  Trying to prove $equiv for \log_flat [72]: success!
+  Trying to prove $equiv for \log_flat [73]: success!
+  Trying to prove $equiv for \log_flat [74]: success!
+  Trying to prove $equiv for \log_flat [75]: success!
+  Trying to prove $equiv for \log_flat [76]: success!
+  Trying to prove $equiv for \log_flat [77]: success!
+  Trying to prove $equiv for \log_flat [78]: success!
+  Trying to prove $equiv for \log_flat [79]: success!
+  Trying to prove $equiv for \log_flat [80]: success!
+  Trying to prove $equiv for \log_flat [81]: success!
+  Trying to prove $equiv for \log_flat [82]: success!
+  Trying to prove $equiv for \log_flat [83]: success!
+  Trying to prove $equiv for \log_flat [84]: success!
+  Trying to prove $equiv for \log_flat [85]: success!
+  Trying to prove $equiv for \log_flat [86]: success!
+  Trying to prove $equiv for \log_flat [87]: success!
+  Trying to prove $equiv for \log_flat [88]: success!
+  Trying to prove $equiv for \log_flat [89]: success!
+  Trying to prove $equiv for \log_flat [90]: success!
+  Trying to prove $equiv for \log_flat [91]: success!
+  Trying to prove $equiv for \log_flat [92]: success!
+  Trying to prove $equiv for \log_flat [93]: success!
+  Trying to prove $equiv for \log_flat [94]: success!
+  Trying to prove $equiv for \log_flat [95]: success!
+  Trying to prove $equiv for \log_flat [96]: success!
+  Trying to prove $equiv for \log_flat [97]: success!
+  Trying to prove $equiv for \log_flat [98]: success!
+  Trying to prove $equiv for \log_flat [99]: success!
+  Trying to prove $equiv for \log_flat [100]: success!
+  Trying to prove $equiv for \log_flat [101]: success!
+  Trying to prove $equiv for \log_flat [102]: success!
+  Trying to prove $equiv for \log_flat [103]: success!
+  Trying to prove $equiv for \log_flat [104]: success!
+  Trying to prove $equiv for \log_flat [105]: success!
+  Trying to prove $equiv for \log_flat [106]: success!
+  Trying to prove $equiv for \log_flat [107]: success!
+  Trying to prove $equiv for \log_flat [108]: success!
+  Trying to prove $equiv for \log_flat [109]: success!
+  Trying to prove $equiv for \log_flat [110]: success!
+  Trying to prove $equiv for \log_flat [111]: success!
+  Trying to prove $equiv for \log_flat [112]: success!
+  Trying to prove $equiv for \log_flat [113]: success!
+  Trying to prove $equiv for \log_flat [114]: success!
+  Trying to prove $equiv for \log_flat [115]: success!
+  Trying to prove $equiv for \log_flat [116]: success!
+  Trying to prove $equiv for \log_flat [117]: success!
+  Trying to prove $equiv for \log_flat [118]: success!
+  Trying to prove $equiv for \log_flat [119]: success!
+  Trying to prove $equiv for \log_flat [120]: success!
+  Trying to prove $equiv for \log_flat [121]: success!
+  Trying to prove $equiv for \log_flat [122]: success!
+  Trying to prove $equiv for \log_flat [123]: success!
+  Trying to prove $equiv for \log_flat [124]: success!
+  Trying to prove $equiv for \log_flat [125]: success!
+  Trying to prove $equiv for \log_flat [126]: success!
+  Trying to prove $equiv for \log_flat [127]: success!
+  Trying to prove $equiv for \log_flat [128]: success!
+  Trying to prove $equiv for \log_flat [129]: success!
+  Trying to prove $equiv for \log_flat [130]: success!
+  Trying to prove $equiv for \log_flat [131]: success!
+  Trying to prove $equiv for \log_flat [132]: success!
+  Trying to prove $equiv for \log_flat [133]: success!
+  Trying to prove $equiv for \log_flat [134]: success!
+  Trying to prove $equiv for \log_flat [135]: success!
+  Trying to prove $equiv for \log_flat [136]: success!
+  Trying to prove $equiv for \log_flat [137]: success!
+  Trying to prove $equiv for \log_flat [138]: success!
+  Trying to prove $equiv for \log_flat [139]: success!
+  Trying to prove $equiv for \log_flat [140]: success!
+  Trying to prove $equiv for \log_flat [141]: success!
+  Trying to prove $equiv for \log_flat [142]: success!
+  Trying to prove $equiv for \log_flat [143]: success!
+  Trying to prove $equiv for \log_flat [144]: success!
+  Trying to prove $equiv for \log_flat [145]: success!
+  Trying to prove $equiv for \log_flat [146]: success!
+  Trying to prove $equiv for \log_flat [147]: success!
+  Trying to prove $equiv for \log_flat [148]: success!
+  Trying to prove $equiv for \log_flat [149]: success!
+  Trying to prove $equiv for \log_flat [150]: success!
+  Trying to prove $equiv for \log_flat [151]: success!
+  Trying to prove $equiv for \log_flat [152]: success!
+  Trying to prove $equiv for \log_flat [153]: success!
+  Trying to prove $equiv for \log_flat [154]: success!
+  Trying to prove $equiv for \log_flat [155]: success!
+  Trying to prove $equiv for \log_flat [156]: success!
+  Trying to prove $equiv for \log_flat [157]: success!
+  Trying to prove $equiv for \log_flat [158]: success!
+  Trying to prove $equiv for \log_flat [159]: success!
+ Grouping SAT models for \log_wptr:
+  Trying to prove $equiv for \log_wptr [0]: success!
+  Trying to prove $equiv for \log_wptr [1]: success!
+ Grouping SAT models for \log_total:
+  Trying to prove $equiv for \log_total [0]: success!
+  Trying to prove $equiv for \log_total [1]: success!
+  Trying to prove $equiv for \log_total [2]: success!
+  Trying to prove $equiv for \log_total [3]: success!
+  Trying to prove $equiv for \log_total [4]: success!
+  Trying to prove $equiv for \log_total [5]: success!
+  Trying to prove $equiv for \active_q: success!
+  Trying to prove $equiv for \ovf: success!
+ Grouping SAT models for \t:
+  Trying to prove $equiv for \t [0]: success!
+  Trying to prove $equiv for \t [1]: success!
+  Trying to prove $equiv for \t [2]: success!
+  Trying to prove $equiv for \t [3]: success!
+  Trying to prove $equiv for \t [4]: success!
+  Trying to prove $equiv for \t [5]: success!
+  Trying to prove $equiv for \t [6]: success!
+  Trying to prove $equiv for \t [7]: success!
+  Trying to prove $equiv for \t [8]: success!
+  Trying to prove $equiv for \t [9]: success!
+  Trying to prove $equiv for \t [10]: success!
+  Trying to prove $equiv for \t [11]: success!
+  Trying to prove $equiv for \t [12]: success!
+  Trying to prove $equiv for \t [13]: success!
+  Trying to prove $equiv for \t [14]: success!
+  Trying to prove $equiv for \t [15]: success!
+ Grouping SAT models for \tstamp:
+  Trying to prove $equiv for \tstamp [0]: success!
+  Trying to prove $equiv for \tstamp [1]: success!
+  Trying to prove $equiv for \tstamp [2]: success!
+  Trying to prove $equiv for \tstamp [3]: success!
+  Trying to prove $equiv for \tstamp [4]: success!
+  Trying to prove $equiv for \tstamp [5]: success!
+  Trying to prove $equiv for \tstamp [6]: success!
+  Trying to prove $equiv for \tstamp [7]: success!
+  Trying to prove $equiv for \tstamp [8]: success!
+  Trying to prove $equiv for \tstamp [9]: success!
+  Trying to prove $equiv for \tstamp [10]: success!
+  Trying to prove $equiv for \tstamp [11]: success!
+  Trying to prove $equiv for \tstamp [12]: success!
+  Trying to prove $equiv for \tstamp [13]: success!
+  Trying to prove $equiv for \tstamp [14]: success!
+  Trying to prove $equiv for \tstamp [15]: success!
+  Trying to prove $equiv for \active: success!
+  Trying to prove $equiv for \start: success!
+  Trying to prove $equiv for \men: success!
+ Grouping SAT models for \sources:
+  Trying to prove $equiv for \sources [0]: success!
+  Trying to prove $equiv for \sources [1]: success!
+  Trying to prove $equiv for \sources [2]: success!
+  Trying to prove $equiv for \sources [3]: success!
+  Trying to prove $equiv for \sources [4]: success!
+  Trying to prove $equiv for \sources [5]: success!
+  Trying to prove $equiv for \sources [6]: success!
+  Trying to prove $equiv for \sources [7]: success!
+  Trying to prove $equiv for \sources [8]: success!
+  Trying to prove $equiv for \sources [9]: success!
+  Trying to prove $equiv for \sources [10]: success!
+  Trying to prove $equiv for \sources [11]: success!
+  Trying to prove $equiv for \sources [12]: success!
+  Trying to prove $equiv for \sources [13]: success!
+  Trying to prove $equiv for \sources [14]: success!
+  Trying to prove $equiv for \sources [15]: success!
+  Trying to prove $equiv for \sources [16]: success!
+  Trying to prove $equiv for \sources [17]: success!
+  Trying to prove $equiv for \sources [18]: success!
+  Trying to prove $equiv for \sources [19]: success!
+  Trying to prove $equiv for \sources [20]: success!
+  Trying to prove $equiv for \sources [21]: success!
+  Trying to prove $equiv for \sources [22]: success!
+  Trying to prove $equiv for \sources [23]: success!
+  Trying to prove $equiv for \sources [24]: success!
+  Trying to prove $equiv for \sources [25]: success!
+  Trying to prove $equiv for \sources [26]: success!
+  Trying to prove $equiv for \sources [27]: success!
+  Trying to prove $equiv for \sources [28]: success!
+  Trying to prove $equiv for \sources [29]: success!
+  Trying to prove $equiv for \sources [30]: success!
+  Trying to prove $equiv for \sources [31]: success!
+ Grouping SAT models for \src_prev:
+  Trying to prove $equiv for \src_prev [0]: success!
+  Trying to prove $equiv for \src_prev [1]: success!
+  Trying to prove $equiv for \src_prev [2]: success!
+  Trying to prove $equiv for \src_prev [3]: success!
+  Trying to prove $equiv for \src_prev [4]: success!
+  Trying to prove $equiv for \src_prev [5]: success!
+  Trying to prove $equiv for \src_prev [6]: success!
+  Trying to prove $equiv for \src_prev [7]: success!
+  Trying to prove $equiv for \src_prev [8]: success!
+  Trying to prove $equiv for \src_prev [9]: success!
+  Trying to prove $equiv for \src_prev [10]: success!
+  Trying to prove $equiv for \src_prev [11]: success!
+  Trying to prove $equiv for \src_prev [12]: success!
+  Trying to prove $equiv for \src_prev [13]: success!
+  Trying to prove $equiv for \src_prev [14]: success!
+  Trying to prove $equiv for \src_prev [15]: success!
+  Trying to prove $equiv for \src_prev [16]: success!
+  Trying to prove $equiv for \src_prev [17]: success!
+  Trying to prove $equiv for \src_prev [18]: success!
+  Trying to prove $equiv for \src_prev [19]: success!
+  Trying to prove $equiv for \src_prev [20]: success!
+  Trying to prove $equiv for \src_prev [21]: success!
+  Trying to prove $equiv for \src_prev [22]: success!
+  Trying to prove $equiv for \src_prev [23]: success!
+  Trying to prove $equiv for \src_prev [24]: success!
+  Trying to prove $equiv for \src_prev [25]: success!
+  Trying to prove $equiv for \src_prev [26]: success!
+  Trying to prove $equiv for \src_prev [27]: success!
+  Trying to prove $equiv for \src_prev [28]: success!
+  Trying to prove $equiv for \src_prev [29]: success!
+  Trying to prove $equiv for \src_prev [30]: success!
+  Trying to prove $equiv for \src_prev [31]: success!
+ Grouping SAT models for \matching_rules:
+  Trying to prove $equiv for \matching_rules [0]: success!
+  Trying to prove $equiv for \matching_rules [1]: success!
+  Trying to prove $equiv for \matching_rules [2]: success!
+  Trying to prove $equiv for \matching_rules [3]: success!
+  Trying to prove $equiv for \matching_rules [4]: success!
+  Trying to prove $equiv for \matching_rules [5]: success!
+  Trying to prove $equiv for \matching_rules [6]: success!
+  Trying to prove $equiv for \matching_rules [7]: success!
+ Grouping SAT models for \selected:
+  Trying to prove $equiv for \selected [0]: success!
+  Trying to prove $equiv for \selected [1]: success!
+  Trying to prove $equiv for \selected [2]: success!
+  Trying to prove $equiv for \selected [3]: success!
+  Trying to prove $equiv for \selected [4]: success!
+  Trying to prove $equiv for \selected [5]: success!
+  Trying to prove $equiv for \selected [6]: success!
+  Trying to prove $equiv for \selected [7]: success!
+ Grouping SAT models for \less_than_k:
+  Trying to prove $equiv for \less_than_k [0]: success!
+  Trying to prove $equiv for \less_than_k [1]: success!
+  Trying to prove $equiv for \less_than_k [2]: success!
+  Trying to prove $equiv for \less_than_k [3]: success!
+ Grouping SAT models for \rule:
+  Trying to prove $equiv for \rule [0]: success!
+  Trying to prove $equiv for \rule [1]: success!
+  Trying to prove $equiv for \rule [2]: success!
+ Grouping SAT models for \target:
+  Trying to prove $equiv for \target [0]: success!
+  Trying to prove $equiv for \target [1]: success!
+  Trying to prove $equiv for \target [2]: success!
+ Grouping SAT models for \action:
+  Trying to prove $equiv for \action [0]: success!
+  Trying to prove $equiv for \action [1]: success!
+  Trying to prove $equiv for \action [2]: success!
+ Grouping SAT models for \i:
+  Trying to prove $equiv for \i [0]: success!
+  Trying to prove $equiv for \i [1]: success!
+  Trying to prove $equiv for \i [2]: success!
+  Trying to prove $equiv for \i [3]: success!
+  Trying to prove $equiv for \i [4]: success!
+  Trying to prove $equiv for \i [5]: success!
+  Trying to prove $equiv for \i [6]: success!
+  Trying to prove $equiv for \i [7]: success!
+  Trying to prove $equiv for \i [8]: success!
+  Trying to prove $equiv for \i [9]: success!
+  Trying to prove $equiv for \i [10]: success!
+  Trying to prove $equiv for \i [11]: success!
+  Trying to prove $equiv for \i [12]: success!
+  Trying to prove $equiv for \i [13]: success!
+  Trying to prove $equiv for \i [14]: success!
+  Trying to prove $equiv for \i [15]: success!
+  Trying to prove $equiv for \i [16]: success!
+  Trying to prove $equiv for \i [17]: success!
+  Trying to prove $equiv for \i [18]: success!
+  Trying to prove $equiv for \i [19]: success!
+  Trying to prove $equiv for \i [20]: success!
+  Trying to prove $equiv for \i [21]: success!
+  Trying to prove $equiv for \i [22]: success!
+  Trying to prove $equiv for \i [23]: success!
+  Trying to prove $equiv for \i [24]: success!
+  Trying to prove $equiv for \i [25]: success!
+  Trying to prove $equiv for \i [26]: success!
+  Trying to prove $equiv for \i [27]: success!
+  Trying to prove $equiv for \i [28]: success!
+  Trying to prove $equiv for \i [29]: success!
+  Trying to prove $equiv for \i [30]: success!
+  Trying to prove $equiv for \i [31]: success!
+  Trying to prove $equiv for \fire: success!
+  Trying to prove $equiv for \log_event: success!
+  Trying to prove $equiv for \reset_timer: success!
+ Grouping SAT models for \log_entry:
+  Trying to prove $equiv for \log_entry [0]: success!
+  Trying to prove $equiv for \log_entry [1]: success!
+  Trying to prove $equiv for \log_entry [2]: success!
+  Trying to prove $equiv for \log_entry [3]: success!
+  Trying to prove $equiv for \log_entry [4]: success!
+  Trying to prove $equiv for \log_entry [5]: success!
+  Trying to prove $equiv for \log_entry [6]: success!
+  Trying to prove $equiv for \log_entry [7]: success!
+  Trying to prove $equiv for \log_entry [8]: success!
+  Trying to prove $equiv for \log_entry [9]: success!
+  Trying to prove $equiv for \log_entry [10]: success!
+  Trying to prove $equiv for \log_entry [11]: success!
+  Trying to prove $equiv for \log_entry [12]: success!
+  Trying to prove $equiv for \log_entry [13]: success!
+  Trying to prove $equiv for \log_entry [14]: success!
+  Trying to prove $equiv for \log_entry [15]: success!
+  Trying to prove $equiv for \log_entry [16]: success!
+  Trying to prove $equiv for \log_entry [17]: success!
+  Trying to prove $equiv for \log_entry [18]: success!
+  Trying to prove $equiv for \log_entry [19]: success!
+  Trying to prove $equiv for \log_entry [20]: success!
+  Trying to prove $equiv for \log_entry [21]: success!
+  Trying to prove $equiv for \log_entry [22]: success!
+  Trying to prove $equiv for \log_entry [23]: success!
+  Trying to prove $equiv for \log_entry [24]: success!
+  Trying to prove $equiv for \log_entry [25]: success!
+  Trying to prove $equiv for \log_entry [26]: success!
+  Trying to prove $equiv for \log_entry [27]: success!
+  Trying to prove $equiv for \log_entry [28]: success!
+  Trying to prove $equiv for \log_entry [29]: success!
+  Trying to prove $equiv for \log_entry [30]: success!
+  Trying to prove $equiv for \log_entry [31]: success!
+  Trying to prove $equiv for \log_entry [32]: success!
+  Trying to prove $equiv for \log_entry [33]: success!
+  Trying to prove $equiv for \log_entry [34]: success!
+  Trying to prove $equiv for \log_entry [35]: success!
+  Trying to prove $equiv for \log_entry [36]: success!
+  Trying to prove $equiv for \log_entry [37]: success!
+  Trying to prove $equiv for \log_entry [38]: success!
+  Trying to prove $equiv for \log_entry [39]: success!
+ Grouping SAT models for \rules[0].entry:
+  Trying to prove $equiv for \rules[0].entry [0]: success!
+  Trying to prove $equiv for \rules[0].entry [1]: success!
+  Trying to prove $equiv for \rules[0].entry [2]: success!
+  Trying to prove $equiv for \rules[0].entry [3]: success!
+  Trying to prove $equiv for \rules[0].entry [4]: success!
+  Trying to prove $equiv for \rules[0].entry [5]: success!
+  Trying to prove $equiv for \rules[0].entry [6]: success!
+  Trying to prove $equiv for \rules[0].entry [7]: success!
+  Trying to prove $equiv for \rules[0].entry [8]: success!
+  Trying to prove $equiv for \rules[0].entry [9]: success!
+  Trying to prove $equiv for \rules[0].entry [10]: success!
+  Trying to prove $equiv for \rules[0].entry [11]: success!
+  Trying to prove $equiv for \rules[0].entry [12]: success!
+  Trying to prove $equiv for \rules[0].entry [13]: success!
+  Trying to prove $equiv for \rules[0].entry [14]: success!
+  Trying to prove $equiv for \rules[0].entry [15]: success!
+  Trying to prove $equiv for \rules[0].entry [16]: success!
+  Trying to prove $equiv for \rules[0].entry [17]: success!
+  Trying to prove $equiv for \rules[0].entry [18]: success!
+  Trying to prove $equiv for \rules[0].entry [19]: success!
+  Trying to prove $equiv for \rules[0].entry [20]: success!
+  Trying to prove $equiv for \rules[0].entry [21]: success!
+  Trying to prove $equiv for \rules[0].entry [22]: success!
+  Trying to prove $equiv for \rules[0].entry [23]: success!
+ Grouping SAT models for \rules[0].source_id:
+  Trying to prove $equiv for \rules[0].source_id [0]: success!
+  Trying to prove $equiv for \rules[0].source_id [1]: success!
+  Trying to prove $equiv for \rules[0].source_id [2]: success!
+  Trying to prove $equiv for \rules[0].source_id [3]: success!
+  Trying to prove $equiv for \rules[0].source_id [4]: success!
+ Grouping SAT models for \rules[0].k_idx:
+  Trying to prove $equiv for \rules[0].k_idx [0]: success!
+  Trying to prove $equiv for \rules[0].k_idx [1]: success!
+  Trying to prove $equiv for \rules[0].now_high: success!
+  Trying to prove $equiv for \rules[0].prev_high: success!
+  Trying to prove $equiv for \rules[0].event_match: success!
+  Trying to prove $equiv for \rules[0].guard_match: success!
+ Grouping SAT models for \rules[1].entry:
+  Trying to prove $equiv for \rules[1].entry [0]: success!
+  Trying to prove $equiv for \rules[1].entry [1]: success!
+  Trying to prove $equiv for \rules[1].entry [2]: success!
+  Trying to prove $equiv for \rules[1].entry [3]: success!
+  Trying to prove $equiv for \rules[1].entry [4]: success!
+  Trying to prove $equiv for \rules[1].entry [5]: success!
+  Trying to prove $equiv for \rules[1].entry [6]: success!
+  Trying to prove $equiv for \rules[1].entry [7]: success!
+  Trying to prove $equiv for \rules[1].entry [8]: success!
+  Trying to prove $equiv for \rules[1].entry [9]: success!
+  Trying to prove $equiv for \rules[1].entry [10]: success!
+  Trying to prove $equiv for \rules[1].entry [11]: success!
+  Trying to prove $equiv for \rules[1].entry [12]: success!
+  Trying to prove $equiv for \rules[1].entry [13]: success!
+  Trying to prove $equiv for \rules[1].entry [14]: success!
+  Trying to prove $equiv for \rules[1].entry [15]: success!
+  Trying to prove $equiv for \rules[1].entry [16]: success!
+  Trying to prove $equiv for \rules[1].entry [17]: success!
+  Trying to prove $equiv for \rules[1].entry [18]: success!
+  Trying to prove $equiv for \rules[1].entry [19]: success!
+  Trying to prove $equiv for \rules[1].entry [20]: success!
+  Trying to prove $equiv for \rules[1].entry [21]: success!
+  Trying to prove $equiv for \rules[1].entry [22]: success!
+  Trying to prove $equiv for \rules[1].entry [23]: success!
+ Grouping SAT models for \rules[1].source_id:
+  Trying to prove $equiv for \rules[1].source_id [0]: success!
+  Trying to prove $equiv for \rules[1].source_id [1]: success!
+  Trying to prove $equiv for \rules[1].source_id [2]: success!
+  Trying to prove $equiv for \rules[1].source_id [3]: success!
+  Trying to prove $equiv for \rules[1].source_id [4]: success!
+ Grouping SAT models for \rules[1].k_idx:
+  Trying to prove $equiv for \rules[1].k_idx [0]: success!
+  Trying to prove $equiv for \rules[1].k_idx [1]: success!
+  Trying to prove $equiv for \rules[1].now_high: success!
+  Trying to prove $equiv for \rules[1].prev_high: success!
+  Trying to prove $equiv for \rules[1].event_match: success!
+  Trying to prove $equiv for \rules[1].guard_match: success!
+ Grouping SAT models for \rules[2].entry:
+  Trying to prove $equiv for \rules[2].entry [0]: success!
+  Trying to prove $equiv for \rules[2].entry [1]: success!
+  Trying to prove $equiv for \rules[2].entry [2]: success!
+  Trying to prove $equiv for \rules[2].entry [3]: success!
+  Trying to prove $equiv for \rules[2].entry [4]: success!
+  Trying to prove $equiv for \rules[2].entry [5]: success!
+  Trying to prove $equiv for \rules[2].entry [6]: success!
+  Trying to prove $equiv for \rules[2].entry [7]: success!
+  Trying to prove $equiv for \rules[2].entry [8]: success!
+  Trying to prove $equiv for \rules[2].entry [9]: success!
+  Trying to prove $equiv for \rules[2].entry [10]: success!
+  Trying to prove $equiv for \rules[2].entry [11]: success!
+  Trying to prove $equiv for \rules[2].entry [12]: success!
+  Trying to prove $equiv for \rules[2].entry [13]: success!
+  Trying to prove $equiv for \rules[2].entry [14]: success!
+  Trying to prove $equiv for \rules[2].entry [15]: success!
+  Trying to prove $equiv for \rules[2].entry [16]: success!
+  Trying to prove $equiv for \rules[2].entry [17]: success!
+  Trying to prove $equiv for \rules[2].entry [18]: success!
+  Trying to prove $equiv for \rules[2].entry [19]: success!
+  Trying to prove $equiv for \rules[2].entry [20]: success!
+  Trying to prove $equiv for \rules[2].entry [21]: success!
+  Trying to prove $equiv for \rules[2].entry [22]: success!
+  Trying to prove $equiv for \rules[2].entry [23]: success!
+ Grouping SAT models for \rules[2].source_id:
+  Trying to prove $equiv for \rules[2].source_id [0]: success!
+  Trying to prove $equiv for \rules[2].source_id [1]: success!
+  Trying to prove $equiv for \rules[2].source_id [2]: success!
+  Trying to prove $equiv for \rules[2].source_id [3]: success!
+  Trying to prove $equiv for \rules[2].source_id [4]: success!
+ Grouping SAT models for \rules[2].k_idx:
+  Trying to prove $equiv for \rules[2].k_idx [0]: success!
+  Trying to prove $equiv for \rules[2].k_idx [1]: success!
+  Trying to prove $equiv for \rules[2].now_high: success!
+  Trying to prove $equiv for \rules[2].prev_high: success!
+  Trying to prove $equiv for \rules[2].event_match: success!
+  Trying to prove $equiv for \rules[2].guard_match: success!
+ Grouping SAT models for \rules[3].entry:
+  Trying to prove $equiv for \rules[3].entry [0]: success!
+  Trying to prove $equiv for \rules[3].entry [1]: success!
+  Trying to prove $equiv for \rules[3].entry [2]: success!
+  Trying to prove $equiv for \rules[3].entry [3]: success!
+  Trying to prove $equiv for \rules[3].entry [4]: success!
+  Trying to prove $equiv for \rules[3].entry [5]: success!
+  Trying to prove $equiv for \rules[3].entry [6]: success!
+  Trying to prove $equiv for \rules[3].entry [7]: success!
+  Trying to prove $equiv for \rules[3].entry [8]: success!
+  Trying to prove $equiv for \rules[3].entry [9]: success!
+  Trying to prove $equiv for \rules[3].entry [10]: success!
+  Trying to prove $equiv for \rules[3].entry [11]: success!
+  Trying to prove $equiv for \rules[3].entry [12]: success!
+  Trying to prove $equiv for \rules[3].entry [13]: success!
+  Trying to prove $equiv for \rules[3].entry [14]: success!
+  Trying to prove $equiv for \rules[3].entry [15]: success!
+  Trying to prove $equiv for \rules[3].entry [16]: success!
+  Trying to prove $equiv for \rules[3].entry [17]: success!
+  Trying to prove $equiv for \rules[3].entry [18]: success!
+  Trying to prove $equiv for \rules[3].entry [19]: success!
+  Trying to prove $equiv for \rules[3].entry [20]: success!
+  Trying to prove $equiv for \rules[3].entry [21]: success!
+  Trying to prove $equiv for \rules[3].entry [22]: success!
+  Trying to prove $equiv for \rules[3].entry [23]: success!
+ Grouping SAT models for \rules[3].source_id:
+  Trying to prove $equiv for \rules[3].source_id [0]: success!
+  Trying to prove $equiv for \rules[3].source_id [1]: success!
+  Trying to prove $equiv for \rules[3].source_id [2]: success!
+  Trying to prove $equiv for \rules[3].source_id [3]: success!
+  Trying to prove $equiv for \rules[3].source_id [4]: success!
+ Grouping SAT models for \rules[3].k_idx:
+  Trying to prove $equiv for \rules[3].k_idx [0]: success!
+  Trying to prove $equiv for \rules[3].k_idx [1]: success!
+  Trying to prove $equiv for \rules[3].now_high: success!
+  Trying to prove $equiv for \rules[3].prev_high: success!
+  Trying to prove $equiv for \rules[3].event_match: success!
+  Trying to prove $equiv for \rules[3].guard_match: success!
+ Grouping SAT models for \rules[4].entry:
+  Trying to prove $equiv for \rules[4].entry [0]: success!
+  Trying to prove $equiv for \rules[4].entry [1]: success!
+  Trying to prove $equiv for \rules[4].entry [2]: success!
+  Trying to prove $equiv for \rules[4].entry [3]: success!
+  Trying to prove $equiv for \rules[4].entry [4]: success!
+  Trying to prove $equiv for \rules[4].entry [5]: success!
+  Trying to prove $equiv for \rules[4].entry [6]: success!
+  Trying to prove $equiv for \rules[4].entry [7]: success!
+  Trying to prove $equiv for \rules[4].entry [8]: success!
+  Trying to prove $equiv for \rules[4].entry [9]: success!
+  Trying to prove $equiv for \rules[4].entry [10]: success!
+  Trying to prove $equiv for \rules[4].entry [11]: success!
+  Trying to prove $equiv for \rules[4].entry [12]: success!
+  Trying to prove $equiv for \rules[4].entry [13]: success!
+  Trying to prove $equiv for \rules[4].entry [14]: success!
+  Trying to prove $equiv for \rules[4].entry [15]: success!
+  Trying to prove $equiv for \rules[4].entry [16]: success!
+  Trying to prove $equiv for \rules[4].entry [17]: success!
+  Trying to prove $equiv for \rules[4].entry [18]: success!
+  Trying to prove $equiv for \rules[4].entry [19]: success!
+  Trying to prove $equiv for \rules[4].entry [20]: success!
+  Trying to prove $equiv for \rules[4].entry [21]: success!
+  Trying to prove $equiv for \rules[4].entry [22]: success!
+  Trying to prove $equiv for \rules[4].entry [23]: success!
+ Grouping SAT models for \rules[4].source_id:
+  Trying to prove $equiv for \rules[4].source_id [0]: success!
+  Trying to prove $equiv for \rules[4].source_id [1]: success!
+  Trying to prove $equiv for \rules[4].source_id [2]: success!
+  Trying to prove $equiv for \rules[4].source_id [3]: success!
+  Trying to prove $equiv for \rules[4].source_id [4]: success!
+ Grouping SAT models for \rules[4].k_idx:
+  Trying to prove $equiv for \rules[4].k_idx [0]: success!
+  Trying to prove $equiv for \rules[4].k_idx [1]: success!
+  Trying to prove $equiv for \rules[4].now_high: success!
+  Trying to prove $equiv for \rules[4].prev_high: success!
+  Trying to prove $equiv for \rules[4].event_match: success!
+  Trying to prove $equiv for \rules[4].guard_match: success!
+ Grouping SAT models for \rules[5].entry:
+  Trying to prove $equiv for \rules[5].entry [0]: success!
+  Trying to prove $equiv for \rules[5].entry [1]: success!
+  Trying to prove $equiv for \rules[5].entry [2]: success!
+  Trying to prove $equiv for \rules[5].entry [3]: success!
+  Trying to prove $equiv for \rules[5].entry [4]: success!
+  Trying to prove $equiv for \rules[5].entry [5]: success!
+  Trying to prove $equiv for \rules[5].entry [6]: success!
+  Trying to prove $equiv for \rules[5].entry [7]: success!
+  Trying to prove $equiv for \rules[5].entry [8]: success!
+  Trying to prove $equiv for \rules[5].entry [9]: success!
+  Trying to prove $equiv for \rules[5].entry [10]: success!
+  Trying to prove $equiv for \rules[5].entry [11]: success!
+  Trying to prove $equiv for \rules[5].entry [12]: success!
+  Trying to prove $equiv for \rules[5].entry [13]: success!
+  Trying to prove $equiv for \rules[5].entry [14]: success!
+  Trying to prove $equiv for \rules[5].entry [15]: success!
+  Trying to prove $equiv for \rules[5].entry [16]: success!
+  Trying to prove $equiv for \rules[5].entry [17]: success!
+  Trying to prove $equiv for \rules[5].entry [18]: success!
+  Trying to prove $equiv for \rules[5].entry [19]: success!
+  Trying to prove $equiv for \rules[5].entry [20]: success!
+  Trying to prove $equiv for \rules[5].entry [21]: success!
+  Trying to prove $equiv for \rules[5].entry [22]: success!
+  Trying to prove $equiv for \rules[5].entry [23]: success!
+ Grouping SAT models for \rules[5].source_id:
+  Trying to prove $equiv for \rules[5].source_id [0]: success!
+  Trying to prove $equiv for \rules[5].source_id [1]: success!
+  Trying to prove $equiv for \rules[5].source_id [2]: success!
+  Trying to prove $equiv for \rules[5].source_id [3]: success!
+  Trying to prove $equiv for \rules[5].source_id [4]: success!
+ Grouping SAT models for \rules[5].k_idx:
+  Trying to prove $equiv for \rules[5].k_idx [0]: success!
+  Trying to prove $equiv for \rules[5].k_idx [1]: success!
+  Trying to prove $equiv for \rules[5].now_high: success!
+  Trying to prove $equiv for \rules[5].prev_high: success!
+  Trying to prove $equiv for \rules[5].event_match: success!
+  Trying to prove $equiv for \rules[5].guard_match: success!
+ Grouping SAT models for \rules[6].entry:
+  Trying to prove $equiv for \rules[6].entry [0]: success!
+  Trying to prove $equiv for \rules[6].entry [1]: success!
+  Trying to prove $equiv for \rules[6].entry [2]: success!
+  Trying to prove $equiv for \rules[6].entry [3]: success!
+  Trying to prove $equiv for \rules[6].entry [4]: success!
+  Trying to prove $equiv for \rules[6].entry [5]: success!
+  Trying to prove $equiv for \rules[6].entry [6]: success!
+  Trying to prove $equiv for \rules[6].entry [7]: success!
+  Trying to prove $equiv for \rules[6].entry [8]: success!
+  Trying to prove $equiv for \rules[6].entry [9]: success!
+  Trying to prove $equiv for \rules[6].entry [10]: success!
+  Trying to prove $equiv for \rules[6].entry [11]: success!
+  Trying to prove $equiv for \rules[6].entry [12]: success!
+  Trying to prove $equiv for \rules[6].entry [13]: success!
+  Trying to prove $equiv for \rules[6].entry [14]: success!
+  Trying to prove $equiv for \rules[6].entry [15]: success!
+  Trying to prove $equiv for \rules[6].entry [16]: success!
+  Trying to prove $equiv for \rules[6].entry [17]: success!
+  Trying to prove $equiv for \rules[6].entry [18]: success!
+  Trying to prove $equiv for \rules[6].entry [19]: success!
+  Trying to prove $equiv for \rules[6].entry [20]: success!
+  Trying to prove $equiv for \rules[6].entry [21]: success!
+  Trying to prove $equiv for \rules[6].entry [22]: success!
+  Trying to prove $equiv for \rules[6].entry [23]: success!
+ Grouping SAT models for \rules[6].source_id:
+  Trying to prove $equiv for \rules[6].source_id [0]: success!
+  Trying to prove $equiv for \rules[6].source_id [1]: success!
+  Trying to prove $equiv for \rules[6].source_id [2]: success!
+  Trying to prove $equiv for \rules[6].source_id [3]: success!
+  Trying to prove $equiv for \rules[6].source_id [4]: success!
+ Grouping SAT models for \rules[6].k_idx:
+  Trying to prove $equiv for \rules[6].k_idx [0]: success!
+  Trying to prove $equiv for \rules[6].k_idx [1]: success!
+  Trying to prove $equiv for \rules[6].now_high: success!
+  Trying to prove $equiv for \rules[6].prev_high: success!
+  Trying to prove $equiv for \rules[6].event_match: success!
+  Trying to prove $equiv for \rules[6].guard_match: success!
+ Grouping SAT models for \rules[7].entry:
+  Trying to prove $equiv for \rules[7].entry [0]: success!
+  Trying to prove $equiv for \rules[7].entry [1]: success!
+  Trying to prove $equiv for \rules[7].entry [2]: success!
+  Trying to prove $equiv for \rules[7].entry [3]: success!
+  Trying to prove $equiv for \rules[7].entry [4]: success!
+  Trying to prove $equiv for \rules[7].entry [5]: success!
+  Trying to prove $equiv for \rules[7].entry [6]: success!
+  Trying to prove $equiv for \rules[7].entry [7]: success!
+  Trying to prove $equiv for \rules[7].entry [8]: success!
+  Trying to prove $equiv for \rules[7].entry [9]: success!
+  Trying to prove $equiv for \rules[7].entry [10]: success!
+  Trying to prove $equiv for \rules[7].entry [11]: success!
+  Trying to prove $equiv for \rules[7].entry [12]: success!
+  Trying to prove $equiv for \rules[7].entry [13]: success!
+  Trying to prove $equiv for \rules[7].entry [14]: success!
+  Trying to prove $equiv for \rules[7].entry [15]: success!
+  Trying to prove $equiv for \rules[7].entry [16]: success!
+  Trying to prove $equiv for \rules[7].entry [17]: success!
+  Trying to prove $equiv for \rules[7].entry [18]: success!
+  Trying to prove $equiv for \rules[7].entry [19]: success!
+  Trying to prove $equiv for \rules[7].entry [20]: success!
+  Trying to prove $equiv for \rules[7].entry [21]: success!
+  Trying to prove $equiv for \rules[7].entry [22]: success!
+  Trying to prove $equiv for \rules[7].entry [23]: success!
+ Grouping SAT models for \rules[7].source_id:
+  Trying to prove $equiv for \rules[7].source_id [0]: success!
+  Trying to prove $equiv for \rules[7].source_id [1]: success!
+  Trying to prove $equiv for \rules[7].source_id [2]: success!
+  Trying to prove $equiv for \rules[7].source_id [3]: success!
+  Trying to prove $equiv for \rules[7].source_id [4]: success!
+ Grouping SAT models for \rules[7].k_idx:
+  Trying to prove $equiv for \rules[7].k_idx [0]: success!
+  Trying to prove $equiv for \rules[7].k_idx [1]: success!
+  Trying to prove $equiv for \rules[7].now_high: success!
+  Trying to prove $equiv for \rules[7].prev_high: success!
+  Trying to prove $equiv for \rules[7].event_match: success!
+  Trying to prove $equiv for \rules[7].guard_match: success!
+ Grouping SAT models for \log_slots[0].entry_q:
+  Trying to prove $equiv for \log_slots[0].entry_q [0]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [1]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [2]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [3]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [4]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [5]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [6]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [7]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [8]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [9]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [10]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [11]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [12]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [13]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [14]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [15]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [16]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [17]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [18]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [19]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [20]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [21]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [22]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [23]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [24]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [25]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [26]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [27]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [28]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [29]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [30]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [31]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [32]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [33]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [34]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [35]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [36]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [37]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [38]: success!
+  Trying to prove $equiv for \log_slots[0].entry_q [39]: success!
+ Grouping SAT models for \log_slots[1].entry_q:
+  Trying to prove $equiv for \log_slots[1].entry_q [0]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [1]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [2]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [3]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [4]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [5]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [6]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [7]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [8]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [9]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [10]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [11]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [12]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [13]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [14]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [15]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [16]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [17]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [18]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [19]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [20]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [21]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [22]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [23]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [24]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [25]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [26]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [27]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [28]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [29]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [30]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [31]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [32]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [33]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [34]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [35]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [36]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [37]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [38]: success!
+  Trying to prove $equiv for \log_slots[1].entry_q [39]: success!
+ Grouping SAT models for \log_slots[2].entry_q:
+  Trying to prove $equiv for \log_slots[2].entry_q [0]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [1]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [2]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [3]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [4]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [5]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [6]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [7]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [8]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [9]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [10]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [11]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [12]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [13]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [14]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [15]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [16]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [17]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [18]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [19]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [20]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [21]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [22]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [23]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [24]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [25]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [26]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [27]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [28]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [29]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [30]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [31]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [32]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [33]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [34]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [35]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [36]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [37]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [38]: success!
+  Trying to prove $equiv for \log_slots[2].entry_q [39]: success!
+ Grouping SAT models for \log_slots[3].entry_q:
+  Trying to prove $equiv for \log_slots[3].entry_q [0]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [1]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [2]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [3]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [4]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [5]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [6]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [7]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [8]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [9]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [10]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [11]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [12]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [13]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [14]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [15]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [16]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [17]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [18]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [19]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [20]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [21]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [22]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [23]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [24]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [25]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [26]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [27]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [28]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [29]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [30]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [31]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [32]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [33]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [34]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [35]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [36]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [37]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [38]: success!
+  Trying to prove $equiv for \log_slots[3].entry_q [39]: success!
+ Grouping SAT models for \targets[0]:
+  Trying to prove $equiv for \targets[0] [0]: success!
+  Trying to prove $equiv for \targets[0] [1]: success!
+  Trying to prove $equiv for \targets[0] [2]: success!
+ Grouping SAT models for \targets[1]:
+  Trying to prove $equiv for \targets[1] [0]: success!
+  Trying to prove $equiv for \targets[1] [1]: success!
+  Trying to prove $equiv for \targets[1] [2]: success!
+ Grouping SAT models for \targets[2]:
+  Trying to prove $equiv for \targets[2] [0]: success!
+  Trying to prove $equiv for \targets[2] [1]: success!
+  Trying to prove $equiv for \targets[2] [2]: success!
+ Grouping SAT models for \targets[3]:
+  Trying to prove $equiv for \targets[3] [0]: success!
+  Trying to prove $equiv for \targets[3] [1]: success!
+  Trying to prove $equiv for \targets[3] [2]: success!
+ Grouping SAT models for \targets[4]:
+  Trying to prove $equiv for \targets[4] [0]: success!
+  Trying to prove $equiv for \targets[4] [1]: success!
+  Trying to prove $equiv for \targets[4] [2]: success!
+ Grouping SAT models for \targets[5]:
+  Trying to prove $equiv for \targets[5] [0]: success!
+  Trying to prove $equiv for \targets[5] [1]: success!
+  Trying to prove $equiv for \targets[5] [2]: success!
+ Grouping SAT models for \targets[6]:
+  Trying to prove $equiv for \targets[6] [0]: success!
+  Trying to prove $equiv for \targets[6] [1]: success!
+  Trying to prove $equiv for \targets[6] [2]: success!
+ Grouping SAT models for \targets[7]:
+  Trying to prove $equiv for \targets[7] [0]: success!
+  Trying to prove $equiv for \targets[7] [1]: success!
+  Trying to prove $equiv for \targets[7] [2]: success!
+ Grouping SAT models for \actions[0]:
+  Trying to prove $equiv for \actions[0] [0]: success!
+  Trying to prove $equiv for \actions[0] [1]: success!
+  Trying to prove $equiv for \actions[0] [2]: success!
+ Grouping SAT models for \actions[1]:
+  Trying to prove $equiv for \actions[1] [0]: success!
+  Trying to prove $equiv for \actions[1] [1]: success!
+  Trying to prove $equiv for \actions[1] [2]: success!
+ Grouping SAT models for \actions[2]:
+  Trying to prove $equiv for \actions[2] [0]: success!
+  Trying to prove $equiv for \actions[2] [1]: success!
+  Trying to prove $equiv for \actions[2] [2]: success!
+ Grouping SAT models for \actions[3]:
+  Trying to prove $equiv for \actions[3] [0]: success!
+  Trying to prove $equiv for \actions[3] [1]: success!
+  Trying to prove $equiv for \actions[3] [2]: success!
+ Grouping SAT models for \actions[4]:
+  Trying to prove $equiv for \actions[4] [0]: success!
+  Trying to prove $equiv for \actions[4] [1]: success!
+  Trying to prove $equiv for \actions[4] [2]: success!
+ Grouping SAT models for \actions[5]:
+  Trying to prove $equiv for \actions[5] [0]: success!
+  Trying to prove $equiv for \actions[5] [1]: success!
+  Trying to prove $equiv for \actions[5] [2]: success!
+ Grouping SAT models for \actions[6]:
+  Trying to prove $equiv for \actions[6] [0]: success!
+  Trying to prove $equiv for \actions[6] [1]: success!
+  Trying to prove $equiv for \actions[6] [2]: success!
+ Grouping SAT models for \actions[7]:
+  Trying to prove $equiv for \actions[7] [0]: success!
+  Trying to prove $equiv for \actions[7] [1]: success!
+  Trying to prove $equiv for \actions[7] [2]: success!
+  Trying to prove $equiv for \timebase.last_cycle: success!
+ Grouping SAT models for \timebase.elapsed_q:
+  Trying to prove $equiv for \timebase.elapsed_q [0]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [1]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [2]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [3]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [4]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [5]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [6]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [7]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [8]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [9]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [10]: success!
+  Trying to prove $equiv for \timebase.elapsed_q [11]: success!
+  Trying to prove $equiv for \timebase.en: success!
+ Grouping SAT models for \timebase.sel:
+  Trying to prove $equiv for \timebase.sel [0]: success!
+  Trying to prove $equiv for \timebase.sel [1]: success!
+  Trying to prove $equiv for \timebase.restart: success!
+  Trying to prove $equiv for \timebase.run: success!
+  Trying to prove $equiv for \timebase.rst_n: success!
+  Trying to prove $equiv for \timebase.clk: success!
+Proved 932 previously unproven $equiv cells.
+
+10. Executing EQUIV_INDUCT pass.
+No selected unproven $equiv cells found in eq.
+Proved 0 previously unproven $equiv cells.
+
+11. Executing EQUIV_STATUS pass.
+Found 932 $equiv cells in eq:
+  Of those cells 932 are proven and 0 are unproven.
+  Equivalence successfully proven!

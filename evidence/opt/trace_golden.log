@@ -1,0 +1,5 @@
+GOLDEN_MATCH tb_rtl/vectors/golden_tb_engine_a.csv
+GOLDEN_MATCH tb_rtl/vectors/golden_tb_engine_b.csv
+GOLDEN_MATCH tb_rtl/vectors/golden_tb_engine_c.csv
+GOLDEN_MATCH tb_rtl/vectors/golden_tb_top_s11.csv
+GOLDEN_MATCH tb_rtl/vectors/golden_provenance.json

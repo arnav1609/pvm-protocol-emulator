@@ -1,0 +1,50 @@
+{
+ "id": "s07_cfg_b_neg_image_id",
+ "state": "NEG_KILLED",
+ "selection": "S07",
+ "frozen_checks": 22,
+ "checks_basis": "Drop the configuration ID latch at commit.",
+ "negative": true,
+ "variant_of": "s07_cfg_b",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T083538",
+ "sources": {
+  "src/pvm_imem.v": "25b9e846f9a59d64ce3870822a3e9445ca2f9d940065c6ed510795534adcbb2c",
+  "src/pvm_crc16.v": "216039527e57ea929b369453d09ecb001374623a56ea7b741f56c7cc22b101ac",
+  "src/pvm_cfg.v": "00b1641390560d18000220e91c65c02266fd02d6046b149f50218f8ed71181cd",
+  "tb_rtl/tb_cfg_b.v": "24391e216abc060b5e28fa4918a0adc23a11c75b24f938f492dfdd73248e4dd2"
+ },
+ "parsed": {
+  "passes": [
+   "OD_ON_UO",
+   "OUTPUT_ON_UI",
+   "OWNER_WITH_INPUT_MODE",
+   "OWNER7",
+   "MODE3",
+   "OUT_CNT_17",
+   "SET_CNT_6",
+   "SIDE_CNT_3",
+   "BASE_20",
+   "WRAP_INVERTED",
+   "ENTRY_INVALID",
+   "LUTMODE3",
+   "MANCH_NO_CNT",
+   "ARB_N0",
+   "ARB_PIN_NOT_UIO",
+   "ARB_PIN_NOT_OD",
+   "MON_GUARD3",
+   "MON_ACTION7",
+   "CRC_BEFORE_PIN",
+   "LEGAL_IMAGE_READY"
+  ],
+  "fails": [
+   "IMAGE_ID_LATCHED",
+   "REVALIDATE_AFTER_HALT"
+  ],
+  "checks": 22,
+  "errors": 2,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_cfg_b -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s07_cfg_b_neg_image_id/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_imem.v /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/tb_rtl/build/s07_cfg_b_neg_image_id/pvm_cfg.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_cfg_b.v"
+}

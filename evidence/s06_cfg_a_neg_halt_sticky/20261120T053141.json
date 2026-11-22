@@ -1,0 +1,51 @@
+{
+ "id": "s06_cfg_a_neg_halt_sticky",
+ "state": "NEG_UNRELATED",
+ "selection": "S06",
+ "frozen_checks": 23,
+ "checks_basis": "Prevent HALT from clearing FIFO status while preserving reset and FIFO content clear.",
+ "negative": true,
+ "variant_of": "s06_cfg_a",
+ "tool": "Icarus Verilog version 12.0 (stable) ()",
+ "date": "20261120T053141",
+ "sources": {
+  "src/pvm_crc16.v": "216039527e57ea929b369453d09ecb001374623a56ea7b741f56c7cc22b101ac",
+  "src/pvm_fifo.v": "7f03e00882ac86e8b8890f5bc529172614bb43bd5dd373b618e39ad16475e976",
+  "src/pvm_cfg.v": "b4165d693fbd99dd46b86765519ab226d7805afe8149f6a8ac5857a63a6c346b",
+  "tb_rtl/tb_cfg_a.v": "409067032980581febb3fa97556ddff8b3364c2f1ff46d227d4be4cf7bd22e76"
+ },
+ "parsed": {
+  "passes": [
+   "RESET_STATE_HALT",
+   "WH_WRITE_HALT_OK",
+   "READ_LATENCY_1",
+   "UNMAPPED_READ_ZERO",
+   "UNMAPPED_WRITE_REJ",
+   "ENABLE_FROM_HALT_REJ",
+   "REGISTER_ROUNDTRIP_ENGINE",
+   "REGISTER_ROUNDTRIP_FABRIC",
+   "REGISTER_ROUNDTRIP_MONITOR",
+   "REGISTER_ROUNDTRIP_PINS",
+   "CRC_MATCH_READY",
+   "ENABLE_PULSE_WIDTH_1",
+   "WH_WRITE_RUN_REJECTED",
+   "CLR_IMEM_ONLY_HALT",
+   "ENGINE_DONE_TO_DONE",
+   "CLR_FAULT_TO_HALT",
+   "ENGINE_FAULT_LATCH",
+   "CRC_MISMATCH_FAULT",
+   "TXFIFO_PUSH_OVF",
+   "RXFIFO_PEEK_NO_POP_ON_RE",
+   "RXFIFO_POP_ON_RACK"
+  ],
+  "fails": [
+   "HALT_CLEARS_STICKY",
+   "HALT_CLEARS_FIFOS"
+  ],
+  "checks": 23,
+  "errors": 2,
+  "result": "FAIL",
+  "timeout": false
+ },
+ "cmd": "iverilog -g2005 -Wall -s tb_cfg_a -o /workspace/work/pvm-protocol-emulator/tb_rtl/build/s06_cfg_a_neg_halt_sticky/sim.vvp /workspace/work/pvm-protocol-emulator/src/pvm_crc16.v /workspace/work/pvm-protocol-emulator/src/pvm_fifo.v /workspace/work/pvm-protocol-emulator/tb_rtl/build/s06_cfg_a_neg_halt_sticky/pvm_cfg.v /workspace/work/pvm-protocol-emulator/tb_rtl/tb_cfg_a.v"
+}
