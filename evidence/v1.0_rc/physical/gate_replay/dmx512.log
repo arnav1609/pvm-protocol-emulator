@@ -1,0 +1,26 @@
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '/workspace/work/pvm-v1-validation/clone/test'
+/workspace/work/pvm-s14-gate-protocols/iv13/usr/bin/iverilog -o sim_build/gl/sim.vvp -s tb -g2012 -DGL_TEST -DFUNCTIONAL -DSIM -I/workspace/work/pvm-v1-validation/clone/test/../src -f sim_build/gl/cmds.f  /workspace/work/pvm-v1-validation/gl-final/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_io/verilog/sg13cmos5l_io.v /workspace/work/pvm-v1-validation/gl-final/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_udp.v /workspace/work/pvm-v1-validation/gl-final/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v /workspace/work/pvm-v1-validation/clone/test/gate_level_netlist.v /workspace/work/pvm-v1-validation/clone/test/tb.v
+rm -f results.xml
+COCOTB_TEST_MODULES=capture_dmx512 COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+         /workspace/work/pvm-s14-gate-protocols/iv13/usr/bin/vvp -M /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/gl/sim.vvp -fst
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at /workspace/work/pvm-tools/cocotb-env/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 13.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with 1795375070
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running capture_dmx512.capture_and_reload (1/1)
+3653410.00ns INFO     cocotb.tb                          DMX run 1, 393 P5 samples, DONE status 2923520ns after ENABLE frame end
+7306670.00ns INFO     cocotb.tb                          DMX run 2, 393 P5 samples, DONE status 2923520ns after ENABLE frame end
+7306670.00ns INFO     cocotb.regression                  capture_dmx512.capture_and_reload passed
+7306670.00ns INFO     cocotb.regression                  *******************************************************************************************
+                                                         ** TEST                               STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                         *******************************************************************************************
+                                                         ** capture_dmx512.capture_and_reload   PASS     7306670.00         643.98      11346.15  **
+                                                         *******************************************************************************************
+                                                         ** TESTS=1 PASS=1 FAIL=0 SKIP=0                 7306670.00         643.98      11346.06  **
+                                                         *******************************************************************************************
+FST info: dumpfile tb.fst opened for output.
+make[1]: Leaving directory '/workspace/work/pvm-v1-validation/clone/test'

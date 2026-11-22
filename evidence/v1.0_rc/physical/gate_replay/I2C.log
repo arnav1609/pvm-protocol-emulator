@@ -1,0 +1,6 @@
+CONFIG: TOP=tb_protocols CHECKS=1
+[PASS] I2C_WRITE_OPEN_DRAIN_ACK_STRETCH
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+/workspace/work/pvm-v1-validation/clone/tb_rtl/tb_protocols.v:218: $finish called at 599460000 (1ps)

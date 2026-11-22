@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1795375070" />
+    <testcase name="capture_and_reload" classname="capture_dmx512" file="/workspace/work/pvm-v1-validation/clone/test/capture_dmx512.py" lineno="31" time="643.9779069423676" sim_time_ns="7306670.0" ratio_time="11346.150110478722" />
+  </testsuite>
+</testsuites>

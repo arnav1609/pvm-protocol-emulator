@@ -51,6 +51,7 @@ SG13CMOS5L footprint, a 20 ns clock, and pinned LibreLane and
 Tiny Tapeout tooling. The feature defines are the variant input.
 The full variant is the gate-level demo target. Use the CI run
 and artifact hashes in the final routed record for replay.
+[Matched variant measurements and final routed build](../results/v1.0_routed.md)
 
 The owner reviews the exact release commit, results, protocol
 evidence and public checkout before publication of v1.0.

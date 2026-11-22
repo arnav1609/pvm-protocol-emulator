@@ -38,6 +38,7 @@ replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 | [Datasheet](docs/info.md) | Pinout and getting started |
 | [Tools and AI use](docs/AI_USE.md) | Design, verification and evidence tooling |
 | [Release candidate](docs/RELEASE_CHECKLIST.md) | Fresh-clone and gate-level replay checklist |
+| [Routed build](results/v1.0_routed.md) | Four matched variants, final layout, timing and demo replay package |
 | [Submission outline](docs/SUBMISSION_WRITEUP.md) | Experiments, demo evidence and remaining deliverables |
 
 The public release candidate uses the approved 50 MHz RTL at

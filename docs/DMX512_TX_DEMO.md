@@ -95,10 +95,11 @@ data slots. Both captures finished high. The host observed DONE
 29 instruction words and zero TX preload bytes. The mutant
 changes the first MAB instruction at PC 7 from 0xE400 to 0xE000.
 Its compiler, SPI loader and capture all ran successfully.
-The independent owner decoder still needs to verify the
-`DMX_MAB_MIN` failure. Final gate-netlist replay remains pending.
+The independent owner decoder's `DMX_MAB_MIN` log is a separate
+verification record. The release candidate's functional gate replay
+matched both positive P5 captures cycle for cycle.
 
-[Annotated waveform](../evidence/dmx512_tx/dmx512_waveform.png) · [Measured edges and logs](../evidence/dmx512_tx/) · [Exact capture summary](../evidence/dmx512_tx/waveform_summary.json)
+[Annotated waveform](../evidence/dmx512_tx/dmx512_waveform.png) · [Measured edges and logs](../evidence/dmx512_tx/) · [Exact capture summary](../evidence/dmx512_tx/waveform_summary.json) · [Final gate replay](../results/v1.0_routed.md)
 
 ### Reproduce the short-MAB capture
 

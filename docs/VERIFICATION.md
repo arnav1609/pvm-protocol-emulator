@@ -40,10 +40,11 @@ benches. [Windows regeneration follow-up](TOOLCHAIN.md#windows-trace-regeneratio
   setup, +0.108 ns worst hold and 30.9734% on both utilization measures.
   GDS, gate-level SPI smoke, Pages and all ten prechecks passed.
   [Physical CI for b33a922](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967)
-- Functional simulation of the routed variant-D netlist passed all
-  three S14b waveforms with the pinned PDK cell models. That local
-  replay used functional cell models without delay annotation.
-  [Netlist replay log](../evidence/setup/s14_gate_protocols.log)
+- Functional simulation of the release candidate's routed variant-D
+  netlist passed the three S14b pin waveforms and the DMX512 TX replay.
+  Both DMX512 captures matched the frozen RTL's P5 edges cycle by
+  cycle. The replay used functional PDK models with zero-delay
+  simulation. [Release routed evidence](../results/v1.0_routed.md)
 
 ## Demo lockstep
 
@@ -64,12 +65,12 @@ synchronized pin input on mismatch.
 | I²C write | 7,360 | Address 0x50 and data 0x3C, both ACKs, open drain and target stretch |
 | Total | 13,848 | Three images built, loaded and executed in one RTL simulation |
 
-Broader ISS lockstep, independent bus-model review and final routed
-demo replays are open. The owner applies the tag. The draw follows
-the tag and the held-out image follows the recorded pass criteria.
+The five directed ISA scenarios below extend these comparisons. The
+independent bus-model review and delay-annotated gate replays remain
+follow-ups.
 [Reproduce the demo replay](TOOLCHAIN.md#reproduce-the-checks) · [Owner checklist](https://github.com/arnav1609/pvm-protocol-emulator/blob/16b799f/results/owner_review_b33a922.md)
 
-Current claim flags
+Owner sign-off flags recorded at the freeze
 
 ```text
 HARDWARE_VALIDATED=NO

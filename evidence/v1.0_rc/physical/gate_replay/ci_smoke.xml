@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1795374671" />
+    <testcase name="test_host_and_pin_safety" classname="test" file="/home/runner/work/pvm-protocol-emulator/pvm-protocol-emulator/test/test.py" lineno="54" time="7.453531503677368" sim_time_ns="197010.0" ratio_time="26431.765922341732" />
+  </testsuite>
+</testsuites>
