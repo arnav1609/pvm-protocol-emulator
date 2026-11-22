@@ -76,3 +76,44 @@ mutant, change the delay at the `first_mab` label from `[4]` to
 `[0]` in a copy of the source and invoke the same image builder
 with that copy. The owner waveform verdict and final gate-netlist
 replay are separate deliverables.
+
+### Author capture results
+
+Icarus 12.0 and cocotb 2.0.1 captured both images on the frozen
+RTL. The image and capture code were tested at software commit
+`209a1526b97d799ee3b46cb093785cc5804bfb5b`. A Git diff verified that the RTL, Tiny Tapeout inputs and
+registered jobs match the freeze tag.
+
+| Capture | BREAK | First / second MAB | Bit / slot | BREAK to BREAK |
+| --- | ---: | ---: | ---: | ---: |
+| Positive, initial and reloaded | 128 µs | 16 / 16 µs | 4 / 44 µs | 1,280 µs |
+| First-MAB mutant, initial and reloaded | 128 µs | 8 / 16 µs | 4 / 44 µs | 1,272 µs |
+
+Every captured packet contained one 0x00 start code and 24 0xA5
+data slots. Both captures finished high. The host observed DONE
+2.924 ms after the ENABLE SPI frame ended. Assembly produces
+29 instruction words and zero TX preload bytes. The mutant
+changes the first MAB instruction at PC 7 from 0xE400 to 0xE000.
+Its compiler, SPI loader and capture all ran successfully.
+The independent owner decoder still needs to verify the
+`DMX_MAB_MIN` failure. Final gate-netlist replay remains pending.
+
+[Annotated waveform](../evidence/dmx512_tx/dmx512_waveform.png) · [Measured edges and logs](../evidence/dmx512_tx/) · [Exact capture summary](../evidence/dmx512_tx/waveform_summary.json)
+
+### Reproduce the short-MAB capture
+
+```sh
+python3 - <<'PY'
+from pathlib import Path
+source = Path("tools/examples/dmx512_tx.pvm").read_text()
+anchor = "first_mab:\n    set pins, 0 [4]"
+assert source.count(anchor) == 1
+Path("/tmp/pvm-dmx512-short-mab.pvm").write_text(
+    source.replace(anchor, "first_mab:\n    set pins, 0 [0]")
+)
+PY
+python3 -m tools.pvm_image /tmp/pvm-dmx512-short-mab.pvm /tmp/pvm-dmx512-short-mab.json \
+  --config tools/examples/dmx512_tx.json
+(cd test && PYTHONPATH=.. PVM_DMX_IMAGE=/tmp/pvm-dmx512-short-mab.json \
+  PVM_DMX_CAPTURE=output/dmx512_short_mab make COCOTB_TEST_MODULES=capture_dmx512)
+```

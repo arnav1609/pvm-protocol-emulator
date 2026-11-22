@@ -1,0 +1,25 @@
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '/workspace/work/pvm-dmx512/test'
+rm -f results.xml
+COCOTB_TEST_MODULES=capture_dmx512 COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+         /workspace/work/pvm-tools/iverilog/usr/bin/vvp -M /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/rtl/sim.vvp -fst
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at /workspace/work/pvm-tools/cocotb-env/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with 1795331882
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running capture_dmx512.capture_and_reload (1/1)
+3653410.00ns INFO     cocotb.tb                          DMX run 1, 393 P5 samples, DONE status 2923520ns after ENABLE frame end
+7306670.00ns INFO     cocotb.tb                          DMX run 2, 393 P5 samples, DONE status 2923520ns after ENABLE frame end
+7306670.00ns INFO     cocotb.regression                  capture_dmx512.capture_and_reload passed
+7306670.00ns INFO     cocotb.regression                  *******************************************************************************************
+                                                         ** TEST                               STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                         *******************************************************************************************
+                                                         ** capture_dmx512.capture_and_reload   PASS     7306670.00          30.57     239010.21  **
+                                                         *******************************************************************************************
+                                                         ** TESTS=1 PASS=1 FAIL=0 SKIP=0                 7306670.00          30.57     238983.70  **
+                                                         *******************************************************************************************
+FST info: dumpfile tb.fst opened for output.
+make[1]: Leaving directory '/workspace/work/pvm-dmx512/test'
