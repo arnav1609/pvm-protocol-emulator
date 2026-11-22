@@ -77,3 +77,37 @@ FORMAL_PROOF=NO
 GLS=NO
 SILICON=NO
 ```
+
+## Directed ISA lockstep
+
+```sh
+(cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=test_iss_lockstep)
+```
+
+Five images were assembled and loaded through the production SPI
+loader on the frozen RTL. The comparison covers the D-016 columns,
+X/Y, ISR/OSR and shift counts, both FIFO levels, and applied stimulus.
+The comparator observes synchronized inputs and acknowledged host
+requests at the engine boundary. Each CSV pair uses identical
+stimulus and pre-update edge sampling.
+
+| Scenario | Matched core cycles | Coverage |
+| --- | ---: | --- |
+| WAIT and branches | 2,208 | X decrement loop, both pin and OSR predicates, WAIT side-set and delay, narrow TX-empty stall and wake-up |
+| WIDE FIFO boundaries | 5,368 | One TX byte, full RX, one free RX slot, two-tick little-endian beats |
+| Left shifts | 30 | IN/OUT counts 4, 8 and 16, 16 encoded as zero |
+| Right shifts | 30 | IN/OUT counts 4, 8 and 16, 16 encoded as zero |
+| Narrow FIFO boundaries | 44 | Empty nonblocking PULL fallback, if-full skip, full nonblocking PUSH drop |
+| Total | 7,680 | Five directed scenarios |
+
+Captures are in `test/output/iss_lockstep/<scenario>/`, with a JSON
+summary of stalls, PC visits and FIFO operations. The first differing
+field and cycle are reported on failure. The broader lockstep campaign
+still needs EXEC and automatic FIFO transfers, prescaled timeout/fault
+traces, simultaneous engine and host FIFO requests, and randomized
+programs. The S14b demo replays contribute a separate 13,848 matched
+cycles.
+
+The attached owner verification reports the scoped Stage 3 audit
+and Stage 4 fault, mutation and bounded-proof results.
+[Owner evidence](../evidence/owner_b33a922/README.md)

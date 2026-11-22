@@ -21,21 +21,20 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 
 ## Freeze candidate and release targets
 
-Kalash accepted `b33a9227ac187f791a3733b94ac4e32879b10414` for
-the RTL freeze. Kalash applies `rtl-freeze` to that SHA. Codex draws
-one protocol from the recorded five-protocol pool after the tag is live.
-Kalash owns the held-out bus model and verification. Build the selected
-image once its pass criteria are recorded.
-[Freeze evidence](https://github.com/arnav1609/pvm-protocol-emulator/blob/16b799f/results/pre_freeze_validation_b33a922.md) · [Draw pool](results/fit_study.md)
+The published `rtl-freeze` tag is
+`b33a9227ac187f791a3733b94ac4e32879b10414`. The one-time draw
+selected DMX512 TX. The accepted 29-word image, configuration
+and author captures are available for final gate-level replay.
+[Freeze evidence](https://github.com/arnav1609/pvm-protocol-emulator/blob/16b799f/results/pre_freeze_validation_b33a922.md) · [Draw record](results/held_out_draw.md) · [DMX512 TX](docs/DMX512_TX_DEMO.md)
 
-- 13 December 2026: demo images ready.
-- 24 December 2026: final routed build ready for gate-level replay.
-- 31 December 2026: public release and write-up complete.
+- Demo images target 13 December 2026.
+- Final routed build target 24 December 2026.
+- Public release and write-up target 31 December 2026.
 
-The initial ISS matched all three baseline demo images over 13,848
-engine cycles. The Windows standalone golden-trace regeneration issue
-is tracked as a tooling follow-up.
-[Demo evidence](docs/VERIFICATION.md#demo-lockstep) · [Tooling follow-up](docs/TOOLCHAIN.md#windows-trace-regeneration-follow-up)
+The ISS matched 13,848 baseline demo cycles and 7,680 additional
+directed cycles. The Windows standalone golden-regeneration
+issue remains a tooling follow-up.
+[Demo and ISS evidence](docs/VERIFICATION.md#directed-isa-lockstep) · [Tooling follow-up](docs/TOOLCHAIN.md#windows-trace-regeneration-follow-up)
 
 ## Setup
 

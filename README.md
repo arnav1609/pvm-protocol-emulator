@@ -6,8 +6,9 @@ pins, a configurable fabric handles selected logic and timing tasks, and
 a passive monitor records rule verdicts and measured intervals.
 
 The same RTL runs UART TX, an SPI mode 0 controller and an I²C write with
-ACK and clock stretching. The pin-level tests load all three programs
-over the host SPI interface. [Protocol checks](reports/S14b_protocols_gate.md)
+ACK and clock stretching. The held-out DMX512 TX demo sends two
+short packets from a 29-word image. Each demo loads over host SPI.
+[Baseline checks](reports/S14b_protocols_gate.md) · [DMX512 TX](docs/DMX512_TX_DEMO.md)
 
 ## Quick start
 
@@ -36,9 +37,12 @@ replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 | [Verification](docs/VERIFICATION.md) | Stage checks, mutation results, trace replay and physical evidence |
 | [Datasheet](docs/info.md) | Pinout and getting started |
 | [Tools and AI use](docs/AI_USE.md) | Design, verification and evidence tooling |
+| [Release candidate](docs/RELEASE_CHECKLIST.md) | Fresh-clone and gate-level replay checklist |
 | [Submission outline](docs/SUBMISSION_WRITEUP.md) | Experiments, demo evidence and remaining deliverables |
 
-The optimized 8×4 candidate passed precheck at 50 MHz with 30.9084%
-standard-cell utilization and +2.206 ns slow-corner setup slack.
-The 1-Wire and SWD fit studies passed on the same 32-word RTL.
-[Optimization CI](results/opt_area_timing.md) · [Fit study](results/fit_study.md) · [Layout preview](https://arnav1609.github.io/pvm-protocol-emulator/gds_render.png)
+The public release candidate uses the approved 50 MHz RTL at
+`rtl-freeze`. The frozen full variant passed precheck with 30.9734%
+utilization, +3.180 ns slow-corner setup slack and +0.108 ns worst
+hold slack. The 1-Wire and SWD fit studies used the same 32-word
+architecture.
+[Frozen CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967) · [Fit study](results/fit_study.md) · [Layout preview](https://arnav1609.github.io/pvm-protocol-emulator/gds_render.png)
