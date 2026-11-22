@@ -1,47 +1,78 @@
 name: gds
-
+run-name: PVM variant ${{ inputs.variant }} at ${{ inputs.source_sha }}
 on:
-  push:
   workflow_dispatch:
-
+    inputs:
+      variant:
+        type: choice
+        required: true
+        options: [A, B, C, D]
+      source_sha:
+        type: string
+        required: true
+permissions:
+  contents: read
 jobs:
   gds:
     runs-on: ubuntu-24.04
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
         with:
-          submodules: recursive
+          ref: ${{ inputs.source_sha }}
+          fetch-depth: 0
+      - name: Verify frozen inputs and select the variant
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          VARIANT: ${{ inputs.variant }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+          frozen=b33a9227ac187f791a3733b94ac4e32879b10414
+          git diff --exit-code "$frozen" HEAD -- src/ info.yaml
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
 
+          features = {
+              "A": ["PVM_NO_FABRIC", "PVM_NO_MON"],
+              "B": ["PVM_NO_MON"],
+              "C": ["PVM_NO_FABRIC"],
+              "D": [],
+          }
+          variant = os.environ["VARIANT"]
+          config = Path("src/config.json")
+          raw = config.read_text()
+          assert json.loads(raw)["CLOCK_PERIOD"] == 20
+          assert "VERILOG_DEFINES" not in json.loads(raw)
+          if defines := features[variant]:
+              settings = "  \"VERILOG_DEFINES\": " + json.dumps(defines) + ","
+              config.write_text(raw.replace("{\n", "{\n" + settings + "\n", 1))
+          print("PVM variant", variant, defines, os.environ["SOURCE_SHA"])
+          PY
       - name: Build GDS
-        uses: TinyTapeout/tt-gds-action@ttihp27a
+        uses: TinyTapeout/tt-gds-action@e7a50f8f46f9f8df4b2c9935bfeb1cbc6b6ae4f6
         with:
-          pdk: ihp-sg13cmos5l # or ihp-sg13g2
+          pdk: ihp-sg13cmos5l
+          librelane-version: 3.1.0.dev4
+          tools-ref: 0922544e6c7f6126047c3fba720b0437fa32a1b8
 
   precheck:
+    if: inputs.variant == 'D'
     needs: gds
     runs-on: ubuntu-24.04
     steps:
-      - name: Run Tiny Tapeout Precheck
-        uses: TinyTapeout/tt-gds-action/precheck@ttihp27a
+      - name: Tiny Tapeout precheck
+        uses: TinyTapeout/tt-gds-action/precheck@e7a50f8f46f9f8df4b2c9935bfeb1cbc6b6ae4f6
+        with:
+          tools-ref: 0922544e6c7f6126047c3fba720b0437fa32a1b8
 
   gl_test:
+    if: inputs.variant == 'D'
     needs: gds
     runs-on: ubuntu-24.04
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
         with:
-          submodules: recursive
-
-      - name: GL test
-        uses: TinyTapeout/tt-gds-action/gl_test@ttihp27a
-
-  viewer:
-    needs: gds
-    runs-on: ubuntu-24.04
-    permissions:
-      pages: write # to deploy to Pages
-      id-token: write # to verify the deployment originates from an appropriate source
-    steps:
-      - uses: TinyTapeout/tt-gds-action/viewer@ttihp27a
+          ref: ${{ inputs.source_sha }}
+      - name: Tiny Tapeout gate-level smoke
+        uses: TinyTapeout/tt-gds-action/gl_test@e7a50f8f46f9f8df4b2c9935bfeb1cbc6b6ae4f6
