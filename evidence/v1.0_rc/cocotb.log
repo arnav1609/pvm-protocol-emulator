@@ -1,0 +1,44 @@
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '/workspace/work/pvm-v1-validation/clone/test'
+mkdir -p sim_build/rtl
+/workspace/work/pvm-tools/iverilog/usr/bin/iverilog -o sim_build/rtl/sim.vvp -s tb -g2012 -I/workspace/work/pvm-v1-validation/clone/test/../src -f sim_build/rtl/cmds.f  /workspace/work/pvm-v1-validation/clone/test/../src/project.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_top.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_sync2.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_edge.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_tick.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_presc.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_fifo.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_crc16.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_imem.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_spi_byte.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_hostif.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_cfg.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_engine.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_fabric.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_mon.v /workspace/work/pvm-v1-validation/clone/test/../src/pvm_pin_guard.v /workspace/work/pvm-v1-validation/clone/test/tb.v
+rm -f results.xml
+COCOTB_TEST_MODULES=test,test_toolchain,test_iss_lockstep,capture_dmx512 COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+         /workspace/work/pvm-tools/iverilog/usr/bin/vvp -M /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/rtl/sim.vvp -fst
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at /workspace/work/pvm-tools/cocotb-env/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with 1795369421
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /workspace/work/pvm-tools/cocotb-env/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running test.test_host_and_pin_safety (1/4)
+197010.00ns INFO     cocotb.regression                  test.test_host_and_pin_safety passed
+197010.00ns INFO     cocotb.regression                  running test_toolchain.load_generated_images_over_spi (2/4)
+1324960.00ns INFO     cocotb.tb                          uart_tx matched pins and ISS over 5208 core cycles
+2379820.00ns INFO     cocotb.tb                          spi_mode0 matched pins and ISS over 1280 core cycles
+3612600.00ns INFO     cocotb.tb                          i2c_write matched pins and ISS over 7360 core cycles
+3612600.00ns INFO     cocotb.regression                  test_toolchain.load_generated_images_over_spi passed
+3612600.00ns INFO     cocotb.regression                  running test_iss_lockstep.directed_engine_lockstep (3/4)
+4349610.00ns INFO     cocotb.tb                          wait_branches matched 2208 cycles; RX
+5211510.00ns INFO     cocotb.tb                          wide_fifo matched 5368 cycles; RX 34 12 34 12
+6008910.00ns INFO     cocotb.tb                          shifts_left matched 30 cycles; RX 23 01 a5 c3
+6806310.00ns INFO     cocotb.tb                          shifts_right matched 30 cycles; RX 40 23 a5 c3
+7542610.00ns INFO     cocotb.tb                          narrow_fifo matched 44 cycles; RX 15 15 15 15
+7542610.00ns INFO     cocotb.regression                  test_iss_lockstep.directed_engine_lockstep passed
+7542610.00ns INFO     cocotb.regression                  running capture_dmx512.capture_and_reload (4/4)
+11196020.00ns INFO     cocotb.tb                          DMX run 1, 393 P5 samples, DONE status 2923520ns after ENABLE frame end
+14849280.00ns INFO     cocotb.tb                          DMX run 2, 393 P5 samples, DONE status 2923520ns after ENABLE frame end
+14849280.00ns INFO     cocotb.regression                  capture_dmx512.capture_and_reload passed
+14849280.00ns INFO     cocotb.regression                  *******************************************************************************************************
+                                                          ** TEST                                           STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                          *******************************************************************************************************
+                                                          ** test.test_host_and_pin_safety                   PASS      197010.00           0.76     260768.42  **
+                                                          ** test_toolchain.load_generated_images_over_spi   PASS     3415590.00          15.03     227278.08  **
+                                                          ** test_iss_lockstep.directed_engine_lockstep      PASS     3930010.00          17.39     226035.25  **
+                                                          ** capture_dmx512.capture_and_reload               PASS     7306670.00          32.87     222315.82  **
+                                                          *******************************************************************************************************
+                                                          ** TESTS=4 PASS=4 FAIL=0 SKIP=0                            14849280.00          66.05     224829.38  **
+                                                          *******************************************************************************************************
+FST info: dumpfile tb.fst opened for output.
+make[1]: Leaving directory '/workspace/work/pvm-v1-validation/clone/test'

@@ -14,10 +14,10 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S09 | 3-4 Dec | PASS | [S09 gate](reports/S09_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | Standalone RTL |
 | S10 | 5 Dec | PASS | [S10 gate](reports/S10_gate.md) | 2/2 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | Standalone RTL |
 | S11 | 6 Dec | PASS | [S11 gate](reports/S11_gate.md) | 6/6 stage, 5/5 trace | Trace-equivalent to pre-repair RTL, mutation-tested | Verilator passed | ISS pending | [G2 passed at 50 MHz](results/g2_timing_repair.md) |
-| S12 | 7-8 Dec | WIP | [S12 gate](reports/S12_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
-| S13 | 8-9 Dec | WIP | [S13 gate](reports/S13_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
-| S14 | 10 Dec | WIP | [S14 gate](reports/S14_gate.md) | 8/8 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
-| S14b | Before freeze | WIP | [Pin-level protocol gate](reports/S14b_protocols_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Variant D CI](results/ci_S14.md) |
+| S12 | 7-8 Dec | PASS | [S12 gate](reports/S12_gate.md) | 4/4 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
+| S13 | 8-9 Dec | PASS | [S13 gate](reports/S13_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
+| S14 | 10 Dec | PASS | [S14 gate](reports/S14_gate.md) | 8/8 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
+| S14b | Before freeze | PASS | [Pin-level protocol gate](reports/S14b_protocols_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Variant D CI](results/ci_S14.md) |
 
 ## Freeze candidate and release targets
 

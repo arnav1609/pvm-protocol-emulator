@@ -111,3 +111,5 @@ cycles.
 The attached owner verification reports the scoped Stage 3 audit
 and Stage 4 fault, mutation and bounded-proof results.
 [Owner evidence](../evidence/owner_b33a922/README.md)
+
+[Directed and baseline trace ZIP](../evidence/v1.0_rc/iss_lockstep_traces.zip) · [Software CI artifact](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/45050929399/artifacts/14764634367)

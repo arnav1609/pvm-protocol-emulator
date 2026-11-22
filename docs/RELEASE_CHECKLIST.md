@@ -6,7 +6,8 @@ check. The frozen hardware source is `rtl-freeze` at
 
 ## Fresh-clone checks
 
-With Git, make, Python 3.10+ and Icarus Verilog on PATH, run
+The recorded check used Python 3.12, cocotb 2.0.1 and Icarus 12.0.
+With Git, make and those versions on PATH, run
 
 ```sh
 git clone --branch codex/pvm-v1.0-rc https://github.com/arnav1609/pvm-protocol-emulator.git
@@ -35,6 +36,13 @@ cmp /tmp/pvm-dmx512.json tools/examples/dmx512_tx.image.json
 ```
 
 [Baseline images and loader](TOOLCHAIN.md) · [Held-out image and capture](DMX512_TX_DEMO.md) · [Owner verification](../evidence/owner_b33a922/README.md)
+
+The public fresh clone at `752ebb97824cfd1161581497c22d3c171c4c6ca9`
+passed 25 Python unit tests, 71 registered RTL jobs and four cocotb
+tests. Standalone golden regeneration matched four CSVs and the
+provenance manifest. The DMX program, config and image match the
+accepted source, and regeneration produced the exact serialized image.
+[Fresh-clone logs](../evidence/v1.0_rc/) · [DMX source and image hashes](../evidence/v1.0_rc/dmx512.sha256) · [Software CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/45050929399)
 
 ## Physical release evidence
 
