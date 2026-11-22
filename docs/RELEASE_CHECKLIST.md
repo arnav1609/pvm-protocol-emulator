@@ -51,7 +51,10 @@ SG13CMOS5L footprint, a 20 ns clock, and pinned LibreLane and
 Tiny Tapeout tooling. The feature defines are the variant input.
 The full variant is the gate-level demo target. Use the CI run
 and artifact hashes in the final routed record for replay.
-[Matched variant measurements and final routed build](../results/v1.0_routed.md)
+The final build passed GDS, all ten prechecks and the gate-level
+SPI smoke test. The packaged replay script checked UART, SPI, I²C
+and the initial and reloaded DMX512 executions on the routed netlist.
+[Matched variant measurements and final routed build](../results/v1.0_routed.md) · [Download routed ZIP](https://raw.githubusercontent.com/arnav1609/pvm-protocol-emulator/b49f6376e3741cb211f1aa94975a220e990569b8/artifacts/PVM_v1.0_rc_routed.zip)
 
 The owner reviews the exact release commit, results, protocol
 evidence and public checkout before publication of v1.0.

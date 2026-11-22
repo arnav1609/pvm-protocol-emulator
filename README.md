@@ -42,8 +42,8 @@ replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 | [Submission outline](docs/SUBMISSION_WRITEUP.md) | Experiments, demo evidence and remaining deliverables |
 
 The public release candidate uses the approved 50 MHz RTL at
-`rtl-freeze`. The frozen full variant passed precheck with 30.9734%
+`rtl-freeze`. The release build passed precheck with 30.9734%
 utilization, +3.180 ns slow-corner setup slack and +0.108 ns worst
 hold slack. The 1-Wire and SWD fit studies used the same 32-word
 architecture.
-[Frozen CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967) · [Fit study](results/fit_study.md) · [Layout preview](https://arnav1609.github.io/pvm-protocol-emulator/gds_render.png)
+[Release CI](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/45050926472) · [Fit study](results/fit_study.md) · [Layout preview](https://arnav1609.github.io/pvm-protocol-emulator/gds_render.png)
