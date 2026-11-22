@@ -1,0 +1,38 @@
+# DMX512-A short-packet logic-side transmitter on inverted push-pull P5.
+# CLKDIV=100 at 50 MHz gives 2 us/tick. Engine 0 is MARK and engine 1 is SPACE.
+# ISR holds A5 in its low byte and tracks the packet number in its high byte.
+    set x, 10
+    in x, 4
+    set x, 5
+    in x, 4
+    set y, 24
+first_break:
+    set pins, 1 [31]
+    set pins, 1 [31]
+first_mab:
+    set pins, 0 [4]
+    mov osr, ~null
+    jmp slot
+data_slot:
+    mov osr, ~isr
+slot:
+    set x, 7
+    set pins, 1 [1]    # Start bit, two ticks.
+data_bit:
+    out pins, 1
+    jmp x--, data_bit
+    set pins, 0        # Slot bookkeeping fills the remaining stop-bit time.
+    jmp y--, data_slot
+    mov osr, isr
+    out null, 8
+    out x, 8
+    jmp !x, second_packet
+    evt done
+second_packet:
+    in isr, 8          # Duplicate A5 into the high byte, marking the second packet.
+    set y, 24 [14]     # Finish both stop bits and add 36 us of inter-packet mark.
+    set pins, 1 [31]
+    set pins, 1 [31]
+    set pins, 0 [4]
+    mov osr, ~null
+    jmp slot
