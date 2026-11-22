@@ -6,7 +6,9 @@ from tempfile import TemporaryDirectory
 import cocotb
 from cocotb.clock import Clock
 from cocotb.task import bridge, resume
+from cocotb.triggers import with_timeout
 
+from demo_replay import replay_demo
 from test import SpiHost
 from tools.pvm_host import PVMHost, read_image
 from tools.pvm_image import main as build_image_file
@@ -33,6 +35,7 @@ async def load_generated_images_over_spi(dut):
     await transport.wait_cycles(4)
 
     examples = Path(__file__).resolve().parents[1] / "tools" / "examples"
+    terminal_fields = {"fault_code": 0, "fault_pc": 0, "fault_time": 0}
     with TemporaryDirectory() as work:
         for version, (name, preload) in enumerate((
             ("uart_tx", (0x35,)),
@@ -48,8 +51,7 @@ async def load_generated_images_over_spi(dut):
             image = read_image(output)
 
             status = await bridge(host.load_image)(image)
-            assert status == {"state": 2, "status": 0x42, "fault_code": 0,
-                              "fault_pc": 0, "fault_time": 0}, name
+            assert status == {"state": 2, "status": 0x42, **terminal_fields}, name
             assert await bridge(host.read)(0x0F20, 3) == (
                 image["crc16"].to_bytes(2, "little") + bytes((version,))
             ), name
@@ -58,3 +60,12 @@ async def load_generated_images_over_spi(dut):
             for begin, end in ((0x0000, 0x0040), (0x0100, 0x0113), (0x0400, 0x0414)):
                 actual = await bridge(host.read)(begin, end - begin)
                 assert actual == bytes(expected.get(addr, 0) for addr in range(begin, end)), name
+
+            replay = cocotb.start_soon(replay_demo(dut, name, image))
+            assert await bridge(host.enable)() in (3, 4), name
+            cycles = await with_timeout(replay, 300, "us")
+            final = await bridge(host.wait_done)(polls=16)
+            assert final["state"] == 4 and final["fault_code"] == 1, (name, final)
+            # HALT/reload preserves terminal evidence, which CLR_FAULT clears.
+            terminal_fields = {key: final[key] for key in terminal_fields}
+            dut._log.info("%s matched pins and ISS over %d core cycles", name, cycles)

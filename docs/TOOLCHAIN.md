@@ -81,8 +81,51 @@ python3 -m pip install -r test/requirements.txt
 (cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=test,test_toolchain)
 ```
 
-The RTL replay assembles each demo, loads it through the production
-host API over simulated SPI, and reads back status, image ID, FIFO
-level, instruction memory and configuration. Run the S14b registry
-jobs to check the pin waveforms. The independent instruction-set
-simulator is still pending. [Verification](VERIFICATION.md)
+The RTL replay uses the public assembler, image builder and host loader
+to assemble, load, commit and enable all three images in one simulation.
+It reads back the programmed image and checks the actual demo pins at
+50 MHz. The I²C replay uses the existing S14b ideal pull-up, two-ACK and
+first-ACK stretch scenario. It exercises reload between images and
+checks that HALT preserves the prior DONE diagnostics. S14b's original
+pin-waveform and mutant jobs remain available through the RTL runner.
+[Pin-level check specification](../reports/S14b_protocols_gate.md)
+
+## Initial instruction-set simulator
+
+`tools/pvm_iss.py` interprets the 32-word ISA from spec 03 §3.2,
+spec 04, and D-013 through D-015. Use it with a validated
+`pvm-image-v1` image. Each `step` advances one core cycle after
+ENABLE and takes the synchronized engine inputs for that edge.
+
+```python
+from tools.pvm_host import read_image
+from tools.pvm_iss import Engine, State
+
+model = Engine.from_image(read_image("/tmp/pvm-uart.json"))
+while model.state == State.RUN:
+    model.step()
+print(model.state.name, model.fault_pc)
+```
+
+Use a cycle budget for programs that wait for external inputs or loop.
+The model decodes the eight instruction classes and includes delay,
+side-set, scratch and shift registers, WAIT, FIFO transfers, EXEC and
+instruction faults. Directed model tests cover WIDE transfers, EXEC,
+timeout and fault cases. Their cross-check against RTL remains open.
+The initial lockstep evidence covers the three demo programs only.
+SPI framing and image validation, input synchronization, physical pin
+drive, PINFABRIC and SPECMON belong to the surrounding system. The RTL
+replay supplies synchronized pin values at the engine boundary and
+checks the raw protocol waveforms in a separate observer.
+[ISA spec](../spec/04_ISA.md) · [Model](../tools/pvm_iss.py) · [Replay evidence](VERIFICATION.md#demo-lockstep)
+
+### Windows trace regeneration follow-up
+
+The standalone `python tb_rtl/pvm_run.py trace-golden --check` command
+reported different bytes in the owner's Windows checkout. All four
+regenerated traces matched after line-ending normalization. The
+committed golden CSV hashes and registered D-016 comparisons passed
+on Windows. Track making regeneration byte-stable on Windows and Linux
+as a tooling-only fix, with the existing golden vectors and provenance
+as the acceptance reference. The owner verified a trial separately.
+[Windows regression](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922358383)

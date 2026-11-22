@@ -19,10 +19,23 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 | S14 | 10 Dec | WIP | [S14 gate](reports/S14_gate.md) | 8/8 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Physical gate passed](results/opt_area_timing.md) |
 | S14b | Before freeze | WIP | [Pin-level protocol gate](reports/S14b_protocols_gate.md) | 6/6 | Icarus-simulated, mutation-tested | Verilator passed | ISS pending | [Variant D CI](results/ci_S14.md) |
 
-D-020 accepts the 24-configuration timing-enabled Verilator replay.
-The follow-up passed 48 seeded runs and the scoped lint review.
-Kalash's source-review sign-off remains pending before the freeze.
-[Seeded replay and lint](results/verilator_replay_35f8d94.md) · [Freeze checklist](reports/weekly_freeze_review.md#freeze-checklist)
+## Freeze candidate and release targets
+
+Kalash accepted `b33a9227ac187f791a3733b94ac4e32879b10414` for
+the RTL freeze. Kalash applies `rtl-freeze` to that SHA. Codex draws
+one protocol from the recorded five-protocol pool after the tag is live.
+Kalash owns the held-out bus model and verification. Build the selected
+image once its pass criteria are recorded.
+[Freeze evidence](https://github.com/arnav1609/pvm-protocol-emulator/blob/16b799f/results/pre_freeze_validation_b33a922.md) · [Draw pool](results/fit_study.md)
+
+- 13 December 2026: demo images ready.
+- 24 December 2026: final routed build ready for gate-level replay.
+- 31 December 2026: public release and write-up complete.
+
+The initial ISS matched all three baseline demo images over 13,848
+engine cycles. The Windows standalone golden-trace regeneration issue
+is tracked as a tooling follow-up.
+[Demo evidence](docs/VERIFICATION.md#demo-lockstep) · [Tooling follow-up](docs/TOOLCHAIN.md#windows-trace-regeneration-follow-up)
 
 ## Setup
 

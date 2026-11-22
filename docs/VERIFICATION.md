@@ -1,10 +1,12 @@
 # PVM verification
 
-The RTL regression accepted 67 of 67 jobs. The baseline covered 63
-jobs across S01–S14, S14b and D-016. D-017 and D-018 add the reset
-bench and three mutants. The separate 1-Wire and SWD suite accepted
-four program-fit jobs, including two mutants.
-[Baseline checks](../results/rtl_freeze_report.md) · [Optimization checks](../results/opt_area_timing.md) · [Fit checks](../results/fit_study.md)
+The owner accepted candidate `b33a9227ac187f791a3733b94ac4e32879b10414`.
+Windows Icarus accepted all 71 jobs. The owner's 360-case arbitration
+sweep passed, and the qualified-loss check preserved four-clock release.
+Verilator 5.032 passed 52 seeded replays across 26 builds under D-020.
+All four variants passed scoped lint. The separate 1-Wire and SWD fit
+study accepted four jobs, including two mutants.
+[Freeze evidence](https://github.com/arnav1609/pvm-protocol-emulator/blob/16b799f/results/pre_freeze_validation_b33a922.md) · [Fit checks](../results/fit_study.md)
 
 ## Reproduce the evidence
 
@@ -19,7 +21,7 @@ also needs Git history containing `4b13f45`. The D-016 comparison
 replays four tests cycle by cycle against that pre-repair RTL. A
 one-cycle delayed-output mutant fails the comparison. The evidence
 supports engine trace equivalence to pre-repair RTL for these
-benches. An independent ISS comparison is pending.
+benches. [Windows regeneration follow-up](TOOLCHAIN.md#windows-trace-regeneration-follow-up)
 [Job registry](../tb_rtl/pvm_jobs.json) · [D-016 repair](../results/g2_timing_repair.md)
 
 ## Protocol and physical results
@@ -30,27 +32,42 @@ benches. An independent ISS comparison is pending.
   targeted mutant. [S14b gate](../reports/S14b_protocols_gate.md)
 - The toolchain tests cover assembly, image CRC and host
   transactions. A cocotb test replaces all three images in the
-  integrated RTL over simulated SPI and checks image commitment
-  and register readback. [Toolchain test commands](TOOLCHAIN.md)
+  integrated RTL over simulated SPI and checks image commitment,
+  register readback, execution and pin waveforms. [Toolchain test commands](TOOLCHAIN.md)
 - Optimized variant D passed routed timing at 50 MHz with +2.206 ns
-  slow-corner setup slack and 30.9084% utilization. GDS, precheck,
-  gate-level SPI smoke and the Pages viewer passed.
-  [Physical CI](../results/opt_area_timing.md)
+  slow-corner setup slack and 30.9084% utilization on the predecessor.
+  The `b33a922` replacement passed at 50 MHz with +3.180 ns slow
+  setup, +0.108 ns worst hold and 30.9734% on both utilization measures.
+  GDS, gate-level SPI smoke, Pages and all ten prechecks passed.
+  [Physical CI for b33a922](https://github.com/arnav1609/pvm-protocol-emulator/actions/runs/44922355967)
 - Functional simulation of the routed variant-D netlist passed all
   three S14b waveforms with the pinned PDK cell models. That local
   replay used functional cell models without delay annotation.
   [Netlist replay log](../evidence/setup/s14_gate_protocols.log)
 
-## Remaining review
+## Demo lockstep
 
-The second-simulator freeze gate passed with Verilator 5.032 and
-timing enabled under D-020. The follow-up passed both randomized
-initialization seeds on all 24 distinct builds. [Replay and lint](../results/verilator_replay_35f8d94.md)
+Python 3.12, cocotb 2.0.1 and Icarus 12.0 replayed the generated images
+against `b33a922` RTL. The simulator aligns cycle zero to the first
+rising edge after engine ENABLE initialization. Samples use the D-016
+CSV columns and pre-update convention through the edge issuing DONE.
+The comparison checks PC, engine pin values and enables, FIFO requests
+and RX data, fabric outputs and fault fields for each cycle. The host
+reads DONE separately. The test writes ISS and RTL CSVs under
+`test/output/<demo>/` and reports the first differing field, cycle and
+synchronized pin input on mismatch.
 
-Kalash’s source-review sign-off remains
-pending. Heet’s independent verification, the ISS comparison and the G3
-physical checks on the final submission commit are pending.
-[Freeze review packet](../reports/weekly_freeze_review.md) · [Heet’s handover](verification_handoff.md)
+| Demo | Engine cycles matched | Pin result |
+| --- | ---: | --- |
+| UART TX | 5,208 | 0x35 as 8N1, 434 core cycles per bit |
+| SPI mode 0 | 1,280 | 0xA6 and 0xC9 MSB first, 16 rising edges |
+| I²C write | 7,360 | Address 0x50 and data 0x3C, both ACKs, open drain and target stretch |
+| Total | 13,848 | Three images built, loaded and executed in one RTL simulation |
+
+Broader ISS lockstep, independent bus-model review and final routed
+demo replays are open. The owner applies the tag. The draw follows
+the tag and the held-out image follows the recorded pass criteria.
+[Reproduce the demo replay](TOOLCHAIN.md#reproduce-the-checks) · [Owner checklist](https://github.com/arnav1609/pvm-protocol-emulator/blob/16b799f/results/owner_review_b33a922.md)
 
 Current claim flags
 
