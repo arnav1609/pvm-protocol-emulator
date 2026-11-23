@@ -84,3 +84,27 @@ demo images use preloaded data or generate their output internally, so
 their pin timing does not depend on runtime host FIFO service.
 
 [RTL replay logs and signed vectors](../evidence/authorization/rtl/) · [Guard checks](../evidence/authorization/guards/) · [Desktop host tests](../evidence/authorization/host_tests.log)
+
+## SRAM mapped-netlist replay
+
+UART, SPI, I²C and both DMX runs passed on the exact mapped SRAM
+netlist. The replay used the 27 standard-cell functions generated from
+the same pinned Liberty used for mapping, the pinned IHP SRAM models,
+and zero-delay Verilator. Assertions checked the real SPI frames and
+pin waveforms. The runner also compared every configuration bus write
+with the image builder's expected address and byte. The two DMX
+sessions each reproduced the 392-transition frozen trace.
+
+The mapped SRAM netlist SHA-256 is
+`d6c9d3285f441e800894165b22f68de84f0c7cdb30bc6253669fc00bba1e06a3`.
+[Mapped replay logs](../evidence/authorization/mapped_replays/) · [Netlist checksums](../evidence/authorization/mapped_netlists.sha256)
+
+Icarus 13.0 also passed the mapped GUARDS replay using the original
+IHP functional standard-cell and SRAM models. That replay checked partial
+SPI frames, altered tags, a replayed sequence and a valid MAC with a
+wrong image link on the same netlist.
+
+The independently launched mapped DMX reload passed on the same
+compiled model. The queued duplicate was stopped after that result.
+The subsequent mapped short-MAB case authenticated all 159 programming
+writes and failed the expected `DMX_MAB_MIN` waveform check.
