@@ -11,6 +11,15 @@ module pvm_top (
     output wire [7:0] uio_oe,
     input  wire       clk,
     input  wire       rst_n
+`ifdef PVM_AUTH
+    ,input wire trust_valid,
+    input wire [255:0] trust_master_key,
+    input wire [63:0] trust_device_id,
+    input wire trust_challenge_valid,
+    input wire [127:0] trust_challenge,
+    output wire trust_challenge_ready,
+    output wire trust_challenge_retired
+`endif
 );
     // Assert immediately from the pad and release after two core clock edges.
     reg [1:0] reset_release;
@@ -106,11 +115,36 @@ module pvm_top (
         .clk(clk), .rst_n(core_rst_n), .d(uio_in), .q(protocol_uio)
     );
 
+`ifdef PVM_AUTH
+    wire frame_start, frame_end, frame_byte_aligned, rx_valid;
+    wire [7:0] rx_byte;
+    wire safe_read, safe_read_grant;
+    wire [15:0] safe_addr;
+    wire [591:0] auth_info;
+    pvm_auth_spi host (
+        .clk(clk),.rst_n(core_rst_n),.sck(host_in[0]),.cs_n(host_in[1]),.mosi(host_in[2]),
+        .miso(uo_out[7]),.frame_start(frame_start),.frame_end(frame_end),
+        .frame_byte_aligned(frame_byte_aligned),.rx_valid(rx_valid),.rx_byte(rx_byte),
+        .info(auth_info),.bus_rdata(bus_rdata),.safe_addr(safe_addr),.safe_read(safe_read),
+        .safe_read_grant(safe_read_grant)
+    );
+    pvm_auth authorization (
+        .clk(clk),.rst_n(core_rst_n),.trust_valid(trust_valid),.master_key(trust_master_key),
+        .device_id(trust_device_id),.challenge_valid(trust_challenge_valid),.challenge(trust_challenge),
+        .challenge_ready(trust_challenge_ready),.challenge_retired(trust_challenge_retired),
+        .frame_start(frame_start),.frame_end(frame_end),.frame_byte_aligned(frame_byte_aligned),
+        .rx_valid(rx_valid),.rx_byte(rx_byte),.safe_read(safe_read),.safe_addr(safe_addr),
+        .safe_read_grant(safe_read_grant),.info(auth_info),.pvm_state(state),
+        .tx_level(tx_level),.rx_level(rx_level),.bus_rdata(bus_rdata),.bus_addr(bus_addr),
+        .bus_wdata(bus_wdata),.bus_we(bus_we),.bus_re(bus_re),.bus_rack(bus_rack)
+    );
+`else
     pvm_hostif host (
         .clk(clk), .rst_n(core_rst_n), .sck(host_in[0]), .cs_n(host_in[1]), .mosi(host_in[2]),
         .miso(uo_out[7]), .bus_addr(bus_addr), .bus_wdata(bus_wdata), .bus_we(bus_we),
         .bus_re(bus_re), .bus_rdata(bus_rdata), .bus_rack(bus_rack)
     );
+`endif
 
     pvm_imem memory (
         .clk(clk), .rst_n(core_rst_n), .wr_en(imem_wr_en), .wr_addr(imem_wr_addr),

@@ -15,7 +15,8 @@ module pvm_spi_byte (
     output reg        rx_valid,
     output reg        frame_start,
     output reg        frame_end,
-    output wire       miso
+    output wire       miso,
+    output reg        frame_byte_aligned
 );
     wire sck_rise, sck_fall;
     wire select_rise, select_fall;
@@ -51,10 +52,12 @@ module pvm_spi_byte (
             rx_valid <= 1'b0;
             frame_start <= 1'b0;
             frame_end <= 1'b0;
+            frame_byte_aligned <= 1'b0;
         end else begin
             rx_valid <= 1'b0;
             frame_start <= select_rise;
             frame_end <= select_fall;
+            frame_byte_aligned <= select_fall && rx_bits_q == 0 && !sck_rise;
             if (cs_n) begin
                 rx_shift_q <= 7'h00;
                 tx_shift_q <= 7'h00;

@@ -18,6 +18,13 @@ module tt_um_arnav1609_pvm (
     pvm_top pvm (
         .ui_in(ui_in), .uo_out(uo_out), .uio_in(uio_in),
         .uio_out(uio_out), .uio_oe(uio_oe), .clk(clk), .rst_n(rst_n)
+`ifdef PVM_AUTH
+        // A physical secure build requires an on-device trust provider.
+        // The standard TT pad wrapper has no trusted provisioning interface.
+        ,.trust_valid(1'b0), .trust_master_key(256'd0), .trust_device_id(64'd0),
+        .trust_challenge_valid(1'b0), .trust_challenge(128'd0),
+        .trust_challenge_ready(), .trust_challenge_retired()
+`endif
     );
 endmodule
 

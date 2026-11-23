@@ -31,10 +31,15 @@ module tb_protocols;
             driven_high <= 1'b1;
     end
 
+`ifdef PVM_AUTH_TEST
+    `include "auth_spi_tasks.vh"
+`else
     tt_um_arnav1609_pvm dut (
         .clk(clk), .rst_n(rst_n), .ena(1'b1), .ui_in(ui), .uio_in({6'b0, scl, sda}),
         .uo_out(uo), .uio_out(uio_out), .uio_oe(uio_oe)
     );
+
+`endif
 
     task edge_sample;
         begin @(posedge clk); #1; end
@@ -221,8 +226,13 @@ module tb_protocols;
 
     initial begin
         $display("CONFIG: TOP=tb_protocols CHECKS=1");
+`ifndef PVM_AUTH_TEST
         reset_and_halt;
+`endif
 `ifdef PVM_PROTOCOL_UART
+`ifdef PVM_AUTH_TEST
+        auth_image;
+`else
         write_word(0, 16'he001); // Drive idle high
         write_word(1, 16'h80a0); // PULL BLOCK
         write_word(2, 16'he027); // SET X, 7
@@ -240,9 +250,14 @@ module tb_protocols;
         write_config(16'h010c, 8'd1);
         write_config(16'h0405, 8'h29);
         enable_image(UART_DATA, 0, 0);
+`endif
         wait_uo(0, 1, UART_DIV+8, reached);
         passed = ready && reached;
+`ifdef PVM_AUTH_TEST
+        wait_uo(0, 0, 4*UART_DIV+8, reached);
+`else
         wait_uo(0, 0, 4*UART_DIV, reached);
+`endif
         passed = passed && reached;
         for (cycle_index = 0; cycle_index < 10*UART_BIT_CLOCKS; cycle_index = cycle_index + 1) begin
             if (cycle_index != 0) edge_sample;
@@ -254,9 +269,16 @@ module tb_protocols;
                 expected_line = 1'b1;
             passed = passed && uo[0] === expected_line;
         end
+`ifdef PVM_AUTH_TEST
+        secure_read(16'h0f01, status);
+`else
         read_register(16'h0f01, status);
+`endif
         finish("UART_TX_0X35_115200", passed && status[2:0] === 3'd4);
 `elsif PVM_PROTOCOL_SPI
+`ifdef PVM_AUTH_TEST
+        auth_image;
+`else
         write_word(0, 16'he041); // SET Y, 1
         write_word(1, 16'h80a0); // PULL BLOCK
         write_word(2, 16'he027); // SET X, 7
@@ -274,6 +296,7 @@ module tb_protocols;
         write_config(16'h0406, 8'h0a);
         write_config(16'h0407, 8'h09);
         enable_image(8'ha6, 8'hc9, 1);
+`endif
         passed = ready && uo[1] === 1'b0;
         wait_uo(1, 1, 6*SPI_DIV, reached);
         passed = passed && reached;
@@ -303,9 +326,16 @@ module tb_protocols;
         repeat (3*SPI_DIV) begin
             edge_sample; passed = passed && uo[1] === 1'b0;
         end
+`ifdef PVM_AUTH_TEST
+        secure_read(16'h0f01, status);
+`else
         read_register(16'h0f01, status);
+`endif
         finish("SPI_MODE0_TWO_BYTES", passed && status[2:0] === 3'd4);
 `elsif PVM_PROTOCOL_I2C
+`ifdef PVM_AUTH_TEST
+        auth_image;
+`else
         write_word(0, 16'hf003); // Release both lines
         write_word(1, 16'hf083); // Enable open-drain owners
         write_word(2, 16'h308d); // WAIT SCL high
@@ -336,6 +366,7 @@ module tb_protocols;
         write_config(16'h040c, 8'h11);
         write_config(16'h040d, 8'h12);
         enable_image(8'ha0, 8'h3c, 1); // Address 0x50 plus write, then data
+`endif
         passed = ready && sda === 1'b1 && scl === 1'b1;
         wait_bus(0, 0, reached);
         passed = passed && reached && scl === 1'b1 && uio_oe[0] === 1'b1;
@@ -347,9 +378,20 @@ module tb_protocols;
         passed = passed && reached && sda === 1'b0;
         wait_bus(0, 1, reached);
         passed = passed && reached && scl === 1'b1;
+`ifdef PVM_AUTH_TEST
+        secure_read(16'h0f01, status);
+`else
         read_register(16'h0f01, status);
+`endif
         finish("I2C_WRITE_OPEN_DRAIN_ACK_STRETCH",
                passed && !driven_high && uio_oe[1:0] === 2'b00 && status[2:0] === 3'd4);
+`elsif PVM_PROTOCOL_DMX
+        auth_image;
+        check_dmx;
+        finish("DMX512_AUTHENTICATED_392_EDGES", 1'b1);
+`elsif PVM_PROTOCOL_SECURITY
+        auth_control;
+        finish("AUTH_CONTROL", 1'b1);
 `else
         $display("Select exactly one protocol build");
         $finish;
@@ -357,7 +399,11 @@ module tb_protocols;
     end
 
     initial begin
+`ifdef PVM_AUTH_TEST
+        #450000000;
+`else
         #20000000;
+`endif
         $display("TB_TIMEOUT\nRESULT : FAIL");
         $finish;
     end

@@ -33,6 +33,16 @@ project:
     - "pvm_fabric.v"
     - "pvm_mon.v"
     - "pvm_pin_guard.v"
+    - "pvm_auth.v"
+    - "pvm_auth_spi.v"
+    - "pvm_auth_rx.v"
+    - "pvm_auth_mac.v"
+    - "pvm_auth_hash.v"
+    - "pvm_auth_policy.v"
+    - "pvm_auth_records.v"
+    - "pvm_auth_bus.v"
+    - "pvm_keccak.v"
+    - "pvm_keccak_lane.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
