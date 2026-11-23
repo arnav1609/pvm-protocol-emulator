@@ -1,0 +1,6 @@
+CONFIG: TOP=tb_protocols CHECKS=1
+AUTH_CHECK 1 0 0 0 ffffffff 0
+WRITE 0f00 01
+WRITE 0f00 04
+FATAL: /workspace/work/pvm-auth-integration/repo/verification/authenticated/auth_spi_tasks.vh:160: AUTH step=2 phase=1 result=0 owner=1 last=00000000 writes=2 expected=0,1,0,ffffffff,0
+       Time: 1698220000  Scope: tb_protocols.run_auth_vectors

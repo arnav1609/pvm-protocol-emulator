@@ -211,7 +211,11 @@
             for(sample_cycle=0;sample_cycle<139000;sample_cycle=sample_cycle+1) begin
                 edge_sample;
                 if(uo[0]!==prior[0]) begin
-                    if(start_cycle<0) start_cycle=sample_cycle;
+                    if(start_cycle<0) begin
+                        start_cycle=sample_cycle;
+                        if(auth_cycles-enable_cycle!=602)
+                            $fatal(1,"DMX first BREAK from ENABLE got %0d clocks",auth_cycles-enable_cycle);
+                    end
                     scan=$fscanf(fd,"%d %d",want_cycle,want_bit);
                     if(scan!=2 || want_cycle!=sample_cycle-start_cycle || want_bit[0]!==uo[0]) begin
                         if(count==2 && sample_cycle-start_cycle < 7000) $fatal(1,"DMX_MAB_MIN");

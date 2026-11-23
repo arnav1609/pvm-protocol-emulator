@@ -1,0 +1,14 @@
+CONFIG: TOP=tb_protocols CHECKS=1
+AUTH_CHECK 1 0 0 0 ffffffff 0
+AUTH_CHECK 2 0 1 0 ffffffff 0
+WRITE 0f00 01
+WRITE 0f00 04
+AUTH_CHECK 3 1 0 1 00000000 2
+LATENCY 3 1 33569 46771
+AUTH_CHECK 4 1 1 1 00000000 0
+AUTH_CHECK 5 1 1 1 00000000 0
+[PASS] AUTH_CONTROL
+CHECKS : 1
+ERRORS : 0
+RESULT : PASS
+/workspace/work/pvm-auth-integration/repo/tb_rtl/tb_protocols.v:223: $finish called at 5178620000 (1ps)

@@ -224,14 +224,13 @@ module tb_protocols;
         end
     endtask
 
-    initial begin
-        $display("CONFIG: TOP=tb_protocols CHECKS=1");
-`ifndef PVM_AUTH_TEST
-        reset_and_halt;
-`endif
-`ifdef PVM_PROTOCOL_UART
+    task test_uart;
+        begin
 `ifdef PVM_AUTH_TEST
         auth_image;
+        // The legacy host returns after its CS hold. Here we see ENABLE
+        // directly, so let the pin guard publish the initial RUN level.
+        repeat (8) edge_sample;
 `else
         write_word(0, 16'he001); // Drive idle high
         write_word(1, 16'h80a0); // PULL BLOCK
@@ -253,11 +252,9 @@ module tb_protocols;
 `endif
         wait_uo(0, 1, UART_DIV+8, reached);
         passed = ready && reached;
-`ifdef PVM_AUTH_TEST
-        wait_uo(0, 0, 4*UART_DIV+8, reached);
-`else
+        if (!passed) $display("UART idle ready=%b level=%b reached=%b",ready,uo[0],reached);
         wait_uo(0, 0, 4*UART_DIV, reached);
-`endif
+        if (!reached) $display("UART start did not arrive");
         passed = passed && reached;
         for (cycle_index = 0; cycle_index < 10*UART_BIT_CLOCKS; cycle_index = cycle_index + 1) begin
             if (cycle_index != 0) edge_sample;
@@ -267,6 +264,8 @@ module tb_protocols;
                 expected_line = UART_DATA[cycle_index/UART_BIT_CLOCKS-1];
             else
                 expected_line = 1'b1;
+            if (passed && uo[0] !== expected_line)
+                $display("UART mismatch at bit cycle %0d got %b expected %b",cycle_index,uo[0],expected_line);
             passed = passed && uo[0] === expected_line;
         end
 `ifdef PVM_AUTH_TEST
@@ -274,8 +273,13 @@ module tb_protocols;
 `else
         read_register(16'h0f01, status);
 `endif
+        if(status[2:0]!==3'd4) $display("UART terminal status %02x",status);
         finish("UART_TX_0X35_115200", passed && status[2:0] === 3'd4);
-`elsif PVM_PROTOCOL_SPI
+        end
+    endtask
+
+    task test_spi;
+        begin
 `ifdef PVM_AUTH_TEST
         auth_image;
 `else
@@ -332,7 +336,11 @@ module tb_protocols;
         read_register(16'h0f01, status);
 `endif
         finish("SPI_MODE0_TWO_BYTES", passed && status[2:0] === 3'd4);
-`elsif PVM_PROTOCOL_I2C
+        end
+    endtask
+
+    task test_i2c;
+        begin
 `ifdef PVM_AUTH_TEST
         auth_image;
 `else
@@ -385,18 +393,47 @@ module tb_protocols;
 `endif
         finish("I2C_WRITE_OPEN_DRAIN_ACK_STRETCH",
                passed && !driven_high && uio_oe[1:0] === 2'b00 && status[2:0] === 3'd4);
-`elsif PVM_PROTOCOL_DMX
-        auth_image;
-        check_dmx;
-        finish("DMX512_AUTHENTICATED_392_EDGES", 1'b1);
-`elsif PVM_PROTOCOL_SECURITY
-        auth_control;
-        finish("AUTH_CONTROL", 1'b1);
+        end
+    endtask
+
+`ifdef PVM_AUTH_TEST
+    reg [127:0] auth_protocol;
+    initial begin
+        $display("CONFIG: TOP=tb_protocols CHECKS=1");
+        if (!$value$plusargs("PROTOCOL=%s",auth_protocol))
+            $fatal(1,"Missing authenticated protocol selection");
+        case (auth_protocol)
+            "UART": test_uart;
+            "SPI": test_spi;
+            "I2C": test_i2c;
+            "DMX": begin
+                auth_image;
+                check_dmx;
+                finish("DMX512_AUTHENTICATED_392_EDGES", 1'b1);
+            end
+            "SECURITY": begin
+                auth_control;
+                finish("AUTH_CONTROL", 1'b1);
+            end
+            default: $fatal(1,"Unknown authenticated protocol selection");
+        endcase
+    end
+`else
+    initial begin
+        $display("CONFIG: TOP=tb_protocols CHECKS=1");
+        reset_and_halt;
+`ifdef PVM_PROTOCOL_UART
+        test_uart;
+`elsif PVM_PROTOCOL_SPI
+        test_spi;
+`elsif PVM_PROTOCOL_I2C
+        test_i2c;
 `else
         $display("Select exactly one protocol build");
         $finish;
 `endif
     end
+`endif
 
     initial begin
 `ifdef PVM_AUTH_TEST

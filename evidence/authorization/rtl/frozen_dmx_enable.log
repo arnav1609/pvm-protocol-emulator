@@ -1,0 +1,2 @@
+FROZEN first BREAK from ENABLE 602 core cycles
+verification/authenticated/tb_dmx_reference.v:24: $finish called at 1754511000 (1ps)

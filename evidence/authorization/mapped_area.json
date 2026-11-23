@@ -1,0 +1,26 @@
+[
+  {
+    "variant": "frozen",
+    "std_cell_area_um2": 304578.5274,
+    "macro_area_um2": 0.0,
+    "total_area_um2": 304578.5274,
+    "macro_count": 0,
+    "cell_count": 16441
+  },
+  {
+    "variant": "inferred",
+    "std_cell_area_um2": 824839.4322,
+    "macro_area_um2": 0.0,
+    "total_area_um2": 824839.4322,
+    "macro_count": 0,
+    "cell_count": 45018
+  },
+  {
+    "variant": "sram",
+    "std_cell_area_um2": 696959.3106,
+    "macro_area_um2": 50489.1328,
+    "total_area_um2": 747448.4434,
+    "macro_count": 1,
+    "cell_count": 39602
+  }
+]

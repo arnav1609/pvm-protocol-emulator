@@ -81,11 +81,17 @@ class AuthorizedHost:
         self.sign = sign
         self.polls = polls
 
+    def _exchange(self, frame):
+        response = self.transport.exchange(frame)
+        if len(response) != len(frame):
+            raise PVMError("authenticated SPI response length differs from request")
+        return response
+
     def info(self):
-        return decode_info(self.transport.exchange(bytes((0xA1, 0)) + bytes(INFO_SIZE))[2:])
+        return decode_info(self._exchange(bytes((0xA1, 0)) + bytes(INFO_SIZE))[2:])
 
     def safe_read(self, address):
-        return self.transport.exchange(struct.pack(">BHB", 0xA2, address, 0) + b"\0")[4]
+        return self._exchange(struct.pack(">BHB", 0xA2, address, 0) + b"\0")[4]
 
     def _command(self, before, operation, payload=b"", root=None):
         if before.busy or before.result == 4:
@@ -93,7 +99,7 @@ class AuthorizedHost:
         frame = signed_frame(operation, self.identity, before.device, before.challenge,
                              before.next_sequence, before.root if root is None else root,
                              payload, self.sign)
-        self.transport.exchange(frame)
+        self._exchange(frame)
         for _ in range(self.polls):
             after = self.info()
             if not after.busy:
@@ -102,6 +108,13 @@ class AuthorizedHost:
             raise PVMError("timed out waiting for PVM authorization")
         if after.last_committed != before.next_sequence or after.result != 0:
             raise PVMError(f"authorization result {after.result}, sequence not committed")
+        expected_root = before.root if root is None else root
+        if operation == CANCEL:
+            expected = (before.device, bytes(16), bytes(32), 0)
+        else:
+            expected = (before.device, before.challenge, expected_root, self.identity)
+        if (after.device, after.challenge, after.root, after.owner) != expected:
+            raise PVMError("authorization receipt changed device, owner, or session")
         return after
 
     def load(self, image):

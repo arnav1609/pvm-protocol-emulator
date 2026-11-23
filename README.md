@@ -9,6 +9,11 @@ The same RTL runs UART TX, an SPI mode 0 controller and an I²C write with
 ACK and clock stretching. The pin-level tests load all three programs
 over the host SPI interface. [Protocol checks](reports/S14b_protocols_gate.md)
 
+This feature branch adds authenticated SPI image loading and an owner-only
+START. The trusted-input core is ready for functional review. Physical
+sign-off depends on a protected trust provider in the Tiny Tapeout wrapper.
+[Authorization guide](docs/AUTHORIZATION.md) · [Candidate evidence](results/authorization_candidate.md)
+
 ## Quick start
 
 Use Python 3.10 or later to build the UART image from the repository root.

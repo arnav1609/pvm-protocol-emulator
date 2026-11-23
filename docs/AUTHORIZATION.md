@@ -88,6 +88,12 @@ python verification/authenticated/run.py UART SPI I2C DMX_RELOAD DMX_NEG SECURIT
   --sram --sram-models "$IHP_SRAM_MODELS" --output /tmp/pvm-auth-sram
 ```
 
+The `GUARDS` case fixes the expected side effects before simulation.
+Run it with `--mutant tag`, `--mutant link` or `--mutant alignment`
+to verify that the same checks catch each omitted guard. The test
+runner applies the mutation to a disposable source copy. The separate
+DMX short-MAB case must fail at the expected first mark interval.
+
 Map with Yosys 0.52 and ABC against the pinned typical CMOS5L standard-cell
 Liberty and the `RM_IHPSG13_1P_64x64_c2_bm_bist` Liberty at
 IHP-Open-PDK `89d42ee6d2fd9b50b86a1aada6fee6673c3e6008`.
@@ -103,7 +109,14 @@ python verification/authenticated/run.py UART SPI I2C DMX_RELOAD \
 
 The mapping retains only internal observation wires used by the checks.
 ASIC macro area is reported separately and included in the combined
-total. The SRAM physical views and functional models are available in
+total. The map also emits `functions/ihp_functional.v` from the pinned
+Liberty. This supports a two-state, zero-delay Verilator replay of
+the exact mapped netlist when the official simulation library's
+UDP tables require a different simulator. Use `--verilator verilator`
+and point `--pdk-cells` to that generated directory. The macro replay
+uses the pinned IHP behavioral models.
+
+The SRAM physical views and functional models are available in
 the pinned PDK. A future physical build must load the macro LEF, GDS and
 all corner Liberty views, and connect the macro supplies to the floorplan
 power grid. The synthesis and functional mapped simulation do not

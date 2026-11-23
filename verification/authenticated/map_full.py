@@ -78,6 +78,15 @@ def main():
 
     with ThreadPoolExecutor(max_workers=2) as pool:
         summary = list(pool.map(build, ("frozen", "inferred", "sram")))
+    functions = out / "functions"
+    functions.mkdir(exist_ok=True)
+    cells = json.loads((out / "sram.json").read_text())["design"]["num_cells_by_type"]
+    used = " ".join(sorted(name for name in cells if name.startswith("sg13cmos5l_")))
+    script = ("read_liberty -ignore_miss_func -ignore_miss_dir cells.lib; "
+              f"select {used}; write_verilog -selected -noattr functions/ihp_functional.v")
+    with (out / "functions.log").open("w") as log:
+        subprocess.run([args.yosys, "-Q", "-p", script], cwd=out, stdout=log,
+                       stderr=subprocess.STDOUT, check=True)
     (out / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2))
 

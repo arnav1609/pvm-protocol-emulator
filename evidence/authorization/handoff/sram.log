@@ -1,0 +1,8 @@
+PASS 42 SHA3/KMAC RTL cases including 136-byte padding boundaries
+/workspace/work/pvm-auth-integration/kit/tests/tb_hash.v:49: $finish called at 7083860000 (1ps)
+PASS 23 DMX frames at SPI pins, truncated frame, trailing bit, changed tag and missing trust
+/workspace/work/pvm-auth-integration/kit/tests/tb_spi_mac.v:97: $finish called at 12859030000 (1ps)
+PASS ownership, sequence, READY permission, busy serialization, head cancellation, validation failure and trust loss
+/workspace/work/pvm-auth-integration/kit/tests/tb_policy.v:62: $finish called at 340000 (1ps)
+PASS bus sequencer: HALT, clear, records, CRC, validation, preload, ENABLE, RX read/ack and fail-stop
+/workspace/work/pvm-auth-integration/kit/tests/tb_bus.v:79: $finish called at 370000 (1ps)

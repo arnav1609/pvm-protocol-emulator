@@ -1,0 +1,2 @@
+PASS canonical record preflight: 20 DMX chunks, reserved address, retry and post-image write rejection
+/workspace/work/pvm-auth-integration/kit/tests/tb_records.v:45: $finish called at 5340000 (1ps)

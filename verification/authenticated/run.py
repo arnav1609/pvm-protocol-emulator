@@ -2,7 +2,7 @@
 
 import argparse
 import csv
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import lru_cache
 from hashlib import sha3_256
 import json
@@ -12,6 +12,7 @@ import re
 import struct
 import subprocess
 import sys
+import tempfile
 
 THIS = Path(__file__).resolve().parent
 ROOT = THIS.parents[1]
@@ -25,7 +26,14 @@ DEVICE = bytes.fromhex("0000000000000001")
 CHALLENGE = bytes(range(16))
 SECOND = bytes(range(16, 32))
 THIRD = bytes(range(32, 48))
-PROTOCOLS = ("UART", "SPI", "I2C", "DMX", "DMX_RELOAD", "DMX_NEG", "SECURITY", "FIFO")
+PROTOCOLS = ("UART", "SPI", "I2C", "DMX", "DMX_RELOAD", "DMX_NEG", "SECURITY", "FIFO", "GUARDS")
+MUTANTS = {
+    "tag": ("pvm_auth.v", "if (authenticated) state<=PREFLIGHT;", "if (mac_done) state<=PREFLIGHT;", 2),
+    "link": ("pvm_auth.v", "if (digest_bad || !chain_byte_ok) state<=RELEASE;",
+             "if (1'b0) state<=RELEASE;", 5),
+    "alignment": ("pvm_auth_rx.v", "capturing && frame_byte_aligned && !malformed",
+                  "capturing && !malformed", 1),
+}
 
 
 def kmac(key, body, domain):
@@ -190,12 +198,27 @@ def fifo(scenario):
     scenario.control(4)
 
 
+def guards(scenario):
+    scenario.challenge(CHALLENGE)
+    plan = auth.plan_image(fixture("UART"))
+    opening = signed(auth.OPEN, 0, plan.root, plan.meta)
+    scenario.frame(opening, 0, 0, auth.NO_SEQUENCE, mode=5)
+    scenario.frame(opening[:-1] + bytes([opening[-1] ^ 1]), 0, 0, auth.NO_SEQUENCE, result=1)
+    scenario.frame(opening, 1, 1, 0, [(0xF00, 1), (0xF00, 4)])
+    scenario.frame(opening, 1, 1, 0, result=1)
+    chunk = plan.chunks[0]
+    wrong_link = chunk[:2] + bytes([chunk[2] ^ 1]) + chunk[3:]
+    scenario.frame(signed(auth.CHUNK, 1, plan.root, wrong_link), 1, 1, 0, result=1)
+
+
 def vectors(protocol, out):
     scenario = Scenario()
     if protocol == "SECURITY":
         security(scenario)
     elif protocol == "FIFO":
         fifo(scenario)
+    elif protocol == "GUARDS":
+        guards(scenario)
     elif protocol == "DMX_RELOAD":
         scenario.challenge(CHALLENGE)
         image = fixture(protocol)
@@ -210,32 +233,66 @@ def vectors(protocol, out):
     return [tuple(pair) for pair in scenario.writes]
 
 
-def run(protocol, args):
+def compile_suite(args, build):
+    defines = ["-DPVM_AUTH", "-DPVM_AUTH_TEST"]
+    if args.mapped:
+        sources = [str(args.mapped), *map(str, sorted(args.pdk_cells.rglob("*.v")))]
+        defines.append("-DSIM")
+    else:
+        source_names = re.findall(r'^\s*- "(\w+\.v)"$', (ROOT / "info.yaml").read_text(), re.M)
+        sources = [str(ROOT / "src" / name) for name in source_names]
+        if args.mutant:
+            name, anchor, replacement, _ = MUTANTS[args.mutant]
+            original = ROOT / "src" / name
+            contents = original.read_text()
+            assert contents.count(anchor) == 1, args.mutant
+            mutant = build / name
+            mutant.write_text(contents.replace(anchor,replacement))
+            sources[sources.index(str(original))] = str(mutant)
+        if args.sram:
+            defines.append("-DPVM_KECCAK_IHP_SRAM")
+    if args.sram or args.mapped:
+        defines.append("-DFUNCTIONAL")
+        sources += [str(args.sram_models / name) for name in
+                    ("RM_IHPSG13_1P_64x64_c2_bm_bist.v", "RM_IHPSG13_1P_core_behavioral_bm_bist.v")]
+    sources.append(str(ROOT / "tb_rtl/tb_protocols.v"))
+    if args.verilator:
+        # The gate suite is large. Skip C++ optimization for fast compilation.
+        command = [args.verilator, "--binary", "--timing", "--top-module", "tb_protocols",
+                   "-Wno-fatal", "--output-split", "4000", "-j", "2",
+                   "-MAKEFLAGS", "OPT_FAST=-O0 OPT_SLOW=-O0", "--Mdir", str(build),
+                   f"-I{THIS}", *defines, *sources]
+        runner = [str(build / "Vtb_protocols")]
+    else:
+        binary = build / "suite.vvp"
+        command = [args.iverilog, "-g2005", "-I", str(THIS), "-s", "tb_protocols",
+                   "-o", str(binary), *defines, *sources]
+        runner = [args.vvp, "-i", "-n", str(binary)]
+    with (args.output / "build.log").open("w") as log:
+        subprocess.run(command, check=True, stdout=log, stderr=subprocess.STDOUT)
+    return runner
+
+
+def run(protocol, args, runner):
     stdout = args.output / f"{protocol}.log"
     image = args.output / f"{protocol}.hex"
     writes = vectors(protocol, image)
-    prototype = "DMX" if protocol.startswith("DMX") else "SECURITY" if protocol=="FIFO" else protocol
-    extra = []
-    if args.mapped:
-        sources = [str(args.mapped), *map(str, sorted(args.pdk_cells.rglob("*.v")))]
-        extra.extend(["-DFUNCTIONAL", "-DSIM"])
-    else:
-        sources = list(map(str, sorted((ROOT / "src").glob("*.v"))))
-        if args.sram:
-            extra.append("-DPVM_KECCAK_IHP_SRAM")
-    if args.sram or args.mapped:
-        extra.append("-DFUNCTIONAL")
-        sources += [str(args.sram_models / name) for name in
-                    ("RM_IHPSG13_1P_64x64_c2_bm_bist.v", "RM_IHPSG13_1P_core_behavioral_bm_bist.v")]
-    binary = args.output / f"{protocol}.vvp"
-    subprocess.run([args.iverilog, "-g2005", "-DPVM_AUTH", "-DPVM_AUTH_TEST",
-                    f"-DPVM_PROTOCOL_{prototype}", "-I", str(THIS), "-s", "tb_protocols",
-                    "-o", str(binary), *extra, *sources, str(ROOT / "tb_rtl/tb_protocols.v")],check=True)
+    (args.output / f"{protocol}.writes").write_text(
+        "".join(f"{address:04x} {value:02x}\n" for address,value in writes))
+    selected = protocol
+    if protocol.startswith("DMX"):
+        selected = "DMX"
+    elif protocol in ("FIFO", "GUARDS"):
+        selected = "SECURITY"
     with stdout.open("w") as log:
-        sim = subprocess.run([args.vvp,"-i","-n",str(binary),f"+VECTORS={image}",
+        sim = subprocess.run([*runner, f"+PROTOCOL={selected}", f"+VECTORS={image}",
                               f"+DMX={args.output / 'dmx_reference.txt'}"],stdout=log,stderr=subprocess.STDOUT)
-    binary.unlink()
     log = stdout.read_text()
+    if args.mutant:
+        step = MUTANTS[args.mutant][3]
+        assert sim.returncode and f"AUTH step={step} " in log, log[-1800:]
+        print(f"GUARDS: caught {args.mutant} mutant at step {step}",flush=True)
+        return
     got = [tuple(int(hexbyte, 16) for hexbyte in record)
            for record in re.findall(r"^WRITE (\w+) (\w+)$", log, re.M)]
     assert got == writes, f"{protocol}: bus write mismatch at {next((i for i, (a, b) in enumerate(zip(got,writes)) if a != b), min(len(got),len(writes)))}\n{log[-1800:]}"
@@ -253,20 +310,36 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--iverilog", default="iverilog")
     parser.add_argument("--vvp", default="vvp")
+    parser.add_argument("--verilator", help="optionally use a timed Verilator executable")
     parser.add_argument("--sram", action="store_true")
     parser.add_argument("--sram-models", type=Path)
     parser.add_argument("--mapped", type=Path)
     parser.add_argument("--pdk-cells", type=Path)
     parser.add_argument("--jobs", type=int, default=2)
+    parser.add_argument("--mutant",choices=MUTANTS)
     args = parser.parse_args()
+    if args.mutant and (args.mapped or args.protocol != ["GUARDS"]):
+        parser.error("--mutant requires the GUARDS RTL scenario")
     args.output.mkdir(parents=True, exist_ok=True)
     with (THIS / "dmx_frozen_p5.csv").open() as stream:
         edges = [(int(row["core_cycle"]),int(row["p5"])) for row in csv.DictReader(stream)][1:]
     assert len(edges)==392
     (args.output / "dmx_reference.txt").write_text("".join(f"{cycle-edges[0][0]} {bit}\n"
                                                           for cycle,bit in edges))
-    with ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        list(pool.map(lambda protocol:run(protocol,args),args.protocol))
+    with tempfile.TemporaryDirectory(dir=args.output.resolve()) as scratch:
+        runner=compile_suite(args,Path(scratch))
+        failures = []
+        with ThreadPoolExecutor(max_workers=args.jobs) as pool:
+            pending = {pool.submit(run, protocol, args, runner): protocol for protocol in args.protocol}
+            for test in as_completed(pending):
+                try:
+                    test.result()
+                except (AssertionError, OSError, subprocess.CalledProcessError) as error:
+                    protocol = pending[test]
+                    failures.append(protocol)
+                    print(f"{protocol}: {error}", file=sys.stderr, flush=True)
+        if failures:
+            raise SystemExit("Failed scenarios: " + ", ".join(sorted(failures)))
 
 
 if __name__ == "__main__":
