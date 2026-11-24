@@ -1,0 +1,2 @@
+base 360 fresh decisions; 30 mismatches; first cases [(1, 0, 0, 1, 0), (1, 0, 0, 1, 1), (2, 0, 0, 1, 0)]
+b33a922 360 fresh decisions; 0 mismatches; first cases []

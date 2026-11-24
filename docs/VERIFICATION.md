@@ -44,7 +44,9 @@ benches. [Windows regeneration follow-up](TOOLCHAIN.md#windows-trace-regeneratio
   netlist passed the three S14b pin waveforms and the DMX512 TX replay.
   Both DMX512 captures matched the frozen RTL's P5 edges cycle by
   cycle. The replay used functional PDK models with zero-delay
-  simulation. [Release routed evidence](../results/v1.0_routed.md)
+  simulation. Setup and hold passed at all three static timing corners.
+  The slow-corner SDF attempt timed out without a verdict.
+  [Release routed evidence](../results/v1.0_routed.md)
 
 ## Demo lockstep
 
@@ -65,9 +67,9 @@ synchronized pin input on mismatch.
 | I²C write | 7,360 | Address 0x50 and data 0x3C, both ACKs, open drain and target stretch |
 | Total | 13,848 | Three images built, loaded and executed in one RTL simulation |
 
-The five directed ISA scenarios below extend these comparisons. The
-independent bus-model review and delay-annotated gate replays remain
-follow-ups.
+The five directed ISA scenarios below extend these comparisons. Heet
+separately reviewed the 1-Wire and SWD fit-study models. Delay-annotated
+gate replay remains open. [Model-review scope](../results/fit_study.md#independent-model-review)
 [Reproduce the demo replay](TOOLCHAIN.md#reproduce-the-checks) · [Owner checklist](https://github.com/arnav1609/pvm-protocol-emulator/blob/16b799f/results/owner_review_b33a922.md)
 
 Owner sign-off flags recorded at the freeze
@@ -82,7 +84,8 @@ SILICON=NO
 ## Directed ISA lockstep
 
 ```sh
-(cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=test_iss_lockstep)
+(cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=test_iss_lockstep &&
+  python -m cocotb_tools.check_results results.xml)
 ```
 
 Five images were assembled and loaded through the production SPI

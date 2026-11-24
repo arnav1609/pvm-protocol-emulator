@@ -109,10 +109,15 @@ bus models run each transaction without a host round-trip in the
 timing window.
 [Fit programs](../tools/examples/fit/) · [Pin models](../test/test_fit_protocols.py) · [Corrected simulation and mutation log](../evidence/opt/fit_timing_followup.log)
 
-Heet's independent protocol-model review is pending. The review can
-check the 1-Wire read window and pull-up assumptions against the
-DS18B20 data sheet, and SWD launch edges and turnarounds against ADIv5.
+## Independent model review
 
-The outsider draws from the full pool after the tag. If the draw
-lands on 1-Wire or SWD, disclose the pre-freeze study and implement the
-final program after the draw.
+Heet reproduced four fit-study jobs on frozen RTL, including detection
+of both program mutations, and separately reviewed the protocol models.
+He reported a 1-Wire sensitivity check in which the model delayed the
+high level to 13 µs and the receiver read zero at its 11.98 µs sample.
+He also reproduced the original SWD program’s parity rejection under
+the corrected model. These are digital results. The modeled target and
+the measured timing limits above define their scope.
+
+The one-time post-freeze draw used the full pool and selected DMX512 TX.
+[Draw record](held_out_draw.md)

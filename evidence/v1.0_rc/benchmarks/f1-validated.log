@@ -1,0 +1,25 @@
+OBS variant=0 div=1 collision=0 rises=1 min_cycles=100000 span7=0 flags=01 status=44 drive_after_4=0
+OBS variant=0 div=1 collision=1 rises=1 min_cycles=100000 span7=0 flags=01 status=44 drive_after_4=0
+OBS variant=0 div=2 collision=0 rises=1 min_cycles=100000 span7=0 flags=01 status=44 drive_after_4=0
+OBS variant=0 div=2 collision=1 rises=1 min_cycles=100000 span7=0 flags=01 status=44 drive_after_4=0
+OBS variant=0 div=4 collision=0 rises=8 min_cycles=16 span7=112 flags=00 status=44 drive_after_4=0
+OBS variant=0 div=4 collision=1 rises=2 min_cycles=16 span7=0 flags=01 status=44 drive_after_4=0
+OBS variant=0 div=8 collision=0 rises=8 min_cycles=32 span7=224 flags=00 status=44 drive_after_4=0
+OBS variant=0 div=8 collision=1 rises=2 min_cycles=32 span7=0 flags=01 status=44 drive_after_4=0
+OBS variant=0 div=16 collision=0 rises=8 min_cycles=64 span7=448 flags=00 status=44 drive_after_4=0
+OBS variant=0 div=16 collision=1 rises=2 min_cycles=64 span7=0 flags=01 status=44 drive_after_4=0
+OBS variant=0 div=32 collision=0 rises=8 min_cycles=128 span7=896 flags=00 status=44 drive_after_4=0
+OBS variant=0 div=32 collision=1 rises=2 min_cycles=128 span7=0 flags=01 status=44 drive_after_4=0
+OBS variant=1 div=1 collision=0 rises=1 min_cycles=100000 span7=0 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=1 collision=1 rises=1 min_cycles=100000 span7=0 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=2 collision=0 rises=8 min_cycles=8 span7=60 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=2 collision=1 rises=3 min_cycles=8 span7=0 flags=00 status=44 drive_after_4=1
+OBS variant=1 div=4 collision=0 rises=8 min_cycles=20 span7=140 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=4 collision=1 rises=2 min_cycles=20 span7=0 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=8 collision=0 rises=8 min_cycles=40 span7=280 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=8 collision=1 rises=2 min_cycles=40 span7=0 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=16 collision=0 rises=8 min_cycles=80 span7=560 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=16 collision=1 rises=2 min_cycles=80 span7=0 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=32 collision=0 rises=8 min_cycles=160 span7=1120 flags=00 status=44 drive_after_4=0
+OBS variant=1 div=32 collision=1 rises=2 min_cycles=160 span7=0 flags=00 status=44 drive_after_4=0
+bench.v:3098: $finish called at 33687600000 (1ps)

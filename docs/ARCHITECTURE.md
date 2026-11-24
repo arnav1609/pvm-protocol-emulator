@@ -42,5 +42,5 @@ pass through the pin guard and an output register.
 | D | Engine, fabric and monitor | Default |
 
 The host interface, pin mapping and instruction set are shared. The
-CI report records the mapped area estimates for A/B/C/D and the
-physical results for D. [Variant area and timing evidence](../results/ci_S14.md)
+release campaign routed all four variants with the same 8×4 footprint
+and 50 MHz constraint. [Matched area and timing evidence](../results/v1.0_routed.md)

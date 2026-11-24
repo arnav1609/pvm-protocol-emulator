@@ -65,7 +65,8 @@ and repeats with the same image. The capture smoke test checks the
 load and DONE lifecycle and supplies edges to the owner decoder.
 
 ```sh
-(cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=capture_dmx512)
+(cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=capture_dmx512 &&
+  python -m cocotb_tools.check_results results.xml)
 ```
 
 The output is `test/output/dmx512_tx/run_1_p5.csv` and
@@ -74,8 +75,9 @@ Use `PVM_DMX_IMAGE` to supply a different SPI image and
 `PVM_DMX_CAPTURE` to choose another output directory. To build the
 mutant, change the delay at the `first_mab` label from `[4]` to
 `[0]` in a copy of the source and invoke the same image builder
-with that copy. The owner waveform verdict and final gate-netlist
-replay are separate deliverables.
+with that copy. The owner decoder accepted both positive RTL captures
+and rejected the shortened first MAB. The final routed functional replay
+matched the two positive RTL captures.
 
 ### Author capture results
 

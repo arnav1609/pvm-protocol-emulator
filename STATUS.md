@@ -1,5 +1,9 @@
 # PVM RTL STATUS
-Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
+Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, SILICON=NO
+
+All four functional gate-level demos passed (UART, SPI, I²C and DMX512).
+Static setup and hold timing passed at all three corners. The slow-corner
+delay simulation was inconclusive. [Routed evidence](results/v1.0_routed.md)
 
 | Stage | Plan date | State (TODO/WIP/PASS/FAIL/BLOCKED) | Gate report | Jobs accepted/total | Claim level | Second simulator | ISS cross-check (Arnav) | CI |
 |---|---|---|---|---|---|---|---|---|
@@ -24,12 +28,12 @@ Flags: HARDWARE_VALIDATED=NO, FORMAL_PROOF=NO, GLS=NO, SILICON=NO
 The published `rtl-freeze` tag is
 `b33a9227ac187f791a3733b94ac4e32879b10414`. The one-time draw
 selected DMX512 TX. The accepted 29-word image, configuration
-and author captures are available for final gate-level replay.
+and both zero-delay gate captures matched the accepted RTL traces.
 [Freeze evidence](https://github.com/arnav1609/pvm-protocol-emulator/blob/16b799f/results/pre_freeze_validation_b33a922.md) · [Draw record](results/held_out_draw.md) · [DMX512 TX](docs/DMX512_TX_DEMO.md)
 
-- Demo images target 13 December 2026.
-- Final routed build target 24 December 2026.
-- Public release and write-up target 31 December 2026.
+The demo images and routed baseline have passed their technical gates.
+The public release and write-up target 31 December 2026, subject to
+owner approval of the exact release commit. [Stage 8 write-up](docs/SUBMISSION_WRITEUP.md)
 
 The ISS matched 13,848 baseline demo cycles and 7,680 additional
 directed cycles. The Windows standalone golden-regeneration

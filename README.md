@@ -39,7 +39,8 @@ replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 | [Tools and AI use](docs/AI_USE.md) | Design, verification and evidence tooling |
 | [Release candidate](docs/RELEASE_CHECKLIST.md) | Fresh-clone and gate-level replay checklist |
 | [Routed build](results/v1.0_routed.md) | Four matched variants, final layout, timing and demo replay package |
-| [Submission outline](docs/SUBMISSION_WRITEUP.md) | Experiments, demo evidence and remaining deliverables |
+| [Competition write-up](docs/SUBMISSION_WRITEUP.md) | Protocol demos, benchmark results and reproduction links |
+| [Manuscript](docs/MANUSCRIPT.md) | Architecture, matched experiments, verification and limitations |
 
 The public release candidate uses the approved 50 MHz RTL at
 `rtl-freeze`. The release build passed precheck with 30.9734%

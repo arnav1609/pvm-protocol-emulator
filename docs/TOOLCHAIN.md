@@ -78,7 +78,8 @@ DemoBoard validation is pending.
 ```sh
 python3 -m unittest discover -s tools/tests -v
 python3 -m pip install -r test/requirements.txt
-(cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=test,test_toolchain)
+(cd test && PYTHONPATH=.. make COCOTB_TEST_MODULES=test,test_toolchain &&
+  python -m cocotb_tools.check_results results.xml)
 ```
 
 The RTL replay uses the public assembler, image builder and host loader
@@ -110,9 +111,11 @@ print(model.state.name, model.fault_pc)
 Use a cycle budget for programs that wait for external inputs or loop.
 The model decodes the eight instruction classes and includes delay,
 side-set, scratch and shift registers, WAIT, FIFO transfers, EXEC and
-instruction faults. Directed model tests cover WIDE transfers, EXEC,
-timeout and fault cases. Their cross-check against RTL remains open.
-The initial lockstep evidence covers the three demo programs only.
+instruction faults. Model unit tests cover WIDE transfers, EXEC, timeout and fault cases.
+RTL lockstep matched 13,848 cycles across UART, SPI and I²C and 7,680
+cycles across five directed stall, branch, FIFO and shift scenarios.
+EXEC, automatic FIFO transfers and prescaled timeout and fault behavior
+remain open in the RTL lockstep campaign.
 SPI framing and image validation, input synchronization, physical pin
 drive, PINFABRIC and SPECMON belong to the surrounding system. The RTL
 replay supplies synchronized pin values at the engine boundary and
