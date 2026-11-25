@@ -24,6 +24,8 @@ replays using zero-delay functional models. All three static timing
 corners passed. Slow-corner delay simulation was inconclusive.
 [Baseline pin checks](../reports/S14b_protocols_gate.md) · [Verification](VERIFICATION.md) · [Routed evidence](../results/v1.0_routed.md)
 
+[Frozen protocol coverage matrix](PROTOCOL_MATRIX.md)
+
 ## Held-out draw and result
 
 The hardware freeze preceded one uniform draw from 1-Wire, SWD,
@@ -47,6 +49,25 @@ At 50 MHz it had +3.180 ns slow-corner setup slack and +0.108 ns
 worst hold slack. It passed GDS, gate-level smoke and 10/10 prechecks.
 Board behavior, silicon power and electrical compliance remain
 outside the measured results. [Matched measurements and run IDs](../results/v1.0_routed.md)
+
+## Toolchain and release evidence
+
+The assembler follows the 32-word ISA and emits addressed 16-bit
+words. The image builder combines them with register configuration,
+CRC and TX preload. The SPI loader validates and reads back the
+committed image ID before enabling the engine. The ISS implements
+the published execution rules and has a stated directed cycle
+denominator. [ISA](ISA.md) · [Toolchain and host guide](TOOLCHAIN.md) · [ISS provenance](ISS_PROVENANCE.md)
+
+The full routed variant is traceable to a source SHA, a netlist
+hash, and one Tiny Tapeout run. Use Icarus 13.0 or later for functional
+gate replay with the pinned IHP models. Icarus 12.0 leaves timing-check
+outputs undriven in those models, which prevents reset from reaching
+the mapped flip-flops. Seven scoped safety families support the
+formal checks described in the verification evidence. The optional
+Artix-7 real-wire run remains pending. The authorization feature
+has a separate go/no-go and no claim in the verified baseline.
+[Routed evidence](../results/v1.0_routed.md) · [Version requirement](../results/gate_icarus.md) · [Authorization decision brief](../results/authorization_decision.md)
 
 ## Reproduce the submission
 

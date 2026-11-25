@@ -1,0 +1,45 @@
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '<checkout>/test'
+rm -f results.xml
+COCOTB_TEST_MODULES=test_author_replay COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+         <tool-install>/bin/vvp -M <tool-install>/venv/lib/python3.12/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/rtl/sim.vvp -fst
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at <tool-install>/venv/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with 1795597400
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from <tool-install>/venv/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running test_author_replay.author_replay (1/1)
+727390.00ns INFO     cocotb.tb                          PASS spi_mode1 mode=1 samples=16 active_half_cycles=32 MOSI=a6c9
+1464870.00ns INFO     cocotb.tb                          NEG_KILLED spi_mode1 SPI_ACTIVE_WIDTH
+                                                         assert (193 - 129) == 32
+2192110.00ns INFO     cocotb.tb                          PASS spi_mode2 mode=2 samples=16 active_half_cycles=32 MOSI=a6c9
+2929590.00ns INFO     cocotb.tb                          NEG_KILLED spi_mode2 SPI_ACTIVE_WIDTH
+                                                         assert (225 - 161) == 32
+3656830.00ns INFO     cocotb.tb                          PASS spi_mode3 mode=3 samples=16 active_half_cycles=32 MOSI=a6c9
+4394310.00ns INFO     cocotb.tb                          NEG_KILLED spi_mode3 SPI_ACTIVE_WIDTH
+                                                         assert (193 - 129) == 32
+5235250.00ns INFO     cocotb.tb                          PASS i2c_400k SDA=a03c ACKs=2 stretch_core_cycles=331 data_period_core_cycles=125
+6068190.00ns INFO     cocotb.tb                          NEG_KILLED i2c_400k I2C_DATA_PERIOD [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+                                                         assert [100, 100, 100, 100, 100, 100, ...] == ([125] * 14)
+7076630.00ns INFO     cocotb.tb                          PASS i2c_100k SDA=a03c ACKs=2 stretch_core_cycles=331 data_period_core_cycles=500
+8053070.00ns INFO     cocotb.tb                          NEG_KILLED i2c_100k I2C_DATA_PERIOD [400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400]
+                                                         assert [400, 400, 400, 400, 400, 400, ...] == ([500] * 14)
+9145850.00ns INFO     cocotb.tb                          PASS ws2812b_tx GRB=963ca5 bits=24 final_low_core_cycles=16475
+9950790.00ns INFO     cocotb.tb                          NEG_KILLED ws2812b_tx WS_LATCH_MIN
+                                                         assert ((3605 - 1) - 1521) >= 15000
+                                                          +  where 3605 = len([0, 0, 0, 0, 0, 0, ...])
+13216430.00ns INFO     cocotb.tb                          PASS ps2_rx valid byte=96, invalid parity selected FLAG3 and left RX empty
+16482070.00ns INFO     cocotb.tb                          NEG_KILLED ps2_rx PS2_BAD_PARITY
+                                                          assert (4 == 8)
+16482070.00ns INFO     cocotb.regression                  test_author_replay.author_replay passed
+16482070.00ns INFO     cocotb.regression                  ******************************************************************************************
+                                                          ** TEST                              STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                          ******************************************************************************************
+                                                          ** test_author_replay.author_replay   PASS    16482070.00          73.61     223905.04  **
+                                                          ******************************************************************************************
+                                                          ** TESTS=1 PASS=1 FAIL=0 SKIP=0               16482070.00          73.62     223890.35  **
+                                                          ******************************************************************************************
+FST info: dumpfile tb.fst opened for output.
+make[1]: Leaving directory '<checkout>/test'

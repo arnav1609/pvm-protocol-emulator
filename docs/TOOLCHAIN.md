@@ -122,6 +122,8 @@ replay supplies synchronized pin values at the engine boundary and
 checks the raw protocol waveforms in a separate observer.
 [ISA spec](../spec/04_ISA.md) · [Model](../tools/pvm_iss.py) · [Replay evidence](VERIFICATION.md#demo-lockstep)
 
+[ISS authorship and independent spot-check list](ISS_PROVENANCE.md)
+
 ### Windows trace regeneration follow-up
 
 The standalone `python tb_rtl/pvm_run.py trace-golden --check` command

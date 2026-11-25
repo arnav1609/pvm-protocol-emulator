@@ -70,6 +70,20 @@ using Icarus 13.0 and zero-delay PDK models. Static setup and hold
 passed at all three corners. Slow-corner SDF simulation was inconclusive.
 [Matched variant measurements and final routed build](../results/v1.0_routed.md) · [Download routed ZIP](https://raw.githubusercontent.com/arnav1609/pvm-protocol-emulator/b49f6376e3741cb211f1aa94975a220e990569b8/artifacts/PVM_v1.0_rc_routed.zip)
 
+Use Icarus Verilog 13.0 or later for both the compiler and runtime
+for gate replay. Install the validated Tiny Tapeout 13.0 build,
+activate the Python environment above, extract the ZIP and verify
+its SHA-256 and file manifest. From this repository, run the wrapper
+with the extracted bundle directory. The wrapper checks the two
+versions before it invokes the packaged replay from a temporary
+checkout of the recorded routed source.
+
+```sh
+scripts/replay_routed.sh /absolute/path/to/extracted-routed-bundle
+```
+
+[Validated Icarus package](https://github.com/TinyTapeout/iverilog/releases/tag/v13.0) · [Version failure analysis](../results/gate_icarus.md)
+
 The owner reviews the exact release commit, results, protocol evidence
 and public checkout before publication of v1.0. Advance `main` by
 fast-forward and tag the approved commit. Verify the published branch,

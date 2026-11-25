@@ -28,6 +28,11 @@ python3 tb_rtl/pvm_run.py run --select all
 The toolchain guide covers all example images, the SPI loader and how to
 replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 
+For the routed functional replay, use Icarus Verilog 13.0 or later
+for both `iverilog` and `vvp`. The validated build is Tiny Tapeout
+Icarus 13.0. The replay wrapper checks both versions before running.
+[Gate replay instructions](docs/RELEASE_CHECKLIST.md#physical-release-evidence) · [Icarus 12 failure analysis](results/gate_icarus.md)
+
 ## Design and evidence
 
 | Document | Contents |
@@ -41,6 +46,8 @@ replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 | [Routed build](results/v1.0_routed.md) | Four matched variants, final layout, timing and demo replay package |
 | [Competition write-up](docs/SUBMISSION_WRITEUP.md) | Protocol demos, benchmark results and reproduction links |
 | [Manuscript](docs/MANUSCRIPT.md) | Architecture, matched experiments, verification and limitations |
+| [Protocol matrix](docs/PROTOCOL_MATRIX.md) | Frozen demonstrations and author-side image coverage |
+| [Arty A7 handoff](docs/ARTY_A7_HANDOFF.md) | FPGA integration inputs and expected pin captures |
 
 The public release candidate uses the approved 50 MHz RTL at
 `rtl-freeze`. The release build passed precheck with 30.9734%

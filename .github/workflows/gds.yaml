@@ -35,7 +35,10 @@ jobs:
           submodules: recursive
 
       - name: GL test
-        uses: TinyTapeout/tt-gds-action/gl_test@ttihp27a
+        # This action installs Tiny Tapeout Icarus 13.0 before gate simulation.
+        uses: TinyTapeout/tt-gds-action/gl_test@e7a50f8f46f9f8df4b2c9935bfeb1cbc6b6ae4f6
+      - name: Check gate simulator version
+        run: scripts/replay_routed.sh --check-tools
 
   viewer:
     needs: gds

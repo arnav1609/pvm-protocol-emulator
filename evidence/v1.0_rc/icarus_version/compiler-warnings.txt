@@ -1,0 +1,11 @@
+Icarus 12.0 compiler excerpt
+sg13cmos5l_stdcell.v:1001: warning: Timing checks are not supported and delayed signal "delayed_CLK" will not be driven.
+sg13cmos5l_stdcell.v:1001: warning: Timing checks are not supported and delayed signal "delayed_D" will not be driven.
+sg13cmos5l_stdcell.v:1002: warning: Timing checks are not supported and delayed signal "delayed_CLK" will not be driven.
+sg13cmos5l_stdcell.v:1002: warning: Timing checks are not supported and delayed signal "delayed_D" will not be driven.
+sg13cmos5l_stdcell.v:1003: warning: Timing checks are not supported and delayed signal "delayed_RESET_B" will not be driven.
+
+Tiny Tapeout Icarus 13.0 compiler excerpt with -gspecify
+sg13cmos5l_stdcell.v:1001: warning: Timing checks are not supported. Delayed reference and data signals become copies of the original reference and data signals.
+sg13cmos5l_stdcell.v:1002: warning: Timing checks are not supported. Delayed reference and data signals become copies of the original reference and data signals.
+sg13cmos5l_stdcell.v:1003: warning: Timing checks are not supported. Delayed reference and data signals become copies of the original reference and data signals.

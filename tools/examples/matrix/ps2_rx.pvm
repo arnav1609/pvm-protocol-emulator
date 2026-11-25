@@ -1,0 +1,36 @@
+# Receive one device-to-host PS/2 frame. P0 CLK, P1 DATA, both inputs.
+# Report valid data in RX and FLAG2. Reject framing/odd parity with FLAG3.
+    wait 1 pin 0
+    wait 0 pin 0
+    jmp pin, bad
+    wait 1 pin 0
+    set x, 7
+    set y, 0
+data:
+    wait 0 pin 0
+    in pins, 1
+    jmp pin, high
+    jmp advance
+high:
+    mov y, ~y
+advance:
+    wait 1 pin 0
+    jmp x--, data
+    wait 0 pin 0
+    jmp pin, parity_high
+    jmp parity_end
+parity_high:
+    mov y, ~y
+parity_end:
+    jmp !y, bad
+    wait 1 pin 0
+    wait 0 pin 0
+    jmp pin, accept
+bad:
+    evt set 3
+    evt done
+accept:
+    in null, 8
+    push block
+    evt set 2
+    evt done
