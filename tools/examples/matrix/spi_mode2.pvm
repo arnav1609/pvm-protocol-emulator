@@ -1,0 +1,11 @@
+# Controller SPI mode 2, MSB-first MOSI. Preload 0xA6 then 0xC9.
+# P6 = SCK, P7 = MOSI. Logical SCK 0 is idle. Pin inversion sets CPOL.
+    set y, 1 side 0
+next_byte:
+    pull block side 0
+    set x, 7 side 0
+next_bit:
+    out pins, 1 side 0
+    jmp x--, next_bit side 1
+    jmp y--, next_byte side 0
+    evt done side 0

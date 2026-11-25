@@ -1,0 +1,27 @@
+# Nominal 400 kHz on ordinary data bits at 50 MHz, ideal pull-up.
+# Preload 0xA0, 0x3C. P12 SDA, P13 SCL. ACK and stretching supported.
+    set pins, 3 side 1
+    set pindirs, 3 side 1
+    wait 1 pin 13 side 1
+    set pins, 2 side 1 [1]
+    set y, 1 side 0
+next_byte:
+    pull block side 0
+    set x, 7 side 0
+    jmp data_low side 0
+check_high:
+    wait 1 pin 13 side 1
+data_low:
+    out pins, 1 side 0 [2]
+    jmp x--, check_high side 1
+    wait 1 pin 13 side 1
+    set pins, 1 side 0 [2]
+    mov x, x side 1
+    wait 1 pin 13 side 1
+    wait 0 pin 12 side 1
+    jmp y--, next_byte side 0
+    set pins, 0 side 0 [1]
+    mov x, x side 1
+    wait 1 pin 13 side 1
+    set pins, 3 side 1
+    evt done side 1

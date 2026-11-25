@@ -1,0 +1,18 @@
+# One WS2812B-format GRB word, MSB first. Preload G, R, B.
+# P5 high is 320 ns for zero and 720 ns for one at 50 MHz.
+    set y, 23 side 0
+bit:
+    out x, 1 side 0
+    jmp !x, zero side 1 [3]
+    jmp tail side 1 [4]
+zero:
+    jmp tail side 0 [4]
+tail:
+    jmp y--, bit side 0 [5]
+    set y, 7 side 0
+latch_block:
+    set x, 31 side 0
+latch_low:
+    jmp x--, latch_low side 0 [15]
+    jmp y--, latch_block side 0
+    evt done side 0

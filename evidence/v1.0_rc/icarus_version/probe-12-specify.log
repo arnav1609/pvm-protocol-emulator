@@ -1,0 +1,3 @@
+RESET pad=0 delayed=z Q=x
+CAPTURE pad_clk=1 delayed_clk=z pad_d=1 delayed_d=z Q=x
+iv-reset-probe.v:14: $finish called at 17000 (1ps)

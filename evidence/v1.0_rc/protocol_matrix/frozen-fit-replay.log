@@ -1,0 +1,48 @@
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '<frozen-checkout>/test'
+mkdir -p sim_build/rtl
+<tool-install>/bin/iverilog -o sim_build/rtl/sim.vvp -s tb -g2012 -I<frozen-checkout>/test/../src -f sim_build/rtl/cmds.f  <frozen-checkout>/test/../src/project.v <frozen-checkout>/test/../src/pvm_top.v <frozen-checkout>/test/../src/pvm_sync2.v <frozen-checkout>/test/../src/pvm_edge.v <frozen-checkout>/test/../src/pvm_tick.v <frozen-checkout>/test/../src/pvm_presc.v <frozen-checkout>/test/../src/pvm_fifo.v <frozen-checkout>/test/../src/pvm_crc16.v <frozen-checkout>/test/../src/pvm_imem.v <frozen-checkout>/test/../src/pvm_spi_byte.v <frozen-checkout>/test/../src/pvm_hostif.v <frozen-checkout>/test/../src/pvm_cfg.v <frozen-checkout>/test/../src/pvm_engine.v <frozen-checkout>/test/../src/pvm_fabric.v <frozen-checkout>/test/../src/pvm_mon.v <frozen-checkout>/test/../src/pvm_pin_guard.v <frozen-checkout>/test/tb.v
+rm -f results.xml
+COCOTB_TEST_MODULES=test_fit_protocols COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+         <tool-install>/bin/vvp -M <tool-install>/venv/lib/python3.12/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/rtl/sim.vvp -fst
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at <tool-install>/venv/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+     0.00ns INFO     cocotb                             Seeding Python random module with 1795597364
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from <tool-install>/venv/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running test_fit_protocols.fit_one_wire (1/4)
+3191870.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=(15000, 60000) bit=0 {'reset_low_ns': 520000, 'reset_high_ns': 524000, 'write_zero_ns': 68000, 'write_one_ns': 8000, 'recovery_ns': 8000, 'read_init_ns': 4000, 'read_sample_ns': 11980, 'read_slot_to_push_ns': 75980, 'read_fall_to_done_ns': 80000}
+6383750.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=(60000, 240000) bit=1 {'reset_low_ns': 520000, 'reset_high_ns': 524000, 'write_zero_ns': 68000, 'write_one_ns': 8000, 'recovery_ns': 8000, 'read_init_ns': 4000, 'read_sample_ns': 11980, 'read_slot_to_push_ns': 75980, 'read_fall_to_done_ns': 80000}
+7825030.00ns INFO     cocotb.tb                          FIT one_wire words=19 presence=None bit=None {'reset_low_ns': 520000}
+7825030.00ns INFO     cocotb.tb                          CHECK PASS ONE_WIRE_PIN_TRANSACTION
+7825030.00ns INFO     cocotb.regression                  test_fit_protocols.fit_one_wire passed
+7825030.00ns INFO     cocotb.regression                  running test_fit_protocols.fit_one_wire_neg_short_zero (2/4)
+9622140.00ns INFO     cocotb.tb                          MUTANT KILLED ONE_WIRE_PIN_TRANSACTION WRITE_ZERO_LOW: 32000
+9622140.00ns INFO     cocotb.regression                  test_fit_protocols.fit_one_wire_neg_short_zero passed
+9622140.00ns INFO     cocotb.regression                  running test_fit_protocols.fit_swd (3/4)
+11185550.00ns INFO     cocotb.tb                          OBSERVE SWD_RELOAD_IDLE P5=0 from DONE through HALT, reload, and READY
+11185550.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=2ba01477 parity=0 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+12160030.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=3ba01477 parity=1 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+13134110.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=2ba01477 parity=1 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+14108590.00ns INFO     cocotb.tb                          FIT swd words=32 request=a5 ack=1 reply=3ba01477 parity=0 {'swclk_rises': 54, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+14962970.00ns INFO     cocotb.tb                          FIT swd words=32 request=87 ack=2 reply=00000000 parity=0 {'swclk_rises': 21, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+15817350.00ns INFO     cocotb.tb                          FIT swd words=32 request=87 ack=4 reply=00000000 parity=0 {'swclk_rises': 21, 'min_high_ns': 400, 'min_low_ns': 400, 'target_setup_ns': 690}
+15817350.00ns INFO     cocotb.tb                          CHECK PASS SWD_DPIDR_PIN_TRANSACTION
+15817350.00ns INFO     cocotb.regression                  test_fit_protocols.fit_swd passed
+15817350.00ns INFO     cocotb.regression                  running test_fit_protocols.fit_swd_neg_accept_bad_parity (4/4)
+16791820.00ns INFO     cocotb.tb                          MUTANT KILLED SWD_DPIDR_PIN_TRANSACTION SWD_PARITY_FLAG: (1, 1, 4)
+16791820.00ns INFO     cocotb.regression                  test_fit_protocols.fit_swd_neg_accept_bad_parity passed
+16791820.00ns INFO     cocotb.regression                  **********************************************************************************************************
+                                                          ** TEST                                              STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                          **********************************************************************************************************
+                                                          ** test_fit_protocols.fit_one_wire                    PASS     7825030.00          40.55     192962.28  **
+                                                          ** test_fit_protocols.fit_one_wire_neg_short_zero     PASS     1797110.00           9.00     199725.53  **
+                                                          ** test_fit_protocols.fit_swd                         PASS     6195210.00          29.68     208743.05  **
+                                                          ** test_fit_protocols.fit_swd_neg_accept_bad_parity   PASS      974470.00           4.21     231578.13  **
+                                                          **********************************************************************************************************
+                                                          ** TESTS=4 PASS=4 FAIL=0 SKIP=0                               16791820.00          83.44     201242.59  **
+                                                          **********************************************************************************************************
+FST info: dumpfile tb.fst opened for output.
+make[1]: Leaving directory '<frozen-checkout>/test'
