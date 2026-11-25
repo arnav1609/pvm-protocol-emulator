@@ -1,0 +1,32 @@
+Frozen RTL b33a9227ac187f791a3733b94ac4e32879b10414
+Review source baa20928bdab278da32d41497232c136ff15054f with tutorial files
+Icarus 12.0, Python 3.12.14, cocotb 2.0.1
+Recipe: docs/ADD_A_PROTOCOL.md, both command blocks plus shortened high SET
+
+     0.00ns INFO     cocotb.regression                  running test_pulse_lesson.two_pulses (1/1)
+670450.00ns INFO     cocotb.tb                          P5 intervals in core clocks: (250, 250, 250)
+670450.00ns INFO     cocotb.regression                  test_pulse_lesson.two_pulses passed
+670450.00ns INFO     cocotb.regression                  **************************************************************************************
+                                                        ** TEST                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **************************************************************************************
+                                                        ** test_pulse_lesson.two_pulses   PASS      670450.00           2.76     243124.90  **
+                                                        **************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0             670450.00           2.76     243026.19  **
+
+Shortened-pulse mutant
+     0.00ns INFO     cocotb.regression                  running test_pulse_lesson.two_pulses (1/1)
+670450.00ns WARNING  cocotb.Test two_pulses.two_pulses  PULSE_INTERVALS (225, 250, 225)
+                                                        assert (225, 250, 225) == (250, 250, 250)
+                                                        Traceback (most recent call last):
+                                                          File "<lesson>/test_pulse_lesson.py", line 38, in two_pulses
+                                                            assert intervals == (250, 250, 250), f"PULSE_INTERVALS {intervals}"
+                                                        AssertionError: PULSE_INTERVALS (225, 250, 225)
+                                                        assert (225, 250, 225) == (250, 250, 250)
+670450.00ns WARNING  cocotb.regression                  test_pulse_lesson.two_pulses failed
+670450.00ns INFO     cocotb.regression                  **************************************************************************************
+                                                        ** TEST                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **************************************************************************************
+                                                        ** test_pulse_lesson.two_pulses   FAIL      670450.00           3.03     221550.53  **
+                                                        **************************************************************************************
+                                                        ** TESTS=1 PASS=0 FAIL=1 SKIP=0             670450.00           3.03     221074.62  **
+NEG_KILLED PULSE_INTERVALS

@@ -25,6 +25,9 @@ Run the RTL regression with Icarus Verilog (`iverilog` and `vvp` on `PATH`).
 python3 tb_rtl/pvm_run.py run --select all
 ```
 
+Write and test a five-word first protocol with the tutorial.
+[Add a protocol](docs/ADD_A_PROTOCOL.md) · [One-page ISA card](docs/ISA_CARD.md)
+
 The toolchain guide covers all example images, the SPI loader and how to
 replay generated images through the RTL wrapper. [Toolchain](docs/TOOLCHAIN.md)
 
