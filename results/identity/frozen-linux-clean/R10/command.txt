@@ -1,0 +1,3 @@
+PATH=/home/kalash/pvm-release.JYrkrNUQ/tools/bin:/home/kalash/pvm-ident-tools.wPEWif4t/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PYTHON=/home/kalash/pvm-release.JYrkrNUQ/venv/bin/python
+bash /mnt/c/vivado_verilog_proj/JANE_STREET/01_CURRENT/pvm_ident_01/tools/release_identity.sh refs/heads/a3-frozen-ref-that-does-not-exist --repo /home/kalash/pvm-ident-run.SjzMFdN0/repo --profile routed

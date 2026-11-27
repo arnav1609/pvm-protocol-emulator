@@ -1,0 +1,1 @@
+Release identity error: Cannot resolve commit 'refs/heads/a3-frozen-ref-that-does-not-exist': fatal: Needed a single revision
