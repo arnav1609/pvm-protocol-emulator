@@ -46,7 +46,7 @@ I²C evidence covers the onboard fixture. DMX512 evidence covers FPGA
 logic-level signaling. External-device interoperability, EEPROM readback
 and the RS-485 physical layer remain outside this run.
 
-The raw ILA CSVs, Vivado reports, bitstream and probes are preserved in
-the original handoff archive `PVM_FPGA_A1_Arnav_Handoff.zip`. The saved
+The raw ILA CSVs, timing, utilization, routing and DRC reports, bitstream
+and probes are preserved in the original handoff archive `PVM_FPGA_A1_Arnav_Handoff.zip`. The saved
 capture manifest records the raw file identities.
 [Capture hashes](SHA256SUMS.txt) · [Implementation and archive hashes](implementation.sha256)
