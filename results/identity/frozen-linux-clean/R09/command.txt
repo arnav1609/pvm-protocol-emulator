@@ -1,0 +1,3 @@
+PATH=/tmp/pvm-a3-esb48sl8/reduced-path
+PYTHON=/home/kalash/pvm-release.JYrkrNUQ/venv/bin/python
+/home/kalash/pvm-release.JYrkrNUQ/venv/bin/python /mnt/c/vivado_verilog_proj/JANE_STREET/01_CURRENT/pvm_ident_01/tools/release_identity.py 752ebb97824cfd1161581497c22d3c171c4c6ca9 --repo /home/kalash/pvm-ident-run.SjzMFdN0/repo --profile routed
