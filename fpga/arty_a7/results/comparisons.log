@@ -1,0 +1,6 @@
+PASS: reset.csv: reset asserted for 50 core cycles and released high
+PASS: uart.csv: UART 8N1 0x35 with 434 core clocks per bit
+PASS: spi.csv: SPI mode 0, 16 rising edges, MSB-first A6 C9
+PASS: i2c.csv: I²C START A0 ACK 3C ACK STOP, first ACK SCL low 412 core cycles, PVM SDA release/open-drain checked
+PASS: dmx512_run1.csv: DMX512 logic-level, two packets, 128 us BREAK, 16 us MAB, 4 us bit cells, 25 slots each
+PASS: dmx512_run2.csv: DMX512 logic-level, two packets, 128 us BREAK, 16 us MAB, 4 us bit cells, 25 slots each

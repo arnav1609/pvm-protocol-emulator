@@ -1,0 +1,12 @@
+# Retain the hashed build inputs, inherited host files, and raw evidence.
+constr/*.xdc -text
+rtl/*.v -text
+host/pvm_host.py -text
+host/pvm_wire.py -text
+results/*.log -text
+results/*.rpt -text
+results/readback.jsonl -text
+sim/*.sh text eol=lf
+scripts/*.tcl text eol=lf
+scripts/*.py text eol=lf
+host/run_demos.py text eol=lf

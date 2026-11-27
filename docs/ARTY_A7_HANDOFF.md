@@ -1,13 +1,12 @@
 # Arty A7 PVM handoff
 
-The source is the public `rtl-freeze` tag at
-`b33a9227ac187f791a3733b94ac4e32879b10414`. The fixture is the
-Arty A7-100T, part `xc7a100tcsg324-1`. FPGA implementation and
-measurements await Kalash’s go-ahead. Once authorized, use
-`fpga/arty_a7/` on an FPGA branch for the wrapper, XDC and single Tcl
-script that creates `JaneStreet_ASIC_Artix7_FPGA_Run`. Publish raw
-capture conditions alongside any result labelled **FPGA-measured
-(Artix-7)**. [Frozen checkout](https://github.com/arnav1609/pvm-protocol-emulator/tree/rtl-freeze)
+The Arty A7-100T bench uses the 16 frozen PVM RTL files at
+`b33a9227ac187f791a3733b94ac4e32879b10414`, a 50 MHz FPGA wrapper and an
+integrated logic analyzer. The USB-only run passed five host readbacks and
+six waveform checks. Follow the board guide to build the wrapper, program
+the Artix-7 and capture a new run. The implementation report records timing,
+resources and the scope of the measured results.
+[Board guide](../fpga/arty_a7/README.md) · [Artix-7 results](../fpga/arty_a7/results/README.md) · [Frozen checkout](https://github.com/arnav1609/pvm-protocol-emulator/tree/rtl-freeze)
 
 ## FPGA integration
 
@@ -23,17 +22,18 @@ in the FPGA wrapper. The frozen top ignores it.
 
 Every open-drain `uio` uses `uio_oe=1, uio_out=0` for low and
 `uio_oe=0` for release. Use `IOBUF.T = !uio_oe` and return
-`IOBUF.O` to `uio_in`. Add external 3.3 V pull-ups for SDA and SCL
-with a common ground. The guard releases bidirectional pins outside
-RUN and sets dedicated outputs to their configured idle levels after
-reset. During reset the dedicated outputs reset low.
+`IOBUF.O` to `uio_in`. The Artix-7 USB-only bench uses the 2.2 kΩ
+pull-ups on the Arty J3 circuit. SW0 selects the onboard I²C target.
+The guard releases bidirectional pins outside RUN and sets dedicated
+outputs to their configured idle levels after reset. During reset the
+dedicated outputs reset low.
 
 The frozen sources use `$clog2` in the parametrized FIFO and ordinary
 Verilog generate, memories and indexed slices. The instruction RAM
 resets its valid bits. Its word array has no initialization file and
 the host supplies the program. The source audit found no RTL
-`$display`, `$readmem*` or SystemVerilog files. Vivado synthesis of the
-Arty wrapper is an FPGA bring-up step.
+`$display`, `$readmem*` or SystemVerilog files. The Artix-7 build was
+implemented with Vivado 2024.1.
 [Full ordered source list and pin map](https://github.com/arnav1609/pvm-protocol-emulator/blob/rtl-freeze/info.yaml) · [Reset and pin specification](../spec/02_PINS_AND_TOP.md) · [Pin guard](../src/pvm_pin_guard.v)
 
 ## Pin mapping and host SPI
@@ -80,10 +80,10 @@ RP2040 Pico needs its own MicroPython firmware and a transport that
 implements `exchange(bytes) -> bytes`. The handoff includes a
 hardware-SPI0 adapter example for GP18 SCK, GP19 MOSI, GP16 MISO and
 GP17 CS, configured for 250 kHz, mode 0 and a shared ground. Its
-wiring and board execution remain to be tested. A desktop Python
-program can also use `PVMHost` with an implementation of the same
-transport interface. A USB-serial bridge would need a frame
-transport on both ends.
+wiring and board execution remain to be tested. The verified Arty
+bench uses the onboard USB-UART bridge and a desktop Python
+transport. The [PC host guide](../fpga/arty_a7/host/README.md) describes
+the USB frame format.
 [Host instructions and example loading sequence](TOOLCHAIN.md#load-an-image-over-spi)
 
 The host verifies ID, HALTs, writes the image, checks CRC, VALIDATEs,
