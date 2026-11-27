@@ -1,0 +1,10 @@
+freeze/
+inputs/
+board_results/
+vivado/
+__pycache__/
+*.jou
+*.bit
+*.dcp
+*.ltx
+*.vvp
