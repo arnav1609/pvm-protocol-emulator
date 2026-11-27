@@ -17,9 +17,10 @@ means loading a different image. [Architecture](ARCHITECTURE.md) · [ISA](ISA.md
 | DMX512 TX | Two 25-slot packets per run and matching initial and reloaded captures |
 
 All four demos passed at the simulated pins after SPI image loading.
-The frozen RTL regression accepted 71 jobs. A 52-run seeded Verilator
-replay and directed ISS comparisons add independent checks within
-their recorded scope. The full routed netlist passed the four demo
+The frozen RTL regression accepted 71 jobs. The seeded Verilator
+replay passed 52 runs. The directed ISS comparisons matched 13,848
+demo cycles and 7,680 additional scenario cycles. The full routed netlist
+passed the four demo
 replays using zero-delay functional models. All three static timing
 corners passed. Slow-corner delay simulation was inconclusive.
 [Baseline pin checks](../reports/S14b_protocols_gate.md) · [Verification](VERIFICATION.md) · [Routed evidence](../results/v1.0_routed.md)
@@ -68,6 +69,20 @@ formal checks described in the verification evidence. The optional
 Artix-7 real-wire run remains pending. The authorization feature
 has a separate go/no-go and no claim in the verified baseline.
 [Routed evidence](../results/v1.0_routed.md) · [Version requirement](../results/gate_icarus.md) · [Authorization decision brief](../results/authorization_decision.md)
+
+## Independent checks pending
+
+- **Protocol matrix.** SPI modes 1–3, the nominal 100 and 400 kHz
+  I²C images, WS2812B-format TX, and PS/2 RX have author-side RTL
+  and mutation evidence. Heet's independent target-model acceptance
+  is pending for these seven rows. [Matrix and evidence](PROTOCOL_MATRIX.md)
+- **Instruction-set simulator.** The directed comparisons above are
+  recorded. Heet's spec-first spot-check of the five listed ISA rules
+  is pending. [ISS provenance and review cases](ISS_PROVENANCE.md)
+- **Tutorial and final claims.** The tutorial's pulse example passed
+  author-side RTL replay and caught its shortened-pulse mutant. Heet's
+  fresh-programmer timing and final claim audit are pending.
+  [Tutorial evidence](ADD_A_PROTOCOL.md#check-it-at-the-rtl-pins)
 
 ## Reproduce the submission
 

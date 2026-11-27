@@ -184,6 +184,13 @@ an open pad-phase precision claim. Board tests, electrical compliance,
 silicon performance and power remain open. The authorization candidate
 has its own trust-hardware and physical qualification work.
 
+The expanded matrix's seven new rows have author-side RTL and
+mutation evidence. Heet's independent target-model acceptance,
+five-rule ISS spot-check and final claim audit are pending. The
+tutorial records the example's simulated pulse timing. A newcomer's
+completion time awaits Heet's trial.
+[Pending independent checks](SUBMISSION_WRITEUP.md#independent-checks-pending)
+
 ## Conclusion
 
 Dedicated pin hardware reduced instruction or write work in the F1
